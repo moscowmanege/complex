@@ -1,10 +1,12 @@
 var express = require('express');
 
+var Model = require(__app_root + '/models/main.js');
+
 var events = {
-	list: require('./list.js'),
-	add: require('./add.js'),
-	edit: require('./edit.js'),
-	remove: require('./remove.js')
+	list: require('./list.js')(Model.Event),
+	add: require('./add.js')(Model.Event, Model.Category, Model.Subsidiary),
+	edit: require('./edit.js')(Model.Event, Model.Category, Model.Subsidiary),
+	remove: require('./remove.js')(Model.Event)
 };
 
 module.exports = (function() {

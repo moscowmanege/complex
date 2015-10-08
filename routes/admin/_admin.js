@@ -1,17 +1,15 @@
 var express = require('express');
 
-var Model = require(__app_root + '/models/main.js');
+var admin = {
+	main: require('./main.js'),
+	categorys: require('./categorys/_categorys.js'),
+	events: require('./events/_events.js'),
+	// halls: require('./halls/_halls.js'),
+	// users: require('./users/_users.js')
+};
 
 module.exports = (function() {
 	var router = express.Router();
-
-	var admin = {
-		main: require('./main.js'),
-		categorys: require('./categorys/_categorys.js')(Model),
-		events: require('./events/_events.js')(Model),
-		// halls: require('./halls/_halls.js'),
-		// users: require('./users/_users.js')
-	}
 
 	router.route('/')
 		.get(admin.main.index)

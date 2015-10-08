@@ -1,4 +1,4 @@
-module.exports = (function(Category) {
+module.exports = function(Category) {
   var module = {};
 
 
@@ -38,4 +38,4 @@ module.exports = (function(Category) {
 
 
   return module;
-})();
+};

@@ -1,7 +1,15 @@
-exports.index = function(req, res) {
-  var id = req.body.id;
+module.exports = function(Event) {
+  var module = {};
 
-  Event.findByIdAndRemove(id).exec(function(err, event) {
-    res.send('ok');
-  });
+
+	module.index = function(req, res) {
+	  var id = req.body.id;
+
+	  Event.findByIdAndRemove(id).exec(function(err, event) {
+	    res.send('ok');
+	  });
+	}
+
+
+  return module;
 }

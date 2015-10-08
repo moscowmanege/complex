@@ -1,8 +1,13 @@
-var Event = require(__app_root + '/models/main.js').Event;
+module.exports = function(Event) {
+  var module = {};
 
 
-exports.index = function(req, res) {
-  Event.find().exec(function(err, events) {
-    res.render('admin/events', {events: events});
-  });
+	module.index = function(req, res) {
+	  Event.find().exec(function(err, events) {
+	    res.render('admin/events', {events: events});
+	  });
+	}
+
+
+  return module;
 }
