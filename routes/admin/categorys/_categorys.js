@@ -1,14 +1,14 @@
 var express = require('express');
 
-var categorys = {
-	list: require('./list.js'),
-	add: require('./add.js'),
-	edit: require('./edit.js'),
-	remove: require('./remove.js')
-};
-
-module.exports = (function() {
+module.exports = (function(Model) {
 	var router = express.Router();
+
+	var categorys = {
+		list: require('./list.js')(Model.Category),
+		add: require('./add.js')(Model.Category),
+		edit: require('./edit.js')(Model.Category),
+		remove: require('./remove.js')(Model.Category)
+	};
 
 	router.route('/')
 		.get(categorys.list.index)
