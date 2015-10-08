@@ -1,4 +1,3 @@
-var path = require('path');
 var shortid = require('shortid');
 
 var Category = require(__app_root + '/models/main.js').Category;
