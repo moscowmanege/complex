@@ -1,6 +1,0 @@
-include globals
-
-each study, i in studys
-	- var categorys = study.categorys.map(function(category) { return category.toString() });
-	- var study_type = study.type == 'lectures' ? 'lecture' : study.type
-	+contentItem(null, study)(type='search_item ' + study.type, categorys=categorys, href='/' + study_type + '/' + study._short_id)

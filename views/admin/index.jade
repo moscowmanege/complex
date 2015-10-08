@@ -7,26 +7,26 @@ block content_style
 	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
 
 block content
-	a.back_link(href='/logout') Выход
+	a.back_link(href='/auth/logout') Выход
 	!= ' | ' + session.login
 	.title ЗВЕЗДОЧЕТ
 	.main_menu_block
 		br
 		b Пользователи:
-		a(href='/auth/users')= ' редактировать'
+		a(href='/admin/users')= ' редактировать'
 		br
 		br
 		b Фелиалы:
-		a(href='/auth/subsidiaries')= ' редактировать'
+		a(href='/admin/subsidiaries')= ' редактировать'
 		br
 		br
 		b Категории:
-		a(href='/auth/categorys')= ' редактировать'
+		a(href='/admin/categorys')= ' редактировать'
 		br
 		br
 		b Участники:
-		a(href='/auth/members')= ' редактировать'
+		a(href='/admin/members')= ' редактировать'
 		br
 		br
 		b Робот Алеша:
-		a(href='/auth/alesha')= ' редактировать'
+		a(href='/admin/alesha')= ' редактировать'

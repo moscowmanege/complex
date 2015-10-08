@@ -1,0 +1,31 @@
+var express = require('express');
+
+var auth = {
+	login: require('./login.js'),
+	logout: require('./logout.js'),
+	registr: require('./registr.js')
+};
+
+module.exports = (function() {
+	var router = express.Router();
+
+	router.route('/')
+		.get(function(req, res) {
+			req.session.user_id
+				? res.redirect('/admin')
+				: res.redirect('/auth/login')
+		});
+
+	router.route('/login')
+		.get(auth.login.index)
+		.post(auth.login.form);
+
+	router.route('/logout')
+		.get(auth.logout.index);
+
+	router.route('/registr')
+		.get(auth.registr.index)
+		.post(auth.registr.form);
+
+	return router;
+})();
