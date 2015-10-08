@@ -1,0 +1,35 @@
+extends ../../../layout
+include ../../forms.jade
+
+block title
+	title ДОБАВИТЬ ТЕМУ
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/add.js')
+
+
+block content
+	.form_block
+		a.back_link(href='/auth/themes') < Назад
+		.title ДОБАВИТЬ ТЕМУ
+		form(action="", method="post")
+			.form_title Заголовок:
+			input.form_text(type='text', name='title')
+			.form_title Синоним:
+			input(type='text', name='sym', placeholder='обязательно')
+			.form_title Нумерация подтем:
+			| отступ:
+			select(name='numbering[offset]')
+				each option,i in new Array(10)
+					option(value=i)= i
+			!= ' | '
+			| начинать с:
+			select(name='numbering[start]')
+				each option,i in new Array(10)
+					option(value=i)= i
+			br
+			br
+			input(type='submit', value='отправить')

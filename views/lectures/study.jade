@@ -1,0 +1,28 @@
+extends ../layout
+include ../globals
+
+block paths
+	- var content_title= 'Школа Опойцева — Лекции' + ' / ' + study.title
+	- var content_description= study.description.replace(/(<([^>]+)>)/ig, '');
+	- var content_video_youtube= study.video
+	- var menu_current = 1
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/study.css' + version)
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/study.js' + version)
+
+block content
+	.content_title_block
+		each theme in themes
+			a(class= (theme.sym == theme_parent.sym && 'current'), href='/lectures/' + theme.sym)=theme.title
+	.content_body_block
+		.column_left_block
+			each sub_theme, i in theme_parent.sub
+				if (i < theme_parent.numbering.offset || sub_theme.overlay)
+					a(class= ((theme_sub._id.toString() == sub_theme._id.toString()) && 'current'), href='/lectures/' + theme_parent.sym + '/' + sub_theme._short_id)= sub_theme.title
+				else
+					a(class= ((theme_sub._id.toString() == sub_theme._id.toString()) && 'current'), href='/lectures/' + theme_parent.sym + '/' + sub_theme._short_id)= (i + theme_parent.numbering.start - theme_parent.numbering.offset) + ' — ' + sub_theme.title
+		.column_main_block
+			+contentStudy(study)

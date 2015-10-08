@@ -1,0 +1,32 @@
+extends ../layout
+
+block title
+	title ЗВЕЗДОЧЕТ
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
+
+block content
+	a.back_link(href='/logout') Выход
+	!= ' | ' + session.login
+	.title ЗВЕЗДОЧЕТ
+	.main_menu_block
+		br
+		b Пользователи:
+		a(href='/auth/users')= ' редактировать'
+		br
+		br
+		b Фелиалы:
+		a(href='/auth/subsidiaries')= ' редактировать'
+		br
+		br
+		b Категории:
+		a(href='/auth/categorys')= ' редактировать'
+		br
+		br
+		b Участники:
+		a(href='/auth/members')= ' редактировать'
+		br
+		br
+		b Робот Алеша:
+		a(href='/auth/alesha')= ' редактировать'

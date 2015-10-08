@@ -1,0 +1,59 @@
+input
+textarea
+	outline none
+	border none
+	display block
+	font 14pt/16pt 'Georgia'
+
+input
+	width 748px
+
+textarea
+	width 746px
+	height 400px
+	resize none
+
+.plane_block
+		position absolute
+		cursor pointer
+		top 502px
+		left 645px
+		&:hover
+			.plane_text
+				color #EF3925
+			.plane
+				transform scale(2.3)
+	.plane_text
+		float left
+		margin-top 30px
+		margin-right 15px
+		font 16pt/18pt 'GillSans'
+		color grey
+	.plane
+		float left
+		width 38px
+		height 50px
+		background-image url('/images/design/icons/plane.svg')
+		background-position center
+		background-size contain
+		background-repeat no-repeat
+		transform-origin 0 100%
+		transition all ease-in .3s
+		// &:hover
+		// 	transform scale(2)
+
+.file
+	font-size 12pt
+	line-height 14pt
+	display block
+	margin-top 25px
+
+.form_block
+	margin-bottom 15px
+
+.form_title
+	display inline-block
+	padding-bottom 5px
+
+svg
+	display block

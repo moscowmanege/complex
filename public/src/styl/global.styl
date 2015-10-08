@@ -1,0 +1,132 @@
+.search_input::-webkit-input-placeholder {color: white;}
+.search_input::-moz-placeholder          {color: white;}/* Firefox 19+ */
+.search_input:-moz-placeholder           {color: white;}/* Firefox 18- */
+.search_input:-ms-input-placeholder      {color: white;}
+
+body
+	margin 0
+	padding 0
+	&.stop_scroll
+		height 100%
+		overflow hidden
+
+.content_block
+	min-height 400px
+	clear both
+	position relative
+
+.main_block
+	width 1280px
+	margin 0 auto
+	font 12pt/14pt 'Georgia'
+	// background url('/images/design/gridinator.png')
+	padding 0 30px 0 30px
+	box-sizing border-box
+	padding-bottom 60px
+	transition: 0.3s -webkit-filter ease-in
+	&.preview
+		transition: 0.3s -webkit-filter ease-in
+		filter: blur(3px)
+
+.header_block
+	overflow hidden
+	padding-top 10px
+	.menu_block
+		overflow hidden
+		width 970px
+		float left
+		.menu_logo
+			font 43pt/46pt 'Georgia'
+			text-decoration none
+			color black
+			float left
+		.menu_navigate
+			margin-top 34px
+			float right
+			overflow hidden
+			a
+				display block
+				float left
+				margin-left 25px
+				text-decoration none
+				color rgb(147, 149, 152)
+				font 16pt/18pt 'GillSans'
+				position relative
+				&:after
+					content ''
+					width 82px
+					height 1px
+					top 15px
+					right -52px
+					background-color rgb(147, 149, 152)
+					position absolute
+					transform rotate(-70deg)
+					margin-left 10px
+				&:last-child:after
+					display none
+				&:hover
+				&.current
+					color #EF3925
+	.social_block
+		margin-top 29px
+		margin-left 30px
+		float left
+		a
+			width 25px
+			height 25px
+			margin-right 15px
+			display block
+			float left
+			text-decoration none
+			background-position center
+			background-size cover
+			&.vk
+				background-image url('/images/design/icons/v.svg')
+			&.fb
+				background-image url('/images/design/icons/f.svg')
+
+.search_block
+	.search_input
+		background-color lightgrey
+		color #EF3925
+		margin-top 25px
+		margin-bottom 25px
+		padding 3px 3px 3px 7px
+		float right
+		margin-right 250px
+		display block
+		width 210px
+		clear both
+		outline none
+		font 14pt/16pt 'GillSans'
+		transition .3s width
+		border none
+		&.focus
+			width 355px
+	.search_results
+		clear both
+		display none
+		.search_title
+			font 24pt/26pt 'GillSansLight'
+			color #939598
+		.search_nav
+			display none
+		.categorys_block
+			border-top 2px solid rgb(147, 149, 152)
+			padding-top 15px
+			display none
+
+.preview_block
+	width 100%
+	height 100%
+	position fixed
+	background-color rgba(0, 0, 0, 0.9);
+	z-index 999
+	display none
+	.preview_video
+		top 0
+		left 0
+		right 0
+		bottom 0
+		margin auto
+		position fixed

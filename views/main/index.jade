@@ -1,0 +1,27 @@
+extends ../layout
+
+block paths
+	- var content_title= 'Школа Опойцева'
+	- var content_description= 'Школа Опойцева - час, затраченный на понимание, экономит год жизни.'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/main.css' + version)
+
+block content_scripts
+	script(type='text/javascript', src='/build/libs/js/plax.js' + version)
+	script(type='text/javascript', src='/build/js/main.js' + version)
+
+block content
+	.rounds_group
+		each round in new Array(7)
+			.round
+	.man
+	.triangle
+		.line
+	.blocks_group
+		each block in new Array(7)
+			.block
+	.round_big
+	.round_small
+	.desc_block
+		| час, затраченный на понимание, экономит год жизни

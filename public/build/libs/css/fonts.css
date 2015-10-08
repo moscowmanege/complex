@@ -1,0 +1,14 @@
+@font-face {
+	font-family: 'Georgia';
+	src: url('/fonts/Georgia.ttf');
+}
+
+@font-face {
+	font-family: 'GillSans';
+	src: url('/fonts/GillSansC.otf');
+}
+
+@font-face {
+	font-family: 'GillSansLight';
+	src: url('/fonts/GillSansLightC.otf');
+}

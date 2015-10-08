@@ -1,0 +1,19 @@
+extends ../layout
+
+block title
+	title= 'Школа Опойцева — Разное'
+	- var menu_current = 3
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/other.css' + version)
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/other.js' + version)
+
+block content
+	.content_body_block
+		.column_left_block
+			a.category_item(class='all', href='#') все
+			each category in categorys
+				a.category_item(class=category._id.toString(), href='#' + category._id.toString())= category.title
+		.column_main_block.studys_other

@@ -1,0 +1,46 @@
+extends ../../layout
+include ../forms.jade
+
+block title
+	title РЕДАКТИРОВАТЬ МАТЕРИАЛ
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/libs/css/font-awesome.css')
+	link(rel='stylesheet', type='text/css', href='/build/libs/css/wysiwyg-editor.min.css')
+	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/libs/js/wysiwyg.min.js')
+	script(type='text/javascript', src='/build/libs/js/wysiwyg-editor.min.js')
+	script(type='text/javascript', src='/build/js/editor.js')
+	script(type='text/javascript', src='/build/js/add.js')
+
+
+block content
+	.form_block
+		a.back_link(href='/auth') < Назад
+		.title РЕДАКТИРОВАТЬ МАТЕРИАЛ
+		form(action="", method="post", enctype="multipart/form-data")
+			.form_title Заголовок:
+			input.form_text(type='text', name='title', value=study.title)
+			.form_title Описание:
+			textarea.editor(name='description')= study.description
+			.form_title Видимость:
+			input(type='checkbox', name='status', value='hidden', checked=study.status)
+			| скрыть
+			.form_title Категории:
+			+form_multiple_select('categorys', categorys, study.categorys)
+			.form_title Видео YouTube:
+			input.form_text.video(type='text', name='video', value=study.video && 'https://youtu.be/' + study.video)
+			.form_title Изображение:
+			input(type='file', name='image')
+			.form_title Файлы PDF:
+			if study.files.length > 0
+				each file, i in study.files
+					input(type='checkbox', name='files_delete', value=i)
+					!= ' удалить | ' + (file.desc || 'файл ' + i)
+					br
+				br
+			+form_multiple_files('attach', 'attach_desc[]')
+			br
+			input(type='submit', value='отправить')

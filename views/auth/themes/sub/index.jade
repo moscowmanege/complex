@@ -1,0 +1,27 @@
+extends ../../../layout
+
+block title
+	title= theme.title.toUpperCase() + ' / ' + 'ПОДТЕМЫ'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/lists.js')
+
+block content
+	a.back_link(href='/auth/themes') < Назад
+	.title= theme.title.toUpperCase() + ' / ' + 'ПОДТЕМЫ'
+	br
+	a.add(href='/auth/themes/' + theme._id + '/sub/add') добавить подтему
+	br
+	br
+	.main_menu_block
+		if (theme.sub.length > 0)
+			each theme_sub in theme.sub
+				.theme
+					a.rm_theme_sub(href='#', id=theme_sub._id)= 'удалить '
+					!=' | '
+					a(href='/auth/themes/' + theme._id + '/sub/edit/' + theme_sub._id)= theme_sub.title
+					!=' --> '
+					a(href='/auth/themes/' + theme._id + '/sub/edit/' + theme_sub._id + '/studys') материалы

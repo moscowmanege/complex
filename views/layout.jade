@@ -1,0 +1,35 @@
+doctype html
+html
+	head
+		block paths
+		include header
+	body
+		include counters
+		.preview_block
+		.main_block
+			.header_block
+				.menu_block
+					a.menu_logo(href='/') Школа Опойцева
+					.menu_navigate
+						if session.user_id
+							a(class= (menu_current == 0 && 'current'), href="/auth") звездочет
+						a(class= (menu_current == 1 && 'current'), href="/lectures") лекции
+						a(class= (menu_current == 2 && 'current'), href="/about") об авторе
+						a(class= (menu_current == 3 && 'current'), href="/other") разное
+						a(class= (menu_current == 4 && 'current'), href="/write") написать
+				.social_block
+					a.fb(target='_blank', href='https://www.facebook.com/shkola.opoytseva')
+					a.vk(target='_blank', href='https://vk.com/oshkola')
+			.search_block
+				input.search_input(type='text', placeholder='поиск...')
+				.search_results
+					.search_title Что будем искать?
+					.content_body_block
+						.column_left_block.search_nav
+							.nav_item.all.current все
+							.nav_item.lectures лекции
+							.nav_item.other разное
+							.categorys_block
+						.column_main_block
+			.content_block
+				block content

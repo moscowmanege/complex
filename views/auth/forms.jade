@@ -1,0 +1,68 @@
+//- Calendar form
+
+mixin form_calendar(path, date)
+	- var year = new Date()
+	- year = year.getFullYear()
+	- var months = ['ЯНВАРЬ', 'ФЕВРАЛЬ', 'МАРТ', 'АПРЕЛЬ', 'МАЙ', 'ИЮНЬ', 'ИЮЛЬ', 'АВГУСТ', 'СЕНТЯБРЬ', 'ОКТЯБРЬ', 'НОЯБРЬ', 'ДЕКАБРЬ']
+	- var now = date ? date : new Date()
+	select(name= path + '[date]')
+		option(value='') Дата
+		- for (var i=1; i<32; i++)
+			option(value=i, selected=(i == now.getDate()))= i
+	select(name= path + '[month]')
+		option(value='') Месяц
+		each month, i in months
+			option(value=i, selected=(i == now.getMonth()))= month
+	select(name= path + '[year]')
+		option(value='') Год
+		option(value=year, selected=(year == now.getFullYear()))= year
+		option(value=year - 1, selected=(year - 1 == now.getFullYear()))= year - 1
+
+
+//- Multiple Select Form
+
+mixin form_multiple_select(path, options, select_options)
+	.snake_outer
+		if (!select_options || select_options.length == 0)
+			span.snake
+				input.back(type="button", value="-")
+				select(name=path + '[]')
+					option(value='') нет
+					each option in options
+						option(value=option._id)= option.title
+		else
+			each select_option in select_options
+				span.snake
+					input.back(type="button", value="-")
+					select(name=path + '[]')
+						option(value='') нет
+						each option in options
+							option(value=option._id, selected=option._id.toString() == select_option)= option.title
+		input.forward(type="button", value="+")
+
+//- Multiple Input Form
+
+mixin form_multiple_input(path, options)
+	.snake_outer
+		if (!options || !options.length > 0)
+			span.snake
+				input.back(type="button", value="-")
+				input.input(type='text', name=path + '[]')
+		else
+			each option in options
+				span.snake
+					input.back(type="button", value="-")
+					input.input(type='text', name=path + '[]', value=option)
+		input.forward(type="button", value="+")
+
+//- Multiple Files Form
+
+mixin form_multiple_files(path, path_desc)
+	.snake_outer
+		.snake
+			input(type="button", value='удалить').back
+			input(type='file', name=path)
+			input(type='text', name=path_desc, placeholder='описание')
+		br
+		input(type="button", value='добавить файл').forward
+		br

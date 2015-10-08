@@ -1,0 +1,29 @@
+extends ../layout
+
+block title
+	title= 'Школа Опойцева — Написать'
+	- var menu_current = 4
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/write.css' + version)
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/write.js' + version)
+
+block content
+	form(action="/write", method="post", enctype="multipart/form-data")
+		.form_block.email_form
+			input.email(type='text', name='email', placeholder='Ваш e-mail')
+			svg(width='790px', height='10px', viewbox='0 0 790 10')
+				line(x1='5', x2='760', y1='5', y2='5', stroke='lightgrey', stroke-width='5', stroke-linecap='round', stroke-dasharray='0.66, 17')
+		.form_block.theme_form
+			input(type='text', name='theme', placeholder='Тема')
+			svg(width='790px', height='10px', viewbox='0 0 790 10')
+				line(x1='5', x2='760', y1='5', y2='5', stroke='lightgrey', stroke-width='5', stroke-linecap='round', stroke-dasharray='0.66, 17')
+		textarea(name='description', placeholder='Что хотите написать?')
+		svg(width='730px', height='4px', viewbox='0 0 730 10')
+			line(x1='-530', x2='2000', y1='5', y2='5', stroke='lightgrey', stroke-width='35', stroke-linecap='square', stroke-dasharray='0.85, 80')
+		input.file(type='file', name='attach')
+		.plane_block
+			.plane_text отправить
+			.plane

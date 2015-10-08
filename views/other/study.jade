@@ -1,0 +1,23 @@
+extends ../layout
+include ../globals
+
+block paths
+	- var content_title= 'Школа Опойцева — Разное' + ' / ' + study.title
+	- var content_description= study.description.replace(/(<([^>]+)>)/ig, '');
+	- var content_video_youtube= study.video
+	- var menu_current = 3
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/study.css' + version)
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/study.js' + version)
+
+block content
+	.content_body_block
+		.column_left_block
+			a(href='/other') все
+			each category in categorys
+				a(href='/other#' + category._id.toString())= category.title
+		.column_main_block
+			+contentStudy(study)

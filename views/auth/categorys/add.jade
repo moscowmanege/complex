@@ -1,0 +1,26 @@
+extends ../../layout
+include ../forms.jade
+
+block title
+	title ДОБАВИТЬ КАТЕГОРИЮ
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/add.js')
+
+
+block content
+	.form_block
+		a.back_link(href='/auth/categorys') < Назад
+		.title ДОБАВИТЬ КАТЕГОРИЮ
+		form(action="/auth/categorys/add", method="post")
+			.form_title Заголовок:
+			input(type='text', name='title')
+			.form_title Видимость:
+			input(type='checkbox', name='status', value='other')
+			!= ' в разделе "Разное"'
+			br
+			br
+			input(type='submit', value='отправить')

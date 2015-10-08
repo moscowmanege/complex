@@ -1,0 +1,41 @@
+- var version = '?ver=2.4'
+
+meta(charset="utf-8")
+meta(name='viewport', content='width=1280, initial-scale=0.5')
+include favicon.jade
+block title
+
+if content_title
+	title= content_title
+if content_description
+	meta(name='description', content=content_description)
+
+//- Open Graph Block Start
+
+meta(property='og:type', content=content_video_youtube ? 'video' : 'website')
+meta(property='og:url', content='http://' + host + url)
+if content_title
+	meta(property='og:title', content=content_title)
+if content_description
+	meta(property='og:description', content=content_description)
+if content_video_youtube
+	meta(property="og:image", content='http://img.youtube.com/vi/' + content_video_youtube + '/hqdefault.jpg')
+	meta(property='og:video', content='https://www.youtube.com/v/' + content_video_youtube)
+	meta(property='og:video:type', content='application/x-shockwave-flash')
+	meta(property='og:video:width', content='520')
+	meta(property='og:video:height', content='300')
+each image in content_images || []
+	meta(property='og:image' content='http://' + host + '/' + image)
+
+//- Open Graph Block End
+
+link(rel='stylesheet', type='text/css', href='/build/libs/css/social-likes_birman.css' + version)
+link(rel='stylesheet', type='text/css', href='/build/libs/css/fonts.css' + version)
+link(rel='stylesheet', type='text/css', href='/build/css/global.css' + version)
+link(rel='stylesheet', type='text/css', href='/build/css/blocks_grid.css' + version)
+block content_style
+
+script(type='text/javascript', src='/build/libs/js/jquery-2.1.4.min.js' + version)
+script(type='text/javascript', src='/build/libs/js/social-likes.min.js' + version)
+script(type='text/javascript', src='/build/js/global.js' + version)
+block content_scripts
