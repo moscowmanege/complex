@@ -6,7 +6,7 @@ module.exports = function(Category) {
     var id = req.params.id;
 
     Category.findById(id).exec(function(err, category) {
-      res.render('auth/categorys/edit.jade', {category: category});
+      res.render('admin/categorys/edit.jade', {category: category});
     });
   }
 
@@ -31,7 +31,7 @@ module.exports = function(Category) {
       });
 
       category.save(function(err, category) {
-        res.redirect('/auth/categorys');
+        res.redirect('/admin/categorys');
       });
     });
   }

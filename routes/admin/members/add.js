@@ -3,7 +3,7 @@ module.exports = function(Member) {
 
 
   module.index = function(req, res) {
-    res.render('auth/members/add.jade');
+    res.render('admin/members/add.jade');
   }
 
   module.form = function(req, res) {
@@ -28,7 +28,7 @@ module.exports = function(Member) {
     });
 
     member.save(function(err, member) {
-      res.redirect('/auth/members');
+      res.redirect('/admin/members');
     });
   }
 

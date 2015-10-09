@@ -3,8 +3,8 @@ module.exports = function(Member) {
 
 
 	exports.index = function(req, res) {
-	  Subsidiary.find().exec(function(err, subsidiaries) {
-	    res.render('auth/subsidiaries', {subsidiaries: subsidiaries});
+	  Member.find().exec(function(err, members) {
+	    res.render('admin/members', {members: members});
 	  });
 	}
 

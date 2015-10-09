@@ -6,7 +6,7 @@ module.exports = function(Member) {
     var id = req.params.id;
 
     Member.findById(id).exec(function(err, member) {
-      res.render('auth/members/edit.jade', {member: member});
+      res.render('admin/members/edit.jade', {member: member});
     });
   }
 
@@ -31,7 +31,7 @@ module.exports = function(Member) {
       });
 
       member.save(function(err, member) {
-        res.redirect('/auth/categorys');
+        res.redirect('/admin/categorys');
       });
     });
   }

@@ -4,7 +4,7 @@ module.exports = function(Category) {
 
 	module.index = function(req, res) {
 	  Category.find().sort('-date').exec(function(err, categorys) {
-	    res.render('auth/categorys/', {categorys: categorys});
+	    res.render('admin/categorys/', {categorys: categorys});
 	  });
 	}
 

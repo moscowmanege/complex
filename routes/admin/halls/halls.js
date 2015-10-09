@@ -37,7 +37,7 @@ exports.list = function(req, res) {
   var subs_id = req.params.subs_id;
 
   Hall.where(subsidiary).equals(subs_id).exec(function(err, halls) {
-    res.render('auth/halls', {halls: halls});
+    res.render('admin/halls', {halls: halls});
   });
 }
 
@@ -50,7 +50,7 @@ exports.list = function(req, res) {
 exports.add = function(req, res) {
   var subs_id = req.params.id;
 
-  res.render('auth/halls/add.jade');
+  res.render('admin/halls/add.jade');
 }
 
 exports.add_form = function(req, res) {
@@ -73,7 +73,7 @@ exports.add_form = function(req, res) {
   });
 
   hall.save(function(err, hall) {
-    res.redirect('/auth/halls');
+    res.redirect('/admin/halls');
   });
 }
 
@@ -87,7 +87,7 @@ exports.edit = function(req, res) {
   var hall_id = req.params.hall_id;
 
   Hall.findById(hall_id).exec(function(err, hall) {
-    res.render('auth/halls/edit.jade', {hall: hall});
+    res.render('admin/halls/edit.jade', {hall: hall});
   });
 }
 
@@ -109,7 +109,7 @@ exports.edit_form = function(req, res) {
     });
 
     hall.save(function(err, hall) {
-      res.redirect('/auth/halls');
+      res.redirect('/admin/halls');
     });
   });
 }
