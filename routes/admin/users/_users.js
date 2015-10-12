@@ -3,10 +3,10 @@ var express = require('express');
 var Model = require(__app_root + '/models/main.js');
 
 var users = {
-	list: require('./list.js')(Model.User),
-	add: require('./add.js')(Model.User),
-	edit: require('./edit.js')(Model.User),
-	remove: require('./remove.js')(Model.User)
+	list: require('./list.js')(Model),
+	add: require('./add.js')(Model),
+	edit: require('./edit.js')(Model),
+	remove: require('./remove.js')(Model)
 };
 
 module.exports = (function() {

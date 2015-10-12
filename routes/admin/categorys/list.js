@@ -1,4 +1,5 @@
-module.exports = function(Category) {
+module.exports = function(Model) {
+	var Category = Model.Category;
 	var module = {};
 
 

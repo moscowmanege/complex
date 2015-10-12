@@ -1,4 +1,5 @@
-module.exports = function(User) {
+module.exports = function(Model) {
+	var User = Model.User;
   var module = {};
 
 

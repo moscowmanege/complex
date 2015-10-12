@@ -1,4 +1,5 @@
-module.exports = function(Event) {
+module.exports = function(Model) {
+	var Event = Model.Event;
   var module = {};
 
 

@@ -1,9 +1,11 @@
 var express = require('express');
 
+var Model = require(__app_root + '/models/main.js');
+
 var auth = {
-	login: require('./login.js'),
-	logout: require('./logout.js'),
-	registr: require('./registr.js')
+	login: require('./login.js')(Model),
+	registr: require('./registr.js')(Model),
+	logout: require('./logout.js')(),
 };
 
 module.exports = (function() {

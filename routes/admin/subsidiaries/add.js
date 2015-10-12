@@ -1,4 +1,6 @@
-module.exports = function(Subsidiary) {
+module.exports = function(Model, Params) {
+  var Subsidiary = Model.Subsidiary;
+  var checkNested = Params.checkNested;
   var module = {};
 
 

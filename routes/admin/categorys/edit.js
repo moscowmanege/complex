@@ -1,4 +1,6 @@
-module.exports = function(Category) {
+module.exports = function(Model, Params) {
+  var Category = Model.Category;
+  var checkNested = Params.checkNested;
   var module = {};
 
 

@@ -2,11 +2,27 @@ var express = require('express');
 
 var Model = require(__app_root + '/models/main.js');
 
+var Params = {
+	checkNested: function (obj, layers) {
+	  if (typeof layers == 'string') {
+	    layers = layers.split('.');
+	  }
+
+	  for (var i = 0; i < layers.length; i++) {
+	    if (!obj || !obj.hasOwnProperty(layers[i])) {
+	      return false;
+	    }
+	    obj = obj[layers[i]];
+	  }
+	  return true;
+	}
+};
+
 var subsidiaries = {
-	list: require('./list.js')(Model.Subsidiary),
-	add: require('./add.js')(Model.Subsidiary),
-	edit: require('./edit.js')(Model.Subsidiary),
-	remove: require('./remove.js')(Model.Subsidiary)
+	list: require('./list.js')(Model),
+	add: require('./add.js')(Model, Params),
+	edit: require('./edit.js')(Model, Params),
+	remove: require('./remove.js')(Model)
 };
 
 module.exports = (function() {

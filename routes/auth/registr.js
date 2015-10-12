@@ -1,29 +1,35 @@
-var User = require(__app_root + '/models/main.js').User;
+module.exports = function(Model) {
+  var User = Model.User;
+  var module = {};
 
 
-exports.index = function(req, res) {
-  if (!req.session.user_id)
-    res.render('auth/registr.jade');
-  else
-    res.redirect('/');
-}
+  module.index = function(req, res) {
+    if (!req.session.user_id)
+      res.render('auth/registr.jade');
+    else
+      res.redirect('/');
+  }
 
 
-exports.form = function(req, res) {
-  var post = req.body;
+  module.form = function(req, res) {
+    var post = req.body;
 
-  var user = new User({
-    login: post.login,
-    password: post.password,
-    email: post.email
-  });
+    var user = new User({
+      login: post.login,
+      password: post.password,
+      email: post.email
+    });
 
-  user.save(function(err, user) {
-    if (err) return res.redirect('back');
+    user.save(function(err, user) {
+      if (err) return res.redirect('back');
 
-    req.session.user_id = user._id;
-    req.session.login = user.login;
-    req.session.status = user.status;
-    res.redirect('/auth');
-  });
+      req.session.user_id = user._id;
+      req.session.login = user.login;
+      req.session.status = user.status;
+      res.redirect('/auth');
+    });
+  }
+
+
+  return module;
 }

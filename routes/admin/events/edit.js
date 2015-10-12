@@ -1,4 +1,8 @@
-module.exports = function(Event, Category, Subsidiary) {
+module.exports = function(Model, Params) {
+  var Event = Model.Event;
+  var Category = Model.Category;
+  var Subsidiary = Model.Subsidiary;
+  var checkNested = Params.checkNested;
   var module = {};
 
 

@@ -1,4 +1,5 @@
-module.exports = function(Subsidiary) {
+module.exports = function(Model) {
+	var Subsidiary = Model.Subsidiary;
   var module = {};
 
 
