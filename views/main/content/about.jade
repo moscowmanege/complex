@@ -1,7 +1,7 @@
-extends ../layout
+extends ../../layout
 
-block title
-	title= 'Школа Опойцева — Об авторе'
+block paths
+	- var content_title = 'About'
 	- var menu_current = 2
 
 block content_style
@@ -11,27 +11,4 @@ block content_scripts
 	script(type='text/javascript', src='/build/js/about.js' + version)
 
 block content
-	img.author_photo(src='/images/design/backgrounds/iam.jpg')
-	.author_desc_block
-		.author_desc.name
-			| Опойцев
-			br
-			| Валерий Иванович
-		.author_desc.big
-			| доктор физико-математических наук
-			br
-			|профессор МФТИ
-			br
-			|гл. н. с. ИПУ РАН
-		.author_desc
-			| Автор Лекций по математике
-			br
-			| Издано пока 16 томов
-			br
-			| под псевдонимом В. Босс
-		.author_desc
-			| см. также популярную книгу:
-			br
-			| В.Босс, Интуиция и математика,
-			br
-			| URSS, 5-е изд., 2015
+	h1 About
