@@ -5,7 +5,7 @@ module.exports = function(Model, Params) {
 
 
   module.index = function(req, res) {
-    res.render('admin/subsidiaries/add.jade');
+    res.render('admin/areas/add.jade');
   }
 
   module.form = function(req, res) {

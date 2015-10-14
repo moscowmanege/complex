@@ -8,7 +8,7 @@ module.exports = function(Model, Params) {
     var id = req.params.id;
 
     Area.findById(id).exec(function(err, area) {
-      res.render('admin/subsidiaries/edit.jade', {area: area});
+      res.render('admin/areas/edit.jade', {area: area});
     });
   }
 
@@ -30,7 +30,7 @@ module.exports = function(Model, Params) {
       });
 
       area.save(function(err, area) {
-        res.redirect('/admin/subsidiaries');
+        res.redirect('/admin/areas');
       });
     });
   }

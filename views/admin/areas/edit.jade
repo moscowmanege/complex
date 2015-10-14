@@ -1,0 +1,24 @@
+extends ../../layout
+include ../forms.jade
+
+block title
+	title РЕДАКТИРОВАТЬ ПЛОЩАДКУ
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/css/add.js')
+
+block content
+	.form_block
+		a.back_link(href='/admin/categorys') < Назад
+		.title РЕДАКТИРОВАТЬ ПЛОЩАДКУ
+		form(action="", method="post")
+			.form_title Заголовок:
+			+form_text_single('title', area)
+			.form_title Описание:
+			+form_text_multi('description', area)
+			br
+			br
+			input(type='submit', value='отправить')

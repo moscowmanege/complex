@@ -10,11 +10,11 @@ block content_scripts
 	script(type='text/javascript', src='/build/js/lists.js')
 
 block content
-	a.back_link(href='/auth') < Назад
+	a.back_link(href='/admin') < Назад
 	.title ПОЛЬЗОВАТЕЛИ
 	br
 	if (session.status == 'Admin')
-		a.add(href='/auth/users/add') добавить пользователя
+		a.add(href='/admin/users/add') добавить пользователя
 		br
 	br
 	.main_menu_block
@@ -22,4 +22,4 @@ block content
 			.user
 				a.rm_user(href='#', id=user._id)= 'удалить '
 				!=' | '
-				a(href='/auth/users/edit/' + user._id)= user.login
+				a(href='/admin/users/edit/' + user._id)= user.login

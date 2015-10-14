@@ -1,0 +1,24 @@
+extends ../../layout
+
+block title
+	title ПЛОЩАДКИ
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/lists.js')
+
+block content
+	a.back_link(href='/admin') < Назад
+	.title ПЛОЩАДКИ
+	br
+	a.add(href='/admin/areas/add') добавить площадку
+	br
+	br
+	.main_menu_block
+		each area in areas
+			.area
+				a.rm_area(href='#', id=area._id)= 'удалить '
+				!=' | '
+				a(href='/admin/areas/edit/' + area._id)= area.i18n.title.get('ru')

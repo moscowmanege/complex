@@ -1,0 +1,25 @@
+extends ../../layout
+include ../forms.jade
+
+block title
+	title ДОБАВИТЬ ПЛОЩАДКУ
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/add.js')
+
+
+block content
+	.form_block
+		a.back_link(href='/admin/areas') < Назад
+		.title ДОБАВИТЬ ПЛОЩАДКУ
+		form(action="/admin/areas/add", method="post")
+			.form_title Заголовок:
+			+form_text_single('title')
+			.form_title Описание:
+			+form_text_multi('description')
+			br
+			br
+			input(type='submit', value='отправить')

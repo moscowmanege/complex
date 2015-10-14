@@ -35,7 +35,7 @@ module.exports = (function() {
 		.get(areas.add.index)
 		.post(areas.add.form);
 
-	router.route('/edit')
+	router.route('/edit/:id')
 		.get(areas.edit.index)
 		.post(areas.edit.form);
 

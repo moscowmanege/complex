@@ -19,7 +19,7 @@ module.exports = (function() {
 		.get(users.add.index)
 		.post(users.add.form);
 
-	router.route('/edit')
+	router.route('/edit/:id')
 		.get(users.edit.index)
 		.post(users.edit.form);
 
