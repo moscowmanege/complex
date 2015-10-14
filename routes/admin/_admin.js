@@ -5,6 +5,7 @@ var admin = {
 	categorys: require('./categorys/_categorys.js'),
 	events: require('./events/_events.js'),
 	areas: require('./areas/_areas.js'),
+	members: require('./members/_members.js'),
 	users: require('./users/_users.js'),
 	// halls: require('./halls/_halls.js'),
 };
@@ -18,6 +19,7 @@ module.exports = (function() {
 	router.use('/categorys', admin.categorys);
 	router.use('/events', admin.events);
 	router.use('/areas', admin.areas);
+	router.use('/members', admin.members);
 	router.use('/users', admin.users);
 	// router.use('/halls', admin.halls);
 

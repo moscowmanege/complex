@@ -18,6 +18,8 @@ module.exports = function(Model, Params) {
 
     Area.findById(id).exec(function(err, area) {
 
+      var locales = post.en ? ['ru', 'en'] : ['ru'];
+
       locales.forEach(function(locale) {
         checkNested(post, [locale, 'title'])
           && area.setPropertyLocalised('title', post[locale].title, locale);

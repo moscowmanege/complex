@@ -1,8 +1,9 @@
-module.exports = function(Member) {
+module.exports = function(Model) {
+  var Member = Model.Member;
   var module = {};
 
 
-	exports.index = function(req, res) {
+	module.index = function(req, res) {
 	  var id = req.body.id;
 
 	  Member.findByIdAndRemove(id, function(err, member) {

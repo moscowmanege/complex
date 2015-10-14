@@ -1,4 +1,8 @@
-module.exports = function(Member) {
+var shortid = require('shortid');
+
+module.exports = function(Model, Params) {
+  var Member = Model.Member;
+  var checkNested = Params.checkNested;
   var module = {};
 
 
@@ -19,11 +23,8 @@ module.exports = function(Member) {
       var locales = post.en ? ['ru', 'en'] : ['ru'];
 
       locales.forEach(function(locale) {
-        checkNested(post, [locale, 'first'])
-          && member.name.setPropertyLocalised('first', post[locale].first, locale);
-
-        checkNested(post, [locale, 'last'])
-          && member.name.setPropertyLocalised('last', post[locale].last, locale);
+        checkNested(post, [locale, 'name'])
+          && member.setPropertyLocalised('name', post[locale].name, locale);
 
         checkNested(post, [locale, 'description'])
           && member.setPropertyLocalised('description', post[locale].description, locale);
@@ -31,7 +32,7 @@ module.exports = function(Member) {
       });
 
       member.save(function(err, member) {
-        res.redirect('/admin/categorys');
+        res.redirect('/admin/members');
       });
     });
   }

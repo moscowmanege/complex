@@ -2,7 +2,7 @@ extends ../../layout
 include ../forms.jade
 
 block title
-	title ДОБАВИТЬ ПЛОЩАДКУ
+	title ДОБАВИТЬ УЧАСТНИКА
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/build/libs/css/font-awesome.css')
@@ -18,16 +18,14 @@ block content_scripts
 
 block content
 	.form_block
-		a.back_link(href='/admin/areas') < Назад
+		a.back_link(href='/admin/members') < Назад
 		button.toggle_eng(type='button') перевод
-		.title ДОБАВИТЬ ПЛОЩАДКУ
-		form(action="/admin/areas/add", method="post")
-			.form_title Заголовок:
-			+form_text_single('title')
+		.title ДОБАВИТЬ УЧАСТНИКА
+		form(action="/admin/members/add", method="post")
+			.form_title Имя:
+			+form_text_single('name')
 			.form_title Описание:
 			+form_text_multi('description')
-			.form_title Адрес:
-			+form_text_single('adress')
 			br
 			br
 			input(type='submit', value='отправить')

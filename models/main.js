@@ -68,10 +68,7 @@ var eventSchema = new Schema({
 
 var memberSchema = new Schema({
 	_short_id: String,
-	name: {
-		first: { type: String, trim: true, locale: true },
-		last: { type: String, trim: true, locale: true }
-	},
+	name: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
 	date: {type: Date, default: Date.now}
 });
@@ -109,6 +106,7 @@ hallSchema.plugin(mongooseLocale);
 areaSchema.plugin(mongooseLocale);
 eventSchema.plugin(mongooseLocale);
 categorySchema.plugin(mongooseLocale);
+memberSchema.plugin(mongooseLocale);
 
 
 // ------------------------
