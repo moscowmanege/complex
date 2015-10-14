@@ -8,11 +8,12 @@ block content_style
 	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
 
 block content_scripts
-	script(type='text/javascript', src='/build/css/add.js')
+	script(type='text/javascript', src='/build/js/add.js')
 
 block content
 	.form_block
 		a.back_link(href='/admin/categorys') < Назад
+		button.toggle_eng(type='button') перевод
 		.title РЕДАКТИРОВАТЬ ПЛОЩАДКУ
 		form(action="", method="post")
 			.form_title Заголовок:

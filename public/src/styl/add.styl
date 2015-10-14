@@ -5,47 +5,36 @@ a
 	color black
 	font-size 16px
 
-.content_column
-	margin-top 90px
-	padding-bottom 120px
-	&.main
-		width 1280px
-		.column_main_inner
-			width 1280px
-
-.head_title_block
-	color black
-
 .form_block
 	position relative
 
 input, textarea, select
 	font-size 16px
 
-textarea.form_text
-	height 200px
-	resize vertical
-	border-color lightgrey
+.ru
+	width 620px
+	display inline-block
 
-.form_text
-	width 740px
+.en
+	width 620px
+	display none
+	margin-left 20px
+
+.en_img
+	display none
 
 .editor
-	width 743px
-	min-height 300px
+	width 625px
+	float left
+	margin-right 20px
+	margin-bottom 20px
+	&:nth-child(3n)
+		margin-right 0px
+		display none
 
 .title
-	margin-top 30px
-	margin-bottom 30px
+	margin-top 20px
 	font-size 20pt
-
-.main_menu_block
-	a
-		display inline-block
-		margin-bottom 12px
-	hr
-		border none
-		border-top 1px solid #000
 
 .form_title
 	margin-top 15px
@@ -60,16 +49,14 @@ textarea.form_text
 	font 14pt/14pt 'Times'
 	font-weight bold
 
-.nav_forms select, .nav_forms input
-	font-size 11pt
-	min-width 64px
-	margin 0
-
 .form_submit
 	margin-top 5px
 	cursor pointer
 	&:hover
 		text-decoration underline
+
+.footer_block
+	display none
 
 .spacer
 	display inline-block
@@ -78,6 +65,36 @@ textarea.form_text
 	margin-right 5px
 	font-size 12pt
 
-.tickets_list
-	display none
-	margin-left 40px
+.form_images_upload
+	width 680px
+	min-height 180px
+	overflow hidden
+	border 1px solid red
+	padding 5px
+
+.image_upload_preview
+	width 210px
+	height 160px
+	margin-right 5px
+	margin-bottom 5px
+	float left
+	clear both
+	background-size cover
+	background-position center
+
+.image_upload_description
+	width 214px
+	height 154px
+	border 1px solid black
+	margin 0
+
+.image_upload_delete
+	background-color white
+	color red
+	font-size 14px
+	padding 2px
+	display inline-block
+	cursor pointer
+	&:hover
+		color white
+		background-color red

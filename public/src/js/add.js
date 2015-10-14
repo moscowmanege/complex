@@ -1,21 +1,35 @@
-var parseYouTubeId = function(url) {
-	var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-	var match = url.match(regExp);
-	if (match && match[2].length == 11) {
-		return match[2];
-	} else {
-	  return '';
-	}
-};
-
 $(document).ready(function() {
-	$('form').on('submit', function(event) {
-		var video = $('input.video').val();
+	var eng = true;
 
-		$('input.video').val(parseYouTubeId(video));
 
-		return true;
-	});
+// ------------------------
+// *** Toggles Block ***
+// ------------------------
+
+
+	function toggleEnglish () {
+		if (eng = !eng) {
+			eng = true;
+			$('.en').prop('disabled', eng).filter('input').hide();
+			$('.en').parent('.wysiwyg-container').hide();
+			$('.en_img').prop('disabled', eng).hide();
+			$('.ru').css('float','none');
+		}
+		else {
+			eng = false;
+			$('.en').prop('disabled', eng).filter('input').show();
+			$('.en').parent('.wysiwyg-container').show();
+			$('.en_img').prop('disabled', eng).show();
+			$('.ru').css('float','left');
+		}
+	}
+
+
+
+// ------------------------
+// *** Constructors Block ***
+// ------------------------
+
 
 	function snakeForward () {
 		var $snake = $(this).parent('.snake_outer').children('.snake');
@@ -31,6 +45,9 @@ $(document).ready(function() {
 		$(this).parent('.snake').remove();
 	}
 
+
+	$('.toggle_eng').on('click', toggleEnglish);
 	$(document).on('click', '.back', snakeBack);
 	$('.forward').on('click', snakeForward);
+
 });

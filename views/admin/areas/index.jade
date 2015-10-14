@@ -22,3 +22,5 @@ block content
 				a.rm_area(href='#', id=area._id)= 'удалить '
 				!=' | '
 				a(href='/admin/areas/edit/' + area._id)= area.i18n.title.get('ru')
+				!=' --> '
+				a(href='/admin/areas/edit/' + area._id + '/halls') залы
