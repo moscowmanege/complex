@@ -12,11 +12,13 @@ block content_scripts
 
 block content
 	.form_block
-		a.back_link(href='/auth/categorys') < Назад
+		a.back_link(href='/admin/categorys') < Назад
 		.title РЕДАКТИРОВАТЬ КАТЕГОРИЮ
 		form(action="", method="post")
 			.form_title Заголовок:
-			input(type='text', name='title', value=category.title)
+			+form_text_single('title', category)
+			.form_title Описание:
+			+form_text_multi('description', category)
 			.form_title Видимость:
 			input(type='checkbox', name='status', value='other', checked=category.status)
 			!= ' скрыть'

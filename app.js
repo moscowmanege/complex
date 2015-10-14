@@ -82,7 +82,7 @@ function checkAuth (req, res, next) {
 app.use('/', main);
 app.use('/admin', checkAuth, admin);
 app.use('/auth', auth);
-app.use(globals);
+// app.use(globals);
 
 
 // ------------------------

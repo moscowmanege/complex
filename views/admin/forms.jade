@@ -18,6 +18,33 @@ mixin form_calendar(path, date)
 		option(value=year, selected=(year == now.getFullYear()))= year
 		option(value=year - 1, selected=(year - 1 == now.getFullYear()))= year - 1
 
+//- Single Text Form
+
+mixin form_text_single(path, object)
+	input.ru(type="text", name="ru[" + path + "]", value=object && object['i18n'][path].get('ru'))
+	input.en(type="text", name="en[" + path + "]", disabled, value=object && object['i18n'][path].get('en'))
+
+//- Multiple Text Form
+
+mixin form_text_multi(path, object)
+	textarea.ru.editor(name="ru[" + path + "]",)= object && object['i18n'][path].get('ru')
+	textarea.en.editor(name="en[" + path + "]", disabled)= object && object['i18n'][path].get('en')
+
+
+//- Single Select Form
+
+mixin form_single_select(path, options, select_option)
+	if (!select_option)
+		select(name=path)
+			option(value='none') нет
+			each option in options
+				option(value=option._id)= option['i18n']['title'].get('ru')
+	else
+		select(name=path)
+			option(value='none') нет
+			each option in options
+				option(value=option._id, selected=select_option == option._id.toString())= option['i18n']['title'].get('ru')
+
 
 //- Multiple Select Form
 
@@ -29,7 +56,7 @@ mixin form_multiple_select(path, options, select_options)
 				select(name=path + '[]')
 					option(value='') нет
 					each option in options
-						option(value=option._id)= option.title
+						option(value=option._id)= option['i18n']['title'].get('ru')
 		else
 			each select_option in select_options
 				span.snake
@@ -37,7 +64,7 @@ mixin form_multiple_select(path, options, select_options)
 					select(name=path + '[]')
 						option(value='') нет
 						each option in options
-							option(value=option._id, selected=option._id.toString() == select_option)= option.title
+							option(value=option._id, selected=option._id.toString() == select_option)= option['i18n']['title'].get('ru')
 		input.forward(type="button", value="+")
 
 //- Multiple Input Form
@@ -55,14 +82,16 @@ mixin form_multiple_input(path, options)
 					input.input(type='text', name=path + '[]', value=option)
 		input.forward(type="button", value="+")
 
-//- Multiple Files Form
+//- Images Upload Form
 
-mixin form_multiple_files(path, path_desc)
-	.snake_outer
-		.snake
-			input(type="button", value='удалить').back
-			input(type='file', name=path)
-			input(type='text', name=path_desc, placeholder='описание')
-		br
-		input(type="button", value='добавить файл').forward
-		br
+mixin form_images_upload(images)
+	- function get_locale(option, lang) {var locale = option.filter(function(locale) { return locale.lg == lang })[0]; if (locale) {return locale.value } else {return ''} }
+	.form_images_upload
+		.form_desc_title Нажми или перетащи
+		each image, i in images
+			.image_upload_block
+				.image_upload_preview(style='background-image:url(' + image.thumb + ')')
+					.image_upload_delete Удалить
+				textarea.image_upload_description.ru_img(name='images[description][ru][]', placeholder='Описание') #{get_locale(image.description, 'ru')}
+				textarea.image_upload_description.en_img(name='images[description][en][]', disabled, placeholder='Description') #{get_locale(image.description, 'en')}
+				input.image_upload_form(type='hidden', name='images[path][]', value=images_preview[i])

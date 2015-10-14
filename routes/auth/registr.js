@@ -7,7 +7,7 @@ module.exports = function(Model) {
     if (!req.session.user_id)
       res.render('auth/registr.jade');
     else
-      res.redirect('/');
+      res.redirect('/auth/login');
   }
 
 

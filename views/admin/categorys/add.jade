@@ -13,11 +13,13 @@ block content_scripts
 
 block content
 	.form_block
-		a.back_link(href='/auth/categorys') < Назад
+		a.back_link(href='/admin/categorys') < Назад
 		.title ДОБАВИТЬ КАТЕГОРИЮ
-		form(action="/auth/categorys/add", method="post")
+		form(action="/admin/categorys/add", method="post")
 			.form_title Заголовок:
-			input(type='text', name='title')
+			+form_text_single('title')
+			.form_title Описание:
+			+form_text_multi('description')
 			.form_title Видимость:
 			input(type='checkbox', name='status', value='other')
 			!= ' скрыть'

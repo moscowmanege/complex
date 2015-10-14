@@ -35,7 +35,7 @@ module.exports = (function() {
 		.get(categorys.add.index)
 		.post(categorys.add.form);
 
-	router.route('/edit')
+	router.route('/edit/:id')
 		.get(categorys.edit.index)
 		.post(categorys.edit.form);
 
