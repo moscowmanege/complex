@@ -1,5 +1,5 @@
 module.exports = function(Model, Params) {
-  var Subsidiary = Model.Subsidiary;
+  var Area = Model.Area;
   var checkNested = Params.checkNested;
   var module = {};
 
@@ -7,8 +7,8 @@ module.exports = function(Model, Params) {
   module.index = function(req, res) {
     var id = req.params.id;
 
-    Subsidiary.findById(id).exec(function(err, subsidiary) {
-      res.render('admin/subsidiaries/edit.jade', {subsidiary: subsidiary});
+    Area.findById(id).exec(function(err, area) {
+      res.render('admin/subsidiaries/edit.jade', {area: area});
     });
   }
 
@@ -16,20 +16,20 @@ module.exports = function(Model, Params) {
     var post = req.body;
     var id = req.params.id;
 
-    Subsidiary.findById(id).exec(function(err, subsidiary) {
+    Area.findById(id).exec(function(err, area) {
 
       locales.forEach(function(locale) {
         checkNested(post, [locale, 'title'])
-          && subsidiary.setPropertyLocalised('title', post[locale].title, locale);
+          && area.setPropertyLocalised('title', post[locale].title, locale);
 
         checkNested(post, [locale, 'description'])
-          && subsidiary.setPropertyLocalised('description', post[locale].description, locale);
+          && area.setPropertyLocalised('description', post[locale].description, locale);
 
         checkNested(post, [locale, 'adress'])
-          && subsidiary.setPropertyLocalised('adress', post[locale].adress, locale);
+          && area.setPropertyLocalised('adress', post[locale].adress, locale);
       });
 
-      subsidiary.save(function(err, subsidiary) {
+      area.save(function(err, area) {
         res.redirect('/admin/subsidiaries');
       });
     });

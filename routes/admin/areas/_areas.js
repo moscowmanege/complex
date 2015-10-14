@@ -18,7 +18,7 @@ var Params = {
 	}
 };
 
-var subsidiaries = {
+var areas = {
 	list: require('./list.js')(Model),
 	add: require('./add.js')(Model, Params),
 	edit: require('./edit.js')(Model, Params),
@@ -29,18 +29,18 @@ module.exports = (function() {
 	var router = express.Router();
 
 	router.route('/')
-		.get(subsidiaries.list.index)
+		.get(areas.list.index)
 
 	router.route('/add')
-		.get(subsidiaries.add.index)
-		.post(subsidiaries.add.form);
+		.get(areas.add.index)
+		.post(areas.add.form);
 
 	router.route('/edit')
-		.get(subsidiaries.edit.index)
-		.post(subsidiaries.edit.form);
+		.get(areas.edit.index)
+		.post(areas.edit.form);
 
 	router.route('/remove')
-		.post(subsidiaries.remove.index);
+		.post(areas.remove.index);
 
 	return router;
 })();

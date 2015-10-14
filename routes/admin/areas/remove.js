@@ -1,12 +1,12 @@
 module.exports = function(Model) {
-	var Subsidiary = Model.Subsidiary;
+	var Area = Model.Area;
   var module = {};
 
 
 	module.index = function(req, res) {
 	  var id = req.body.id;
 
-	  Subsidiary.findByIdAndRemove(id).exec(function(err, subsidiary) {
+	  Area.findByIdAndRemove(id).exec(function(err, area) {
 	    res.send('ok');
 	  });
 	}

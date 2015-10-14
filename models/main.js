@@ -12,7 +12,7 @@ var userSchema = new Schema({
 	date: {type: Date, default: Date.now},
 });
 
-var subsidiarySchema = new Schema({
+var areaSchema = new Schema({
 	title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
 	adress: { type: String, trim: true, locale: true },
@@ -106,7 +106,7 @@ var stateSchema = new Schema({
 userSchema.plugin(mongooseBcrypt, { fields: ['password'] });
 
 hallSchema.plugin(mongooseLocale);
-subsidiarySchema.plugin(mongooseLocale);
+areaSchema.plugin(mongooseLocale);
 eventSchema.plugin(mongooseLocale);
 categorySchema.plugin(mongooseLocale);
 
@@ -126,7 +126,7 @@ eventSchema.index({'title.value': 'text', 'description.value': 'text'}, {languag
 
 module.exports.User = mongoose.model('User', userSchema);
 module.exports.Hall = mongoose.model('Hall', hallSchema);
-module.exports.Subsidiary = mongoose.model('Subsidiary', subsidiarySchema);
+module.exports.Area = mongoose.model('Area', areaSchema);
 module.exports.Event = mongoose.model('Event', eventSchema);
 module.exports.Member = mongoose.model('Member', memberSchema);
 module.exports.Category = mongoose.model('Category', categorySchema);
