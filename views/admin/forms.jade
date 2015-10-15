@@ -49,6 +49,7 @@ mixin form_single_select(path, options, select_option)
 //- Multiple Select Form
 
 mixin form_multiple_select(path, options, select_options)
+	- var field = attributes.field || 'title'
 	.snake_outer
 		if (!select_options || select_options.length == 0)
 			span.snake
@@ -56,7 +57,7 @@ mixin form_multiple_select(path, options, select_options)
 				select(name=path + '[]')
 					option(value='') нет
 					each option in options
-						option(value=option._id)= option['i18n']['title'].get('ru')
+						option(value=option._id)= option['i18n'][field].get('ru')
 		else
 			each select_option in select_options
 				span.snake
@@ -64,7 +65,7 @@ mixin form_multiple_select(path, options, select_options)
 					select(name=path + '[]')
 						option(value='') нет
 						each option in options
-							option(value=option._id, selected=option._id.toString() == select_option)= option['i18n']['title'].get('ru')
+							option(value=option._id, selected=option._id.toString() == select_option)= option['i18n'][field].get('ru')
 		input.forward(type="button", value="+")
 
 //- Multiple Input Form

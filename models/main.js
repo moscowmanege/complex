@@ -27,7 +27,7 @@ var areaSchema = new Schema({
 var hallSchema = new Schema({
 	title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
-	subsidiary: { type: Schema.Types.ObjectId, ref: 'Subsidiary' },
+	area: { type: Schema.Types.ObjectId, ref: 'Area' },
 	images: [{
 		description: { type: String, trim: true, locale: true },
 		original: String,

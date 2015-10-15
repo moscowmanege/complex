@@ -1,7 +1,7 @@
 extends ../../layout
 
 block title
-	title УЧАСТНИКИ
+	title СОБЫТИЯ
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
@@ -11,14 +11,14 @@ block content_scripts
 
 block content
 	a.back_link(href='/admin') < Назад
-	.title УЧАСТНИКИ
+	.title СОБЫТИЯ
 	br
-	a.add(href='/admin/members/add') добавить участника
+	a.add(href='/admin/events/add') добавить событие
 	br
 	br
 	.main_menu_block
-		each member in members
-			.member
-				a.rm_member(href='#', id=member._id)= 'удалить '
+		each event in events
+			.event
+				a.rm_event(href='#', id=event._id)= 'удалить '
 				!=' | '
-				a(href='/admin/members/edit/' + member._id)= member.i18n.name.get('ru')
+				a(href='/admin/events/edit/' + event._id)= event.i18n.title.get('ru')

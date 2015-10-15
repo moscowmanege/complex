@@ -1,7 +1,8 @@
 module.exports = function(Model, Params) {
   var Event = Model.Event;
   var Category = Model.Category;
-  var Subsidiary = Model.Subsidiary;
+  var Member = Model.Member;
+  var Area = Model.Area;
   var checkNested = Params.checkNested;
   var module = {};
 
@@ -10,9 +11,11 @@ module.exports = function(Model, Params) {
     var id = req.params.id;
 
     Event.findById(id).exec(function(err, event) {
-      Subsidiary.find().exec(function(err, subsidiaries) {
+      Area.find().exec(function(err, areas) {
         Category.find().exec(function(err, categorys) {
-          res.render('admin/events/edit.jade', {event: event, subsidiaries: subsidiaries, categorys: categorys});
+          Member.find().exec(function(err, members) {
+            res.render('admin/events/edit.jade', {event: event, areas: areas, members: members, categorys: categorys});
+          });
         });
       });
     });

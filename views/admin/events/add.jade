@@ -1,0 +1,41 @@
+extends ../../layout
+include ../forms.jade
+
+block title
+	title ДОБАВИТЬ СОБЫТИЕ
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/libs/css/font-awesome.css')
+	link(rel='stylesheet', type='text/css', href='/build/libs/css/wysiwyg-editor.min.css')
+	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/libs/js/wysiwyg.min.js')
+	script(type='text/javascript', src='/build/libs/js/wysiwyg-editor.min.js')
+	script(type='text/javascript', src='/build/js/editor.js')
+	script(type='text/javascript', src='/build/js/add.js')
+
+
+block content
+	.form_block
+		a.back_link(href='/admin/events') < Назад
+		button.toggle_eng(type='button') перевод
+		.title ДОБАВИТЬ СОБЫТИЕ
+		form(action="/admin/events/add", method="post")
+			.form_title Заголовок:
+			+form_text_single('title')
+			.form_title Описание:
+			+form_text_multi('description')
+			.form_title Возраст:
+			input(type='text', name='age')
+			.form_title Тип:
+			select(name='type')
+				option(value='exhibition') Выставка
+				option(value='event') Событие
+			//- .form_title Участники:
+			//- +form_multiple_select('members', members)(field='name')
+			.form_title Категории:
+			+form_multiple_select('categorys', categorys)
+			br
+			br
+			input(type='submit', value='отправить')

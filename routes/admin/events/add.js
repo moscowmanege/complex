@@ -1,15 +1,18 @@
 module.exports = function(Model, Params) {
   var Event = Model.Event;
   var Category = Model.Category;
-  var Subsidiary = Model.Subsidiary;
+  var Member = Model.Member;
+  var Area = Model.Area;
   var checkNested = Params.checkNested;
   var module = {};
 
 
   module.index = function(req, res) {
-    Subsidiary.find().exec(function(err, subsidiaries) {
+    Area.find().exec(function(err, areas) {
       Category.find().exec(function(err, categorys) {
-        res.render('admin/events/add.jade', {subsidiaries: subsidiaries, categorys: categorys});
+        Member.find().exec(function(err, members) {
+          res.render('admin/events/add.jade', {areas: areas, categorys: categorys, members: members});
+        });
       });
     });
   }
