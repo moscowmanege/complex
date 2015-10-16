@@ -5,7 +5,7 @@ module.exports = function(Model, Params) {
 
 
   module.index = function(req, res) {
-    var id = req.params.id;
+    var id = req.params.area_id;
 
     Area.findById(id).exec(function(err, area) {
       res.render('admin/areas/edit.jade', {area: area});
@@ -14,7 +14,7 @@ module.exports = function(Model, Params) {
 
   module.form = function(req, res) {
     var post = req.body;
-    var id = req.params.id;
+    var id = req.params.area_id;
 
     Area.findById(id).exec(function(err, area) {
 

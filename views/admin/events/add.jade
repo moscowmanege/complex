@@ -26,6 +26,10 @@ block content
 			+form_text_single('title')
 			.form_title Описание:
 			+form_text_multi('description')
+			.form_title Место:
+			+form_single_select('areas', areas)
+			!=' / '
+			+form_single_select('areas', areas)
 			.form_title Возраст:
 			input(type='text', name='age')
 			.form_title Тип:

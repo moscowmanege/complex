@@ -16,6 +16,7 @@ var areaSchema = new Schema({
 	title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
 	adress: { type: String, trim: true, locale: true },
+	halls: [{ type: Schema.Types.ObjectId, ref: 'Hall' }],
 	images: [{
 		description: { type: String, trim: true, locale: true },
 		original: String,
@@ -27,7 +28,6 @@ var areaSchema = new Schema({
 var hallSchema = new Schema({
 	title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
-	area: { type: Schema.Types.ObjectId, ref: 'Area' },
 	images: [{
 		description: { type: String, trim: true, locale: true },
 		original: String,
@@ -43,7 +43,7 @@ var eventSchema = new Schema({
 	status: String,
 	tickets: {
 		alt: { type: String, trim: true, locale: true },
-		ids: [{ type: Schema.Types.ObjectId, ref: 'Hall' }]
+		ids: [{ type: Schema.Types.ObjectId, ref: 'Ticket' }]
 	},
 	format: {
 		type: String,

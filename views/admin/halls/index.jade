@@ -1,0 +1,24 @@
+extends ../../layout
+
+block title
+	title ЗАЛЫ
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/lists.js')
+
+block content
+	a.back_link(href='/admin/areas/') < Назад
+	.title ЗАЛЫ
+	br
+	a.add(href='/admin/areas/edit/' + area._id + '/halls/add') добавить зал
+	br
+	br
+	.main_menu_block
+		each hall in area.halls
+			.hall
+				a.rm_hall(href='#', id=hall._id)= 'удалить '
+				!=' | '
+				a(href='/admin/areas/edit/' + area._id + '/halls/edit/' + hall._id)= hall.i18n.title.get('ru')

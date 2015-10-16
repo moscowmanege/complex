@@ -6,8 +6,12 @@ var admin = {
 	events: require('./events/_events.js'),
 	areas: require('./areas/_areas.js'),
 	members: require('./members/_members.js'),
-	users: require('./users/_users.js'),
-	// halls: require('./halls/_halls.js'),
+	users: require('./users/_users.js')
+};
+
+var setParams = function(req, res, next) {
+	req.module_params = {};
+	next();
 };
 
 module.exports = (function() {
@@ -18,10 +22,9 @@ module.exports = (function() {
 
 	router.use('/categorys', admin.categorys);
 	router.use('/events', admin.events);
-	router.use('/areas', admin.areas);
+	router.use('/areas', setParams, admin.areas);
 	router.use('/members', admin.members);
 	router.use('/users', admin.users);
-	// router.use('/halls', admin.halls);
 
 	return router;
 })();
