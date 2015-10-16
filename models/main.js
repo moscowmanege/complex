@@ -40,9 +40,15 @@ var eventSchema = new Schema({
 	_short_id: String,
 	title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
-	alt_ticket: { type: String, trim: true, locale: true },
 	status: String,
-	type: String,
+	tickets: {
+		alt: { type: String, trim: true, locale: true },
+		ids: [{ type: Schema.Types.ObjectId, ref: 'Hall' }]
+	},
+	format: {
+		type: String,
+		dates: [Date]
+	},
 	age: Number,
 	hall: { type: Schema.Types.ObjectId, ref: 'Hall' },
 	events: {
@@ -54,10 +60,6 @@ var eventSchema = new Schema({
 		status: { type: String, trim: true, locale: true },
 		ids: [{ type: Schema.Types.ObjectId, ref: 'Member' }]
 	}],
-	interval: {
-		start: Date,
-		end: Date
-	},
 	images: [{
 		description: { type: String, trim: true, locale: true },
 		original: String,
@@ -82,10 +84,9 @@ var categorySchema = new Schema({
 });
 
 var ticketSchema = new Schema({
-	events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
 	type: String,
+	expired: {type: Boolean, default: false},
 	price: Number,
-	counter: {type: Number, default: 1},
 	date: {type: Date, default: Date.now}
 });
 

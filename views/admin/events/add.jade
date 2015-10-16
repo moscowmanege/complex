@@ -36,6 +36,8 @@ block content
 			//- +form_multiple_select('members', members)(field='name')
 			.form_title Категории:
 			+form_multiple_select('categorys', categorys)
+			.form_title Дата публикации:
+			+form_calendar('date')
 			br
 			br
 			input(type='submit', value='отправить')
