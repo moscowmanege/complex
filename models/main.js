@@ -41,10 +41,7 @@ var eventSchema = new Schema({
 	title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
 	status: String,
-	tickets: {
-		alt: { type: String, trim: true, locale: true },
-		ids: [{ type: Schema.Types.ObjectId, ref: 'Ticket' }]
-	},
+	ticket_alt: { type: String, trim: true, locale: true },
 	format: {
 		type: String,
 		dates: [Date]
@@ -84,6 +81,7 @@ var categorySchema = new Schema({
 });
 
 var ticketSchema = new Schema({
+	events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
 	type: String,
 	expired: {type: Boolean, default: false},
 	price: Number,
