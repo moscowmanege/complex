@@ -1,0 +1,24 @@
+extends ../../layout
+
+block title
+	title БИЛЕТЫ
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/lists.js')
+
+block content
+	a.back_link(href='/admin/events') < Назад
+	.title БИЛЕТЫ
+	br
+	a.add(href='/admin/events/edit/' + event_id + '/tickets/add') добавить билет
+	br
+	br
+	.main_menu_block
+		each ticket in tickets
+			.ticket
+				a.rm_ticket(href='#', id=ticket._id)= 'удалить '
+				!=' | '
+				a(href='/admin/events/edit/' + event_id + '/tickets/edit/' + ticket._id)= ticket.type

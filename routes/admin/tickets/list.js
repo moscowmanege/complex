@@ -6,7 +6,7 @@ module.exports = function(Model) {
 		var event_id = req.module_params.event_id;
 
 		Ticket.where('events').equals(event_id).exec(function(err, tickets) {
-			res.render('admin/tickets', {tickets: tickets});
+			res.render('admin/tickets', {tickets: tickets, event_id: event_id});
 		});
 	}
 

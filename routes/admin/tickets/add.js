@@ -19,9 +19,10 @@ module.exports = function(Model, Params) {
 
     var ticket = new Ticket();
 
-    type = post.type;
-    events = post.events;
-    expired = post.expired;
+    ticket.price = post.price;
+    ticket.type = post.type;
+    ticket.events = post.events;
+    ticket.expired = post.expired;
 
     ticket.save(function(err, area) {
       res.redirect('/admin/events');

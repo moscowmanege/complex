@@ -1,5 +1,6 @@
 module.exports = function(Model, Params) {
 	var Ticket = Model.Ticket;
+	var Event = Model.Event;
 	var checkNested = Params.checkNested;
 	var module = {};
 
@@ -21,9 +22,10 @@ module.exports = function(Model, Params) {
 
 		Ticket.findById(ticket_id).exec(function(err, ticket) {
 
-			type = post.type;
-			events = post.events;
-			expired = post.expired;
+			ticket.price = post.price;
+			ticket.type = post.type;
+			ticket.events = post.events;
+			ticket.expired = post.expired;
 
 			ticket.save(function(err, area) {
 				res.redirect('/admin/events');
