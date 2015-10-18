@@ -41,7 +41,10 @@ var eventSchema = new Schema({
 	title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
 	status: String,
-	ticket_alt: { type: String, trim: true, locale: true },
+	tickets: {
+		alt: { type: String, trim: true, locale: true },
+		ids : [{ type: Schema.Types.ObjectId, ref: 'Ticket' }]
+	},
 	format: {
 		type: String,
 		dates: [Date]

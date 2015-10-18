@@ -30,7 +30,7 @@ block content
 				option(value='preferential') льготный
 				option(value='complex') комплексный
 			.form_title Связанные события:
-			+form_multiple_select('events', events)
+			+form_multiple_select('events', events, ticket.events)
 			.form_title Статус:
 			input(type='checkbox', name='expired', value='true')
 			!= ' просрочен'

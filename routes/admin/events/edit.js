@@ -28,13 +28,13 @@ module.exports = function(Model, Params) {
 
     Event.findById(id).exec(function(err, event) {
 
-      event.members = post.members;
-      event.status = post.status;
-      event.type = post.type;
-      event.age = post.age;
-      event.interval = post.interval;
-      event.hall = post.hall;
-      event.categorys = post.categorys;
+      // event.members = post.members;
+      // event.status = post.status;
+      // event.type = post.type;
+      // event.age = post.age;
+      // event.interval = post.interval;
+      // event.hall = post.hall;
+      // event.categorys = post.categorys;
 
       var locales = post.en ? ['ru', 'en'] : ['ru'];
 
@@ -45,8 +45,8 @@ module.exports = function(Model, Params) {
         checkNested(post, [locale, 'description'])
           && event.setPropertyLocalised('description', post[locale].description, locale);
 
-        checkNested(post, [locale, 'alt_ticket'])
-          && event.setPropertyLocalised('alt_ticket', post[locale].alt_ticket, locale);
+        // checkNested(post, [locale, 'alt_ticket'])
+        //   && event.setPropertyLocalised('alt_ticket', post[locale].alt_ticket, locale);
 
       });
 

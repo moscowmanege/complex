@@ -24,13 +24,24 @@ module.exports = function(Model, Params) {
 
 			ticket.price = post.price;
 			ticket.type = post.type;
-			ticket.events = post.events;
 			ticket.expired = post.expired;
 
-			ticket.save(function(err, area) {
-				res.redirect('/admin/events');
-			});
-		});
+
+	    Event.where('_id').in(ticket.events)
+	      .setOptions({ multi: true })
+	      .update({ $pull: { 'tickets.ids': ticket._id.toString() } }, function(err, results) {
+
+		    Event.where('_id').in(post.events)
+		      .setOptions({ multi: true })
+		      .update({ $push: { 'tickets.ids': ticket._id.toString() } }, function(err, results) {
+
+			      ticket.events = post.events;
+			      ticket.save(function(err, ticket) {
+			        res.redirect('/admin/events');
+			      });
+			    });
+		    });
+	    });
 	}
 
 
