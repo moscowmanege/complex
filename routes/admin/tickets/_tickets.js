@@ -16,11 +16,9 @@ var Params = {
 	  }
 	  return true;
 	}
-}
+};
 
-var tickets = require('../tickets/_tickets.js');
-
-var events = {
+var tickets = {
 	list: require('./list.js')(Model),
 	add: require('./add.js')(Model, Params),
 	edit: require('./edit.js')(Model, Params),
@@ -31,25 +29,18 @@ module.exports = (function() {
 	var router = express.Router();
 
 	router.route('/')
-		.get(events.list.index)
+		.get(tickets.list.index)
 
 	router.route('/add')
-		.get(events.add.index)
-		.post(events.add.form);
+		.get(tickets.add.index)
+		.post(tickets.add.form);
 
-	router.route('/edit/:event_id')
-		.get(events.edit.index)
-		.post(events.edit.form);
-
-	router
-		.use('/edit/:event_id/tickets', tickets)
-		.param('event_id', function(req, res, next, event_id) {
-			req.module_params.event_id = event_id;
-			next();
-		});
+	router.route('/edit/:ticket_id')
+		.get(tickets.edit.index)
+		.post(tickets.edit.form);
 
 	router.route('/remove')
-		.post(events.remove.index);
+		.post(tickets.remove.index);
 
 	return router;
 })();

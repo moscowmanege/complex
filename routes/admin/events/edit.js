@@ -8,7 +8,7 @@ module.exports = function(Model, Params) {
 
 
   module.index = function(req, res) {
-    var id = req.params.id;
+    var id = req.params.event_id;
 
     Event.findById(id).exec(function(err, event) {
       Area.find().exec(function(err, areas) {
@@ -24,7 +24,7 @@ module.exports = function(Model, Params) {
 
   module.form = function(req, res) {
     var post = req.body;
-    var id = req.params.id;
+    var id = req.params.event_id;
 
     Event.findById(id).exec(function(err, event) {
 

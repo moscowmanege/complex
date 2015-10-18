@@ -9,7 +9,7 @@ var admin = {
 	users: require('./users/_users.js')
 };
 
-var setParams = function(req, res, next) {
+var routeParams = function(req, res, next) {
 	req.module_params = {};
 	next();
 };
@@ -21,8 +21,8 @@ module.exports = (function() {
 		.get(admin.main.index)
 
 	router.use('/categorys', admin.categorys);
-	router.use('/events', admin.events);
-	router.use('/areas', setParams, admin.areas);
+	router.use('/events', routeParams, admin.events);
+	router.use('/areas', routeParams, admin.areas);
 	router.use('/members', admin.members);
 	router.use('/users', admin.users);
 
