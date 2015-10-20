@@ -14,6 +14,7 @@ block content_scripts
 	script(type='text/javascript', src='/build/libs/js/wysiwyg-editor.min.js')
 	script(type='text/javascript', src='/build/js/editor.js')
 	script(type='text/javascript', src='/build/js/add.js')
+	script(type='text/javascript', src='/build/js/a_events.js')
 
 
 block content
@@ -36,8 +37,22 @@ block content
 			select(name='type')
 				option(value='exhibition') Выставка
 				option(value='event') Событие
-			//- .form_title Участники:
-			//- +form_multiple_select('members', members)(field='name')
+			.form_title Участники:
+			.snake_outer.members_list
+				.snake
+					input.back(type="button", value="-")
+					input.input(type='text', name='members[0][status]')
+					span.snake_outer
+						span.snake
+							input.back(type="button", value="-")
+							select(name='members[0][ids]')
+								option(value='') нет
+								option(value='1111') 1111
+								option(value='2222') 2222
+								option(value='3333') 3333
+						input.forward(type="button", value="+")
+				input.forward(type="button", value="+")
+
 			.form_title Категории:
 			+form_multiple_select('categorys', categorys)
 			.form_title Дата публикации:

@@ -48,6 +48,6 @@ $(document).ready(function() {
 
 	$('.toggle_eng').on('click', toggleEnglish);
 	$(document).on('click', '.back', snakeBack);
-	$('.forward').on('click', snakeForward);
+	$(document).on('click', '.forward', snakeForward);
 
 });
