@@ -1,0 +1,33 @@
+mixin form_members_select(members, event_members_groups)
+	if (!event_members_groups || event_members_groups.length == 0)
+		.snake_outer.members_list
+			.snake
+				input.back(type="button", value="-")
+				input.ru.input(type='text', name='members[0][ru][status]')
+				input.en.input(type='text', name='members[0][en][status]')
+				span.snake_outer
+					span.snake
+						input.back(type="button", value="-")
+						select(name='members[0][ids]')
+							option(value='') нет
+							each member in members
+								option(value=member._id.toString())= member.i18n.name.get('ru')
+					input.forward(type="button", value="+")
+			input.forward(type="button", value="+")
+	else
+		.snake_outer.members_list
+			each event_members_group, i in event_members_groups
+				.snake
+					input.back(type="button", value="-")
+					input.ru.input(type='text', name='members[0][ru][status]', value=event_members_group.i18n.status.get('ru'))
+					input.en.input(type='text', name='members[0][en][status]', value=event_members_group.i18n.status.get('en'))
+					span.snake_outer
+						each event_member in event_members_group.ids
+							span.snake
+								input.back(type="button", value="-")
+								select(name='members[' + i + '][ids]')
+									option(value='') нет
+									each member in members
+										option(value=member._id.toString())= member.i18n.name.get('ru')
+							input.forward(type="button", value="+")
+				input.forward(type="button", value="+")
