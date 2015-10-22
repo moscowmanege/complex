@@ -1,5 +1,6 @@
 extends ../../layout
 include ../forms.jade
+include _forms.jade
 
 block title
 	title РЕДАКТИРОВАТЬ СОБЫТИЕ
@@ -25,6 +26,8 @@ block content
 			+form_text_single('title', event)
 			.form_title Описание:
 			+form_text_multi('description', event)
+			.form_title Коментарий (вместо билета):
+			+form_alt_tickets('alt', event)
 			.form_title Возраст:
 			input(type='text', name='age', value=event.age)
 			.form_title Тип:

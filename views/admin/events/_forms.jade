@@ -1,3 +1,8 @@
+mixin form_alt_tickets(path, object)
+	input.ru(type="text", name="ru[" + path + "]", value=object && object['tickets']['i18n'][path].get('ru'))
+	input.en(type="text", name="en[" + path + "]", disabled, value=object && object['tickets']['i18n'][path].get('en'))
+
+
 mixin form_members_select(members, event_members_groups)
 	if (!event_members_groups || event_members_groups.length == 0)
 		.snake_outer.members_list

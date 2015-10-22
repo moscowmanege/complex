@@ -28,6 +28,8 @@ block content
 			+form_text_single('title')
 			.form_title Описание:
 			+form_text_multi('description')
+			.form_title Коментарий (вместо билета):
+			+form_alt_tickets('alt')
 			.form_title Место:
 			select.area(name='area')
 				each area in areas
