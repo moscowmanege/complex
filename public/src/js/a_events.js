@@ -4,6 +4,7 @@ function setCharAt(str,index,chr) {
 }
 
 $(document).ready(function() {
+
 	$(document).on('click', '.members_list > .forward', function() {
 		var $current = $(this).parent('.snake_outer').children('.snake');
 
@@ -16,4 +17,19 @@ $(document).ready(function() {
 			});
 		});
 	});
+
+
+	$('.hall').hide().eq(0).show().children('select').attr('disabled', false);
+
+	$('.area').change(function() {
+		var index = $(this).children('option:selected').index();
+
+	  $('.hall')
+	  	.hide().eq(index).show().end()
+	 		.children('select').attr('disabled', true).eq(index).attr('disabled', false);
+	}).trigger('change');
+
+
+
+
 });

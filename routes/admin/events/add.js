@@ -8,7 +8,7 @@ module.exports = function(Model, Params) {
 
 
   module.index = function(req, res) {
-    Area.find().exec(function(err, areas) {
+    Area.find().populate('halls').exec(function(err, areas) {
       Category.find().exec(function(err, categorys) {
         Member.find().exec(function(err, members) {
           res.render('admin/events/add.jade', {areas: areas, categorys: categorys, members: members});
