@@ -1,3 +1,15 @@
+mixin form_area_select()
+	select.area(name='place[area]')
+		each area in areas
+			option(value=area._id.toString())= area.i18n.title.get('ru')
+	!=' / '
+	each area in areas
+		span.hall
+			each hall in area.halls
+				input(type='checkbox', name='place[halls][]' value=hall._id.toString(), disabled=true,)
+				!= hall.i18n.title.get('ru')
+
+
 mixin form_alt_tickets(path, object)
 	input.ru(type="text", name="ru[" + path + "]", value=object && object['tickets']['i18n'][path].get('ru'))
 	input.en(type="text", name="en[" + path + "]", disabled, value=object && object['tickets']['i18n'][path].get('en'))

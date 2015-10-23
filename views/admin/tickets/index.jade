@@ -21,4 +21,4 @@ block content
 			.ticket
 				a.rm_ticket(href='#', id=ticket._id)= 'удалить '
 				!=' | '
-				a(href='/admin/events/edit/' + event_id + '/tickets/edit/' + ticket._id)= ticket.type
+				a(href='/admin/events/edit/' + event_id + '/tickets/edit/' + ticket._id)= ticket.type + ' ' + (ticket.events.length > 1 ? ' (complex)' : '')

@@ -31,19 +31,7 @@ block content
 			.form_title Коментарий (вместо билета):
 			+form_alt_tickets('alt')
 			.form_title Место:
-			select.area(name='area')
-				each area in areas
-					option(value=area._id.toString())= area.i18n.title.get('ru')
-			!=' / '
-			each area in areas
-				span.hall
-					select(name='hall', disabled=true, class=area._id.toString())
-						each hall in area.halls
-							option(value=hall._id.toString())= hall.i18n.title.get('ru')
-
-			//- +form_single_select('areas', areas)
-			//- !=' / '
-			//- +form_single_select('areas', areas)
+			+form_area_select()
 			.form_title Возраст:
 			input(type='text', name='age')
 			.form_title Тип:

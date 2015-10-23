@@ -50,7 +50,10 @@ var eventSchema = new Schema({
 		dates: [Date]
 	},
 	age: Number,
-	hall: { type: Schema.Types.ObjectId, ref: 'Hall' },
+	place: {
+		area: { type: Schema.Types.ObjectId, ref: 'Area' },
+		halls: [{ type: Schema.Types.ObjectId, ref: 'Hall' }]
+	},
 	events: {
 		parent: { type: Schema.Types.ObjectId, ref: 'Event' },
 		children: [{ type: Schema.Types.ObjectId, ref: 'Event' }]

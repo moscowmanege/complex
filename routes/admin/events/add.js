@@ -26,10 +26,10 @@ module.exports = function(Model, Params) {
     // event.members = post.members;
     // event.status = post.status;
     // event.type = post.type;
-    // event.age = post.age;
+    event.age = post.age;
     // event.interval = post.interval;
-    // event.hall = post.hall;
-    // event.categorys = post.categorys;
+    event.place = post.place;
+    event.categorys = post.categorys;
 
     var locales = post.en ? ['ru', 'en'] : ['ru'];
 
