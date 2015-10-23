@@ -72,15 +72,10 @@ var admin = require('./routes/admin/_admin.js');
 var auth = require('./routes/auth/_auth.js');
 
 
-function checkAuth (req, res, next) {
-	req.session.user_id
-		? next()
-		: res.redirect('/auth/login');
-}
 
 
 app.use('/', main);
-app.use('/admin', checkAuth, admin);
+app.use('/admin', admin);
 app.use('/auth', auth);
 // app.use(globals);
 

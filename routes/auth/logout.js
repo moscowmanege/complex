@@ -1,13 +1,13 @@
 module.exports = function() {
-  var module = {};
+	var module = {};
 
 
 	module.index = function(req, res) {
-	  req.session.destroy();
-	  res.clearCookie('session');
-	  res.redirect('/auth/login');
+		req.session.destroy();
+		res.clearCookie('session');
+		res.redirect('/auth');
 	}
 
 
-  return module;
+	return module;
 }

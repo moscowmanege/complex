@@ -14,8 +14,16 @@ var routeParams = function(req, res, next) {
 	next();
 };
 
+var checkAuth = function(req, res, next) {
+	req.session.user_id
+		? next()
+		: res.redirect('/auth');
+};
+
 module.exports = (function() {
 	var router = express.Router();
+
+	router.use(checkAuth);
 
 	router.route('/')
 		.get(admin.main.index)

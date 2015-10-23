@@ -15,7 +15,7 @@ module.exports = (function() {
 		.get(function(req, res) {
 			req.session.user_id
 				? res.redirect('/admin')
-				: res.redirect('/auth/login')
+				: res.redirect('/auth/login');
 		});
 
 	router.route('/login')
