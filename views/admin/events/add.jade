@@ -30,21 +30,23 @@ block content
 			+form_text_multi('description')
 			.form_title Коментарий (вместо билета):
 			+form_alt_tickets('alt')
+			.form_title Возраст:
+			select(name='age')
+				each age, i in new Array(22)
+					option(value=i)= i + '+'
 			.form_title Место:
 			+form_area_select()
-			.form_title Возраст:
-			input(type='text', name='age')
 			.form_title Формат:
-			div= 'Тип: '
+			span= 'Тип: '
 			select(name='type')
 				option(value='exhibition') Выставка
 				option(value='event') Событие
 			br
-			div='Даты: '
 			br
-			each date in new Array(4)
+			span='Даты: '
+			each date in new Array(2)
 				+form_calendar('date')
-				br
+				!=' --- '
 			.form_title Участники:
 			+form_members_select(members)
 			.form_title Категории:
