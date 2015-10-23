@@ -9,11 +9,6 @@ var admin = {
 	users: require('./users/_users.js')
 };
 
-var routeParams = function(req, res, next) {
-	req.module_params = {};
-	next();
-};
-
 var checkAuth = function(req, res, next) {
 	req.session.user_id
 		? next()
@@ -29,8 +24,8 @@ module.exports = (function() {
 		.get(admin.main.index)
 
 	router.use('/categorys', admin.categorys);
-	router.use('/events', routeParams, admin.events);
-	router.use('/areas', routeParams, admin.areas);
+	router.use('/events', admin.events);
+	router.use('/areas', admin.areas);
 	router.use('/members', admin.members);
 	router.use('/users', admin.users);
 

@@ -26,7 +26,7 @@ var tickets = {
 };
 
 module.exports = (function() {
-	var router = express.Router();
+	var router = express.Router({mergeParams: true});
 
 	router.route('/')
 		.get(tickets.list.index)

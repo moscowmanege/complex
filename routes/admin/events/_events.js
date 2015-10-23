@@ -41,12 +41,7 @@ module.exports = (function() {
 		.get(events.edit.index)
 		.post(events.edit.form);
 
-	router
-		.use('/edit/:event_id/tickets', tickets)
-		.param('event_id', function(req, res, next, event_id) {
-			req.module_params.event_id = event_id;
-			next();
-		});
+	router.use('/edit/:event_id/tickets', tickets)
 
 	router.route('/remove')
 		.post(events.remove.index);

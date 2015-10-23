@@ -41,12 +41,7 @@ module.exports = (function() {
 		.get(areas.edit.index)
 		.post(areas.edit.form);
 
-	router
-		.use('/edit/:area_id/halls', halls)
-		.param('area_id', function(req, res, next, area_id) {
-			req.module_params.area_id = area_id;
-			next();
-		});
+	router.use('/edit/:area_id/halls', halls)
 
 	router.route('/remove')
 		.post(areas.remove.index);

@@ -64,12 +64,11 @@ app.use(function(req, res, next) {
 	next();
 });
 
+
 var main = require('./routes/main/_main.js');
 var globals = require('./routes/globals/_globals.js');
 var admin = require('./routes/admin/_admin.js');
 var auth = require('./routes/auth/_auth.js');
-
-
 
 
 app.use('/', main);

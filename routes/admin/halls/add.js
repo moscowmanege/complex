@@ -29,7 +29,7 @@ module.exports = function(Model, Params) {
     });
 
     hall.save(function(err, hall) {
-      var area_id = req.module_params.area_id;
+      var area_id = req.params.area_id;
 
       Area.findById(area_id).exec(function(err, area) {
         area.halls.push(hall._id);
