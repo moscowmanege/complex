@@ -34,10 +34,17 @@ block content
 			+form_area_select()
 			.form_title Возраст:
 			input(type='text', name='age')
-			.form_title Тип:
+			.form_title Формат:
+			div= 'Тип: '
 			select(name='type')
 				option(value='exhibition') Выставка
 				option(value='event') Событие
+			br
+			div='Даты: '
+			br
+			each date in new Array(4)
+				+form_calendar('date')
+				br
 			.form_title Участники:
 			+form_members_select(members)
 			.form_title Категории:

@@ -13,12 +13,12 @@ block content
 	a.back_link(href='/admin/events') < Назад
 	.title БИЛЕТЫ
 	br
-	a.add(href='/admin/events/edit/' + event_id + '/tickets/add') добавить билет
+	a.add(href='/admin/events/edit/' + event._id + '/tickets/add') добавить билет
 	br
 	br
 	.main_menu_block
-		each ticket in tickets
+		each ticket in event.tickets.ids
 			.ticket
 				a.rm_ticket(href='#', id=ticket._id)= 'удалить '
 				!=' | '
-				a(href='/admin/events/edit/' + event_id + '/tickets/edit/' + ticket._id)= ticket.type + ' ' + (ticket.events.length > 1 ? ' (complex)' : '')
+				a(href='/admin/events/edit/' + event._id + '/tickets/edit/' + ticket._id)= ticket.type + ' ' + (ticket.events.length > 1 ? ' (complex)' : '')
