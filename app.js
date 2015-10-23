@@ -1,6 +1,4 @@
-var path = require('path');
-
-global.__app_root = path.resolve(__dirname);
+global.__app_root = __dirname;
 
 var mongoose = require('mongoose');
 		mongoose.connect('localhost', 'main');
