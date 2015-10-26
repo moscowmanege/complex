@@ -45,9 +45,10 @@ var eventSchema = new Schema({
 		alt: { type: String, trim: true, locale: true },
 		ids : [{ type: Schema.Types.ObjectId, ref: 'Ticket' }]
 	},
-	format: {
-		type: String,
-		dates: [Date]
+	type: String,
+	interval: {
+		begin: Date,
+		end: Date
 	},
 	age: Number,
 	place: {

@@ -5,6 +5,8 @@ function setCharAt(str,index,chr) {
 
 $(document).ready(function() {
 
+	// Members
+
 	$(document).on('click', '.members_list > .forward', function() {
 		var $current = $(this).parent('.snake_outer').children('.snake');
 
@@ -18,6 +20,7 @@ $(document).ready(function() {
 		});
 	});
 
+	// Halls
 
 	$('.hall').hide().eq(0).show().children('input').attr('disabled', false);
 
@@ -28,8 +31,5 @@ $(document).ready(function() {
 	  $('.hall').children('input').attr('disabled', true)
 	 	$('.hall').eq(index).children('input').attr('disabled', false);
 	}).trigger('change');
-
-
-
 
 });
