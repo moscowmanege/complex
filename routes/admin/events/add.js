@@ -23,14 +23,20 @@ module.exports = function(Model, Params) {
 
     var event = new Event();
 
-    // event.members = post.members;
-    // event.status = post.status;
+    event.status = post.status;
     event.type = post.type;
     event.age = post.age;
     event.interval.begin = new Date(Date.UTC(post.interval.begin.year, post.interval.begin.month, post.interval.begin.date));
     event.interval.end = new Date(Date.UTC(post.interval.end.year, post.interval.end.month, post.interval.end.date));
     event.place = post.place;
     event.categorys = post.categorys;
+
+    post.members.forEach(function(member) {
+      event.members.push({
+        status: [{lg:'ru', value: member.status.ru}],
+        ids: member.ids
+      });
+    });
 
     var locales = post.en ? ['ru', 'en'] : ['ru'];
 
@@ -47,6 +53,7 @@ module.exports = function(Model, Params) {
     });
 
     event.save(function(err, event) {
+      console.log(err)
       res.redirect('/admin/events');
     });
   }

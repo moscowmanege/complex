@@ -28,11 +28,11 @@ block content
 			+form_text_single('title')
 			.form_title Описание:
 			+form_text_multi('description')
-			.form_title Коментарий (вместо билета):
+			.form_title Комментарий (вместо билета):
 			+form_alt_tickets('alt')
 			.form_title Возраст:
 			select(name='age')
-				each age, i in new Array(22)
+				each age, i in new Array(19)
 					option(value=i)= i + '+'
 			.form_title Место:
 			+form_area_select()

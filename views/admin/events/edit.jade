@@ -15,6 +15,7 @@ block content_scripts
 	script(type='text/javascript', src='/build/libs/js/wysiwyg-editor.min.js')
 	script(type='text/javascript', src='/build/js/editor.js')
 	script(type='text/javascript', src='/build/js/add.js')
+	script(type='text/javascript', src='/build/js/a_events.js')
 
 block content
 	.form_block
@@ -26,18 +27,31 @@ block content
 			+form_text_single('title', event)
 			.form_title Описание:
 			+form_text_multi('description', event)
-			.form_title Коментарий (вместо билета):
+			.form_title Комментарий (вместо билета):
 			+form_alt_tickets('alt', event)
 			.form_title Возраст:
-			input(type='text', name='age', value=event.age)
+			select(name='age')
+				each age, i in new Array(19)
+					option(value=i, selected=event.age == i && true)= i + '+'
+			.form_title Место:
+			+form_area_select(event.place)
 			.form_title Тип:
 			select(name='type')
 				option(value='exhibition') Выставка
-				option(value='event') Событие
-			//- .form_title Участники:
-			//- +form_multiple_select('members', members, event.members)(field='name')
+				option(value='lecture') Лекция
+			.form_title Интервал дат:
+			+form_calendar('interval[begin]', event.interval.begin)
+			!=' ---> '
+			+form_calendar('interval[end]', event.interval.end)
+			.form_title Участники:
+			+form_members_select(members, event.members)
 			.form_title Категории:
 			+form_multiple_select('categorys', categorys, event.categorys)
+			.form_title Видимость:
+			input(type='checkbox', name='status', value='hidden')
+			!= ' скрыть'
+			.form_title Дата публикации:
+			+form_calendar('date', event.date)
 			br
 			br
 			input(type='submit', value='отправить')

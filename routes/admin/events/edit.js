@@ -11,10 +11,13 @@ module.exports = function(Model, Params) {
     var id = req.params.event_id;
 
     Event.findById(id).exec(function(err, event) {
-      Area.find().exec(function(err, areas) {
+      Area.find().populate('halls').exec(function(err, areas) {
         Category.find().exec(function(err, categorys) {
           Member.find().exec(function(err, members) {
-            res.render('admin/events/edit.jade', {event: event, areas: areas, members: members, categorys: categorys});
+            var opts = { path: 'members.ids', model: 'Member' };
+            Event.populate(event, opts, function (err, projects) {
+              res.render('admin/events/edit.jade', {event: event, areas: areas, members: members, categorys: categorys});
+            });
           });
         });
       });
@@ -28,13 +31,22 @@ module.exports = function(Model, Params) {
 
     Event.findById(id).exec(function(err, event) {
 
-      // event.members = post.members;
-      // event.status = post.status;
-      // event.type = post.type;
-      // event.age = post.age;
-      // event.interval = post.interval;
-      // event.hall = post.hall;
-      // event.categorys = post.categorys;
+      event.status = post.status;
+      event.type = post.type;
+      event.age = post.age;
+      event.interval.begin = new Date(Date.UTC(post.interval.begin.year, post.interval.begin.month, post.interval.begin.date));
+      event.interval.end = new Date(Date.UTC(post.interval.end.year, post.interval.end.month, post.interval.end.date));
+      event.place = post.place;
+      event.categorys = post.categorys;
+
+      event.members = [];
+
+      post.members.forEach(function(member) {
+        event.members.push({
+          status: [{lg:'ru', value: member.status.ru}],
+          ids: member.ids
+        });
+      });
 
       var locales = post.en ? ['ru', 'en'] : ['ru'];
 
