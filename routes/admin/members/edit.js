@@ -20,6 +20,8 @@ module.exports = function(Model, Params) {
 
     Member.findById(id).exec(function(err, member) {
 
+      member.status = post.status;
+
       var locales = post.en ? ['ru', 'en'] : ['ru'];
 
       locales.forEach(function(locale) {

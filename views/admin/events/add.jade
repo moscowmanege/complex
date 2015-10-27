@@ -24,13 +24,13 @@ block content
 		button.toggle_eng(type='button') перевод
 		.title ДОБАВИТЬ СОБЫТИЕ
 		form(action="/admin/events/add", method="post")
-			.form_title Заголовок:
+			.form_title Название:
 			+form_text_single('title')
 			.form_title Описание:
 			+form_text_multi('description')
 			.form_title Комментарий (вместо билета):
 			+form_alt_tickets('alt')
-			.form_title Возраст:
+			.form_title Возростное ограничение:
 			select(name='age')
 				each age, i in new Array(19)
 					option(value=i)= i + '+'
@@ -42,7 +42,9 @@ block content
 				option(value='lecture') Лекция
 			.form_title Интервал дат:
 			+form_calendar('interval[begin]')
-			!=' ---> '
+			!= ' --- '
+			input(type='button', value=' ---> ').arrow_cal
+			!= ' --- '
 			+form_calendar('interval[end]')
 			.form_title Участники:
 			+form_members_select(members)

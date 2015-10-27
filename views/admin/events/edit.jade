@@ -23,13 +23,13 @@ block content
 		button.toggle_eng(type='button') перевод
 		.title РЕДАКТИРОВАТЬ СОБЫТИЕ
 		form(action="", method="post")
-			.form_title Заголовок:
+			.form_title Название:
 			+form_text_single('title', event)
 			.form_title Описание:
 			+form_text_multi('description', event)
 			.form_title Комментарий (вместо билета):
 			+form_alt_tickets('alt', event)
-			.form_title Возраст:
+			.form_title Возростное ограничение:
 			select(name='age')
 				each age, i in new Array(19)
 					option(value=i, selected=event.age == i && true)= i + '+'

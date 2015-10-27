@@ -16,6 +16,7 @@ module.exports = function(Model, Params) {
     var member = new Member();
 
     member._short_id = shortid.generate();
+    member.status = post.status;
 
     var locales = post.en ? ['ru', 'en'] : ['ru'];
 

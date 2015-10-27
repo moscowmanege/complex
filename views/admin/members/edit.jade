@@ -25,6 +25,9 @@ block content
 			+form_text_single('name', member)
 			.form_title Описание:
 			+form_text_multi('description', member)
+			.form_title Видимость:
+			input(type='checkbox', name='status', value='hidden', checked=member.status)
+			!= ' скрыть'
 			br
 			br
 			input(type='submit', value='отправить')

@@ -2,7 +2,7 @@ mixin form_area_select(current_place)
 	select.area(name='place[area]')
 		each area in areas
 			option(value=area._id.toString(), selected=area._id.toString() == current_place.area)= area.i18n.title.get('ru')
-	!=' / '
+	!=' // '
 	each area in areas
 		span.hall
 			each hall in area.halls
@@ -46,7 +46,6 @@ mixin form_members_select(members, event_members_groups)
 								select(name='members[0][ids]')
 									option(value='') нет
 									each member in members
-										//- b= member
-										option(value=member._id.toString())= member.i18n.name.get('ru')
+										option(value=member._id.toString(), selected=event_member._id.toString() == member._id.toString())= member.i18n.name.get('ru')
 							input.forward(type="button", value="+")
 			input.forward(type="button", value="+")

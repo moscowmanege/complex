@@ -24,7 +24,7 @@ module.exports = function(Model, Params) {
 
 			ticket.price = post.price;
 			ticket.type = post.type;
-			ticket.expired = post.expired;
+			ticket.status = post.status;
 
 
 	    Event.where('_id').in(ticket.events)

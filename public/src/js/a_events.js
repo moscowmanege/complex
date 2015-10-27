@@ -32,4 +32,10 @@ $(document).ready(function() {
 	 	$('.hall').eq(index).children('input').attr('disabled', false);
 	}).trigger('change');
 
+	// Interval
+
+	$('.arrow_cal').click(function(event) {
+		console.log('arrow');
+	});
+
 });
