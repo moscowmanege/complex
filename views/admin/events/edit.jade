@@ -37,11 +37,13 @@ block content
 			+form_area_select(event.place)
 			.form_title Тип:
 			select(name='type')
-				option(value='exhibition') Выставка
-				option(value='lecture') Лекция
+				option(value='exhibition', selected=event.type == 'exhibition') Выставка
+				option(value='lecture', selected=event.type == 'lecture') Лекция
 			.form_title Интервал дат:
 			+form_calendar('interval[begin]', event.interval.begin)
-			!=' ---> '
+			!= ' --- '
+			input(type='button', value=' ---> ').arrow_cal
+			!= ' --- '
 			+form_calendar('interval[end]', event.interval.end)
 			.form_title Участники:
 			+form_members_select(members, event.members)

@@ -1,12 +1,12 @@
-mixin form_area_select()
+mixin form_area_select(current_place)
 	select.area(name='place[area]')
 		each area in areas
-			option(value=area._id.toString())= area.i18n.title.get('ru')
+			option(value=area._id.toString(), selected=area._id.toString() == current_place.area)= area.i18n.title.get('ru')
 	!=' / '
 	each area in areas
 		span.hall
 			each hall in area.halls
-				input(type='checkbox', name='place[halls][]' value=hall._id.toString(), disabled=true,)
+				input(type='checkbox', name='place[halls][]' value=hall._id.toString(), disabled=true, checked=current_place.halls.some(function(c_hall) { return c_hall == hall._id.toString() }))
 				!= hall.i18n.title.get('ru')
 
 
