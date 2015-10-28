@@ -1,12 +1,12 @@
 mixin form_area_select(current_place)
 	select.area(name='place[area]')
 		each area in areas
-			option(value=area._id.toString(), selected=area._id.toString() == current_place.area)= area.i18n.title.get('ru')
+			option(value=area._id.toString(), selected=current_place && (area._id.toString() == current_place.area))= area.i18n.title.get('ru')
 	!=' // '
 	each area in areas
 		span.hall
 			each hall in area.halls
-				input(type='checkbox', name='place[halls][]' value=hall._id.toString(), disabled=true, checked=current_place.halls.some(function(c_hall) { return c_hall == hall._id.toString() }))
+				input(type='checkbox', name='place[halls][]' value=hall._id.toString(), disabled=true, checked=current_place && current_place.halls.some(function(c_hall) { return c_hall == hall._id.toString() }))
 				!= hall.i18n.title.get('ru')
 
 
@@ -37,13 +37,13 @@ mixin form_members_select(members, event_members_groups)
 			each event_members_group, i in event_members_groups
 				.snake
 					input.back(type="button", value="-")
-					input.ru.input(type='text', name='members[0][status][ru]', value=get_locale(event_members_group.status, 'ru'))
-					input.en.input(type='text', name='members[0][status][en]', value=get_locale(event_members_group.status, 'en'))
+					input.ru.input(type='text', name='members[' + i + '][status][ru]', value=get_locale(event_members_group.status, 'ru'))
+					input.en.input(type='text', name='members[' + i + '][status][en]', value=get_locale(event_members_group.status, 'en'))
 					span.snake_outer
 						each event_member in event_members_group.ids
 							span.snake
 								input.back(type="button", value="-")
-								select(name='members[0][ids]')
+								select(name='members[' + i + '][ids]')
 									option(value='') нет
 									each member in members
 										option(value=member._id.toString(), selected=event_member._id.toString() == member._id.toString())= member.i18n.name.get('ru')

@@ -1,3 +1,5 @@
+var shortid = require('shortid');
+
 module.exports = function(Model, Params) {
   var Event = Model.Event;
   var Category = Model.Category;
@@ -23,6 +25,7 @@ module.exports = function(Model, Params) {
 
     var event = new Event();
 
+    event._short_id = shortid.generate();
     event.status = post.status;
     event.type = post.type;
     event.age = post.age;
