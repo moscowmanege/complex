@@ -5,7 +5,6 @@ var gulp = require('gulp'),
 		gulpif = require('gulp-if'),
 		changed = require('gulp-changed'),
 		plumber = require('gulp-plumber'),
-		nodemon = require('gulp-nodemon'),
 		stylus = require('gulp-stylus'),
 		autoprefixer = require('gulp-autoprefixer'),
 		uglify = require('gulp-uglify'),
@@ -26,9 +25,6 @@ var paths = {
 	scripts: {
 		src: ['public/src/js/*.js'],
 		dest: 'public/build/js'
-	},
-	nodemon: {
-		ignore: ['public/*']
 	},
 	clean: {
 		pub: ['public/build/css/*', 'public/build/js/*']
@@ -58,16 +54,6 @@ var watch_logger = function(event) {
 
 gulp.task('clean', function(callback) {
 	return del(paths.clean.pub, callback);
-});
-
-
-gulp.task('nodemon', function() {
-	nodemon({
-		script: 'app.js',
-		ext: 'js',
-		ignore: paths.nodemon.ignore,
-		env: { 'NODE_ENV': Production ? 'production' : 'development' },
-	});
 });
 
 
@@ -120,5 +106,5 @@ gulp.task('build', function(callback) {
 	runSequence('production', 'clean', ['stylus', 'scripts'], callback);
 });
 
-gulp.task('dev', ['watch', 'nodemon']);
-gulp.task('run', ['production', 'watch', 'nodemon']);
+gulp.task('dev', ['watch']);
+gulp.task('run', ['production', 'watch']);
