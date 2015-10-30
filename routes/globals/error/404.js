@@ -1,3 +1,5 @@
+accepts = require('accepts'),
+
 exports.index = function(req, res, next) {
 	var accept = accepts(req);
 	res.status(404);
