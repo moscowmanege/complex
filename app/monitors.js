@@ -40,13 +40,13 @@ app.use(function(req, res, next) {
 
 var globals = require('../routes/globals/_globals.js');
 var monitors = require('../routes/monitors/_monitors.js');
-var socket = require('../routes/monitors/_socket.js');
+var socket = require('../routes/monitors/_socket.js')(io);
 
 
 app.use('/', monitors);
 app.use(globals);
 
-// io.on('connection', socket);
+io.on('connection', socket.get);
 
 
 // ------------------------
@@ -54,5 +54,5 @@ app.use(globals);
 // ------------------------
 
 
-app.listen(process.env.PORT || 3002);
+server.listen(process.env.PORT || 3002);
 console.log('http://127.0.0.1:3001')
