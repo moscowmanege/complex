@@ -1,0 +1,14 @@
+extends ../layout
+
+block paths
+	- var content_title= 'МАНЕЖ МОНИТОР'
+	- var content_description= 'МАНЕЖ МОНИТОР'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/monitors.css' + version)
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/monitors.js' + version)
+
+block content
+	h1 МАНЕЖ МОНИТОР!
