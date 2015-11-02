@@ -5,6 +5,7 @@
 			"script": "./app/admin.js",
 			"exec_mode": "fork",
 			"watch": ["models", "app/admin.js", "routes/admin", "routes/auth"],
+			"autorestart": false,
 			"env": {
 				"PORT": 3000,
 				"NODE_ENV": "development"
@@ -14,9 +15,21 @@
 			"name": "main",
 			"script": "./app/main.js",
 			"exec_mode": "fork",
-			"watch": ["models", "app/main.js", "routes/main.js"],
+			"watch": ["models", "app/main.js", "routes/main"],
+			"autorestart": false,
 			"env": {
 				"PORT": 3001,
+				"NODE_ENV": "development"
+			}
+		},
+		{
+			"name": "monitors",
+			"script": "./app/monitors.js",
+			"exec_mode": "fork",
+			"watch": ["models", "app/monitors.js", "routes/monitors"],
+			"autorestart": false,
+			"env": {
+				"PORT": 3002,
 				"NODE_ENV": "development"
 			}
 		}

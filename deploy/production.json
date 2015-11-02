@@ -4,6 +4,7 @@
 			"name": "admin",
 			"script": "./app/admin.js",
 			"exec_mode": "fork",
+			"max_memory_restart": "200M",
 			"env": {
 				"PORT": 3000,
 				"NODE_ENV": "production"
@@ -13,8 +14,19 @@
 			"name": "main",
 			"script": "./app/main.js",
 			"exec_mode": "fork",
+			"max_memory_restart": "200M",
 			"env": {
 				"PORT": 3001,
+				"NODE_ENV": "production"
+			}
+		},
+		{
+			"name": "monitors",
+			"script": "./app/monitors.js",
+			"exec_mode": "fork",
+			"max_memory_restart": "200M",
+			"env": {
+				"PORT": 3002,
 				"NODE_ENV": "production"
 			}
 		}
