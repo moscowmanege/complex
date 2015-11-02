@@ -10,10 +10,10 @@ block content_scripts
 	script(type='text/javascript', src='/build/js/lists.js')
 
 block content
-	a.back_link(href='/admin') < Назад
+	a.back_link(href='/') < Назад
 	.title ПЛОЩАДКИ
 	br
-	a.add(href='/admin/areas/add') добавить площадку
+	a.add(href='/areas/add') добавить площадку
 	br
 	br
 	.main_menu_block
@@ -21,6 +21,6 @@ block content
 			.area
 				a.rm_area(href='#', id=area._id)= 'удалить '
 				!=' | '
-				a(href='/admin/areas/edit/' + area._id)= area.i18n.title.get('ru')
+				a(href='/areas/edit/' + area._id)= area.i18n.title.get('ru')
 				!=' --> '
-				a(href='/admin/areas/edit/' + area._id + '/halls') залы
+				a(href='/areas/edit/' + area._id + '/halls') залы

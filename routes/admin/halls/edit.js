@@ -31,7 +31,7 @@ module.exports = function(Model, Params) {
       });
 
       hall.save(function(err, hall) {
-        res.redirect('/admin/areas');
+        res.redirect('/areas');
       });
     });
   }

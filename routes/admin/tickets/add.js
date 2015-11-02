@@ -30,7 +30,7 @@ module.exports = function(Model, Params) {
       .update({ $push: { 'tickets.ids': ticket._id.toString() } }, function(err, events) {
 
       ticket.save(function(err, ticket) {
-        res.redirect('/admin/events');
+        res.redirect('/events');
       });
     });
   }

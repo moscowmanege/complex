@@ -14,7 +14,7 @@ module.exports = (function() {
 	router.route('/')
 		.get(function(req, res) {
 			req.session.user_id
-				? res.redirect('/admin')
+				? res.redirect('/')
 				: res.redirect('/auth/login');
 		});
 

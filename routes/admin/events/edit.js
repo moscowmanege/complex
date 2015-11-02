@@ -63,7 +63,7 @@ module.exports = function(Model, Params) {
       });
 
       event.save(function(err, event) {
-        res.redirect('/admin/events');
+        res.redirect('/events');
       });
     });
   }

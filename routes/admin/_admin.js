@@ -18,16 +18,14 @@ var checkAuth = function(req, res, next) {
 module.exports = (function() {
 	var router = express.Router();
 
-	router.use(checkAuth);
-
 	router.route('/')
-		.get(admin.main.index)
+		.get(checkAuth, admin.main.index)
 
-	router.use('/categorys', admin.categorys);
-	router.use('/events', admin.events);
-	router.use('/areas', admin.areas);
-	router.use('/members', admin.members);
-	router.use('/users', admin.users);
+	router.use('/categorys', checkAuth, admin.categorys);
+	router.use('/events', checkAuth, admin.events);
+	router.use('/areas', checkAuth, admin.areas);
+	router.use('/members', checkAuth, admin.members);
+	router.use('/users', checkAuth, admin.users);
 
 	return router;
 })();

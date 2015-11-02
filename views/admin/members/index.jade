@@ -10,10 +10,10 @@ block content_scripts
 	script(type='text/javascript', src='/build/js/lists.js')
 
 block content
-	a.back_link(href='/admin') < Назад
+	a.back_link(href='/') < Назад
 	.title УЧАСТНИКИ
 	br
-	a.add(href='/admin/members/add') добавить участника
+	a.add(href='/members/add') добавить участника
 	br
 	br
 	.main_menu_block
@@ -21,4 +21,4 @@ block content
 			.member
 				a.rm_member(href='#', id=member._id)= 'удалить '
 				!=' | '
-				a(href='/admin/members/edit/' + member._id)= member.i18n.name.get('ru')
+				a(href='/members/edit/' + member._id)= member.i18n.name.get('ru')

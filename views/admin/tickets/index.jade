@@ -10,10 +10,10 @@ block content_scripts
 	script(type='text/javascript', src='/build/js/lists.js')
 
 block content
-	a.back_link(href='/admin/events') < Назад
+	a.back_link(href='/events') < Назад
 	.title БИЛЕТЫ
 	br
-	a.add(href='/admin/events/edit/' + event._id + '/tickets/add') добавить билет
+	a.add(href='/events/edit/' + event._id + '/tickets/add') добавить билет
 	br
 	br
 	.main_menu_block
@@ -21,4 +21,4 @@ block content
 			.ticket
 				a.rm_ticket(href='#', id=ticket._id)= 'удалить '
 				!=' | '
-				a(href='/admin/events/edit/' + event._id + '/tickets/edit/' + ticket._id)= ticket.type + ' ' + (ticket.events.length > 1 ? ' (complex)' : '')
+				a(href='/events/edit/' + event._id + '/tickets/edit/' + ticket._id)= ticket.type + ' ' + (ticket.events.length > 1 ? ' (complex)' : '')

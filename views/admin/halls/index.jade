@@ -10,10 +10,10 @@ block content_scripts
 	script(type='text/javascript', src='/build/js/lists.js')
 
 block content
-	a.back_link(href='/admin/areas/') < Назад
+	a.back_link(href='/areas/') < Назад
 	.title ЗАЛЫ
 	br
-	a.add(href='/admin/areas/edit/' + area._id + '/halls/add') добавить зал
+	a.add(href='/areas/edit/' + area._id + '/halls/add') добавить зал
 	br
 	br
 	.main_menu_block
@@ -21,4 +21,4 @@ block content
 			.hall
 				a.rm_hall(href='#', id=hall._id)= 'удалить '
 				!=' | '
-				a(href='/admin/areas/edit/' + area._id + '/halls/edit/' + hall._id)= hall.i18n.title.get('ru')
+				a(href='/areas/edit/' + area._id + '/halls/edit/' + hall._id)= hall.i18n.title.get('ru')

@@ -20,10 +20,10 @@ block content_scripts
 
 block content
 	.form_block
-		a.back_link(href='/admin/events') < Назад
+		a.back_link(href='/events') < Назад
 		button.toggle_eng(type='button') перевод
 		.title ДОБАВИТЬ СОБЫТИЕ
-		form(action="/admin/events/add", method="post")
+		form(action="/events/add", method="post")
 			.form_title Название:
 			+form_text_single('title')
 			.form_title Описание:

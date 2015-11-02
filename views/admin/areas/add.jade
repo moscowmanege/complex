@@ -18,10 +18,10 @@ block content_scripts
 
 block content
 	.form_block
-		a.back_link(href='/admin/areas') < Назад
+		a.back_link(href='/areas') < Назад
 		button.toggle_eng(type='button') перевод
 		.title ДОБАВИТЬ ПЛОЩАДКУ
-		form(action="/admin/areas/add", method="post")
+		form(action="/areas/add", method="post")
 			.form_title Заголовок:
 			+form_text_single('title')
 			.form_title Описание:

@@ -31,7 +31,7 @@ module.exports = function(Model, Params) {
     });
 
     category.save(function(err, category) {
-      res.redirect('/admin/categorys');
+      res.redirect('/categorys');
     });
   }
 

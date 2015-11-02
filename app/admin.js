@@ -49,7 +49,7 @@ var admin = require('../routes/admin/_admin.js');
 var auth = require('../routes/auth/_auth.js');
 
 
-app.use('/admin', admin);
+app.use('/', admin);
 app.use('/auth', auth);
 app.use(globals);
 

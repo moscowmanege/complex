@@ -34,7 +34,7 @@ module.exports = function(Model, Params) {
       });
 
       member.save(function(err, member) {
-        res.redirect('/admin/members');
+        res.redirect('/members');
       });
     });
   }

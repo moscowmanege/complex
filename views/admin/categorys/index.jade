@@ -10,10 +10,10 @@ block content_scripts
 	script(type='text/javascript', src='/build/js/lists.js')
 
 block content
-	a.back_link(href='/admin') < Назад
+	a.back_link(href='/') < Назад
 	.title КАТЕГОРИИ
 	br
-	a.add(href='/admin/categorys/add') добавить категорию
+	a.add(href='/categorys/add') добавить категорию
 	br
 	br
 	.main_menu_block
@@ -21,4 +21,4 @@ block content
 			.category
 				a.rm_category(href='#', id=category._id)= 'удалить '
 				!=' | '
-				a(href='/admin/categorys/edit/' + category._id)= category.i18n.title.get('ru')
+				a(href='/categorys/edit/' + category._id)= category.i18n.title.get('ru')

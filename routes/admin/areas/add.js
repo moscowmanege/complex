@@ -28,7 +28,7 @@ module.exports = function(Model, Params) {
     });
 
     area.save(function(err, area) {
-      res.redirect('/admin/areas');
+      res.redirect('/areas');
     });
   }
 

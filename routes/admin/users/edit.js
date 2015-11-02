@@ -25,7 +25,7 @@ module.exports = function(Model) {
       user.status = post.status;
 
       user.save(function(err, user) {
-        res.redirect('/admin/users');
+        res.redirect('/users');
       });
     });
   }

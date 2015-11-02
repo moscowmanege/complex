@@ -37,7 +37,7 @@ module.exports = function(Model, Params) {
 
 			      ticket.events = post.events;
 			      ticket.save(function(err, ticket) {
-			        res.redirect('/admin/events');
+			        res.redirect('/events');
 			      });
 			    });
 		    });

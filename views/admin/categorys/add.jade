@@ -18,10 +18,10 @@ block content_scripts
 
 block content
 	.form_block
-		a.back_link(href='/admin/categorys') < Назад
+		a.back_link(href='/categorys') < Назад
 		button.toggle_eng(type='button') перевод
 		.title ДОБАВИТЬ КАТЕГОРИЮ
-		form(action="/admin/categorys/add", method="post")
+		form(action="/categorys/add", method="post")
 			.form_title Заголовок:
 			+form_text_single('title')
 			.form_title Описание:

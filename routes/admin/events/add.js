@@ -57,7 +57,7 @@ module.exports = function(Model, Params) {
 
     event.save(function(err, event) {
       console.log(err)
-      res.redirect('/admin/events');
+      res.redirect('/events');
     });
   }
 
