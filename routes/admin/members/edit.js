@@ -20,6 +20,7 @@ module.exports = function(Model, Params) {
 
     Member.findById(id).exec(function(err, member) {
 
+      member.roles = post.roles;
       member.status = post.status;
 
       var locales = post.en ? ['ru', 'en'] : ['ru'];

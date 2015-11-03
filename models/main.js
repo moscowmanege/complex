@@ -62,7 +62,7 @@ var eventSchema = new Schema({
 	},
 	categorys: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
 	members: [{
-		status: { type: String, trim: true, locale: true },
+		role: String,
 		ids: [{ type: Schema.Types.ObjectId, ref: 'Member' }]
 	}],
 	images: [{
@@ -77,6 +77,7 @@ var memberSchema = new Schema({
 	_short_id: String,
 	name: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
+	roles: [String],
 	status: String,
 	date: {type: Date, default: Date.now}
 });

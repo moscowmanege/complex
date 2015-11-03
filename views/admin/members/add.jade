@@ -26,6 +26,15 @@ block content
 			+form_text_single('name')
 			.form_title Описание:
 			+form_text_multi('description')
+			.form_title Роли:
+			.snake_outer
+				span.snake
+					input.back(type="button", value="-")
+					select(name='roles')
+						option(value='actor') актер
+						option(value='dicrector') режиссер
+						option(value='author') автор
+				input.forward(type="button", value="+")
 			.form_title Видимость:
 			input(type='checkbox', name='status', value='hidden')
 			!= ' скрыть'
