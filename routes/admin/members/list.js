@@ -9,6 +9,14 @@ module.exports = function(Model) {
 	  });
 	}
 
+	module.get_members = function(req, res) {
+		var role = req.body.role;
+
+	  Member.find({'roles': role}).exec(function(err, members) {
+	    res.send(members);
+	  });
+	}
+
 
   return module;
 }

@@ -26,15 +26,26 @@ block content
 			.form_title Описание:
 			+form_text_multi('description', member)
 			.form_title Роли:
-			.snake_outer
-				each role in member.roles
+			if (member.roles && member.roles.length > 0)
+				.snake_outer
+					each role in member.roles
+						span.snake
+							input.back(type="button", value="-")
+							select(name='roles')
+								option(value='actor', selected=role == 'actor') актер
+								option(value='director', selected=role == 'director') режиссер
+								option(value='author', selected=role == 'author') автор
+								option(value='artist', selected=role == 'artist') художник
+					input.forward(type="button", value="+")
+			else
+				.snake_outer
 					span.snake
 						input.back(type="button", value="-")
 						select(name='roles')
 							option(value='actor', selected=role == 'actor') актер
 							option(value='dicrector', selected=role == 'dicrector') режиссер
 							option(value='author', selected=role == 'author') автор
-				input.forward(type="button", value="+")
+					input.forward(type="button", value="+")
 			.form_title Видимость:
 			input(type='checkbox', name='status', value='hidden', checked=member.status)
 			!= ' скрыть'

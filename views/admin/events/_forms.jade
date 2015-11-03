@@ -15,37 +15,24 @@ mixin form_alt_tickets(path, object)
 	input.en(type="text", name="en[" + path + "]", disabled, value=object && object['tickets']['i18n'][path].get('en'))
 
 
-mixin form_members_select(members, event_members_groups)
+mixin form_members_select(event_members)
 	- function get_locale(option, lang) {var locale = option.filter(function(locale) { return locale.lg == lang })[0]; if (locale) {return locale.value } else {return ''} }
-	if (!event_members_groups || event_members_groups.length == 0)
-		.snake_outer.members_list
-			.snake
-				input.back(type="button", value="-")
-				input.ru.input(type='text', name='members[0][status][ru]')
-				input.en.input(type='text', name='members[0][status][en]')
-				span.snake_outer
-					span.snake
-						input.back(type="button", value="-")
-						select(name='members[0][ids]')
-							option(value='') нет
-							each member in members
-								option(value=member._id.toString())= member.i18n.name.get('ru')
-					input.forward(type="button", value="+")
-			input.forward(type="button", value="+")
-	else
-		.snake_outer.members_list
-			each event_members_group, i in event_members_groups
-				.snake
-					input.back(type="button", value="-")
-					input.ru.input(type='text', name='members[' + i + '][status][ru]', value=get_locale(event_members_group.status, 'ru'))
-					input.en.input(type='text', name='members[' + i + '][status][en]', value=get_locale(event_members_group.status, 'en'))
-					span.snake_outer
-						each event_member in event_members_group.ids
-							span.snake
-								input.back(type="button", value="-")
-								select(name='members[' + i + '][ids]')
-									option(value='') нет
-									each member in members
-										option(value=member._id.toString(), selected=event_member._id.toString() == member._id.toString())= member.i18n.name.get('ru')
-							input.forward(type="button", value="+")
-			input.forward(type="button", value="+")
+	if (!event_members_roles || event_members_roles.length == 0)
+		.members_roles
+			.role.actor Актеры:
+				//- each role in event_members
+				//- 	if role.role == 'actor'
+				//- 		.member
+				//- 			input.rm_member(type='button', value='-')
+				//- 			!= get_locale(member.name, 'ru')
+				//- 			input(type='hidden', value=member._id, name='members[' + role.role +'][ids]')
+			.role.director Режиссеры:
+			.role.artist Художники:
+		input.add_member(type='button', value='Добавить участников')
+		.members_select.hidden
+			input.members_search(type='text', placeholder='поиск...')
+			select.role_select
+				option(value='actor') Актеры
+				option(value='director') Режиссеры
+				option(value='artist') Художники
+			.members_list

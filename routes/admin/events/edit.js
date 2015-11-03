@@ -13,11 +13,9 @@ module.exports = function(Model, Params) {
     Event.findById(id).exec(function(err, event) {
       Area.find().populate('halls').exec(function(err, areas) {
         Category.find().exec(function(err, categorys) {
-          Member.find().exec(function(err, members) {
-            var opts = { path: 'members.ids', model: 'Member' };
-            Event.populate(event, opts, function (err, projects) {
-              res.render('admin/events/edit.jade', {event: event, areas: areas, members: members, categorys: categorys});
-            });
+          var opts = { path: 'members.ids', model: 'Member' };
+          Event.populate(event, opts, function (err, projects) {
+            res.render('admin/events/edit.jade', {event: event, areas: areas, categorys: categorys});
           });
         });
       });

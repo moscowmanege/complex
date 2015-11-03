@@ -30,6 +30,7 @@ module.exports = (function() {
 
 	router.route('/')
 		.get(members.list.index)
+		.post(members.list.get_members);
 
 	router.route('/add')
 		.get(members.add.index)

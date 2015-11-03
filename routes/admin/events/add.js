@@ -12,9 +12,7 @@ module.exports = function(Model, Params) {
   module.index = function(req, res) {
     Area.find().populate('halls').exec(function(err, areas) {
       Category.find().exec(function(err, categorys) {
-        Member.find().exec(function(err, members) {
-          res.render('admin/events/add.jade', {areas: areas, categorys: categorys, members: members});
-        });
+				res.render('admin/events/add.jade', {areas: areas, categorys: categorys});
       });
     });
   }
@@ -33,13 +31,7 @@ module.exports = function(Model, Params) {
     event.interval.end = new Date(Date.UTC(post.interval.end.year, post.interval.end.month, post.interval.end.date));
     event.place = post.place;
     event.categorys = post.categorys;
-
-    post.members.forEach(function(member) {
-      event.members.push({
-        status: [{lg:'ru', value: member.status.ru}],
-        ids: member.ids
-      });
-    });
+    event.members = post.members;
 
     var locales = post.en ? ['ru', 'en'] : ['ru'];
 

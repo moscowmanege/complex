@@ -9,6 +9,7 @@ block content_style
 	link(rel='stylesheet', type='text/css', href='/build/libs/css/font-awesome.css')
 	link(rel='stylesheet', type='text/css', href='/build/libs/css/wysiwyg-editor.min.css')
 	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
+	link(rel='stylesheet', type='text/css', href='/build/css/a_events.css')
 
 block content_scripts
 	script(type='text/javascript', src='/build/libs/js/wysiwyg.min.js')
@@ -46,7 +47,7 @@ block content
 			!= ' --- '
 			+form_calendar('interval[end]', event.interval.end)
 			.form_title Участники:
-			+form_members_select(members, event.members)
+			+form_members_select(event.members)
 			.form_title Категории:
 			+form_multiple_select('categorys', categorys, event.categorys)
 			.form_title Видимость:
