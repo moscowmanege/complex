@@ -33,7 +33,7 @@ $(document).ready(function() {
 			var id = $(this).attr('id');
 
 			var $member_remove = $('<input>', {type:'button', value:'-', 'class': 'rm_member'});
-			var $member_form = $('<input>', {type: 'hidden', name:'members[' + role +'][ids]', value: id});
+			var $member_form = $('<input>', {type: 'hidden', name:'members[' + role +']', value: id});
 			$(this).clone().appendTo('.' + role).prepend($member_remove).append($member_form);
 	});
 

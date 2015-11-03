@@ -31,7 +31,13 @@ module.exports = function(Model, Params) {
     event.interval.end = new Date(Date.UTC(post.interval.end.year, post.interval.end.month, post.interval.end.date));
     event.place = post.place;
     event.categorys = post.categorys;
-    event.members = post.members;
+
+    for (member in post.members) {
+    	event.members.push({
+    		role: member,
+    		ids: post.members[member]
+    	});
+    }
 
     var locales = post.en ? ['ru', 'en'] : ['ru'];
 
@@ -48,7 +54,6 @@ module.exports = function(Model, Params) {
     });
 
     event.save(function(err, event) {
-      console.log(err)
       res.redirect('/events');
     });
   }
