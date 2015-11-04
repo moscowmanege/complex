@@ -18,6 +18,19 @@ $(document).ready(function() {
 	}
 	checkRoles();
 
+	$(document).on('keyup change', '.members_search', function(event) {
+		var value = $(this).val();
+		var $elems = $('.members_list').children('.member');
+
+		$elems.each(function(index, el) {
+			var el_val = $(el).html().toLowerCase();
+
+			el_val.search(value.toLowerCase()) != -1
+				? $(el).show()
+				: $(el).hide();
+		});
+	});
+
 	$('.add_member').on('click', function() {
 		$('.members_select').toggleClass('hidden');
 		$('.role_select').trigger('change');

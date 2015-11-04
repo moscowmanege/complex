@@ -37,7 +37,6 @@ module.exports = function(Model, Params) {
       event.place = post.place;
       event.categorys = post.categorys;
 
-      console.log(post.members)
       event.members = [];
       for (member in post.members) {
         event.members.push({
