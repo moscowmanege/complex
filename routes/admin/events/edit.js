@@ -14,7 +14,7 @@ module.exports = function(Model, Params) {
       Area.find().populate('halls').exec(function(err, areas) {
         Category.find().exec(function(err, categorys) {
           var opts = { path: 'members.ids', model: 'Member' };
-          Event.populate(event, opts, function (err, projects) {
+          Event.populate(event, opts, function (err, event) {
             res.render('admin/events/edit.jade', {event: event, areas: areas, categorys: categorys});
           });
         });
@@ -37,14 +37,14 @@ module.exports = function(Model, Params) {
       event.place = post.place;
       event.categorys = post.categorys;
 
+      console.log(post.members)
       event.members = [];
-
-      post.members.forEach(function(member) {
+      for (member in post.members) {
         event.members.push({
-          status: [{lg:'ru', value: member.status.ru}],
-          ids: member.ids
+          role: member,
+          ids: post.members[member]
         });
-      });
+      }
 
       var locales = post.en ? ['ru', 'en'] : ['ru'];
 

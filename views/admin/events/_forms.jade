@@ -15,24 +15,34 @@ mixin form_alt_tickets(path, object)
 	input.en(type="text", name="en[" + path + "]", disabled, value=object && object['tickets']['i18n'][path].get('en'))
 
 
-mixin form_members_select(event_members)
+mixin roleItem(role, title, event_members)
 	- function get_locale(option, lang) {var locale = option.filter(function(locale) { return locale.lg == lang })[0]; if (locale) {return locale.value } else {return ''} }
-	if (!event_members_roles || event_members_roles.length == 0)
+	.role(class=role)= title + ':'
+		each event_role in event_members
+			if event_role.role == role
+				each member in event_role.ids
+					.member
+						input.rm_member(type='button', value='-')
+						!= get_locale(member.name, 'ru')
+						input(type='hidden', value=member._id, name='members[' + event_role.role +']')
+
+
+mixin form_members_select(event_members)
+	if event_members
+		.members_roles
+			+roleItem('actor', 'Актеры', event_members)
+			+roleItem('director', 'Режиссеры', event_members)
+			+roleItem('artist', 'Художники', event_members)
+	else
 		.members_roles
 			.role.actor Актеры:
-				//- each role in event_members
-				//- 	if role.role == 'actor'
-				//- 		.member
-				//- 			input.rm_member(type='button', value='-')
-				//- 			!= get_locale(member.name, 'ru')
-				//- 			input(type='hidden', value=member._id, name='members[' + role.role +'][ids]')
 			.role.director Режиссеры:
 			.role.artist Художники:
-		input.add_member(type='button', value='Добавить')
-		.members_select.hidden
-			input.members_search(type='text', placeholder='поиск...')
-			select.role_select
-				option(value='actor') Актеры
-				option(value='director') Режиссеры
-				option(value='artist') Художники
-			.members_list
+	input.add_member(type='button', value='Добавить')
+	.members_select.hidden
+		input.members_search(type='text', placeholder='поиск...')
+		select.role_select
+			option(value='actor') Актеры
+			option(value='director') Режиссеры
+			option(value='artist') Художники
+		.members_list
