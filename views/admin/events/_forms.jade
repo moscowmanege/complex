@@ -28,7 +28,7 @@ mixin roleItem(role, title, event_members)
 
 
 mixin form_members_select(event_members)
-	if event_members
+	if (event_members && event_members.length > 0)
 		.members_roles
 			+roleItem('actor', 'Актеры', event_members)
 			+roleItem('director', 'Режиссеры', event_members)

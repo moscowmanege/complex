@@ -38,11 +38,13 @@ module.exports = function(Model, Params) {
       event.categorys = post.categorys;
 
       event.members = [];
-      for (member in post.members) {
-        event.members.push({
-          role: member,
-          ids: post.members[member]
-        });
+      if (post.members) {
+        for (member in post.members) {
+          event.members.push({
+            role: member,
+            ids: post.members[member]
+          });
+        }
       }
 
       var locales = post.en ? ['ru', 'en'] : ['ru'];
