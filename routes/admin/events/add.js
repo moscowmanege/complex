@@ -30,7 +30,7 @@ module.exports = function(Model, Params) {
     event.interval.begin = new Date(Date.UTC(post.interval.begin.year, post.interval.begin.month, post.interval.begin.date));
     event.interval.end = new Date(Date.UTC(post.interval.end.year, post.interval.end.month, post.interval.end.date));
     event.place = post.place;
-    event.categorys = post.categorys;
+    event.categorys = post.categorys == '' ? [] : post.categorys;
 
     for (member in post.members) {
     	event.members.push({
