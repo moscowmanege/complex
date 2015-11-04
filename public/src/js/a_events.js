@@ -7,6 +7,17 @@ $(document).ready(function() {
 
 	// Members
 
+	var checkRoles = function() {
+		$('.role').each(function(index, el) {
+			if ($(this).children().length == 0) {
+				$(this).hide();
+			} else {
+				$(this).show();
+			}
+		});
+	}
+	checkRoles();
+
 	$('.add_member').on('click', function() {
 		$('.members_select').toggleClass('hidden');
 		$('.role_select').trigger('change');
@@ -14,6 +25,7 @@ $(document).ready(function() {
 
 	$(document).on('click', '.rm_member', function() {
 		$(this).parent().remove();
+		checkRoles();
 	});
 
 	$('.role_select').on('change', function() {
@@ -35,6 +47,7 @@ $(document).ready(function() {
 			var $member_remove = $('<input>', {type:'button', value:'-', 'class': 'rm_member'});
 			var $member_form = $('<input>', {type: 'hidden', name:'members[' + role +']', value: id});
 			$(this).clone().appendTo('.' + role).prepend($member_remove).append($member_form);
+			checkRoles();
 	});
 
 	// Halls
