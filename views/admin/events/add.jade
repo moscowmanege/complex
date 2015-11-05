@@ -1,9 +1,9 @@
-extends ../../layout
-include ../forms.jade
+extends ../layout
+include ../_forms.jade
 include _forms.jade
 
-block title
-	title ДОБАВИТЬ СОБЫТИЕ
+block paths
+	- var content_title= 'ДОБАВИТЬ СОБЫТИЕ'
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/build/libs/css/font-awesome.css')
@@ -18,12 +18,13 @@ block content_scripts
 	script(type='text/javascript', src='/build/js/add.js')
 	script(type='text/javascript', src='/build/js/a_events.js')
 
+block sub_menu
+	a.sub_item.back_link(href='/events') < Назад
+	span.sub_item.toggle_eng Перевод
 
 block content
 	.form_block
-		a.back_link(href='/events') < Назад
-		button.toggle_eng(type='button') перевод
-		.title ДОБАВИТЬ СОБЫТИЕ
+		.title= content_title
 		form(action="/events/add", method="post")
 			.form_title Название:
 			+form_text_single('title')

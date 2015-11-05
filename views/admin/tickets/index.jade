@@ -1,7 +1,7 @@
-extends ../../layout
+extends ../layout
 
-block title
-	title БИЛЕТЫ
+block paths
+	- var content_title= 'БИЛЕТЫ'
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
@@ -9,9 +9,11 @@ block content_style
 block content_scripts
 	script(type='text/javascript', src='/build/js/lists.js')
 
+block sub_menu
+	a.sub_item.back_link(href='/events') < Назад
+
 block content
-	a.back_link(href='/events') < Назад
-	.title БИЛЕТЫ
+	.title= content_title
 	br
 	a.add(href='/events/edit/' + event._id + '/tickets/add') добавить билет
 	br
@@ -21,4 +23,4 @@ block content
 			.ticket
 				a.rm_ticket(href='#', id=ticket._id)= 'удалить '
 				!=' | '
-				a(href='/events/edit/' + event._id + '/tickets/edit/' + ticket._id)= ticket.type + ' ' + (ticket.events.length > 1 ? ' (complex)' : '')
+				a(href='/events/edit/' + event._id + '/tickets/edit/' + ticket._id)= ticket.price + 'р.' + ' - ' + ticket.type + ' ' + (ticket.events.length > 1 ? ' (complex)' : '') + ' ' + (ticket.status == 'expired' ? '[expired]': '')

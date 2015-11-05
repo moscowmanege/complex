@@ -6,6 +6,10 @@ module.exports = function(Model) {
 	  res.render('monitors/index.jade');
 	}
 
+	module.demo = function(req, res) {
+	  res.render('monitors/demo.jade');
+	}
+
 
 	module.test = function(req, res) {
 		Event.aggregate()

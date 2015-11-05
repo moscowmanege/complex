@@ -1,7 +1,7 @@
-extends ../../layout
+extends ../layout
 
-block title
-	title УЧАСТНИКИ
+block paths
+	- var content_title= 'УЧАСТНИКИ'
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
@@ -9,9 +9,11 @@ block content_style
 block content_scripts
 	script(type='text/javascript', src='/build/js/lists.js')
 
+block sub_menu
+	a.sub_item.back_link(href='/') < Назад
+
 block content
-	a.back_link(href='/') < Назад
-	.title УЧАСТНИКИ
+	.title= content_title
 	br
 	a.add(href='/members/add') добавить участника
 	br

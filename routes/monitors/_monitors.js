@@ -15,5 +15,8 @@ module.exports = (function() {
 	router.route('/test')
 		.get(monitors.index.test);
 
+	router.route('/demo')
+		.get(monitors.index.demo);
+
 	return router;
 })();

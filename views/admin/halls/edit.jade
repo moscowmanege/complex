@@ -1,8 +1,8 @@
-extends ../../layout
-include ../forms.jade
+extends ../layout
+include ../_forms.jade
 
-block title
-	title РЕДАКТИРОВАТЬ ЗАЛ
+block paths
+	- var content_title= 'РЕДАКТИРОВАТЬ ЗАЛ'
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/build/libs/css/font-awesome.css')
@@ -15,11 +15,13 @@ block content_scripts
 	script(type='text/javascript', src='/build/js/editor.js')
 	script(type='text/javascript', src='/build/js/add.js')
 
+block sub_menu
+	a.sub_item.back_link(href='/areas') < Назад
+	span.sub_item.toggle_eng Перевод
+
 block content
 	.form_block
-		a.back_link(href='/areas') < Назад
-		button.toggle_eng(type='button') перевод
-		.title РЕДАКТИРОВАТЬ ЗАЛ
+		.title= content_title
 		form(action="", method="post")
 			.form_title Заголовок:
 			+form_text_single('title', hall)

@@ -1,7 +1,7 @@
-extends ../../layout
+extends ../layout
 
-block title
-	title РЕДАКТИРОВАТЬ ПОЛЬЗОВАТЕЛЯ
+block paths
+	- var content_title= 'РЕДАКТИРОВАТЬ ПОЛЬЗОВАТЕЛЯ'
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
@@ -9,10 +9,12 @@ block content_style
 block content_scripts
 	script(type='text/javascript', src='/build/js/add.js')
 
+block sub_menu
+	a.sub_item.back_link(href='/users') < Назад
+
 block content
 	.form_block
-		a.back_link(href='/users') < Назад
-		.title РЕДАКТИРОВАТЬ ПОЛЬЗОВАТЕЛЯ
+		.title= content_title
 		br
 		form(action="", method="post")
 			.form_title ЛОГИН:

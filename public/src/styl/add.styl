@@ -1,9 +1,39 @@
+.menu_block
+	user-select none
+	border-bottom 1px solid black
+	overflow hidden
+	padding-bottom 5px
+	a
+		margin-right 20px
+		font-size 18pt
+		display block
+		float left
+		&.tuzik
+			float right
+			margin-right 0px
+
+.sub_menu_block
+	user-select none
+	height 25px
+	margin-top 5px
+	margin-bottom 20px
+	.separator
+		margin-right 10px
+	.sub_item
+		margin-right 10px
+		cursor pointer
+		&:hover
+			color grey
+
 b
 	font-size 16px
 
 a
 	color black
 	font-size 16px
+	text-decoration none
+	&:hover
+		color grey
 
 .form_block
 	position relative

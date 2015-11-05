@@ -1,7 +1,7 @@
-extends ../../layout
+extends ../layout
 
-block title
-	title ПОЛЬЗОВАТЕЛИ
+block paths
+	- var content_title= 'ПОЛЬЗОВАТЕЛИ'
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
@@ -9,14 +9,16 @@ block content_style
 block content_scripts
 	script(type='text/javascript', src='/build/js/lists.js')
 
+block sub_menu
+	a.sub_item.back_link(href='/') < Назад
+
 block content
-	a.back_link(href='/') < Назад
-	.title ПОЛЬЗОВАТЕЛИ
+	.title= content_title
 	br
 	if (session.status == 'Admin')
 		a.add(href='/users/add') добавить пользователя
 		br
-	br
+		br
 	.main_menu_block
 		each user in users
 			.user

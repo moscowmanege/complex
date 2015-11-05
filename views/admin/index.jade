@@ -1,38 +1,16 @@
-extends ../layout
+extends layout
 
-block title
-	title ЗВЕЗДОЧЕТ
+block paths
+	- var content_title= 'ЗВЕЗДОЧЕТ'
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
 
+block sub_menu
+	a.sub_item.back_link(href='/auth/logout') < Выход
+	span.separator |
+	a.sub_item(href='/users/edit/' + session.user_id)= session.login
+
 block content
-	a.back_link(href='/auth/logout') Выход
-	!= ' | ' + session.login
-	.title ЗВЕЗДОЧЕТ
-	.main_menu_block
-		br
-		b Пользователи:
-		a(href='/users')= ' редактировать'
-		br
-		br
-		b Площадки:
-		a(href='/areas')= ' редактировать'
-		br
-		br
-		b События:
-		a(href='/events')= ' редактировать'
-		br
-		br
-		b Категории:
-		a(href='/categorys')= ' редактировать'
-		br
-		br
-		b Участники:
-		a(href='/members')= ' редактировать'
-		br
-		br
-		hr
-		br
-		b Робот Тузик:
-		a(href='/tuzik')= ' активировать'
+	.title Я ЗВЕЗДОЧЕТ
+	p Я воскрешаю деревья

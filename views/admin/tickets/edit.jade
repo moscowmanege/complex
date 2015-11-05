@@ -1,8 +1,8 @@
-extends ../../layout
-include ../forms.jade
+extends ../layout
+include ../_forms.jade
 
-block title
-	title РЕДАКТИРОВАТЬ БИЛЕТ
+block paths
+	- var content_title= 'РЕДАКТИРОВАТЬ БИЛЕТ'
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/build/libs/css/font-awesome.css')
@@ -15,10 +15,12 @@ block content_scripts
 	script(type='text/javascript', src='/build/js/editor.js')
 	script(type='text/javascript', src='/build/js/add.js')
 
+block sub_menu
+	a.sub_item.back_link(href='/events') < Назад
+
 block content
 	.form_block
-		a.back_link(href='/events') < Назад
-		.title РЕДАКТИРОВАТЬ БИЛЕТ
+		.title= content_title
 		form(action="", method="post")
 			.form_title Цена:
 			input(type='text', name='price', value=ticket.price)
