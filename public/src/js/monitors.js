@@ -1,5 +1,6 @@
 $(document).ready(function() {
-	var socket = io.connect('http://192.168.1.5:3002');
+	// var socket = io.connect('http://192.168.1.5:3002');
+	var socket = io.connect('', {port: 3002});
 
 
 	$('.start').on('click', function() {
