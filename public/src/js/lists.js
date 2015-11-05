@@ -1,4 +1,28 @@
 $(document).ready(function() {
+		$('.sub_search').focus();
+
+		$(document)
+			.on('keyup', function(event) {
+				if (event.altKey && event.which == 70) {
+					$('.sub_search').focus();
+				} else if (event.which == 27) {
+					$('.sub_search').blur();
+				}
+			})
+			.on('keyup change', '.sub_search', function(event) {
+				var value = $(this).val();
+				var $elems = $('.list_item').children('.item_title');
+
+				$elems.each(function(index, el) {
+					var el_val = $(el).html().toLowerCase();
+
+					el_val.search(value.toLowerCase()) != -1
+						? $(el).parent().show()
+						: $(el).parent().hide();
+				});
+			});
+
+
 	function remove (event) {
 		var id  = $(this).attr('id');
 

@@ -11,6 +11,7 @@ block content_scripts
 
 block sub_menu
 	a.sub_item.back_link(href='/') < Назад
+	input.sub_search(type='text', placeholder='поиск...')
 
 block content
 	.title= content_title
@@ -19,9 +20,9 @@ block content
 		a.add(href='/users/add') добавить пользователя
 		br
 		br
-	.main_menu_block
+	.lists_block
 		each user in users
-			.user
-				a.rm_user(href='#', id=user._id)= 'удалить '
+			.list_item
+				a.item_rm.user(href='#', id=user._id)= 'удалить '
 				!=' | '
-				a(href='/users/edit/' + user._id)= user.login
+				a.item_title(href='/users/edit/' + user._id)= user.login

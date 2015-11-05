@@ -18,9 +18,9 @@ block content
 	a.add(href='/events/edit/' + event._id + '/tickets/add') добавить билет
 	br
 	br
-	.main_menu_block
+	.lists_block
 		each ticket in event.tickets.ids
-			.ticket
-				a.rm_ticket(href='#', id=ticket._id)= 'удалить '
+			.list_item
+				a.item_rm.ticket(href='#', id=ticket._id)= 'удалить '
 				!=' | '
-				a(href='/events/edit/' + event._id + '/tickets/edit/' + ticket._id)= ticket.price + 'р.' + ' - ' + ticket.type + ' ' + (ticket.events.length > 1 ? ' (complex)' : '') + ' ' + (ticket.status == 'expired' ? '[expired]': '')
+				a.item_title(href='/events/edit/' + event._id + '/tickets/edit/' + ticket._id)= ticket.price + 'р.' + ' - ' + ticket.type + ' ' + (ticket.events.length > 1 ? ' (complex)' : '') + ' ' + (ticket.status == 'expired' ? '[expired]': '')

@@ -11,6 +11,7 @@ block content_scripts
 
 block sub_menu
 	a.sub_item.back_link(href='/') < Назад
+	input.sub_search(type='text', placeholder='поиск...')
 
 block content
 	.title= content_title
@@ -18,11 +19,11 @@ block content
 	a.add(href='/areas/add') добавить площадку
 	br
 	br
-	.main_menu_block
+	.lists_block
 		each area in areas
-			.area
-				a.rm_area(href='#', id=area._id)= 'удалить '
+			.list_item
+				a.item_rm.area(href='#', id=area._id)= 'удалить '
 				!=' | '
-				a(href='/areas/edit/' + area._id)= area.i18n.title.get('ru')
+				a.item_title(href='/areas/edit/' + area._id)= area.i18n.title.get('ru')
 				!=' --> '
 				a(href='/areas/edit/' + area._id + '/halls') залы

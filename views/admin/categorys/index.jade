@@ -11,6 +11,7 @@ block content_scripts
 
 block sub_menu
 	a.sub_item.back_link(href='/') < Назад
+	input.sub_search(type='text', placeholder='поиск...')
 
 block content
 	.title= content_title
@@ -18,9 +19,9 @@ block content
 	a.add(href='/categorys/add') добавить категорию
 	br
 	br
-	.main_menu_block
+	.lists_block
 		each category in categorys
-			.category
-				a.rm_category(href='#', id=category._id)= 'удалить '
+			.list_item
+				a.item_rm.category(href='#', id=category._id)= 'удалить '
 				!=' | '
-				a(href='/categorys/edit/' + category._id)= category.i18n.title.get('ru')
+				a.item_title(href='/categorys/edit/' + category._id)= category.i18n.title.get('ru')
