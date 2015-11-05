@@ -11,6 +11,7 @@ block content_scripts
 
 block sub_menu
 	a.sub_item.back_link(href='/') < Назад
+	span.sub_item.toggle_rm Удалить
 	input.sub_search(type='text', placeholder='поиск...')
 
 block content
@@ -22,6 +23,5 @@ block content
 	.lists_block
 		each member in members
 			.list_item
-				a.item_rm.member(href='#', id=member._id)= 'удалить '
-				!=' | '
+				a.item_rm.member(href='#', id=member._id) удалить
 				a.item_title(href='/members/edit/' + member._id)= member.i18n.name.get('ru')

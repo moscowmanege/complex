@@ -1,10 +1,13 @@
 extends layout
 
+block paths
+	- var content_title= 'РЕГИСТРАЦИЯ'
+
 block content_style
 	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
 
 block content
-	.title РЕГИСТРАЦИЯ
+	.title= content_title
 	form(action='/auth/registr', method='post')
 		.form_title Email:
 		input(type='text', name='email', placeholder='john@appleseed.com')
@@ -14,4 +17,5 @@ block content
 		input(type='password', name='password')
 		br
 		br
-		input(type='submit', value='Отправить')
+		input(type='submit', value='Зарегистрироваться')
+		input(type='button', value='Вход', onclick="location.href='/auth/login';")

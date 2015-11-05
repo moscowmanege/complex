@@ -6,7 +6,11 @@ $(document).ready(function() {
 				if (event.altKey && event.which == 70) {
 					$('.sub_search').focus();
 				} else if (event.which == 27) {
-					$('.sub_search').blur();
+					if ($('.sub_search').val() == '') {
+						$('.sub_search').blur();
+					} else {
+						$('.sub_search').val('').trigger('keyup');
+					}
 				}
 			})
 			.on('keyup change', '.sub_search', function(event) {
@@ -21,6 +25,10 @@ $(document).ready(function() {
 						: $(el).parent().hide();
 				});
 			});
+
+		$('.toggle_rm').on('click', function() {
+			$('.item_rm').toggleClass('show');
+		});
 
 
 	function remove (event) {

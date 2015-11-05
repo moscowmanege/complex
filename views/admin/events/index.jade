@@ -11,8 +11,7 @@ block content_scripts
 
 block sub_menu
 	a.sub_item.back_link(href='/') < Назад
-	span.sub_item Год
-	span.sub_item Билет
+	span.sub_item.toggle_rm Удалить
 	input.sub_search(type='text', placeholder='поиск...')
 
 block content
@@ -24,8 +23,7 @@ block content
 	.lists_block
 		each event in events
 			.list_item
-				a.item_rm.event(href='#', id=event._id)= 'удалить '
-				!=' | '
+				a.item_rm.event(href='#', id=event._id) удалить
 				a.item_title(href='/events/edit/' + event._id)= event.i18n.title.get('ru')
 				!=' --> '
 				a(href='/events/edit/' + event._id + '/tickets')= 'билеты (' + event.tickets.ids.length + ')'

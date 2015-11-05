@@ -11,6 +11,7 @@ block content_scripts
 
 block sub_menu
 	a.sub_item.back_link(href='/events') < Назад
+	span.sub_item.toggle_rm Удалить
 
 block content
 	.title= content_title
@@ -21,6 +22,5 @@ block content
 	.lists_block
 		each ticket in event.tickets.ids
 			.list_item
-				a.item_rm.ticket(href='#', id=ticket._id)= 'удалить '
-				!=' | '
-				a.item_title(href='/events/edit/' + event._id + '/tickets/edit/' + ticket._id)= ticket.price + 'р.' + ' - ' + ticket.type + ' ' + (ticket.events.length > 1 ? ' (complex)' : '') + ' ' + (ticket.status == 'expired' ? '[expired]': '')
+				a.item_rm.ticket(href='#', id=ticket._id) удалить
+				a.item_title(href='/events/edit/' + event._id + '/tickets/edit/' + ticket._id)= ticket.price + 'р.' + ' -- ' + ticket.type + ' ' + (ticket.events.length > 1 ? ' (complex)' : '') + ' ' + (ticket.status == 'expired' ? '[expired]': '')
