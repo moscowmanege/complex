@@ -77,8 +77,14 @@ $(document).ready(function() {
 
 	// Interval
 
-	$('.arrow_cal').click(function(event) {
-		console.log('arrow');
+	$('.arrow_cal').on('click', function(event) {
+		var date = $('.begin').children('.date').val();
+		var hours = $('.begin').children('.hours').children('option:selected').index();
+		var minutes = $('.begin').children('.minutes').children('option:selected').index();
+
+		$('.end').children('.date').val(date);
+		$('.end').children('.hours').children('option').eq(hours).prop('selected', true);
+		$('.end').children('.minutes').children('option').eq(minutes).prop('selected', true);
 	});
 
 });

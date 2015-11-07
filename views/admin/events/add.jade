@@ -6,12 +6,14 @@ block paths
 	- var content_title= 'ДОБАВИТЬ СОБЫТИЕ'
 
 block content_style
+	link(rel='stylesheet', type='text/css', href='/build/libs/css/pickmeup.min.css')
 	link(rel='stylesheet', type='text/css', href='/build/libs/css/font-awesome.css')
 	link(rel='stylesheet', type='text/css', href='/build/libs/css/wysiwyg-editor.min.css')
 	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
 	link(rel='stylesheet', type='text/css', href='/build/css/a_events.css')
 
 block content_scripts
+	script(type='text/javascript', src='/build/libs/js/jquery.pickmeup.min.js')
 	script(type='text/javascript', src='/build/libs/js/wysiwyg.min.js')
 	script(type='text/javascript', src='/build/libs/js/wysiwyg-editor.min.js')
 	script(type='text/javascript', src='/build/js/editor.js')
@@ -43,11 +45,11 @@ block content
 				option(value='exhibition') Выставка
 				option(value='lecture') Лекция
 			.form_title Интервал дат:
-			+form_calendar('interval[begin]')
+			+form_date('interval[begin]')(class='begin')
 			!= ' --- '
 			input(type='button', value=' ---> ').arrow_cal
 			!= ' --- '
-			+form_calendar('interval[end]')
+			+form_date('interval[end]')(class='end')
 			.form_title Участники:
 			+form_members_select()
 			.form_title Категории:
@@ -56,7 +58,7 @@ block content
 			input(type='checkbox', name='status', value='hidden')
 			!= ' скрыть'
 			.form_title Дата публикации:
-			+form_calendar('date')
+			+form_date('date')
 			br
 			br
 			input(type='submit', value='отправить')

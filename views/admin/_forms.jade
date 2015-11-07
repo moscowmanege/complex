@@ -1,22 +1,21 @@
 //- Calendar form
 
-mixin form_calendar(path, date)
-	- var year = new Date()
-	- year = year.getFullYear()
-	- var months = ['ЯНВАРЬ', 'ФЕВРАЛЬ', 'МАРТ', 'АПРЕЛЬ', 'МАЙ', 'ИЮНЬ', 'ИЮЛЬ', 'АВГУСТ', 'СЕНТЯБРЬ', 'ОКТЯБРЬ', 'НОЯБРЬ', 'ДЕКАБРЬ']
-	- var now = date ? date : new Date()
-	select(name= path + '[date]')
-		option(value='') Дата
-		- for (var i=1; i<32; i++)
-			option(value=i, selected=(i == now.getDate()))= i
-	select(name= path + '[month]')
-		option(value='') Месяц
-		each month, i in months
-			option(value=i, selected=(i == now.getMonth()))= month
-	select(name= path + '[year]')
-		option(value='') Год
-		option(value=year, selected=(year == now.getFullYear()))= year
-		option(value=year - 1, selected=(year - 1 == now.getFullYear()))= year - 1
+mixin form_date(path, date)
+	- var date = date || new Date()
+	- var dd = date && (date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2)  + '-' + ('0' + date.getDate()).slice(-2))
+	- var hh = date && (date.getHours())
+	- var mm = date && (date.getMinutes())
+	span.date_form(class=attributes.class)
+		input.date(type="text", name=path + '[date]', value=dd)
+		select.hours(name=path + '[time][hours]')
+			each hours, i in new Array(24)
+				- var format = ('0' + i).slice(-2)
+				option(value=format, selected=i == hh)= format
+		span= ' :'
+		select.minutes(name=path + '[time][minutes]')
+			each hours, i in new Array(12)
+				- var format = ('0' + (i*5)).slice(-2)
+				option(value=format, selected=(i*5) <= mm)= format
 
 //- Single Text Form
 

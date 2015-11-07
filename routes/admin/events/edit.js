@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 module.exports = function(Model, Params) {
   var Event = Model.Event;
   var Category = Model.Category;
@@ -32,10 +34,11 @@ module.exports = function(Model, Params) {
       event.status = post.status;
       event.type = post.type;
       event.age = post.age;
-      event.interval.begin = new Date(Date.UTC(post.interval.begin.year, post.interval.begin.month, post.interval.begin.date));
-      event.interval.end = new Date(Date.UTC(post.interval.end.year, post.interval.end.month, post.interval.end.date));
+      event.interval.begin = moment(post.interval.begin.date + 'T' + post.interval.begin.time.hours + ':' + post.interval.begin.time.minutes).toDate();
+      event.interval.end = moment(post.interval.end.date + 'T' + post.interval.end.time.hours + ':' + post.interval.end.time.minutes).toDate();
       event.place = post.place;
       event.categorys = post.categorys == '' ? [] : post.categorys;
+      event.date = moment(post.date.date + 'T' + post.date.time.hours + ':' + post.date.time.minutes);
 
       event.members = [];
       if (post.members) {
