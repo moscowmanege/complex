@@ -5,9 +5,11 @@ block paths
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
+	link(rel='stylesheet', type='text/css', href='/build/css/tuzik.css')
 
 block content_scripts
 	script(type='text/javascript', src='/build/js/lists.js')
+	script(type='text/javascript', src='/build/js/tuzik.js')
 
 block sub_menu
 	a.sub_item.back_link(href='/') < Назад
@@ -18,6 +20,12 @@ block content
 	.title= content_title
 	br
 	a.add(href='/events/add') добавить событие
+	span= ' | '
+	span.tuzik.open робот Тузик
+	span.tuzik_form.hidden
+		span= ' --> '
+		input.tuzik_input(type='text', placeholder='Ссылка...')
+		button.tuzik_add добавить
 	br
 	br
 	.lists_block

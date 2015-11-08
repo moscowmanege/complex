@@ -24,7 +24,8 @@ var events = {
 	list: require('./list.js')(Model),
 	add: require('./add.js')(Model, Params),
 	edit: require('./edit.js')(Model, Params),
-	remove: require('./remove.js')(Model)
+	remove: require('./remove.js')(Model),
+	tuzik: require('./tuzik.js')(Model),
 };
 
 module.exports = (function() {
@@ -45,6 +46,9 @@ module.exports = (function() {
 
 	router.route('/remove')
 		.post(events.remove.index);
+
+	router.route('/tuzik')
+		.post(events.tuzik.index);
 
 	return router;
 })();
