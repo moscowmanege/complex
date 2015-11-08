@@ -12,20 +12,20 @@ module.exports = function(Model) {
 
 
 	module.test = function(req, res) {
+
 		Event.aggregate()
-			// .match({
-			// 	'area': area_id,
-			// 	'type': 'exhibits'
-			// })
-			.unwind('tickets.ids')
+			// .unwind('tickets.ids')
 			.group({
 				'_id': {
-					ticket: '$tickets.ids',
+					complex: { $gt: [{$size: '$tickets.ids' }, 1] },
+					ticket: '$tickets.ids'
 				},
 				'events': {
 					$push: {
-						title: '$title.value',
-						description: '$description.value',
+						_id: '$_id',
+						// title: '$title.value',
+						// description: '$description.value',
+						// tickets: '$tickets'
 					}
 				}
 			})
