@@ -4,9 +4,14 @@ $(document).ready(function() {
 	});
 
 	$('.tuzik_add').on('click', function() {
-		var link = $('.tuzik_input').val();
+		var link = {};
+		link.ru = $('.tuzik_input.rus').val();
+		link.en = $('.tuzik_input.eng').val();
+
+		$(this).off();
+		$('.tuzik_desc').text('Ждем...')
 		$.post('/events/tuzik', {link: link}).done(function(data) {
-			console.log(data);
+			document.location.reload();
 		});
 	});
 });
