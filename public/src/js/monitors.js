@@ -6,7 +6,7 @@ $(document).ready(function() {
 	// Control Block
 
 	$('.start').on('click', function() {
-		socket.emit('start', { my: 'data' });
+		socket.emit('start', { status: 'start' });
 	});
 
 	$('.stop').on('click', function() {
@@ -14,7 +14,7 @@ $(document).ready(function() {
 	});
 
 	$('.update').on('click', function() {
-		socket.emit('update', { my: 'data' });
+		socket.emit('update', { status: 'update' });
 	});
 
 	$('.reload').on('click', function() {
@@ -31,7 +31,10 @@ $(document).ready(function() {
 	});
 
 	socket.on('events', function (data) {
-		var $flips = $(data.events).addClass('new');
+		if (data.status == 'update')
+			var $flips = $(data.events).addClass('new');
+		else
+			var $flips = $(data.events)
 
 		$('.flip_block').children('.flip_item').addClass('old').end()
 										.cycle('add', $flips).on('cycle-after', removeOld);
