@@ -3,6 +3,8 @@ $(document).ready(function() {
 	var socket = io.connect('', {port: 3002});
 
 
+	// Control Block
+
 	$('.start').on('click', function() {
 		socket.emit('start', { my: 'data' });
 	});
@@ -11,8 +13,8 @@ $(document).ready(function() {
 		socket.emit('stop', { my: 'data' });
 	});
 
-	$('.clear').on('click', function() {
-		socket.emit('clear', { my: 'data' });
+	$('.update').on('click', function() {
+		socket.emit('update', { my: 'data' });
 	});
 
 	$('.reload').on('click', function() {
@@ -21,19 +23,53 @@ $(document).ready(function() {
 
 
 
+	// Socket Block
+
+
 	socket.on('news', function (data) {
-		$('.res').text('Socket status: ' + data.status);
+		$('.status').text('Socket status: ' + data.status);
 	});
 
-	socket.on('result', function (data) {
-		$('.res').append('<br/>').append(data.cool);
-	});
+	socket.on('events', function (data) {
+		var $flips = $(data.events).addClass('new');
 
-	socket.on('clear_all', function (data) {
-		$('.res').empty();
+		$('.flip_block').children('.flip_item').addClass('old').end()
+										.cycle('add', $flips).on('cycle-after', removeOld);
 	});
 
 	socket.on('push_reload', function (data) {
 		location.reload();
 	});
+
+
+
+	// Slider Block
+
+
+	var slider_opts = {
+			speed: 600,
+			manualSpeed: 600,
+			fx: 'scrollHorz',   //flipHorz, scrollHorz
+			timeout: 2000,
+			// paused: true,
+			autoHeight: false,
+			manualTrump: false,
+			slides: '> .flip_item',
+			log: false
+	}
+
+
+	var removeOld = function(event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+		if ($(incomingSlideEl).hasClass('new')) {
+			$('.flip_block').cycle('destroy')
+											.children('.old').remove().end()
+											.children('.new').removeClass('new').end()
+											.cycle(slider_opts)
+											.off('cycle-after');
+		};
+	}
+
+	$('.flip_block').cycle(slider_opts);
+
+
 });

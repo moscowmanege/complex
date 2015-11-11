@@ -8,6 +8,7 @@ block content_style
 	link(rel='stylesheet', type='text/css', href='/build/css/monitors.css' + version)
 
 block content_scripts
+	script(type='text/javascript', src='/build/libs/js/jquery.cycle2.min.js' + version)
 	script(type='text/javascript', src='/build/libs/js/socket.io-1.3.7.js' + version)
 	script(type='text/javascript', src='/build/js/monitors.js' + version)
 
@@ -15,8 +16,11 @@ block content
 	h1 МАНЕЖ МОНИТОР!
 	button.start start
 	button.stop stop
-	button.clear clear
+	button.update update
 	button.reload reload
 	br
 	br
-	.res
+	.status
+	br
+	br
+	.flip_block

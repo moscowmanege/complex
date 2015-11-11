@@ -1,0 +1,10 @@
+each event in events
+	.flip_item
+		.item_place
+			.item_area= event.place.area && event.place.area.i18n.title.get('ru')
+			.item_halls
+				if event.place.halls
+					each hall in event.place.halls
+						.item_hall= hall.i18n.title.get('ru')
+		hr
+		.item_title= event.i18n.title.get('ru')
