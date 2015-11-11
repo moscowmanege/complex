@@ -4,7 +4,7 @@ module.exports = function(Model) {
 
 
 	module.index = function(req, res) {
-	  Member.find().exec(function(err, members) {
+	  Member.find().sort('-date').exec(function(err, members) {
 	    res.render('admin/members', {members: members});
 	  });
 	}
