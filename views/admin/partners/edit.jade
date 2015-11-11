@@ -1,0 +1,55 @@
+extends ../layout
+include ../_forms.jade
+
+block paths
+	- var content_title= 'РЕДАКТИРОВАТЬ ПАРТНЕРА'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/libs/css/font-awesome.css')
+	link(rel='stylesheet', type='text/css', href='/build/libs/css/wysiwyg-editor.min.css')
+	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/libs/js/wysiwyg.min.js')
+	script(type='text/javascript', src='/build/libs/js/wysiwyg-editor.min.js')
+	script(type='text/javascript', src='/build/js/editor.js')
+	script(type='text/javascript', src='/build/js/add.js')
+
+block sub_menu
+	a.sub_item.back_link(href='/partners') < Назад
+	span.sub_item.toggle_eng Перевод
+
+block content
+	.form_block
+		.title= content_title
+		form(action="", method="post")
+			.form_title Заголовок:
+			+form_text_single('title', partner)
+			.form_title Описание:
+			+form_text_multi('description', partner)
+			.form_title Ссылка на сайт:
+			input(type='text', name='link', value=partner.link)
+			.form_title Типы:
+			if (partner.types && partner.types.length > 0)
+				.snake_outer
+					each type in partner.types
+						span.snake
+							input.back(type="button", value="-")
+							select(name='types')
+								option(value='info', selected=type == 'info') информационный
+								option(value='tech', selected=type == 'tech') технический
+					input.forward(type="button", value="+")
+			else
+				.snake_outer
+					span.snake
+						input.back(type="button", value="-")
+						select(name='types')
+							option(value='info', selected=type == 'info') информационный
+							option(value='tech', selected=type == 'tech') технический
+					input.forward(type="button", value="+")
+			.form_title Видимость:
+			input(type='checkbox', name='status', value='hidden', checked=partner.status)
+			!= ' скрыть'
+			br
+			br
+			input(type='submit', value='отправить')

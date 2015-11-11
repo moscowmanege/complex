@@ -6,6 +6,7 @@ var admin = {
 	events: require('./events/_events.js'),
 	areas: require('./areas/_areas.js'),
 	members: require('./members/_members.js'),
+	partners: require('./partners/_partners.js'),
 	users: require('./users/_users.js')
 };
 
@@ -25,6 +26,7 @@ module.exports = (function() {
 	router.use('/events', checkAuth, admin.events);
 	router.use('/areas', checkAuth, admin.areas);
 	router.use('/members', checkAuth, admin.members);
+	router.use('/partners', checkAuth, admin.partners);
 	router.use('/users', checkAuth, admin.users);
 
 	return router;

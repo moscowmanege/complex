@@ -83,6 +83,16 @@ var memberSchema = new Schema({
 	date: {type: Date, default: Date.now}
 });
 
+var partnerSchema = new Schema({
+	_short_id: String,
+	title: { type: String, trim: true, locale: true },
+	description: { type: String, trim: true, locale: true },
+	types: [String],
+	link: String,
+	status: String,
+	date: {type: Date, default: Date.now}
+});
+
 var categorySchema = new Schema({
 	_short_id: String,
 	title: { type: String, trim: true, locale: true },
@@ -99,11 +109,6 @@ var ticketSchema = new Schema({
 	date: {type: Date, default: Date.now}
 });
 
-var stateSchema = new Schema({
-	type: String,
-	date: {type: Date, default: Date.now}
-});
-
 
 // ------------------------
 // *** Plugins Block ***
@@ -117,6 +122,7 @@ areaSchema.plugin(mongooseLocale);
 eventSchema.plugin(mongooseLocale);
 categorySchema.plugin(mongooseLocale);
 memberSchema.plugin(mongooseLocale);
+partnerSchema.plugin(mongooseLocale);
 
 
 // ------------------------
@@ -139,5 +145,4 @@ module.exports.Event = mongoose.model('Event', eventSchema);
 module.exports.Member = mongoose.model('Member', memberSchema);
 module.exports.Category = mongoose.model('Category', categorySchema);
 module.exports.Ticket = mongoose.model('Ticket', ticketSchema);
-
-module.exports.State = mongoose.model('State', stateSchema);
+module.exports.Partner = mongoose.model('Partner', partnerSchema);
