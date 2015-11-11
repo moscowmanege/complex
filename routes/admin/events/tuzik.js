@@ -8,19 +8,19 @@ module.exports = function(Model) {
 	var module = {};
 
 	var parseFields = function(window, callback) {
-			var $ = window.$;
+		var $ = window.$;
 
-			var title = $('h1').text();
-			var s_title = $('#subheader').text();
-			var description = $('div[style*="margin-bottom:15px"]').next('div').html();
+		var title = $('h1').text();
+		var s_title = $('#subheader').text();
+		var description = $('div[style*="margin-bottom:15px"]').next('div').html();
 
-			description = description.replace(/style="[^"]*"/g, "");
-			// description = description.replace(/<\s*(\w+).*?>/g, '<$1>');
-			description = description.replace(/&nbsp;/g, '');
-			description = description.replace(/<strong><\/strong\>/g, '');
-			description = description.replace(/strong/g, 'b');
+		description = description.replace(/style="[^"]*"/g, "");
+		// description = description.replace(/<\s*(\w+).*?>/g, '<$1>');
+		description = description.replace(/&nbsp;/g, '');
+		description = description.replace(/<strong><\/strong\>/g, '');
+		description = description.replace(/strong/g, 'b');
 
-			callback.call(null, null, {title: title, s_title: s_title, description: description});
+		callback.call(null, null, {title: title, s_title: s_title, description: description});
 	};
 
 
