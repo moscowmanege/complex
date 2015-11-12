@@ -13,14 +13,14 @@ block content_scripts
 	script(type='text/javascript', src='/build/js/monitors.js' + version)
 
 block content
-	h1 МАНЕЖ МОНИТОР!
-	button.start start
-	button.stop stop
-	button.update update
-	button.reload reload
-	br
-	br
-	.status
-	br
-	br
+	.monitor_panel
+		h1 МАНЕЖ МОНИТОР!
+		button.start start
+		button.stop stop
+		button.update update
+		button.reload reload
+		select.area_select
+			each area in areas
+				option(value=area._id.toString())= area.i18n.title.get('ru')
+		.status
 	.flip_block

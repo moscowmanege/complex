@@ -1,9 +1,12 @@
 module.exports = function(Model) {
 	var Event = Model.Event;
+	var Area = Model.Area;
 	var module = {};
 
 	module.index = function(req, res) {
-	  res.render('monitors/index.jade');
+		Area.find().populate('halls').exec(function(err, areas) {
+			res.render('monitors/index.jade', {areas: areas});
+		});
 	}
 
 	module.demo = function(req, res) {

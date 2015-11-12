@@ -6,7 +6,8 @@ $(document).ready(function() {
 	// Control Block
 
 	$('.start').on('click', function() {
-		socket.emit('start', { status: 'start' });
+		var area = $('.area_select').val();
+		socket.emit('start', { status: 'start', area: area });
 	});
 
 	$('.stop').on('click', function() {
@@ -14,7 +15,8 @@ $(document).ready(function() {
 	});
 
 	$('.update').on('click', function() {
-		socket.emit('update', { status: 'update' });
+		var area = $('.area_select').val();
+		socket.emit('update', { status: 'update', area: area });
 	});
 
 	$('.reload').on('click', function() {

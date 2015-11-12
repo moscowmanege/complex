@@ -1,10 +1,16 @@
-each event in events
+each chunk in chunks
 	.flip_item
-		.item_place
-			.item_area= event.place.area && event.place.area.i18n.title.get('ru')
-			.item_halls
-				if event.place.halls
-					each hall in event.place.halls
-						.item_hall= hall.i18n.title.get('ru')
+		.flip_area
+			.area_title= area.i18n.title.get('ru')
+			.area_adress= area.i18n.adress.get('ru')
 		hr
-		.item_title= event.i18n.title.get('ru')
+		.flip_events
+			each event in chunk
+				b Название:
+				.event_title= event.i18n.title.get('ru')
+				b Залы:
+				.event_halls
+					if event.place.halls
+						each hall in event.place.halls
+							.item_hall= hall.i18n.title.get('ru')
+				br
