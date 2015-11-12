@@ -62,6 +62,7 @@ var eventSchema = new Schema({
 		children: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
 	},
 	categorys: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
+	partners: [{ type: Schema.Types.ObjectId, ref: 'Partner' }],
 	members: [{
 		role: String,
 		ids: [{ type: Schema.Types.ObjectId, ref: 'Member' }]
@@ -87,7 +88,7 @@ var partnerSchema = new Schema({
 	_short_id: String,
 	title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
-	types: [String],
+	type: String,
 	link: String,
 	status: String,
 	date: {type: Date, default: Date.now}

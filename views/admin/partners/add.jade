@@ -29,14 +29,10 @@ block content
 			+form_text_multi('description')
 			.form_title Ссылка на сайт:
 			input(type='text', name='link')
-			.form_title Типы:
-			.snake_outer
-				span.snake
-					input.back(type="button", value="-")
-					select(name='types')
-						option(value='information') информационный
-						option(value='tech') технический
-				input.forward(type="button", value="+")
+			.form_title Тип:
+			select(name='type')
+				option(value='information') информационный
+				option(value='tech') технический
 			.form_title Видимость:
 			input(type='checkbox', name='status', value='hidden')
 			!= ' скрыть'

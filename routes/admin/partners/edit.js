@@ -20,7 +20,7 @@ module.exports = function(Model, Params) {
 
     Partner.findById(id).exec(function(err, partner) {
 
-      partner.types = post.types;
+      partner.type = post.type;
       partner.status = post.status;
       partner.link = post.link;
 

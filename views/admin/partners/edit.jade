@@ -29,24 +29,10 @@ block content
 			+form_text_multi('description', partner)
 			.form_title Ссылка на сайт:
 			input(type='text', name='link', value=partner.link)
-			.form_title Типы:
-			if (partner.types && partner.types.length > 0)
-				.snake_outer
-					each type in partner.types
-						span.snake
-							input.back(type="button", value="-")
-							select(name='types')
-								option(value='info', selected=type == 'info') информационный
-								option(value='tech', selected=type == 'tech') технический
-					input.forward(type="button", value="+")
-			else
-				.snake_outer
-					span.snake
-						input.back(type="button", value="-")
-						select(name='types')
-							option(value='info', selected=type == 'info') информационный
-							option(value='tech', selected=type == 'tech') технический
-					input.forward(type="button", value="+")
+			.form_title Тип:
+			select(name='type')
+				option(value='info', selected=partner.type == 'info') информационный
+				option(value='tech', selected=partner.type == 'tech') технический
 			.form_title Видимость:
 			input(type='checkbox', name='status', value='hidden', checked=partner.status)
 			!= ' скрыть'

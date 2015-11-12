@@ -4,6 +4,7 @@ module.exports = function(Model, Params) {
   var Event = Model.Event;
   var Category = Model.Category;
   var Member = Model.Member;
+  var Partner = Model.Partner;
   var Area = Model.Area;
   var checkNested = Params.checkNested;
   var module = {};
@@ -12,12 +13,11 @@ module.exports = function(Model, Params) {
   module.index = function(req, res) {
     var id = req.params.event_id;
 
-    Event.findById(id).exec(function(err, event) {
+    Event.findById(id).populate('members.ids').exec(function(err, event) {
       Area.find().populate('halls').exec(function(err, areas) {
-        Category.find().exec(function(err, categorys) {
-          var opts = { path: 'members.ids', model: 'Member' };
-          Event.populate(event, opts, function (err, event) {
-            res.render('admin/events/edit.jade', {event: event, areas: areas, categorys: categorys});
+        Category.find().sort('-date').exec(function(err, categorys) {
+          Partner.find().sort('-date').exec(function(err, partners) {
+            res.render('admin/events/edit.jade', {event: event, areas: areas, partners: partners, categorys: categorys});
           });
         });
       });
@@ -38,6 +38,7 @@ module.exports = function(Model, Params) {
       event.interval.end = moment(post.interval.end.date + 'T' + post.interval.end.time.hours + ':' + post.interval.end.time.minutes).toDate();
       event.place = post.place;
       event.categorys = post.categorys == '' ? [] : post.categorys;
+      event.partners = post.partners == '' ? [] : post.partners;
       event.date = moment(post.date.date + 'T' + post.date.time.hours + ':' + post.date.time.minutes);
 
       event.members = [];

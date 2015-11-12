@@ -9,14 +9,6 @@ module.exports = function(Model) {
 	  });
 	}
 
-	module.get_partners = function(req, res) {
-		var role = req.body.role;
-
-	  Partner.find({'roles': role}).exec(function(err, partners) {
-	    res.send(partners);
-	  });
-	}
-
 
   return module;
 }

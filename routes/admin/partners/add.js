@@ -16,7 +16,7 @@ module.exports = function(Model, Params) {
     var partner = new Partner();
 
     partner._short_id = shortid.generate();
-    partner.types = post.types;
+    partner.type = post.type;
     partner.status = post.status;
     partner.link = post.link;
 
