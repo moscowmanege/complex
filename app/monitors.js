@@ -59,19 +59,6 @@ var get_events = function(status, area) {
 	});
 };
 
-
-var globals = require('../routes/globals/_globals.js');
-var monitors = require('../routes/monitors/_monitors.js');
-var socket = require('../routes/monitors/_socket.js')(io, get_events);
-
-
-app.use('/', monitors);
-app.use(globals);
-
-io.on('connection', socket.get);
-
-var schedule = later.parse.recur().every(10).minute();
-
 var check_rooms = function() {
 	var rooms = Object.keys(io.sockets.adapter.rooms);
 
@@ -86,6 +73,18 @@ var check_rooms = function() {
 	});
 };
 
+
+var globals = require('../routes/globals/_globals.js');
+var monitors = require('../routes/monitors/_monitors.js');
+var socket = require('../routes/monitors/_socket.js')(io, get_events);
+
+
+app.use('/', monitors);
+app.use(globals);
+
+io.on('connection', socket.get);
+
+var schedule = later.parse.recur().every(20).second();
 var task = later.setInterval(check_rooms, schedule);
 
 

@@ -5,7 +5,7 @@ module.exports = function(io, get_events) {
 
 	module.get = function(socket) {
 		var area = socket.handshake['query']['area'];
-		get_events('start', area)
+		get_events('start', area);
 
 		socket.join(area);
 
