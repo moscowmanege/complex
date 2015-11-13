@@ -13,4 +13,14 @@ each chunk in chunks
 					if event.place.halls
 						each hall in event.place.halls
 							.item_hall= hall.i18n.title.get('ru')
+				b Билеты
+				.event_tickets
+					if event.tickets.ids.length > 1
+						each ticket in event.tickets.ids
+							if ticket.events.length == 1
+								.ticket_item
+									.ticket_type= ticket.type
+									.ticket_price= ticket.price
+					else
+						!= event.tickets.i18n.alt.get('ru')
 				br

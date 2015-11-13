@@ -14,7 +14,7 @@ module.exports = function(io) {
 
 	var get_events = function(status, area) {
 			Area.findById(area).exec(function(err, area) {
-				Event.find({'place.area': area}).populate('place.halls').exec(function(err, events) {
+				Event.find({'place.area': area}).populate('place.halls tickets.ids').exec(function(err, events) {
 					var chunks = chunk(events, 2);
 					var opts = {chunks: chunks, area: area, compileDebug: false, debug: false, cache: false, pretty: false};
 					var events_compile = jade.renderFile(__app_root + '/views/monitors/monitor.jade', opts);

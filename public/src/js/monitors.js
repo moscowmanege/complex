@@ -55,7 +55,7 @@ $(document).ready(function() {
 			speed: 600,
 			manualSpeed: 600,
 			fx: 'scrollHorz',   //flipHorz, scrollHorz
-			timeout: 2000,
+			timeout: 4000,
 			// paused: true,
 			autoHeight: false,
 			manualTrump: false,
