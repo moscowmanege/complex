@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	// var socket = io.connect('http://192.168.1.5:3002');
+
 	var socket;
 
 
@@ -27,7 +27,6 @@ $(document).ready(function() {
 
 	$('.update').on('click', function() {
 		socket.emit('update', { status: 'update' });
-		// socket.emit('start', { status: 'start' });
 	});
 
 
@@ -44,10 +43,6 @@ $(document).ready(function() {
 			}
 		});
 
-
-		socket.on('news', function (data) {
-			$('.status').text('Socket status: ' + data.status);
-		});
 
 		socket.on('events', function (data) {
 			if (data.status == 'update')
@@ -74,7 +69,7 @@ $(document).ready(function() {
 			manualSpeed: 600,
 			fx: 'scrollHorz',   //flipHorz, scrollHorz
 			timeout: 2000,
-			paused: true,
+			// paused: true,
 			autoHeight: false,
 			manualTrump: false,
 			slides: '> .flip_item',

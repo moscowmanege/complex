@@ -24,22 +24,19 @@ module.exports = function(io) {
 
 	module.get = function(socket) {
 		var area = socket.handshake['query']['area'];
-		var task;
+		var task = later.setTimeout(get_events('start', area), schedule);
 
 		socket.join(area);
 
 		console.log('Connections: ' + io.engine.clientsCount, 'Area: ' + area);
 
-		socket.emit('news', { status: 'init' });
-
-
 		socket.on('update', function(data) {
-			// task.clear();
+			task.clear();
 			task = later.setTimeout(get_events(data.status, area), schedule);
 		});
 
 		socket.on('disconnect', function (data) {
-			// task.clear();
+			task.clear();
 			socket.leave(area);
 		});
 
