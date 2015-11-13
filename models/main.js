@@ -110,6 +110,15 @@ var ticketSchema = new Schema({
 	date: {type: Date, default: Date.now}
 });
 
+var logSchema = new Schema({
+	_item_id: Schema.Types.ObjectId,
+	_user_id: { type: Schema.Types.ObjectId, ref: 'User' },
+	type: String,
+	status: String,
+	dump: Schema.Types.Mixed,
+	date: {type: Date, expires: 3600*24*90, default: Date.now}
+});
+
 
 // ------------------------
 // *** Plugins Block ***
@@ -131,7 +140,8 @@ partnerSchema.plugin(mongooseLocale);
 // ------------------------
 
 
-eventSchema.index({'title.value': 'text', 'description.value': 'text'}, {language_override:'lg', default_language: 'ru'});
+eventSchema.index({'title.value': 'text', 'description.value': 'text'}, {language_override: 'lg', default_language: 'ru'});
+memberSchema.index({'name.value': 'text', 'description.value': 'text'}, {language_override: 'lg', default_language: 'ru'});
 
 
 // ------------------------
@@ -147,3 +157,4 @@ module.exports.Member = mongoose.model('Member', memberSchema);
 module.exports.Category = mongoose.model('Category', categorySchema);
 module.exports.Ticket = mongoose.model('Ticket', ticketSchema);
 module.exports.Partner = mongoose.model('Partner', partnerSchema);
+module.exports.Log = mongoose.model('Log', logSchema);
