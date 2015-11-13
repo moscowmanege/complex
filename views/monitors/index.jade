@@ -15,12 +15,21 @@ block content_scripts
 block content
 	.monitor_panel
 		h1 МАНЕЖ МОНИТОР!
-		button.start start
-		button.stop stop
-		button.update update
-		button.reload reload
-		select.area_select
-			each area in areas
-				option(value=area._id.toString())= area.i18n.title.get('ru')
+		.panel_menu
+			span Соединение:
+			button.connect connect
+			select.area_select
+				each area in areas
+					option(value=area._id.toString())= area.i18n.title.get('ru')
+			button.update update
+		.panel_menu
+			span Слайдшоу:
+			button.start start
+			button.stop stop
+			button.back= '<<back'
+			button.next= 'next>>'
+		.panel_menu
+			span Настройки:
+			button.reload reload
 		.status
 	.flip_block
