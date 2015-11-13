@@ -19,8 +19,9 @@ each chunk in chunks
 						each ticket in event.tickets.ids
 							if ticket.events.length == 1
 								.ticket_item
-									.ticket_type= ticket.type
-									.ticket_price= ticket.price
+									span.ticket_price= ticket.price
+									span= ' - '
+									span.ticket_type= ticket.type
 					else
 						!= event.tickets.i18n.alt.get('ru')
 				br
