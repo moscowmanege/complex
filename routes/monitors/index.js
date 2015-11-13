@@ -9,10 +9,6 @@ module.exports = function(Model) {
 		});
 	}
 
-	module.demo = function(req, res) {
-	  res.render('monitors/demo.jade');
-	}
-
 
 	module.test = function(req, res) {
 
