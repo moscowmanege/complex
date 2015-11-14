@@ -1,5 +1,6 @@
 var del = require('del');
 var runSequence = require('run-sequence');
+var colors = require('colors');
 
 var gulp = require('gulp'),
 		gulpif = require('gulp-if'),
