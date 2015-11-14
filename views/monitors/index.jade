@@ -14,13 +14,15 @@ block content_scripts
 
 block content
 	.monitor_panel
-		h1 МАНЕЖ МОНИТОР!
+		h1 МАНЕЖ МОНИТОР
 		.panel_menu
 			span Соединение:
-			button.connect connect
 			select.area_select
 				each area in areas
 					option(value=area._id.toString())= area.i18n.title.get('ru')
+			span= ' --> '
+			button.connect connect
+			span= ' --> '
 			button.update update
 		.panel_menu
 			span Слайдшоу:
@@ -28,7 +30,7 @@ block content
 			button.pause pause
 			button.back= '<< back'
 			button.next= 'next >>'
-		.panel_menu
-			span Настройки:
-			button.reload reload
+		//- .panel_menu
+		//- 	span Настройки:
+		//- 	button.reload reload
 	.flip_block
