@@ -61,6 +61,8 @@ var get_events = function(status, area) {
 
 var check_rooms = function() {
 	var rooms = Object.keys(io.sockets.adapter.rooms);
+	// console.log('Connections: ' + io.engine.clientsCount)
+	// console.log('Rooms: ' + io.sockets.adapter.rooms)
 
 	Area.distinct('_id').exec(function(err, areas) {
 		areas.forEach(function(area_id) {
@@ -84,7 +86,7 @@ app.use(globals);
 
 io.on('connection', socket.get);
 
-var schedule = later.parse.recur().every(20).second();
+var schedule = later.parse.recur().every(50).second();
 var task = later.setInterval(check_rooms, schedule);
 
 

@@ -1,9 +1,24 @@
 $(document).ready(function() {
 
-	var socket;
+	var socket = null;
+
+	var slider_opts = {
+			speed: 600,
+			manualSpeed: 600,
+			fx: 'scrollHorz',   //flipHorz, scrollHorz
+			timeout: 4000,
+			// paused: true,
+			autoHeight: false,
+			manualTrump: false,
+			slides: '> .flip_item',
+			log: false
+	};
+
+	$('.flip_block').cycle(slider_opts);
 
 
 	// Slides Block
+
 
 	$('.play').on('click', function() {
 		$('.flip_block').cycle('resume');
@@ -36,8 +51,15 @@ $(document).ready(function() {
 
 
 	$('.connect').on('click', function() {
+		if (socket) {
+			socket.disconnect();
+			$('.flip_block').cycle('destroy').empty().cycle(slider_opts);
+			socket = null;
+		}
+
 		socket = io.connect('', {
 			port: 3002,
+			forceNew: true,
 			query: {
 				area: $('.area_select').val()
 			}
@@ -45,10 +67,13 @@ $(document).ready(function() {
 
 
 		socket.on('events', function (data) {
-			if (data.status == 'update')
-				var $flips = $(data.events).addClass('new');
-			else
-				var $flips = $(data.events)
+			var $flips = null;
+
+			if (data.status == 'update') {
+				$flips = $(data.events).addClass('new');
+			} else {
+				$flips = $(data.events);
+			}
 
 			$('.flip_block').children('.flip_item').addClass('old').end()
 											.cycle('add', $flips).on('cycle-after', removeOld);
@@ -60,21 +85,7 @@ $(document).ready(function() {
 	});
 
 
-
 	// Slider Block
-
-
-	var slider_opts = {
-			speed: 600,
-			manualSpeed: 600,
-			fx: 'scrollHorz',   //flipHorz, scrollHorz
-			timeout: 4000,
-			// paused: true,
-			autoHeight: false,
-			manualTrump: false,
-			slides: '> .flip_item',
-			log: false
-	}
 
 
 	var removeOld = function(event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
@@ -84,10 +95,8 @@ $(document).ready(function() {
 											.children('.new').removeClass('new').end()
 											.cycle(slider_opts)
 											.off('cycle-after');
-		};
-	}
-
-	$('.flip_block').cycle(slider_opts);
+		}
+	};
 
 
 });
