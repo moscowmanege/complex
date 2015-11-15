@@ -1,8 +1,5 @@
 global.__app_root = __dirname.replace('/app', '');
 
-var chunk = require('chunk');
-var jade = require('jade');
-
 var express = require('express'),
 		cookieParser = require('cookie-parser'),
 		app = express();
@@ -41,44 +38,9 @@ app.use(function(req, res, next) {
 });
 
 
-var Model = require(__app_root + '/models/main.js');
-
-var Area = Model.Area;
-var Event = Model.Event;
-
-
-var get_events = function(status, area) {
-	Area.findById(area).exec(function(err, area) {
-		Event.find({'place.area': area}).populate('place.halls tickets.ids members.ids').exec(function(err, events) {
-			var chunks = chunk(events, 2);
-			var opts = {chunks: chunks, area: area, compileDebug: false, debug: false, cache: false, pretty: false};
-			var events_compile = jade.renderFile(__app_root + '/views/monitors/monitor.jade', opts);
-
-			io.to(area._id).emit('events', { events: events_compile, status: status });
-		});
-	});
-};
-
-var check_rooms = function() {
-	var rooms = Object.keys(io.sockets.adapter.rooms);
-	// console.log('Connections: ' + io.engine.clientsCount)
-	// console.log('Rooms: ' + Object.keys(io.sockets.adapter.rooms))
-
-	Area.distinct('_id').exec(function(err, areas) {
-		areas.forEach(function(area_id) {
-			rooms.forEach(function(room_id) {
-				if (area_id == room_id) {
-					get_events('update', area_id);
-				}
-			});
-		});
-	});
-};
-
-
 var globals = require('../routes/globals/_globals.js');
 var monitors = require('../routes/monitors/_monitors.js');
-var socket = require('../routes/monitors/_socket.js')(io, get_events);
+var socket = require('../routes/monitors/_socket.js')(io);
 
 
 app.use('/', monitors);
@@ -86,7 +48,7 @@ app.use(globals);
 
 io.on('connection', socket.get);
 
-var check_interval = setInterval(check_rooms, 1000 * 60 * 5);	// 5 minutes
+var check_interval = setInterval(socket.interval, 1000 * 60 * 5);	// 5 minutes
 
 
 // ------------------------
