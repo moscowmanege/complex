@@ -37,6 +37,19 @@ $(document).ready(function() {
 	});
 
 
+	// Panel Block
+
+	$('.hide').on('click', function() {
+		$('.monitor_panel').toggleClass('hide');
+	});
+
+	$(document).on('keyup', function(event) {
+		if (event.altKey && event.which == 70) {
+			$('.monitor_panel').toggleClass('hide');
+		}
+	});
+
+
 	// Connect Block
 
 

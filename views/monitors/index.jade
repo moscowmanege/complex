@@ -14,9 +14,9 @@ block content_scripts
 
 block content
 	.monitor_panel
-		h1 МАНЕЖ МОНИТОР
+		h1 MANEGE | MONITOR
 		.panel_menu
-			span Соединение:
+			span base:
 			select.area_select
 				each area in areas
 					option(value=area._id.toString())= area.i18n.title.get('ru')
@@ -25,11 +25,15 @@ block content
 			span= ' --> '
 			button.update update
 		.panel_menu
-			span Слайдшоу:
+			span slides:
 			button.play play
 			button.pause pause
 			button.back= '<< back'
 			button.next= 'next >>'
+		.panel_menu
+			span panel:
+			button.hide hide
+			span= ' -- alt + F'
 		//- .panel_menu
 		//- 	span Настройки:
 		//- 	button.reload reload
