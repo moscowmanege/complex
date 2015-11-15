@@ -48,7 +48,7 @@ var error_logger = function(error) {
 }
 
 var watch_logger = function(event) {
-	console.log('File ' + event.path.green + ' was ' + event.type.yellow + ', running tasks...');
+	console.log('File ' + event.path.replace(__dirname + '/', '').green + ' was ' + event.type.yellow + ', running tasks...');
 }
 
 // Tasks Block
