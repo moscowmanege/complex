@@ -26,6 +26,7 @@ app.use(cookieParser());
 
 app.use(session({
 	key: 'session',
+	rolling: true,
 	resave: false,
 	saveUninitialized: false,
 	secret: 'keyboard cat',
