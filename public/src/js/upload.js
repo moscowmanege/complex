@@ -7,6 +7,12 @@ $(document).ready(function() {
 		}
 	});
 
+	$(document).on('mouseup.search', function(event) {
+		if (!/image_description|toggle_eng/.test(event.target.className)) {
+			$('.image_description').removeClass('show');
+		}
+	});
+
 	$(document).on('click', '.image_upload_preview', function() {
 		$('.image_description').removeClass('show');
 		$(this).children('.image_description').addClass('show');

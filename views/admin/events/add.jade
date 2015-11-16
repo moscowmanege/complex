@@ -47,8 +47,8 @@ block content
 							.image_delete удалить
 							span=i
 							.image_description
-								textarea.image_description_input.ru_img(placeholder='Описание')= i
-								textarea.image_description_input.en_img(placeholder='Description')= i
+								textarea.image_description_input.ru_img(placeholder='Описание')= 'Описание ' + i
+								textarea.image_description_input.en_img(placeholder='Description')= 'Description ' + i
 
 			.form_title Возростное ограничение:
 			select(name='age')

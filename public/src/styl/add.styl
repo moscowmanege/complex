@@ -70,6 +70,7 @@ a
 
 input, textarea, select
 	font-size 16px
+	outline none
 
 .ru
 	width 620px
@@ -92,6 +93,10 @@ input, textarea, select
 	float left
 	margin-right 20px
 	margin-bottom 20px
+	border-radius 0px
+	&.wysiwyg-active
+		box-shadow none
+		border 1px solid #ccc
 	&:nth-child(3n)
 		margin-right 0px
 		display none
@@ -105,19 +110,6 @@ input, textarea, select
 	margin-bottom 15px
 	font-size 14pt
 	clear both
-
-.form_section
-	margin-left 10px
-	margin-top 20px
-	margin-bottom 20px
-	font 14pt/14pt 'Times'
-	font-weight bold
-
-.form_submit
-	margin-top 5px
-	cursor pointer
-	&:hover
-		text-decoration underline
 
 .footer_block
 	display none
@@ -170,10 +162,10 @@ input, textarea, select
 			.image_description
 				position absolute
 				width 623px
-				min-height 180px
 				// border 1px solid red
 				left 645px
 				top 0
+				bottom 6px
 				display none
 				&.show
 					display block
@@ -181,8 +173,8 @@ input, textarea, select
 					display block
 					float left
 					width 295px
-					height 197px
-					outline none
+					height 100%
+					border 1px solid #ccc
 					margin-right 20px
 					resize none
 					&:last-child
