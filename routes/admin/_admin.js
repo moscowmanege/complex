@@ -1,4 +1,7 @@
 var express = require('express');
+var multer = require('multer');
+
+var upload = multer({ dest: __app_root + '/uploads/' });
 
 var admin = {
 	main: require('./main.js'),
@@ -7,7 +10,8 @@ var admin = {
 	areas: require('./areas/_areas.js'),
 	members: require('./members/_members.js'),
 	partners: require('./partners/_partners.js'),
-	users: require('./users/_users.js')
+	users: require('./users/_users.js'),
+	options: require('./options.js')
 };
 
 var checkAuth = function(req, res, next) {
@@ -28,6 +32,8 @@ module.exports = (function() {
 	router.use('/members', checkAuth, admin.members);
 	router.use('/partners', checkAuth, admin.partners);
 	router.use('/users', checkAuth, admin.users);
+
+	router.post('/preview', checkAuth, upload.single('image'), admin.options.preview);
 
 	return router;
 })();

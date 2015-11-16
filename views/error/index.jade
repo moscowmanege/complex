@@ -1,7 +1,7 @@
 extends layout
 
-block title
-	title= 'Ошибка' + ' / ' + status
+block paths
+	- var content_title= 'Ошибка' + ' / ' + status
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/build/css/error.css' + version)
