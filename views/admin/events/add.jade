@@ -43,13 +43,13 @@ block content
 			.form_images_upload
 				input#upload_fallback(type='file')
 				.images_upload_preview
-					each image,i in new Array(4)
-						.image_upload_preview
-							.image_delete удалить
-							span=i
-							.image_description
-								textarea.image_description_input.ru_img(placeholder='Описание')= 'Описание ' + i
-								textarea.image_description_input.en_img(placeholder='Description')= 'Description ' + i
+					//- each image,i in new Array(4)
+					//- 	.image_upload_preview
+					//- 		.image_delete удалить
+					//- 		span=i
+					//- 		.image_description
+					//- 			textarea.image_description_input.ru_img(placeholder='Описание')= 'Описание ' + i
+					//- 			textarea.image_description_input.en_img(placeholder='Description')= 'Description ' + i
 
 			.form_title Возростное ограничение:
 			select(name='age')
