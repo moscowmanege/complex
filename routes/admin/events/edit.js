@@ -6,7 +6,11 @@ module.exports = function(Model, Params) {
   var Member = Model.Member;
   var Partner = Model.Partner;
   var Area = Model.Area;
-  var checkNested = Params.checkNested;
+
+  var checkNested = Params.locale.checkNested;
+  var previewImages = Params.upload.preview;
+  var uploadImages = Params.upload.images;
+
   var module = {};
 
 
@@ -17,7 +21,9 @@ module.exports = function(Model, Params) {
       Area.find().populate('halls').exec(function(err, areas) {
         Category.find().sort('-date').exec(function(err, categorys) {
           Partner.find().sort('-date').exec(function(err, partners) {
-            res.render('admin/events/edit.jade', {event: event, areas: areas, partners: partners, categorys: categorys});
+            previewImages(event.images, function(err, images_preview) {
+              res.render('admin/events/edit.jade', {images_preview:images_preview, event: event, areas: areas, partners: partners, categorys: categorys});
+            });
           });
         });
       });
@@ -68,8 +74,10 @@ module.exports = function(Model, Params) {
 
       });
 
-      event.save(function(err, event) {
-        res.redirect('/events');
+      uploadImages(event, 'events', post.images, function(err, event) {
+        event.save(function(err, event) {
+          res.redirect('/events');
+        });
       });
     });
   }

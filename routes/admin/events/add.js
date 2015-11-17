@@ -7,7 +7,11 @@ module.exports = function(Model, Params) {
   var Member = Model.Member;
   var Partner = Model.Partner;
   var Area = Model.Area;
-  var checkNested = Params.checkNested;
+
+  var checkNested = Params.locale.checkNested;
+  var uploadImages = Params.upload.images;
+
+
   var module = {};
 
 
@@ -61,8 +65,10 @@ module.exports = function(Model, Params) {
 
     });
 
-    event.save(function(err, event) {
-      res.redirect('/events');
+    uploadImages(event, 'events', post.images, function(err, event) {
+      event.save(function(err, event) {
+        res.redirect('/events');
+      });
     });
   }
 

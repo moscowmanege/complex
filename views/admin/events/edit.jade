@@ -16,6 +16,9 @@ block content_scripts
 	script(type='text/javascript', src='/build/libs/js/jquery.pickmeup.min.js')
 	script(type='text/javascript', src='/build/libs/js/wysiwyg.min.js')
 	script(type='text/javascript', src='/build/libs/js/wysiwyg-editor.min.js')
+	script(type='text/javascript', src='/build/libs/js/jquery-ui.min.js')
+	script(type='text/javascript', src='/build/libs/js/jquery.filedrop.js')
+	script(type='text/javascript', src='/build/js/upload.js')
 	script(type='text/javascript', src='/build/js/editor.js')
 	script(type='text/javascript', src='/build/js/add.js')
 	script(type='text/javascript', src='/build/js/a_events.js')
@@ -36,6 +39,8 @@ block content
 			+form_text_multi('description', event)
 			.form_title Комментарий (вместо билета):
 			+form_alt_tickets('alt', event)
+			.form_title Изображения:
+			+form_images_upload(event.images)
 			.form_title Возростное ограничение:
 			select(name='age')
 				each age, i in new Array(19)
