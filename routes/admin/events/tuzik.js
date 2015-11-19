@@ -44,10 +44,10 @@ module.exports = function(Model) {
 		callback(null, {title: val_title, s_title: val_s_tile, description: val_description, main_image: val_main_image, images: val_desc_images});
 	};
 
-	var loadImages = function(images, id, callback) {
+	var loadImages = function(images, event, callback) {
 		var path = {
-			original: '/events/' + id + '/original/',
-			thumb: '/events/' + id + '/thumb/'
+			original: '/images/events/' + event._id + '/original/',
+			thumb: '/images/events/' + event._id + '/thumb/'
 		}
 		async.concatSeries([public_path + path.original, public_path + path.thumb], mkdirp, function(err, dirs) {
 			async.mapSeries(images, function(image, callback) {
@@ -62,10 +62,13 @@ module.exports = function(Model) {
 							thumb: path.thumb + img_name,
 							description: [{'lg': 'ru', 'value': image.description}]
 						};
-						callback(null, obj);
+						callback(err, obj);
 					});
 				});
-			}, callback);
+			}, function(err, images) {
+				event.images = event.images.concat(images);
+				callback();
+			});
 		});
 	};
 
@@ -99,8 +102,7 @@ module.exports = function(Model) {
 				getFields('en', event, req.body.link, callback);
 			}
 		}, function(err, result) {
-			loadImages(result.ru.fields.images, event._id, function(err, images) {
-				event.images = event.images.concat(images);
+			loadImages(result.ru.fields.images, event, function(err) {
 				event.save(function() {
 					res.send('ok');
 				});
