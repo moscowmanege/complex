@@ -4,6 +4,7 @@ var async = require('async');
 var gm = require('gm').subClass({ imageMagick: true });
 var del = require('del');
 var fs = require('fs');
+var path = require('path');
 
 var public_path = __app_root + '/public';
 
@@ -19,7 +20,7 @@ module.exports.images = function(obj, base_path, upload_images, callback) {
 		thumb: dir_path + '/thumb/',
 	}
 
-	del(dir_path, function() {
+	del(public_path + dir_path, function(err, paths) {
 
 		if (!upload_images) {
 			return callback.call(null, null, obj);
@@ -41,7 +42,7 @@ module.exports.images = function(obj, base_path, upload_images, callback) {
 			}, function() {
 
 				async.forEachSeries(images, function(image, callback) {
-					var name = Date.now();
+					var name = path.basename(image.path).split('.')[0] || Date.now();
 					var original_path = images_path.original + name + '.jpg';
 					var thumb_path = images_path.thumb + name + '.jpg';
 
@@ -73,7 +74,7 @@ module.exports.preview = function(images, callback) {
 
 	async.mapSeries(images, function(image, callback) {
 		var image_path = __app_root + '/public' + image.original;
-		var image_name = image.original.split('/')[5];
+		var image_name = path.basename(image.original);
 
 		fs.createReadStream(image_path).pipe(fs.createWriteStream(public_path + preview_path + image_name));
 
