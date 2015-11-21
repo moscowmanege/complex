@@ -64,7 +64,7 @@ block content
 			.form_title Категории:
 			+form_multiple_select('categorys', categorys, event.categorys)
 			.form_title Видимость:
-			input(type='checkbox', name='status', value='hidden')
+			input(type='checkbox', name='status', value='hidden', checked=event.status == 'hidden')
 			!= ' скрыть'
 			.form_title Дата публикации:
 			+form_date('date', event.date)

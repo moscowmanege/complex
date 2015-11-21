@@ -2,6 +2,7 @@ $(document).ready(function() {
 	$('.tuzik.open').on('click', function() {
 		$(this).toggleClass('selected');
 		$('.tuzik_form').toggleClass('hidden');
+		$('.list_item').toggle().filter('.tuzik_event').show();
 	});
 
 	$('.tuzik_add').on('click', function() {

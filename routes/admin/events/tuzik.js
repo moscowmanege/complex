@@ -84,6 +84,8 @@ module.exports = function(Model) {
 				event.i18n.s_title.set(fields.s_title, locale);
 				event.i18n.description.set(fields.description, locale);
 
+				event.meta.tuzik[locale] = link[locale];
+
 				callback(null, {link: link[locale], fields: fields});
 			});
 		});
@@ -103,6 +105,7 @@ module.exports = function(Model) {
 			}
 		}, function(err, result) {
 			loadImages(result.ru.fields.images, event, function(err) {
+				event.status = 'hidden';
 				event.save(function() {
 					res.send('ok');
 				});

@@ -46,6 +46,7 @@ module.exports = function(Model, Params) {
       event.categorys = post.categorys == '' ? [] : post.categorys;
       event.partners = post.partners == '' ? [] : post.partners;
       event.date = moment(post.date.date + 'T' + post.date.time.hours + ':' + post.date.time.minutes);
+      event.meta = undefined;
 
       event.members = [];
       if (post.members) {

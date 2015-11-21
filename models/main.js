@@ -43,6 +43,12 @@ var eventSchema = new Schema({
 	s_title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
 	status: String,
+	meta: {
+		tuzik: {
+			ru: String,
+			en: String
+		}
+	},
 	tickets: {
 		alt: { type: String, trim: true, locale: true },
 		ids : [{ type: Schema.Types.ObjectId, ref: 'Ticket' }]
@@ -115,7 +121,6 @@ var logSchema = new Schema({
 	_user_id: { type: Schema.Types.ObjectId, ref: 'User' },
 	type: String,
 	status: String,
-	dump: Schema.Types.Mixed,
 	date: {type: Date, expires: 3600*24*90, default: Date.now}
 });
 

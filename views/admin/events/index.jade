@@ -33,8 +33,16 @@ block content
 	br
 	.lists_block
 		each event in events
-			.list_item
+			.list_item(class=(event.meta.tuzik.ru || event.meta.tuzik.en) ? 'tuzik_event' : '')
 				a.item_rm.event(href='#', id=event._id) удалить
 				a.item_title(href='/events/edit/' + event._id)= event.i18n.title.get('ru')
-				!=' --> '
-				a(href='/events/edit/' + event._id + '/tickets')= 'билеты (' + event.tickets.ids.length + ')'
+				unless (event.meta.tuzik.ru || event.meta.tuzik.en)
+					!=' --> '
+					a(href='/events/edit/' + event._id + '/tickets')= 'билеты (' + event.tickets.ids.length + ')'
+				if (event.meta.tuzik.ru || event.meta.tuzik.en)
+					!=' -- Тузик: '
+					if event.meta.tuzik.ru
+						a(href=event.meta.tuzik.ru, target='_blank') ru
+					if event.meta.tuzik.en
+						span= ' '
+						a(href=event.meta.tuzik.en, target='_blank') en
