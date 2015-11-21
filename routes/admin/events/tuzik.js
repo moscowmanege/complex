@@ -51,14 +51,15 @@ module.exports = function(Model) {
 			original: '/images/events/' + event._id + '/original/',
 			thumb: '/images/events/' + event._id + '/thumb/'
 		}
+
 		async.concatSeries([public_path + path.original, public_path + path.thumb], mkdirp, function(err, dirs) {
 			async.mapSeries(images, function(image, callback) {
 				var uri = encodeURI(image.path);
-				var stream = request(uri);
+				var img_stream = request(uri);
 				var img_name = Date.now() + '.jpg';
 
-					gm(stream).resize(1200, false).write(public_path + path.original + img_name, function (err) {
-						gm(public_path + path.original + img_name).resize(520, false).write(public_path + path.thumb + img_name, function (err) {
+				gm(img_stream).resize(1200, false).write(public_path + path.original + img_name, function (err) {
+					gm(public_path + path.original + img_name).resize(520, false).write(public_path + path.thumb + img_name, function (err) {
 						var obj = {
 							original: path.original + img_name,
 							thumb: path.thumb + img_name,
