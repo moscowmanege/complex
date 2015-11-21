@@ -1,7 +1,7 @@
 module.exports = function(Model, Params) {
 	var Ticket = Model.Ticket;
 	var Event = Model.Event;
-	var checkNested = Params.checkNested;
+	var checkNested = Params.locale.checkNested;
 	var module = {};
 
 

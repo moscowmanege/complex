@@ -2,7 +2,7 @@ var shortid = require('shortid');
 
 module.exports = function(Model, Params) {
   var Member = Model.Member;
-  var checkNested = Params.checkNested;
+  var checkNested = Params.locale.checkNested;
   var module = {};
 
 

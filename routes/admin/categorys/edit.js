@@ -1,6 +1,6 @@
 module.exports = function(Model, Params) {
   var Category = Model.Category;
-  var checkNested = Params.checkNested;
+  var checkNested = Params.locale.checkNested;
   var module = {};
 
 

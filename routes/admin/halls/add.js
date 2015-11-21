@@ -1,7 +1,7 @@
 module.exports = function(Model, Params) {
   var Hall = Model.Hall;
   var Area = Model.Area;
-  var checkNested = Params.checkNested;
+  var checkNested = Params.locale.checkNested;
   var module = {};
 
 
