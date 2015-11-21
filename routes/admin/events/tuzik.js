@@ -30,7 +30,7 @@ module.exports = function(Model) {
 			.replace(/<strong><\/strong\>/g, '')
 			.replace(/strong/g, 'b');
 
-		var val_main_image = main_image.attr('href').split('=')[5];
+		var val_main_image = main_image.attr('href').split('=')[5].trim();
 
 		var val_desc_images = desc_images.map(function() {
 			var obj = {};
@@ -41,7 +41,9 @@ module.exports = function(Model) {
 
 		}).toArray();
 
-		callback(null, {title: val_title, s_title: val_s_tile, description: val_description, main_image: val_main_image, images: val_desc_images});
+		val_desc_images.unshift({path: val_main_image, description:''});
+
+		callback(null, {title: val_title, s_title: val_s_tile, description: val_description, images: val_desc_images});
 	};
 
 	var loadImages = function(images, event, callback) {
