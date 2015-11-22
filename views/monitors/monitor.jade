@@ -13,7 +13,15 @@ each chunk in chunks
 					if event.place.halls
 						each hall in event.place.halls
 							.item_hall= hall.i18n.title.get('ru')
-				b Билеты
+				b Участники:
+				.event_members
+					each member in event.members
+						.member_item
+							.member_role= member.role
+							.member_list
+								each id in member.ids
+									.member_name= id.i18n.name.get('ru')
+				b Билеты:
 				.event_tickets
 					if event.tickets.ids.length > 1
 						each ticket in event.tickets.ids
@@ -24,4 +32,4 @@ each chunk in chunks
 									span.ticket_type= ticket.type
 					else
 						!= event.tickets.i18n.alt.get('ru')
-				br
+				hr
