@@ -31,7 +31,9 @@ block content
 			input(type='text', name='link', value=partner.link)
 			.form_title Тип:
 			select(name='type')
+				option(value='', selected=partner.type == '') нет
 				option(value='info', selected=partner.type == 'info') информационный
+				option(value='innovation', selected=partner.type == 'innovation') инновационный
 				option(value='tech', selected=partner.type == 'tech') технический
 			.form_title Видимость:
 			input(type='checkbox', name='status', value='hidden', checked=partner.status)

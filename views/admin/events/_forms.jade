@@ -15,34 +15,29 @@ mixin form_alt_tickets(path, object)
 	input.en(type="text", name="en[" + path + "]", disabled, value=object && object['tickets']['i18n'][path].get('en'))
 
 
-mixin roleItem(role, title, event_members)
-	- function get_locale(option, lang) {var locale = option.filter(function(locale) { return locale.lg == lang })[0]; if (locale) {return locale.value } else {return ''} }
-	.role(class=role)= title + ':'
-		each event_role in event_members
-			if event_role.role == role
-				each member in event_role.ids
-					.member
-						input.rm_member(type='button', value='-')
-						!= get_locale(member.name, 'ru')
-						input(type='hidden', value=member._id, name='members[' + event_role.role +']')
-
-
 mixin form_members_select(event_members)
+	include ../../vars.jade
+	- function get_locale(option, lang) {var locale = option.filter(function(locale) { return locale.lg == lang })[0]; if (locale) {return locale.value } else {return ''} }
 	if (event_members && event_members.length > 0)
-		.members_roles
-			+roleItem('actor', 'Актеры', event_members)
-			+roleItem('director', 'Режиссеры', event_members)
-			+roleItem('artist', 'Художники', event_members)
+		.members_roles.sortable
+			each event_role in event_members
+				.role(class=event_role.role)= members_roles[event_role.role]['ru']
+					each member in event_role.ids
+						.member
+							input.rm_member(type='button', value='-')
+							!= get_locale(member.name, 'ru')
+							input(type='hidden', value=member._id, name='members[' + event_role.role +']')
+			each title, tag in members_roles
+				unless event_members.some(function(event_role) { return event_role.role == tag })
+					.role(class=tag)
 	else
-		.members_roles
-			.role.actor Актеры:
-			.role.director Режиссеры:
-			.role.artist Художники:
+		.members_roles.sortable
+			each title, tag in members_roles
+				.role(class=tag)= title.ru
 	input.add_member(type='button', value='Добавить')
 	.members_select.hidden
 		input.members_search(type='text', placeholder='поиск...')
 		select.role_select
-			option(value='actor') Актеры
-			option(value='director') Режиссеры
-			option(value='artist') Художники
+			each title, tag in members_roles
+				option(value=tag)= title.ru
 		.members_list

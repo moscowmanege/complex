@@ -5,6 +5,8 @@ function setCharAt(str,index,chr) {
 
 $(document).ready(function() {
 
+	$('.sortable').sortable({cursor: 'move'});
+
 	$('.date').pickmeup({
 		format: 'Y-m-d',
 		hide_on_select: true,
