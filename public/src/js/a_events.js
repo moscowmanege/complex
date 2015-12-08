@@ -46,6 +46,12 @@ $(document).ready(function() {
 		});
 	});
 
+	$(document).on('mouseup', function(event) {
+		if (!/members_list|add_member|member|role_select|members_search/.test(event.target.className)) {
+			$('.members_select').addClass('hidden')
+		}
+	});
+
 	$('.add_member').on('click', function() {
 		$('.members_select').toggleClass('hidden');
 		$('.role_select').trigger('change');
