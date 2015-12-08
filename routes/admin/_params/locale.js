@@ -4,7 +4,7 @@ module.exports.checkNested = function (obj, layers) {
 	}
 
 	for (var i = 0; i < layers.length; i++) {
-		if (!obj || !obj.hasOwnProperty(layers[i])) {
+		if (!obj || !Object.hasOwnProperty.call(obj, layers[i])) {
 			return false;
 		}
 		obj = obj[layers[i]];

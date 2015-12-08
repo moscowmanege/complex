@@ -1,4 +1,9 @@
 var shortid = require('shortid');
+var gm = require('gm').subClass({ imageMagick: true });
+var mime = require('mime');
+var mkdirp = require('mkdirp');
+var del = require('del');
+
 
 module.exports = function(Model, Params) {
   var Partner = Model.Partner;
@@ -16,6 +21,7 @@ module.exports = function(Model, Params) {
 
   module.form = function(req, res) {
     var post = req.body;
+    var file = req.file;
     var id = req.params.id;
 
     Partner.findById(id).exec(function(err, partner) {
@@ -35,9 +41,27 @@ module.exports = function(Model, Params) {
 
       });
 
-      partner.save(function(err, partner) {
-        res.redirect('/partners');
-      });
+      if (file) {
+        var public_path = __app_root + '/public';
+        var dir_path = '/images/partners' + '/' + partner._id;
+        var file_name = 'logo' + '.' + mime.extension(file.mimetype);
+
+        mkdirp(public_path + dir_path, function() {
+          gm(file.path).resize(320, false).quality(100).write(public_path + dir_path + '/' + file_name, function() {
+            del(file.path, function() {
+              partner.logo = dir_path + '/' + file_name;
+              partner.save(function(err, partner) {
+                res.redirect('/partners');
+              });
+            });
+          });
+        });
+      } else {
+        partner.save(function(err, partner) {
+          res.redirect('/partners');
+        });
+      }
+
     });
   }
 

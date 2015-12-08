@@ -22,13 +22,15 @@ block sub_menu
 block content
 	.form_block
 		.title= content_title
-		form(action="/partners/add", method="post")
+		form(action="/partners/add", method="post", enctype='multipart/form-data')
 			.form_title Заголовок:
 			+form_text_single('title')
 			.form_title Описание:
 			+form_text_multi('description')
 			.form_title Ссылка на сайт:
 			input(type='text', name='link')
+			.form_title Логотип:
+			input(type='file', name='logo')
 			.form_title Тип:
 			select(name='type')
 				option(value='') нет

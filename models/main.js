@@ -100,6 +100,7 @@ var partnerSchema = new Schema({
 	description: { type: String, trim: true, locale: true },
 	type: String,
 	link: String,
+	logo: String,
 	status: String,
 	date: {type: Date, default: Date.now}
 });

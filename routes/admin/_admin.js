@@ -30,7 +30,7 @@ module.exports = (function() {
 	router.use('/events', checkAuth, admin.events);
 	router.use('/areas', checkAuth, admin.areas);
 	router.use('/members', checkAuth, admin.members);
-	router.use('/partners', checkAuth, admin.partners);
+	router.use('/partners', checkAuth, upload.single('logo'), admin.partners);
 	router.use('/users', checkAuth, admin.users);
 
 	router.post('/preview', checkAuth, upload.single('image'), admin.options.preview);
