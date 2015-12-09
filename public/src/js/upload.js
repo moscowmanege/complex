@@ -42,7 +42,7 @@ $(document).ready(function() {
 		},
 		uploadFinished: function(i, file, response, time) {
 			var image = $('<div />', {'class': 'image_upload_preview', 'style': 'background-image:url(' + response + ')'});
-			var image_delete = $('<div />', {'class': 'image_delete', 'text': 'удалить'});
+			var image_delete = $('<div />', {'class': 'image_delete', 'text': '×'});
 			var image_description = $('<div />', {'class': 'image_description'});
 			var desc_ru = $('<textarea />', {'class': 'image_description_input ru_img', 'name': 'images[description][ru][]', 'placeholder':'Описание'});
 			var desc_en = $('<textarea />', {'class': 'image_description_input en_img', 'name': 'images[description][en][]', 'disabled':'disabled', 'placeholder':'Description'});

@@ -97,7 +97,7 @@ mixin form_images_upload(images)
 				each image, i in images
 					.image_upload_preview(style='background-image:url(' + image.thumb + ')')
 						input.image_upload_form(type='hidden', name='images[path][]', value=images_preview[i])
-						.image_delete удалить
+						.image_delete ×
 						.image_description
 							textarea.image_description_input.ru_img(name='images[description][ru][]', placeholder='Описание')= get_locale(image.description, 'ru')
 							textarea.image_description_input.en_img(name='images[description][en][]', placeholder='Description')= get_locale(image.description, 'en')
