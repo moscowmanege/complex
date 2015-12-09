@@ -1,5 +1,5 @@
 .main_block
-	width 1280px
+	width 1200px
 	margin 40px auto
 
 .menu_block
@@ -73,13 +73,17 @@ input, textarea, select
 	outline none
 
 .ru
-	width 620px
+	box-sizing border-box
+	margin 0
+	width 590px
 	display inline-block
 	&.input
 		width auto
 
 .en
-	width 620px
+	box-sizing border-box
+	margin 0
+	width 590px
 	display none
 	margin-left 20px
 	&.input
@@ -89,7 +93,7 @@ input, textarea, select
 	display none
 
 .editor
-	width 625px
+	width 588px
 	float left
 	margin-right 20px
 	margin-bottom 20px
@@ -124,24 +128,25 @@ input, textarea, select
 .form_images_upload
 	position relative
 	.images_upload_preview
-		width 623px
+		box-sizing border-box
+		width 590px
 		min-height 205px
 		padding-top 10px
 		overflow hidden
 		border 1px solid red
 		.placeholder
-			width 190px
-			height 190px
-			margin-bottom 12px
-			margin-left 12px
+			width 180px
+			height 180px
+			margin-bottom 10px
+			margin-left 10px
 			float left
 			background-color lightgrey
 			border 1px solid red
 		.image_upload_preview
-			width 190px
-			height 190px
-			margin-bottom 12px
-			margin-left 12px
+			width 180px
+			height 180px
+			margin-bottom 10px
+			margin-left 10px
 			float left
 			background-size cover
 			background-position center
@@ -162,18 +167,18 @@ input, textarea, select
 					color white
 			.image_description
 				position absolute
-				width 623px
-				// border 1px solid red
-				left 645px
+				width 610px
+				left 610px
 				top 0
 				bottom 6px
 				display none
 				&.show
 					display block
 				.image_description_input
+					box-sizing border-box
 					display block
 					float left
-					width 295px
+					width 285px
 					height 100%
 					border 1px solid #ccc
 					margin-right 20px
