@@ -9,7 +9,7 @@ $(document).ready(function() {
 	$('.editor').each( function(index, element) {
 		$(element).wysiwyg({
 				classes: 'editor',
-				toolbar: 'top',
+				toolbar: 'top-selection',
 				buttons: {
 				insertlink: {
 						title: 'Insert link',
