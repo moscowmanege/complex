@@ -29,7 +29,7 @@ module.exports = (function() {
 	router.use('/categorys', checkAuth, admin.categorys);
 	router.use('/events', checkAuth, admin.events);
 	router.use('/areas', checkAuth, admin.areas);
-	router.use('/members', checkAuth, admin.members);
+	router.use('/members', checkAuth, upload.single('photo'), admin.members);
 	router.use('/partners', checkAuth, upload.single('logo'), admin.partners);
 	router.use('/users', checkAuth, admin.users);
 

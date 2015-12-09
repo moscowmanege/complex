@@ -1,4 +1,9 @@
 var shortid = require('shortid');
+var gm = require('gm').subClass({ imageMagick: true });
+var mime = require('mime');
+var mkdirp = require('mkdirp');
+var del = require('del');
+
 
 module.exports = function(Model, Params) {
   var Member = Model.Member;
@@ -16,6 +21,7 @@ module.exports = function(Model, Params) {
 
   module.form = function(req, res) {
     var post = req.body;
+    var file = req.file;
     var id = req.params.id;
 
     Member.findById(id).exec(function(err, member) {
@@ -34,9 +40,27 @@ module.exports = function(Model, Params) {
 
       });
 
-      member.save(function(err, member) {
-        res.redirect('/members');
-      });
+      if (file) {
+        var public_path = __app_root + '/public';
+        var dir_path = '/images/members' + '/' + member._id;
+        var file_name = 'photo' + '.' + mime.extension(file.mimetype);
+
+        mkdirp(public_path + dir_path, function() {
+          gm(file.path).resize(520, false).quality(80).write(public_path + dir_path + '/' + file_name, function() {
+            del(file.path, function() {
+              member.photo = dir_path + '/' + file_name;
+              member.save(function(err, member) {
+                res.redirect('/members');
+              });
+            });
+          });
+        });
+      } else {
+        member.save(function(err, member) {
+          res.redirect('/members');
+        });
+      }
+
     });
   }
 

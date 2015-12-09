@@ -89,6 +89,7 @@ var memberSchema = new Schema({
 	_short_id: String,
 	name: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
+	photo: String,
 	roles: [String],
 	status: String,
 	date: {type: Date, default: Date.now}

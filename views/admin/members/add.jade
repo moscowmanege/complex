@@ -22,11 +22,13 @@ block sub_menu
 block content
 	.form_block
 		.title= content_title
-		form(action="/members/add", method="post")
+		form(action="/members/add", method="post", enctype='multipart/form-data')
 			.form_title Имя:
 			+form_text_single('name')
 			.form_title Описание:
 			+form_text_multi('description')
+			.form_title Фото:
+			input(type='file', name='photo')
 			.form_title Роли:
 			.snake_outer
 				span.snake
