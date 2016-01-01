@@ -31,7 +31,7 @@ block content
 			select(name='type')
 				option(value='') нет
 				option(value='special', selected=category.type=='special') спецпроект
-				option(value='education', selected=category.type=='education') образование
+				option(value='education', selected=category.type=='education') образовательная программа
 			.form_title Видимость:
 			input(type='checkbox', name='status', value='hidden', checked=category.status)
 			!= ' скрыть'
