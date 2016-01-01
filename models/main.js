@@ -110,6 +110,7 @@ var categorySchema = new Schema({
 	_short_id: String,
 	title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
+	type: String,
 	status: String,
 	date: {type: Date, default: Date.now}
 });

@@ -27,6 +27,11 @@ block content
 			+form_text_single('title', category)
 			.form_title Описание:
 			+form_text_multi('description', category)
+			.form_title Тип:
+			select(name='type')
+				option(value='') нет
+				option(value='special', selected=category.type=='special') спецпроект
+				option(value='education', selected=category.type=='education') образование
 			.form_title Видимость:
 			input(type='checkbox', name='status', value='hidden', checked=category.status)
 			!= ' скрыть'

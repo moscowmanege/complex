@@ -17,6 +17,7 @@ module.exports = function(Model, Params) {
     var category = new Category();
 
     category._short_id = shortid.generate();
+    category.type = post.type;
     category.status = post.status;
 
     var locales = post.en ? ['ru', 'en'] : ['ru'];

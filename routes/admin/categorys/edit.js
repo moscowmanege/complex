@@ -19,6 +19,7 @@ module.exports = function(Model, Params) {
 
     Category.findById(id).exec(function(err, category) {
 
+      category.type = post.type;
       category.status = post.status;
 
       var locales = post.en ? ['ru', 'en'] : ['ru'];

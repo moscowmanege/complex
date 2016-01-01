@@ -28,6 +28,11 @@ block content
 			+form_text_single('title')
 			.form_title Описание:
 			+form_text_multi('description')
+			.form_title Тип:
+			select(name='type')
+				option(value='') нет
+				option(value='special') спецпроект
+				option(value='education') образование
 			.form_title Видимость:
 			input(type='checkbox', name='status', value='hidden')
 			!= ' скрыть'
