@@ -13,6 +13,9 @@ module.exports = function(Model, Params) {
 
     var area = new Area();
 
+    area.contacts.phones = post.phones;
+    area.contacts.emails = post.emails;
+
     var locales = post.en ? ['ru', 'en'] : ['ru'];
 
     locales.forEach(function(locale) {
@@ -23,7 +26,7 @@ module.exports = function(Model, Params) {
         && area.setPropertyLocalised('description', post[locale].description, locale);
 
       checkNested(post, [locale, 'adress'])
-        && area.setPropertyLocalised('adress', post[locale].adress, locale);
+        && area.setPropertyLocalised('contacts.adress', post[locale].adress, locale);
 
     });
 

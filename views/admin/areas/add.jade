@@ -29,6 +29,10 @@ block content
 			+form_text_multi('description')
 			.form_title Адрес:
 			+form_text_single('adress')
+			.form_title Телефоны:
+			+form_multiple_input('phones')
+			.form_title E-mails:
+			+form_multiple_input('emails')
 			br
 			br
-			input(type='submit', value='отправить')
+			input.form_submit(type='submit', value='отправить')

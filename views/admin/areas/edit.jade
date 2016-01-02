@@ -28,7 +28,11 @@ block content
 			.form_title Описание:
 			+form_text_multi('description', area)
 			.form_title Адрес:
-			+form_text_single('adress', area)
+			+form_text_single('adress', area.contacts)
+			.form_title Телефоны:
+			+form_multiple_input('phones', area.contacts)
+			.form_title E-mails:
+			+form_multiple_input('emails', area.contacts)
 			br
 			br
-			input(type='submit', value='отправить')
+			input.form_submit(type='submit', value='отправить')

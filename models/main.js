@@ -16,7 +16,11 @@ var userSchema = new Schema({
 var areaSchema = new Schema({
 	title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
-	adress: { type: String, trim: true, locale: true },
+	contacts: {
+		adress: { type: String, trim: true, locale: true },
+		phones: [String],
+		emails: [String]
+	},
 	halls: [{ type: Schema.Types.ObjectId, ref: 'Hall' }],
 	images: [{
 		description: { type: String, trim: true, locale: true },

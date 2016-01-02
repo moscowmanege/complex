@@ -2,7 +2,11 @@ each chunk in chunks
 	.flip_item
 		.flip_area
 			.area_title= area.i18n.title.get('ru')
-			.area_adress= area.i18n.adress.get('ru')
+			.area_adress= area.contacts.i18n.adress.get('ru')
+			.area_phones Телефоны:
+				!= area.contacts.phones.join(', ')
+			.area_emails E-mail:
+				!= area.contacts.emails.join(', ')
 		hr
 		.flip_events
 			each event in chunk

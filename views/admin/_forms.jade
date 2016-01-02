@@ -71,12 +71,12 @@ mixin form_multiple_select(path, options, select_options)
 
 mixin form_multiple_input(path, options)
 	.snake_outer
-		if (!options || !options.length > 0)
+		if (!options[path] || !options[path].length > 0)
 			span.snake
 				input.back(type="button", value="-")
 				input.input(type='text', name=path + '[]')
 		else
-			each option in options
+			each option in options[path]
 				span.snake
 					input.back(type="button", value="-")
 					input.input(type='text', name=path + '[]', value=option)
