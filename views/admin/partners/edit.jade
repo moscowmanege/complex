@@ -20,6 +20,7 @@ block sub_menu
 	span.sub_item.toggle_eng Перевод
 
 block content
+	include ../../vars.jade
 	.form_block
 		.title= content_title
 		form(action="", method="post", enctype='multipart/form-data')
@@ -37,9 +38,8 @@ block content
 			.form_title Тип:
 			select(name='type')
 				option(value='', selected=partner.type == '') нет
-				option(value='info', selected=partner.type == 'info') информационный
-				option(value='innovation', selected=partner.type == 'innovation') инновационный
-				option(value='tech', selected=partner.type == 'tech') технический
+				each title, type in partners_types
+					option(value=type, selected=type == partner.type)= title.ru
 			.form_title Видимость:
 			input(type='checkbox', name='status', value='hidden', checked=partner.status)
 			!= ' скрыть'

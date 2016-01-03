@@ -20,6 +20,7 @@ block sub_menu
 	span.sub_item.toggle_eng Перевод
 
 block content
+	include ../../vars.jade
 	.form_block
 		.title= content_title
 		form(action="", method="post", enctype='multipart/form-data')
@@ -35,23 +36,20 @@ block content
 			.form_title Роли:
 			if (member.roles && member.roles.length > 0)
 				.snake_outer
-					each role in member.roles
+					each member_role in member.roles
 						span.snake
 							input.back(type="button", value="-")
 							select(name='roles')
-								option(value='actor', selected=role == 'actor') актер
-								option(value='director', selected=role == 'director') режиссер
-								option(value='author', selected=role == 'author') автор
-								option(value='artist', selected=role == 'artist') художник
+								each title, role in members_roles
+									option(value=role, selected=role == member_role)= title.ru
 					input.forward(type="button", value="+")
 			else
 				.snake_outer
 					span.snake
 						input.back(type="button", value="-")
 						select(name='roles')
-							option(value='actor', selected=role == 'actor') актер
-							option(value='dicrector', selected=role == 'dicrector') режиссер
-							option(value='author', selected=role == 'author') автор
+							each title, role in members_roles
+								option(value=role)= title.ru
 					input.forward(type="button", value="+")
 			.form_title Видимость:
 			input(type='checkbox', name='status', value='hidden', checked=member.status)
