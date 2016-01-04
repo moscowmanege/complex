@@ -4,8 +4,11 @@ block paths
 	- var content_title= 'STARGAZER'
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/build/css/stargazer.css')
 	link(rel='stylesheet', type='text/css', href='/build/css/add.css')
+	link(rel='stylesheet', type='text/css', href='/build/css/stargazer.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/stargazer.js')
 
 block sub_menu
 	a.sub_item.back_link(href='/auth/logout') < Выход
@@ -13,4 +16,4 @@ block sub_menu
 	a.sub_item(href='/users/edit/' + session.user_id)= session.login
 
 block content
-	pre.ascii!=data
+	pre.ascii(data-font=font)!=data
