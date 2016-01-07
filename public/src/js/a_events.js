@@ -24,13 +24,13 @@ $(document).ready(function() {
 
 	var checkRoles = function() {
 		$('.role').each(function(index, el) {
-			if ($(this).children().length == 0) {
+			if ($(this).children().length === 0) {
 				$(this).hide();
 			} else {
 				$(this).show();
 			}
 		});
-	}
+	};
 	checkRoles();
 
 	$(document).on('keyup change', '.members_search', function(event) {
@@ -48,7 +48,7 @@ $(document).ready(function() {
 
 	$(document).on('mouseup', function(event) {
 		if (!/members_list|add_member|member|role_select|members_search/.test(event.target.className)) {
-			$('.members_select').addClass('hidden')
+			$('.members_select').addClass('hidden');
 		}
 	});
 

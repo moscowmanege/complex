@@ -6,7 +6,7 @@ $(document).ready(function() {
 				if (event.altKey && event.which == 70) {
 					$('.sub_search').focus();
 				} else if (event.which == 27) {
-					if ($('.sub_search').val() == '') {
+					if ($('.sub_search').val() === '') {
 						$('.sub_search').blur();
 					} else {
 						$('.sub_search').val('').trigger('keyup');
