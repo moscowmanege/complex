@@ -41,3 +41,18 @@ mixin form_members_select(event_members)
 			each title, tag in members_roles
 				option(value=tag)= title.ru
 		.members_list
+
+mixin form_partners_select(event_partners)
+	include ../../vars.jade
+	- function get_locale(option, lang) {var locale = option.filter(function(locale) { return locale.lg == lang })[0]; if (locale) {return locale.value } else {return ''} }
+	.partners_ranks.sortable
+		each title, rank in partners_ranks
+			.rank(class=rank)= title.ru
+	input.add_partner(type='button', value='Добавить')
+	.partners_select.hidden
+		input.partners_search(type='text', placeholder='поиск...')
+		select.rank_select
+			each title, rank in partners_ranks
+				option(value=rank)= title.ru
+			option(value='') нет
+		.partners_list

@@ -44,7 +44,7 @@ module.exports = function(Model, Params) {
       event.interval.end = moment(post.interval.end.date + 'T' + post.interval.end.time.hours + ':' + post.interval.end.time.minutes).toDate();
       event.place = post.place;
       event.categorys = post.categorys == '' ? [] : post.categorys;
-      event.partners = post.partners == '' ? [] : post.partners;
+      // event.partners = post.partners == '' ? [] : post.partners;
       event.date = moment(post.date.date + 'T' + post.date.time.hours + ':' + post.date.time.minutes);
       event.meta = undefined;
 
@@ -56,6 +56,14 @@ module.exports = function(Model, Params) {
             ids: post.members[member]
           });
         }
+      }
+
+      event.partners = [];
+      for (partner in post.partners) {
+        event.partners.push({
+          rank: partner,
+          ids: post.partners[partner]
+        });
       }
 
       var locales = post.en ? ['ru', 'en'] : ['ru'];
