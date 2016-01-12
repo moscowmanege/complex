@@ -15,44 +15,40 @@ mixin form_alt_tickets(path, object)
 	input.en(type="text", name="en[" + path + "]", disabled, value=object && object['tickets']['i18n'][path].get('en'))
 
 
-mixin form_members_select(event_members)
+mixin form_persons_select(event_persons)
 	include ../../vars.jade
 	- function get_locale(option, lang) {var locale = option.filter(function(locale) { return locale.lg == lang })[0]; if (locale) {return locale.value } else {return ''} }
-	if (event_members && event_members.length > 0)
-		.members_roles.sortable
-			each event_role in event_members
-				.role(class=event_role.role)= members_roles[event_role.role]['ru']
-					each member in event_role.ids
-						.member
-							input.rm_member(type='button', value='-')
-							!= get_locale(member.name, 'ru')
-							input(type='hidden', value=member._id, name='members[' + event_role.role +']')
-			each title, tag in members_roles
-				unless event_members.some(function(event_role) { return event_role.role == tag })
-					.role(class=tag)
-	else
-		.members_roles.sortable
-			each title, tag in members_roles
-				.role(class=tag)= title.ru
-	input.add_member(type='button', value='Добавить')
-	.members_select.hidden
-		input.members_search(type='text', placeholder='поиск...')
-		select.role_select
-			each title, tag in members_roles
-				option(value=tag)= title.ru
-		.members_list
 
-mixin form_partners_select(event_partners)
-	include ../../vars.jade
-	- function get_locale(option, lang) {var locale = option.filter(function(locale) { return locale.lg == lang })[0]; if (locale) {return locale.value } else {return ''} }
-	.partners_ranks.sortable
-		each title, rank in partners_ranks
-			.rank(class=rank)= title.ru
-	input.add_partner(type='button', value='Добавить')
-	.partners_select.hidden
-		input.partners_search(type='text', placeholder='поиск...')
-		select.rank_select
-			each title, rank in partners_ranks
-				option(value=rank)= title.ru
-			option(value='') нет
-		.partners_list
+	if (attributes.persons == 'members')
+		- var type = 'role'
+		- var field = 'name'
+		- var select_categorys = members_roles
+	else if (attributes.persons == 'partners')
+		- var type = 'rank'
+		- var field = 'title'
+		- var select_categorys = partners_ranks
+
+	if (event_persons && event_persons.length > 0)
+		.persons_categorys(class=attributes.persons).sortable
+			each event_person in event_persons
+				.tag(class=event_person.role)= select_categorys[event_person[type]]['ru']
+					each person in event_person.ids
+						.person
+							input.rm_person(type='button', value='-')
+							!= get_locale(person[field], 'ru')
+							input(type='hidden', value=person._id, name= attributes.persons + '[' + event_person[type] +']')
+			each title, tag in select_categorys
+				unless event_persons.some(function(person) { return person[type] == tag })
+					.tag(class=tag)= title.ru
+	else
+		.persons_categorys(class=attributes.persons).sortable
+			each title, tag in select_categorys
+				.tag(class=tag)= title.ru
+
+	input.add_person(type='button', value='Добавить')
+	.persons_select.hidden
+		input.persons_search(type='text', placeholder='поиск...')
+		select.tag_select(class=attributes.persons)
+			each title, tag in select_categorys
+				option(value=tag)= title.ru
+		.persons_list(class=attributes.persons)

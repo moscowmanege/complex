@@ -20,10 +20,10 @@ $(document).ready(function() {
 		}
 	});
 
-	// Members
+	// Persons
 
-	var checkRoles = function() {
-		$('.role').each(function(index, el) {
+	var checkTags = function() {
+		$('.tag').each(function(index, el) {
 			if ($(this).children().length === 0) {
 				$(this).hide();
 			} else {
@@ -31,11 +31,11 @@ $(document).ready(function() {
 			}
 		});
 	};
-	checkRoles();
+	checkTags();
 
-	$(document).on('keyup change', '.members_search', function(event) {
+	$(document).on('keyup change', '.persons_search', function(event) {
 		var value = $(this).val();
-		var $elems = $('.members_list').children('.member');
+		var $elems = $(this).parent('.persons_select').children('.persons_list').children('.person');
 
 		$elems.each(function(index, el) {
 			var el_val = $(el).html().toLowerCase();
@@ -47,41 +47,50 @@ $(document).ready(function() {
 	});
 
 	$(document).on('mouseup', function(event) {
-		if (!/members_list|add_member|member|role_select|members_search/.test(event.target.className)) {
-			$('.members_select').addClass('hidden');
+		if (!/persons_list|add_person|person|tag_select|persons_search/.test(event.target.className)) {
+			$('.persons_select').addClass('hidden');
 		}
 	});
 
-	$('.add_member').on('click', function() {
-		$('.members_select').toggleClass('hidden');
-		$('.role_select').trigger('change');
+	$('.add_person').on('click', function() {
+		$(this).next('.persons_select').toggleClass('hidden');
+		$('.tag_select').trigger('change');
 	});
 
-	$(document).on('click', '.rm_member', function() {
+	$(document).on('click', '.rm_person', function() {
 		$(this).parent().remove();
-		checkRoles();
+		checkTags();
 	});
 
-	$('.role_select').on('change', function() {
-		var role = $('.role_select').children('option:selected').val();
+	$('.tag_select').on('change', function() {
+		var tag = $(this).children('option:selected').val();
+		var type = $(this).attr('class').split(' ')[1];
+		var field;
 
-		$.post('/members', {role: role}).done(function(members) {
-			$('.members_list').empty();
-			members.forEach(function(member, i) {
-				var $member = $('<div/>', {'class':'member', 'id': member._id, 'text': member.name[0].value});
-				$('.members_list').append($member);
+		if (type == 'members') {
+			field = 'name';
+		} else if (type == 'partners') {
+			field = 'title';
+		}
+
+		$.post('/' + type, {tag: tag}).done(function(persons) {
+			$('.persons_list.' + type).empty();
+			persons.forEach(function(person, i) {
+				var $person = $('<div/>', {'class':'person', 'id': person._id, 'text': person[field][0].value});
+				$('.persons_list.' + type).append($person);
 			});
 		});
 	});
 
-	$(document).on('click', '.members_list > .member', function() {
-			var role = $('.role_select').children('option:selected').val();
+	$(document).on('click', '.persons_list > .person', function() {
+			var tag = $(this).closest('.persons_select').children('.tag_select').children('option:selected').val();
 			var id = $(this).attr('id');
+			var type = $(this).parent('.persons_list').attr('class').split(' ')[1];
 
-			var $member_remove = $('<input>', {type:'button', value:'-', 'class': 'rm_member'});
-			var $member_form = $('<input>', {type: 'hidden', name:'members[' + role +']', value: id});
-			$(this).clone().appendTo('.' + role).prepend($member_remove).append($member_form);
-			checkRoles();
+			var $person_remove = $('<input>', {type:'button', value:'-', 'class': 'rm_person'});
+			var $person_form = $('<input>', {type: 'hidden', name: type + '[' + tag +']', value: id});
+			$(this).clone().appendTo('.' + tag).prepend($person_remove).append($person_form);
+			checkTags();
 	});
 
 	// Halls

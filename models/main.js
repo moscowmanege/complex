@@ -67,12 +67,7 @@ var eventSchema = new Schema({
 		area: { type: Schema.Types.ObjectId, ref: 'Area' },
 		halls: [{ type: Schema.Types.ObjectId, ref: 'Hall' }]
 	},
-	events: {
-		parent: { type: Schema.Types.ObjectId, ref: 'Event' },
-		children: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
-	},
 	categorys: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
-	// partners: [{ type: Schema.Types.ObjectId, ref: 'Partner' }],
 	partners: [{
 		rank: String,
 		ids: [{ type: Schema.Types.ObjectId, ref: 'Partner' }]

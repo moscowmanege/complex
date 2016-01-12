@@ -17,7 +17,8 @@ module.exports = (function() {
 	var router = express.Router();
 
 	router.route('/')
-		.get(partners.list.index);
+		.get(partners.list.index)
+		.post(partners.list.get_partners);
 
 	router.route('/add')
 		.get(partners.add.index)

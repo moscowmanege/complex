@@ -10,9 +10,9 @@ module.exports = function(Model) {
 	}
 
 	module.get_members = function(req, res) {
-		var role = req.body.role;
+		var tag = req.body.tag;
 
-	  Member.find({'roles': role}).exec(function(err, members) {
+	  Member.find({'roles': tag}).exec(function(err, members) {
 	    res.send(members);
 	  });
 	}

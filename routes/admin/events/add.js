@@ -39,7 +39,6 @@ module.exports = function(Model, Params) {
     event.interval.end = moment(post.interval.end.date + 'T' + post.interval.end.time.hours + ':' + post.interval.end.time.minutes).toDate();
     event.place = post.place;
     event.categorys = post.categorys == '' ? [] : post.categorys;
-    // event.partners = post.partners == '' ? [] : post.partners;
 
     for (member in post.members) {
     	event.members.push({

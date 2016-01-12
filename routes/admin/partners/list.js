@@ -9,6 +9,13 @@ module.exports = function(Model) {
 	  });
 	}
 
+	module.get_partners = function(req, res) {
+
+	  Partner.find().exec(function(err, partners) {
+	    res.send(partners);
+	  });
+	}
+
 
   return module;
 }

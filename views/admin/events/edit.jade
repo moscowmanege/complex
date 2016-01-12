@@ -58,9 +58,9 @@ block content
 			!= ' --- '
 			+form_date('interval[end]', event.interval.end)(class='end')
 			.form_title Участники:
-			+form_members_select(event.members)
+			+form_persons_select(event.members)(persons='members')
 			.form_title Партнеры:
-			+form_multiple_select('partners', partners, event.partners)
+			+form_persons_select(event.partners)(persons='partners')
 			.form_title Категории:
 			+form_multiple_select('categorys', categorys, event.categorys)
 			.form_title Видимость:

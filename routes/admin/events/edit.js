@@ -17,7 +17,7 @@ module.exports = function(Model, Params) {
   module.index = function(req, res) {
     var id = req.params.event_id;
 
-    Event.findById(id).populate('members.ids').exec(function(err, event) {
+    Event.findById(id).populate('members.ids partners.ids').exec(function(err, event) {
       Area.find().populate('halls').exec(function(err, areas) {
         Category.find().sort('-date').exec(function(err, categorys) {
           Partner.find().sort('-date').exec(function(err, partners) {
@@ -44,7 +44,6 @@ module.exports = function(Model, Params) {
       event.interval.end = moment(post.interval.end.date + 'T' + post.interval.end.time.hours + ':' + post.interval.end.time.minutes).toDate();
       event.place = post.place;
       event.categorys = post.categorys == '' ? [] : post.categorys;
-      // event.partners = post.partners == '' ? [] : post.partners;
       event.date = moment(post.date.date + 'T' + post.date.time.hours + ':' + post.date.time.minutes);
       event.meta = undefined;
 
@@ -59,11 +58,13 @@ module.exports = function(Model, Params) {
       }
 
       event.partners = [];
-      for (partner in post.partners) {
-        event.partners.push({
-          rank: partner,
-          ids: post.partners[partner]
-        });
+      if (post.partners) {
+        for (partner in post.partners) {
+          event.partners.push({
+            rank: partner,
+            ids: post.partners[partner]
+          });
+        }
       }
 
       var locales = post.en ? ['ru', 'en'] : ['ru'];
