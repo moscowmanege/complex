@@ -31,7 +31,7 @@ mixin form_persons_select(event_persons)
 	if (event_persons && event_persons.length > 0)
 		.persons_categorys(class=attributes.persons).sortable
 			each event_person in event_persons
-				.tag(class=event_person.role)= select_categorys[event_person[type]]['ru']
+				.tag(class=event_person[type])= select_categorys[event_person[type]]['ru']
 					each person in event_person.ids
 						.person
 							input.rm_person(type='button', value='-')
