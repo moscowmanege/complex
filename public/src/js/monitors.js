@@ -112,4 +112,24 @@ $(document).ready(function() {
 	};
 
 
+	// Time block
+
+
+	var time = function() {
+		var date = new Date();
+		var days = ['ВОСКРЕСЕНЬЕ','ПОНЕДЕЛЬНИК','ВТОРНИК','СРЕДА','ЧЕТВЕРГ','ПЯТНИЦА','СУББОТА']
+		var months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+
+		var day = days[date.getDay()]
+		var hours = ('0' + date.getHours()).slice(-2);
+		var min = ('0' + date.getMinutes()).slice(-2);
+
+		$('.date').text(day + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ' ' +date.getFullYear())
+		$('.hours').text(hours);
+		$('.minutes').text(min);
+		$('.time_sep').toggleClass('hidden');
+	}
+
+	var _timer = setInterval(time, 1000);
+
 });

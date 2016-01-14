@@ -22,7 +22,55 @@ body
 	margin 0 auto
 	width 1080px
 	height 1920px
+	font 12pt/14pt 'Circe'
 	.flip_item
+		background-image url('/images/design/gridinator.png')
+		box-sizing border-box
 		width 1080px
 		height 1920px
-		background-color #dcdbd8
+		padding 60px
+		.flip_header
+			overflow hidden
+			.flip_date
+				float left
+				font 14pt/16pt 'Circe'
+				.date
+					display inline-block
+					&:after
+						content ','
+				.time
+					margin-left 5px
+					display inline-block
+					.time_sep
+						opacity 1
+						&.hidden
+							opacity 0
+			.flip_logo
+				float right
+				.logo
+					width 242px
+				.logo_title
+					font 11pt/14pt 'Circe'
+		.flip_area
+			margin-top 40px
+			overflow hidden
+			.area_title
+				font 32pt/34pt 'Circe Bold'
+				margin-bottom 60px
+			.area_location
+				float left
+			.area_contacts
+				// width 234px
+				float left
+				margin-left 70px
+				.phone
+				.email
+					display inline-block
+					margin-right 5px
+					&:after
+						content ','
+					&:last-child
+						&:after
+							content ''
+		.flip_events
+			margin-top 80px

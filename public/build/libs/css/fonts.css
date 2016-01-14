@@ -1,14 +1,14 @@
 @font-face {
-	font-family: 'Georgia';
-	src: url('/fonts/Georgia.ttf');
+	font-family: 'Circe';
+	src: url('/fonts/CRC55.otf');
 }
 
 @font-face {
-	font-family: 'GillSans';
-	src: url('/fonts/GillSansC.otf');
+	font-family: 'Circe Bold';
+	src: url('/fonts/CRC65.otf');
 }
 
 @font-face {
-	font-family: 'GillSansLight';
-	src: url('/fonts/GillSansLightC.otf');
+	font-family: 'Circe Extra Bold';
+	src: url('/fonts/CRC75.otf');
 }
