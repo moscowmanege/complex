@@ -10,8 +10,8 @@ module.exports = function(io) {
 
 	var get_events = function(status, area, callback) {
 		Area.findById(area).exec(function(err, area) {
-			Event.find({'place.area': area}).populate('place.halls tickets.ids members.ids').exec(function(err, events) {
-				var chunks = chunk(events, 2);
+			Event.find({'place.area': area}).sort('interval.begin interval.end').populate('place.halls categorys tickets.ids members.ids').exec(function(err, events) {
+				var chunks = chunk(events, 4);
 				var opts = {chunks: chunks, area: area, compileDebug: false, debug: false, cache: false, pretty: false};
 				var events_compile = jade.renderFile(__app_root + '/views/monitors/monitor.jade', opts);
 

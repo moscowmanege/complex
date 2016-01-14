@@ -1,3 +1,43 @@
+include ../vars.jade
+
+mixin eventBlock(event)
+	.event_block
+
+		.event_header
+			.event_type= event_types[event.type]['ru']
+			.event_categorys
+				each category in event.categorys
+					.category= category.i18n.title.get('ru')
+			.event_age= event.age
+
+
+		.event_body
+			.event_title= event.i18n.title.get('ru')
+			.event_halls
+				if event.place.halls
+					each hall in event.place.halls
+						.item_hall= hall.i18n.title.get('ru')
+			.event_members
+				each member in event.members
+					.member_item
+						.member_role= member.ids.length > 1 ? members_roles[member.role]['ru'] : members_roles[member.role]['ru'].slice(0, -1)
+						.member_list
+							each id in member.ids
+								.member_name= id.i18n.name.get('ru')
+			.event_tickets
+				if event.tickets.ids.length > 1
+					each ticket in event.tickets.ids
+						if ticket.events.length == 1
+							.ticket_item
+								span.ticket_price= ticket.price
+								span= ' - '
+								span.ticket_type= ticket.type
+				else
+					!= event.tickets.i18n.alt.get('ru')
+
+
+
+
 each chunk in chunks
 	.flip_item
 		.flip_header
@@ -10,7 +50,7 @@ each chunk in chunks
 					span.minutes
 			.flip_logo
 				img.logo(src='/images/design/logo_ru.svg')
-				.logo_title музейно-выставочное объединение
+				.logo_title музейно-выставочное объединение
 		.flip_area
 			.area_title= area.i18n.title.get('ru')
 			.area_location
@@ -26,30 +66,4 @@ each chunk in chunks
 
 		.flip_events
 			each event in chunk
-				.flip_event
-					b Название:
-					.event_title= event.i18n.title.get('ru')
-					b Залы:
-					.event_halls
-						if event.place.halls
-							each hall in event.place.halls
-								.item_hall= hall.i18n.title.get('ru')
-					b Участники:
-					.event_members
-						each member in event.members
-							.member_item
-								.member_role= member.role
-								.member_list
-									each id in member.ids
-										.member_name= id.i18n.name.get('ru')
-					b Билеты:
-					.event_tickets
-						if event.tickets.ids.length > 1
-							each ticket in event.tickets.ids
-								if ticket.events.length == 1
-									.ticket_item
-										span.ticket_price= ticket.price
-										span= ' - '
-										span.ticket_type= ticket.type
-						else
-							!= event.tickets.i18n.alt.get('ru')
+				+eventBlock(event)

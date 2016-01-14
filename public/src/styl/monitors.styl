@@ -24,7 +24,7 @@ body
 	height 1920px
 	font 12pt/14pt 'Circe'
 	.flip_item
-		background-image url('/images/design/gridinator.png')
+		// background-image url('/images/design/gridinator.png')
 		box-sizing border-box
 		width 1080px
 		height 1920px
@@ -74,3 +74,50 @@ body
 							content ''
 		.flip_events
 			margin-top 80px
+			border-top 5px solid black
+
+
+.event_block
+	margin-top 10px
+	padding-top 10px
+	border-top 1px dotted black
+	&:first-child
+		padding-top 0px
+		border none
+	.event_header
+		overflow hidden
+		font 11pt/13pt 'Circe'
+		margin-bottom 10px
+		.event_type
+			float left
+			margin-right 10px
+			text-transform uppercase
+		.event_categorys
+			float left
+			text-transform uppercase
+			.category
+				&:before
+					content '●'
+					margin-right 10px
+		.event_age
+			float right
+			&:after
+				content '+'
+	.event_body
+		.event_title
+			font 16pt/18pt 'Circe Bold'
+		.event_members
+			overflow hidden
+			.member_role
+				float left
+				&:after
+					content ':'
+			.member_list
+				overflow hidden
+				.member_name
+					margin-left 5px
+					float left
+					&:after
+						content ','
+					&:last-child:after
+						content ''
