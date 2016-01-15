@@ -86,18 +86,22 @@ body
 		border none
 	.event_header
 		overflow hidden
-		font 11pt/13pt 'Circe'
+		font 10pt/12pt 'Circe'
 		margin-bottom 10px
 		.event_type
 			float left
-			margin-right 10px
 			text-transform uppercase
 		.event_categorys
 			float left
+			overflow hidden
 			text-transform uppercase
 			.category
+				float left
 				&:before
+					display block
+					float left
 					content '●'
+					margin-left 10px
 					margin-right 10px
 		.event_age
 			float right

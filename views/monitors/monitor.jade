@@ -20,7 +20,7 @@ mixin eventBlock(event, locale)
 			.event_members
 				each member in event.members
 					.member_item
-						.member_role= member.ids.length > 1 ? members_roles[member.role][locale] : members_roles[member.role][locale].slice(0, -1)
+						.member_role= members_roles[member.role][locale]
 						.member_list
 							each id in member.ids
 								.member_name= id.i18n.name.get(locale)
