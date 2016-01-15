@@ -1,7 +1,7 @@
 include ../vars.jade
 
 mixin eventBlock(event, locale)
-	.event_block
+	.event_block(class=event.type)
 
 		.event_header
 			.event_type= event_types[event.type][locale]
@@ -13,10 +13,6 @@ mixin eventBlock(event, locale)
 
 		.event_body
 			.event_title= event.i18n.title.get(locale)
-			.event_halls
-				if event.place.halls
-					each hall in event.place.halls
-						.item_hall= hall.i18n.title.get(locale)
 			.event_members
 				each member in event.members
 					.member_item
@@ -24,7 +20,14 @@ mixin eventBlock(event, locale)
 						.member_list
 							each id in member.ids
 								.member_name= id.i18n.name.get(locale)
-			//- .event_interval= event.interval.begin.getDate()
+			.event_halls
+				if event.place.halls
+					each hall in event.place.halls
+						.item_hall= hall.i18n.title.get(locale)
+			if (event.type == 'exhibition')
+				.event_interval= event.interval.begin.getDate() + ' ' + months[event.interval.begin.getMonth()] + ' — ' + event.interval.end.getDate() + ' ' + months[event.interval.end.getMonth()]
+			else
+				.event_interval= event.interval.begin.getDate() + ' ' + months[event.interval.begin.getMonth()] + ' — ' + ('0' + event.interval.begin.getHours()).slice(-2) + ':' + ('0' + event.interval.begin.getMinutes()).slice(-2)
 			.event_tickets
 				if event.tickets.ids.length > 1
 					each ticket in event.tickets.ids

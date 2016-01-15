@@ -90,6 +90,8 @@ $(document).ready(function() {
 
 			$('.flip_block').children('.flip_item').addClass('old').end()
 											.cycle('add', $flips).on('cycle-after', removeOld);
+
+			$('.event_block.exhibition').last().addClass('last');
 		});
 
 		socket.on('push_reload', function (data) {

@@ -15,7 +15,7 @@ module.exports = function(io) {
 					if (a.type == 'exhibition') return -1;
 					else return 1;
 				});
-				var chunks = chunk(events, 4);
+				var chunks = chunk(events, 5);
 				var opts = {chunks: chunks, area: area, compileDebug: false, debug: false, cache: false, pretty: false};
 				var events_compile = jade.renderFile(__app_root + '/views/monitors/monitor.jade', opts);
 

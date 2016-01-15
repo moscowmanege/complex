@@ -79,10 +79,12 @@ body
 
 .event_block
 	margin-top 10px
-	padding-top 10px
-	border-top 1px dotted black
-	&:first-child
-		padding-top 0px
+	padding-bottom 10px
+	border-bottom 1px dotted black
+	&.exhibition.last
+		border-bottom 5px solid black
+	&:last-child
+		padding-bottom 0px
 		border none
 	.event_header
 		overflow hidden
