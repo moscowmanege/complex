@@ -1,24 +1,14 @@
-- var members_roles = {'actor': {ru: 'Актеры', en: 'Actors'}, 'director': {ru: 'Режиссеры', en: 'Directors'}, 'artist': {ru: 'Художники', en: 'Artists'}, 'curator': {ru: 'Кураторы', en: 'Curators'} }
+//- Dates
+
+- var days = ['ВОСКРЕСЕНЬЕ','ПОНЕДЕЛЬНИК','ВТОРНИК','СРЕДА','ЧЕТВЕРГ','ПЯТНИЦА','СУББОТА']
+- var months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+
+//- Types
+
+- var members_roles = {'members': {ru: 'Участники', en: 'Members'}, 'guests': {ru: 'Гости', en: 'Guests'}, 'speakers': {ru: 'Спикеры', en: 'Speakers'}, 'Lecturers': {ru: 'Лекторы', en: 'Lecturers'}, 'guides': {ru: 'Экскурсоводы', en: 'Guides'}, 'curators': {ru: 'Кураторы', en: 'Curators'}, 'teachers': {ru: 'Преподаватели', en: 'Teachers'}, 'artists': {ru: 'Художники', en: 'Artists'}, 'architects': {ru: 'Архитекторы', en: 'Architects'}, 'musicians': {ru: 'Музыканты', en: 'Musicians'}, 'readers': {ru: 'Чтецы', en: 'Readers'} }
 
 - var partners_types = {'tech': {ru: 'Технический', en: 'Technical'}, 'innovation': {ru: 'Инновационный', en: 'Innovation'}, 'information': {ru: 'Информационный', en: 'information'} }
 
 - var partners_ranks = {'organizer': {ru: 'Организатор', en: 'Organizer'}, 'co-organizer': {ru: 'Cоорганизатор', en: 'Co-organizer'}, 'general': {ru: 'Генеральный', en: 'General'}, 'special': {ru: 'Специальный', en: 'Special'}, 'strategic': {ru: 'Стратегический', en: 'Strategic'}, 'sponsor': {ru: 'Спонсор', en: 'Sponsor'}, 'supported_by': {ru: 'При поддержке', en: 'Supported by'}, 'with': {ru: 'Соместно с', en: 'With'} }
 
-- var event_types = {'exhibition': {ru: 'Выставка', en: 'Exhibition'}, 'photo_exhibition': {ru: 'Фотовыставка', en: 'Photo Exhibition'}, 'film_screening': {ru: 'Кинопоказ', en: 'Film Screening'}, 'concert': {ru: 'Концерт', en: 'Concert'}, 'lecture': {ru: 'Лекция', en: 'Lecture'}, 'round_table': {ru: 'Круглый стол', en: 'Round Table'}, 'excursion': {ru: 'Экскурсия', en: 'Excursion'}, 'performance': {ru: 'Спектакль', en: 'Performance'}, 'childrens_performance': {ru: 'Детский спектакль', en: 'children\'s performance'}, 'creative_evening': {ru: 'Творческий вечер', en: 'Creative evening'} }
-
-
-
-//- выставка
-//- фотовыставка
-//- кинопоказ
-//- концерт
-//- лекция
-//- круглый стол
-//- экскурсия
-//- спектакль
-//- детский спектакль
-//- творческий вечер
-//- литературный вечер
-//- общегородская акция
-//- форум
-//- мастер-класс
+- var event_types = {'exhibition': {ru: 'Выставка', en: 'Exhibition'}, 'photo_exhibition': {ru: 'Фотовыставка', en: 'Photo Exhibition'}, 'film_screening': {ru: 'Кинопоказ', en: 'Film Screening'}, 'concert': {ru: 'Концерт', en: 'Concert'}, 'lecture': {ru: 'Лекция', en: 'Lecture'}, 'round_table': {ru: 'Круглый стол', en: 'Round Table'}, 'excursion': {ru: 'Экскурсия', en: 'Excursion'}, 'performance': {ru: 'Спектакль', en: 'Performance'}, 'childrens_performance': {ru: 'Детский спектакль', en: 'children\'s performance'}, 'creative_evening': {ru: 'Творческий вечер', en: 'Creative evening'}, 'literary_evening': {ru: 'Литературный вечер', en: 'Literary evening'}, 'citywide_campaign': {ru: 'Общегородская акция', en: 'Citywide campaign'}, 'forum': {ru: 'Форум', en: 'Forum'}, 'master_class': {ru: 'Мастер-класс', en: 'Master Class'} }

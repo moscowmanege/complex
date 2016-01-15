@@ -127,7 +127,7 @@ $(document).ready(function() {
 		$('.date').text(day + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ' ' +date.getFullYear())
 		$('.hours').text(hours);
 		$('.minutes').text(min);
-		$('.time_sep').toggleClass('hidden');
+		$('.time_sep').toggleClass('tick');
 	}
 
 	var _timer = setInterval(time, 1000);

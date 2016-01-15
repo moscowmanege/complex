@@ -28,6 +28,9 @@ module.exports = function(Model, Params) {
       checkNested(post, [locale, 'adress'])
         && area.setPropertyLocalised('contacts.adress', post[locale].adress, locale);
 
+      checkNested(post, [locale, 'schedule'])
+        && area.setPropertyLocalised('contacts.schedule', post[locale].schedule, locale);
+
     });
 
     area.save(function(err, area) {

@@ -18,6 +18,7 @@ var areaSchema = new Schema({
 	description: { type: String, trim: true, locale: true },
 	contacts: {
 		adress: { type: String, trim: true, locale: true },
+		schedule: { type: String, trim: true, locale: true },
 		phones: [String],
 		emails: [String]
 	},
