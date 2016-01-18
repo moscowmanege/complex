@@ -103,27 +103,39 @@ body
 					display block
 					float left
 					content '●'
-					margin-left 10px
-					margin-right 10px
+					margin-left 7px
+					margin-right 7px
 		.event_age
 			float right
 			&:after
 				content '+'
 	.event_body
-		.event_title
-			font 16pt/18pt 'Circe Bold'
-		.event_members
-			overflow hidden
-			.member_role
-				float left
-				&:after
-					content ':'
-			.member_list
+		overflow hidden
+		.event_body_title
+			width 440px
+			float left
+			.event_title
+				font 16pt/18pt 'Circe Bold'
+			.event_members
+				margin-top 5px
 				overflow hidden
-				.member_name
-					margin-left 5px
+				.member_role
 					float left
 					&:after
-						content ','
-					&:last-child:after
-						content ''
+						content ':'
+				.member_list
+					overflow hidden
+					.member_name
+						margin-left 5px
+						float left
+						&:after
+							content ','
+						&:last-child:after
+							content ''
+		.event_body_schedule
+			margin-left 43px
+			float left
+			.event_halls
+				font 16pt/18pt 'Circe Bold'
+			.event_interval
+				margin-top 5px
