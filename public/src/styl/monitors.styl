@@ -8,9 +8,11 @@ body
 
 .monitor_panel
 	overflow hidden
-	border-bottom 1px solid black
-	margin-bottom 20px
+	padding-left 60px
+	padding-right 60px
 	padding-bottom 10px
+	margin-bottom 20px
+	border-bottom 1px dashed black
 	&.hide
 		display none
 	.panel_menu
@@ -62,7 +64,7 @@ body
 			.area_contacts
 				// width 234px
 				float left
-				margin-left 70px
+				margin-left 40px
 				.phone
 				.email
 					display inline-block
@@ -112,6 +114,7 @@ body
 	.event_body
 		overflow hidden
 		.event_body_title
+			// background-color rgba(235, 190, 85, 1)
 			width 440px
 			float left
 			.event_title
@@ -120,15 +123,17 @@ body
 				margin-top 8px
 				overflow hidden
 				.member_role
-					float left
+					margin-right 5px
+					display inline-block
 					&:after
 						content ':'
 				.member_list
+					display inline
 					overflow hidden
 					.member_name
-						margin-left 5px
-						float left
+						display inline-block
 						&:after
+							margin-right 5px
 							content ','
 						&:last-child:after
 							content ''
