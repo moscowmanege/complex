@@ -48,7 +48,7 @@ mixin eventBlock(event, locale)
 each area in areas
 	.flip_area
 		.area_inner
-			each locale in ['ru', 'en']
+			each locale in ['ru']
 				.flip_lang
 					.flip_header
 						.header_title
@@ -62,17 +62,17 @@ each area in areas
 								img.logo(src='/images/design/logo_ru.svg')
 								.logo_title музейно-выставочное объединение
 						.header_contacts
-							.area_title= area.i18n.title.get(locale)
+							.area_title= area.area.title
 							.area_location
-								.area_adress= area.contacts.i18n.adress.get(locale)
-								.area_schedule= area.contacts.i18n.schedule.get(locale)
+								.area_adress= area.area.contacts.adress
+								.area_schedule= area.area.contacts.schedule
 							.area_contacts
 								.area_phones
-									each phone in area.contacts.phones
+									each phone in area.area.contacts.phones
 										span.phone= phone
 								.area_emails
-									each email in area.contacts.emails
+									each email in area.area.contacts.emails
 										span.email= email
-					.flip_events
-						each event in area.events
-							+eventBlock(event, locale)
+					//- .flip_events
+					//- 	each event in area.events
+					//- 		+eventBlock(event, locale)

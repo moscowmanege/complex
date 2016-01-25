@@ -1,40 +1,137 @@
 $(document).ready(function() {
 
+
+	// Slider blocks
+
+
 	var socket = null;
 
-	var slider_opts = {
-			speed: 600,
-			manualSpeed: 600,
-			fx: 'scrollHorz',   //flipHorz, scrollHorz
-			timeout: 4000,
-			// paused: true,
-			autoHeight: false,
-			manualTrump: false,
-			slides: '> .flip_item',
-			log: false
+	function Slider() {
+		var self = this;
+		var _flip = null;
+
+		var $outer = $('.flip_outer');
+		var $area = $('.flip_area').first();
+		var $lang = $area.find('.flip_lang').first();
+		var $blocks = $lang.find('.flip_events');
+
+		var outerWidth = $outer.width();
+
+
+		this.flipNext = function() {
+
+			var blocksScroll = $blocks.scrollLeft();
+			var blocksScrollWidth = $blocks[0].scrollWidth - outerWidth;
+
+			var areaScroll = $area.scrollLeft();
+			var areaScrollWidth = $area[0].scrollWidth - outerWidth;
+
+			var outerScroll = $outer.scrollLeft();
+
+			if (areaScroll >= areaScrollWidth && blocksScroll >= blocksScrollWidth) {
+				$outer.stop(false, true).animate({
+					'scrollLeft': '+=' + outerWidth
+				}, 600, function() {
+					$('.flip_area:first').insertAfter('.flip_area:last').promise().done(function() {
+						$area = $('.flip_area').first();
+						$lang = $area.find('.flip_lang').first();
+						$blocks = $lang.find('.flip_events');
+
+						$outer.scrollLeft(outerScroll - outerWidth);
+					});
+				});
+
+				return false;
+			}
+
+			if (blocksScroll >= blocksScrollWidth) {
+				$area.stop(false, true).animate({
+					'scrollLeft': '+=' + outerWidth
+				}, 600);
+
+				$lang = $lang.next();
+				$blocks = $lang.find('.flip_events');
+
+				return false;
+			}
+
+			$blocks.stop(false, true).animate({
+				'scrollLeft': '+=' + outerWidth
+			}, 600);
+		};
+
+
+		this.flipBack = function() {
+
+			var blocksScroll = $blocks.scrollLeft();
+			var blocksScrollWidth = $blocks[0].scrollWidth - outerWidth;
+
+			var areaScroll = $area.scrollLeft();
+			var areaScrollWidth = $area[0].scrollWidth - outerWidth;
+
+			var outerScroll = $outer.scrollLeft();
+
+			if (outerScroll === 0 && areaScroll === 0 && blocksScroll === 0) {
+				$('.flip_area:last').insertBefore('.flip_area:first').promise().done(function() {
+					$area = $('.flip_area').first();
+					$lang = $area.find('.flip_lang').last();
+					$blocks = $lang.find('.flip_events');
+
+					$area.scrollLeft(areaScrollWidth);
+					$blocks.scrollLeft(blocksScrollWidth);
+					$outer.scrollLeft(outerScroll + outerWidth);
+				});
+			}
+
+			if (areaScroll === 0 && blocksScroll === 0) {
+				$outer.stop(false, true).animate({
+					'scrollLeft': '-=' + outerWidth
+				}, 600);
+
+				return false;
+			}
+
+			if (blocksScroll === 0) {
+				$area.stop(false, true).animate({
+					'scrollLeft': '-=' + outerWidth
+				}, 600);
+
+				$lang = $lang.prev();
+				$blocks = $lang.find('.flip_events');
+
+				return false;
+			}
+
+			$blocks.stop(false, true).animate({
+				'scrollLeft': '-=' + outerWidth
+			}, 600);
+		};
+
+
+		this.play = function(interval) {
+			return function() {
+				clearInterval(self._flip);
+				self._flip = setInterval(self.flipNext, interval);
+			};
+		};
+
+
+		this.pause = function() {
+			clearInterval(self._flip);
+		};
+
 	};
 
-	$('.flip_block').cycle(slider_opts);
+	var slider = new Slider();
 
 
 	// Slides Block
 
 
-	$('.play').on('click', function() {
-		$('.flip_block').cycle('resume');
-	});
-
-	$('.pause').on('click', function() {
-		$('.flip_block').cycle('pause');
-	});
-
-	$('.back').on('click', function() {
-		$('.flip_block').cycle('prev');
-	});
-
-	$('.next').on('click', function() {
-		$('.flip_block').cycle('next');
-	});
+	$('.play').on('click', slider.play(2000));
+	$('.pause').on('click', slider.pause);
+	$('.next').on('click', slider.flipNext);
+	$('.back').on('click', slider.flipBack);
 
 
 	// Panel Block
@@ -66,7 +163,7 @@ $(document).ready(function() {
 	$('.connect').on('click', function() {
 		if (socket) {
 			socket.disconnect();
-			$('.flip_block').cycle('destroy').empty().cycle(slider_opts);
+			$('.flip_inner').empty();
 			socket = null;
 		}
 
@@ -83,35 +180,20 @@ $(document).ready(function() {
 			var $flips = null;
 
 			if (data.status == 'update') {
-				$flips = $(data.events).addClass('new');
+				$flips = $(data.areas).addClass('new');
 			} else {
-				$flips = $(data.events);
+				$flips = $(data.areas);
 			}
 
-			$('.flip_block').children('.flip_item').addClass('old').end()
-											.cycle('add', $flips).on('cycle-after', removeOld);
+			console.log($flips)
 
-			$('.event_block.exhibition').last().addClass('last');
+			$('.flip_inner').children('.flip_area').addClass('old').end().append($flips)
 		});
 
 		socket.on('push_reload', function (data) {
 			location.reload();
 		});
 	});
-
-
-	// Slider Block
-
-
-	var removeOld = function(event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
-		if ($(incomingSlideEl).hasClass('new')) {
-			$('.flip_block').cycle('destroy')
-											.children('.old').remove().end()
-											.children('.new').removeClass('new').end()
-											.cycle(slider_opts)
-											.off('cycle-after');
-		}
-	};
 
 
 	// Time block

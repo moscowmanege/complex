@@ -5,6 +5,7 @@ var Model = require(__app_root + '/models/main.js');
 module.exports = function(io) {
   var module = {};
 	var Event = Model.Event;
+	var Area = Model.Area;
 
 	var get_areas = function(status, callback) {
 
@@ -50,14 +51,16 @@ module.exports = function(io) {
 				];
 
 				Event.populate(areas, paths, function(err, areas) {
-					callback(null, areas);
+					Area.populate(areas, {path: 'area', model: 'Area'}, function(err, areas) {
+						callback(null, areas);
+					});
 				});
 			});
 	};
 
 	var areas_compile = function(areas, callback) {
 		var opts = {areas: areas, compileDebug: false, debug: false, cache: false, pretty: false};
-		var areas_compile = jade.renderFile(__app_root + '/views/monitors/monitor.jade', opts);
+		var areas_compile = jade.renderFile(__app_root + '/views/monitors/monitor_new.jade', opts);
 
 		callback(null, areas_compile);
 	}
@@ -68,16 +71,16 @@ module.exports = function(io) {
 
 		get_areas('start', function(err, areas) {
 			var area = areas.filter(function(area) {
-				return area.area == area_id;
-			})[0];
+				return area.area._id.toString() == area_id;
+			});
 
-			if (area.events && area.events.length > 0) {
+			if (area[0].events && area[0].events.length > 0) {
 				areas_compile(area, function(err, compile) {
-					io.to(area).emit('events', { areas: compile, status: 'start' });
+					io.to(area_id).emit('events', { areas: compile, status: 'start' });
 				});
 			} else {
 				areas_compile(areas, function(err, compile) {
-					io.to(area).emit('events', { areas: compile, status: 'start' });
+					io.to(area_id).emit('events', { areas: compile, status: 'start' });
 				});
 			}
 		});
@@ -86,10 +89,10 @@ module.exports = function(io) {
 		socket.on('update', function(data) {
 			get_areas(data.status, function(err, areas) {
 				var area = areas.filter(function(area) {
-					return area.area == area_id;
-				})[0];
+					return area.area._id.toString() == area_id;
+				});
 
-				if (area.events && area.events.length > 0) {
+				if (area[0].events && area[0].events.length > 0) {
 					areas_compile(area, function(err, compile) {
 						io.to(area_id).emit('events', { areas: compile, status: data.status });
 					});
@@ -102,7 +105,7 @@ module.exports = function(io) {
 		});
 
 		socket.on('disconnect', function (data) {
-			socket.leave(area);
+			socket.leave(area_id);
 		});
 
 		socket.on('reload', function (data) {
@@ -118,10 +121,10 @@ module.exports = function(io) {
 		get_areas('update', function(err, areas) {
 			rooms.forEach(function(room_id) {
 				var area = areas.filter(function(area) {
-					return area.area == room_id;
-				})[0];
+					return area.area._id.toString() == room_id;
+				});
 
-				if (area.events && area.events.length > 0) {
+				if (area[0].events && area[0].events.length > 0) {
 					areas_compile(area, function(err, compile) {
 						io.to(room_id).emit('events', { areas: compile, status: 'update' });
 					});
