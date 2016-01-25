@@ -11,6 +11,56 @@ module.exports = function(Model) {
 
 
 	module.test = function(req, res) {
+		Event.aggregate()
+			// .match({
+			// 	'place': {
+			// 		'area': area
+			// 	}
+			// })
+			.sort({
+				'interval': {
+					'begin': 1,
+					'end': 1
+				}
+			})
+			.group({
+				'_id': {
+					'area': '$place.area'
+				},
+				'events': {
+					$push: {
+						title: '$title',
+						age: '$age',
+						type: '$type',
+						interval: '$interval',
+						halls: '$place.halls',
+						categorys: '$categorys',
+						tickets: '$tickets',
+						members: '$members'
+					}
+				}
+			})
+			.project({
+				_id: 0,
+				area: '$_id.area',
+				events: '$events'
+			})
+			.exec(function(err, areas) {
+				var paths = [
+					{path:'events.halls', select: 'title', model: 'Hall'},
+					{path:'events.categorys', select: 'title', model: 'Category'},
+					{path:'events.members.ids', select: 'name', model: 'Member'},
+					{path:'events.tickets.ids', model: 'Ticket'},
+				];
+
+				Event.populate(areas, paths, function(err, areas) {
+					res.send(areas);
+				});
+			});
+	}
+
+
+	module.test2 = function(req, res) {
 
 		Event.aggregate()
 			// .unwind('tickets.ids')
