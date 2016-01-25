@@ -59,8 +59,20 @@ module.exports = function(io) {
 	};
 
 	var areas_compile = function(areas, callback) {
-		var opts = {areas: areas, compileDebug: false, debug: false, cache: false, pretty: false};
-		var areas_compile = jade.renderFile(__app_root + '/views/monitors/monitor_new.jade', opts);
+		var get_locale = function get_locale(option, lang) {
+			var locale = option.filter(function(locale) {
+				return locale.lg == lang
+			})[0];
+
+			if (locale) {
+				return locale.value
+			} else {
+				return ''
+			}
+		};
+
+		var opts = {areas: areas, get_locale: get_locale, compileDebug: false, debug: false, cache: false, pretty: false};
+		var areas_compile = jade.renderFile(__app_root + '/views/monitors/monitor.jade', opts);
 
 		callback(null, areas_compile);
 	}

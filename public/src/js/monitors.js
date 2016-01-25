@@ -185,7 +185,6 @@ $(document).ready(function() {
 				$flips = $(data.areas);
 			}
 
-			console.log($flips)
 
 			$('.flip_inner').children('.flip_area').addClass('old').end().append($flips)
 		});

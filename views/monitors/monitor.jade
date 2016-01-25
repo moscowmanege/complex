@@ -7,25 +7,25 @@ mixin eventBlock(event, locale)
 			.event_type= event_types[event.type][locale]
 			.event_categorys
 				each category in event.categorys
-					.category= category.i18n.title.get(locale)
+					.category= get_locale(category.title, locale)
 			.event_age= event.age
 
 
 		.event_body
 			.event_body_title
-				.event_title= event.i18n.title.get(locale)
+				.event_title= get_locale(event.title, locale)
 				.event_members
 					each member in event.members
 						.member_item
 							.member_role= members_roles[member.role][locale]
 							.member_list
 								each id in member.ids
-									.member_name= id.i18n.name.get(locale)
+									.member_name= get_locale(id.name, locale)
 			.event_body_schedule
 				.event_halls
-					if event.place.halls
-						each hall in event.place.halls
-							.item_hall= hall.i18n.title.get(locale)
+					if event.halls
+						each hall in event.halls
+							.item_hall= get_locale(hall.title, locale)
 				if (event.type == 'exhibition')
 					.event_interval= event.interval.begin.getDate() + ' ' + months[event.interval.begin.getMonth()] + ' — ' + event.interval.end.getDate() + ' ' + months[event.interval.end.getMonth()]
 				else
@@ -39,38 +39,38 @@ mixin eventBlock(event, locale)
 								span= ' - '
 								span.ticket_type= ticket.type
 				else
-					!= event.tickets.i18n.alt.get(locale)
+					!= get_locale(event.tickets.alt, locale)
 
 
-mixin flipItem(chunk, locale)
-	.flip_item
-		.flip_header
-			.flip_date
-				.date
-				.time
-					span.hours
-					span.time_sep.tick :
-					span.minutes
-			.flip_logo
-				img.logo(src='/images/design/logo_ru.svg')
-				.logo_title музейно-выставочное объединение
-		.flip_area
-			.area_title= area.i18n.title.get(locale)
-			.area_location
-				.area_adress= area.contacts.i18n.adress.get(locale)
-				.area_schedule= area.contacts.i18n.schedule.get(locale)
-			.area_contacts
-				.area_phones
-					each phone in area.contacts.phones
-						span.phone= phone
-				.area_emails
-					each email in area.contacts.emails
-						span.email= email
 
-		.flip_events
-			each event in chunk
-				+eventBlock(event, locale)
-
-
-each chunk in chunks
-	+flipItem(chunk, 'ru')
+each area in areas
+	.flip_area
+		.area_inner
+			each locale in ['ru']
+				.flip_lang
+					.flip_header
+						.header_title
+							.header_date
+								.date
+								.time
+									span.hours
+									span.time_sep.tick :
+									span.minutes
+							.header_logo
+								img.logo(src='/images/design/logo_ru.svg')
+								.logo_title музейно-выставочное объединение
+						.header_contacts
+							.area_title= get_locale(area.area.title, locale)
+							.area_location
+								.area_adress= get_locale(area.area.contacts.adress, locale)
+								.area_schedule= get_locale(area.area.contacts.schedule, locale)
+							.area_contacts
+								.area_phones
+									each phone in area.area.contacts.phones
+										span.phone= phone
+								.area_emails
+									each email in area.area.contacts.emails
+										span.email= email
+					.flip_events
+						each event in area.events
+							+eventBlock(event, locale)
