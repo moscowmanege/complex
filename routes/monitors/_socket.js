@@ -86,7 +86,7 @@ module.exports = function(io) {
 				return area.area._id.toString() == area_id;
 			});
 
-			if (area[0].events && area[0].events.length > 0) {
+			if (area.length > 0 && area[0].events && area[0].events.length > 0) {
 				areas_compile(area, function(err, compile) {
 					io.to(area_id).emit('events', { areas: compile, status: 'start' });
 				});
@@ -104,7 +104,7 @@ module.exports = function(io) {
 					return area.area._id.toString() == area_id;
 				});
 
-				if (area[0].events && area[0].events.length > 0) {
+				if (area.length > 0 && area[0].events && area[0].events.length > 0) {
 					areas_compile(area, function(err, compile) {
 						io.to(area_id).emit('events', { areas: compile, status: data.status });
 					});
