@@ -5,6 +5,7 @@ $(document).ready(function() {
 
 
 	var socket = null;
+	var slider = null;
 
 	function Slider() {
 		var self = this;
@@ -120,10 +121,16 @@ $(document).ready(function() {
 			clearInterval(self._flip);
 		};
 
+		this.reinit = function() {
+			$outer = $('.flip_outer');
+			$area = $('.flip_area').first();
+			$lang = $area.find('.flip_lang').first();
+			$blocks = $lang.find('.flip_events');
+		};
+
 	};
 
-	var slider = new Slider();
-
+	slider = new Slider();
 
 	// Slides Block
 
@@ -186,7 +193,9 @@ $(document).ready(function() {
 			}
 
 
-			$('.flip_inner').children('.flip_area').addClass('old').end().append($flips)
+			$('.flip_inner').children('.flip_area').addClass('old').end().append($flips);
+
+			slider.reinit();
 		});
 
 		socket.on('push_reload', function (data) {
