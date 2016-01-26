@@ -59,9 +59,10 @@ body
 						width 1080px
 						height 400px
 						// background-color red
-						margin-bottom 20px
+						// margin-bottom 20px
 						.header_title
 							overflow hidden
+							margin-bottom 40px
 							.header_date
 								float left
 								font 14pt/16pt 'Circe'
@@ -81,6 +82,7 @@ body
 								.logo
 									width 242px
 								.logo_title
+									margin-top 4px
 									font 11pt/14pt 'Circe'
 						.header_contacts
 							font 14pt/16pt 'Circe'
@@ -213,12 +215,14 @@ body
 	border-bottom 1px dotted black
 	&.exhibition.last
 		border-bottom 5px solid black
+	&:first-child
+		border-top 5px solid black
+		padding-top 20px
 	&:last-child
 		padding-bottom 0px
 		border none
 	.event_header
 		overflow hidden
-		// font 14pt/16pt 'Circe'
 		margin-bottom 10px
 		.event_type
 			font 12pt/14pt 'Circe'
