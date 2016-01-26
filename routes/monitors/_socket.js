@@ -136,7 +136,9 @@ module.exports = function(io) {
 					return area.area._id.toString() == room_id;
 				});
 
-				if (area[0].events && area[0].events.length > 0) {
+				if (area.length == 0) {
+					return true;
+				} else if (area[0].events && area[0].events.length > 0) {
 					areas_compile(area, function(err, compile) {
 						io.to(room_id).emit('events', { areas: compile, status: 'update' });
 					});
