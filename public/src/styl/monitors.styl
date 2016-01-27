@@ -34,7 +34,7 @@ body
 		margin-right -4px
 		height 1920px
 		.flip_area
-			background-image url('/images/design/gridinator.png')
+			// background-image url('/images/design/gridinator.png')
 			width 1080px
 			height 1920px
 			display inline-block
@@ -251,7 +251,9 @@ body
 		white-space normal
 		.event_body_title
 			// background-color rgba(235, 190, 85, 1)
-			width 440px
+			box-sizing border-box
+			padding-right 60px
+			width 476px
 			float left
 			.event_title
 				font 18pt/20pt 'Circe Bold'
@@ -275,9 +277,14 @@ body
 							content ''
 							margin-right 0px
 		.event_body_schedule
-			margin-left 43px
+			width 234px
+			margin-left 8px
 			float left
 			.event_halls
 				font 18pt/20pt 'Circe Bold'
 			.event_interval
 				margin-top 8px
+		.event_tickets
+			float left
+			width 234px
+			margin-left 8px
