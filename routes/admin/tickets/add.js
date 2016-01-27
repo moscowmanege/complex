@@ -7,10 +7,10 @@ module.exports = function(Model, Params) {
 
 
   module.index = function(req, res) {
-    var subs_id = req.params.id;
+    var event_id = req.params.event_id;
 
     Event.find().exec(function(err, events) {
-      res.render('admin/tickets/add.jade', {events: events});
+      res.render('admin/tickets/add.jade', {events: events, current: [event_id]});
     });
   }
 
