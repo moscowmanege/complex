@@ -13,8 +13,8 @@ module.exports = function(io) {
 		var Query = null;
 
 		if (Array.isArray(ids)) {
-			var obj_ids = ids.map(function(id) {
-				return mongoose.Types.ObjectId(id);
+			var obj_ids = ids.filter(function(id) {
+				return mongoose.Types.ObjectId.isValid(id) && mongoose.Types.ObjectId(id);
 			});
 
 			Query = Event.aggregate()
