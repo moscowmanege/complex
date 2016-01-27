@@ -14,7 +14,7 @@ module.exports = function(io) {
 
 		if (Array.isArray(ids)) {
 			var obj_ids = ids.map(function(id) {
-				return mongoose.Types.ObjectId(id)
+				return mongoose.Types.ObjectId(id);
 			});
 
 			Query = Event.aggregate()
@@ -36,7 +36,7 @@ module.exports = function(io) {
 					// $gte: date_now,
 					// $lte: date_last_of_month
 				});
-		};
+		}
 
 		Query
 			.sort({
@@ -86,13 +86,13 @@ module.exports = function(io) {
 	var areas_compile = function(areas, callback) {
 		var get_locale = function get_locale(option, lang) {
 			var locale = option.filter(function(locale) {
-				return locale.lg == lang
+				return locale.lg == lang;
 			})[0];
 
 			if (locale) {
-				return locale.value
+				return locale.value;
 			} else {
-				return ''
+				return '';
 			}
 		};
 
@@ -100,10 +100,10 @@ module.exports = function(io) {
 		var areas_compile = jade.renderFile(__app_root + '/views/monitors/monitor.jade', opts);
 
 		callback(null, areas_compile);
-	}
+	};
 
 	module.get = function(socket) {
-		var area_id = socket.handshake['query']['area'];
+		var area_id = socket.handshake.query.area;
 		socket.join(area_id);
 
 		get_areas(area_id, function(err, areas) {
@@ -144,7 +144,7 @@ module.exports = function(io) {
 		socket.on('reload', function (data) {
 			io.emit('push_reload', { hello: 'hello socket!' });
 		});
-	}
+	};
 
 	module.interval = function() {
 		var rooms = Object.keys(io.sockets.adapter.rooms);
@@ -166,8 +166,8 @@ module.exports = function(io) {
 				});
 			});
 		});
-	}
+	};
 
 
   return module;
-}
+};
