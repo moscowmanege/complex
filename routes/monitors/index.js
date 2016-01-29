@@ -12,11 +12,6 @@ module.exports = function(Model) {
 
 	module.test = function(req, res) {
 		Event.aggregate()
-			// .match({
-			// 	'place': {
-			// 		'area': area
-			// 	}
-			// })
 			.sort({
 				'interval': {
 					'begin': 1,
@@ -25,37 +20,70 @@ module.exports = function(Model) {
 			})
 			.group({
 				'_id': {
-					'area': '$place.area'
+					'area': '$place.area',
+				},
+				'complex': { $addToSet: '$tickets.ids' },
+				'exhibitions': {
+					$push: {
+						$cond: [
+							{ '$eq': ['$type', 'exhibition'] },
+							{
+								title: '$title',
+								age: '$age',
+								type: '$type',
+								interval: '$interval',
+								halls: '$place.halls',
+								categorys: '$categorys',
+								members: '$members',
+								tickets: '$tickets'
+							},
+							false
+						]
+					}
 				},
 				'events': {
 					$push: {
-						title: '$title',
-						age: '$age',
-						type: '$type',
-						interval: '$interval',
-						halls: '$place.halls',
-						categorys: '$categorys',
-						tickets: '$tickets',
-						members: '$members'
+						$cond: [
+							{ '$ne': ['$type', 'exhibition'] },
+							{
+								title: '$title',
+								age: '$age',
+								type: '$type',
+								interval: '$interval',
+								halls: '$place.halls',
+								categorys: '$categorys',
+								members: '$members',
+								tickets: '$tickets'
+							},
+							false
+						]
 					}
 				}
 			})
+			// .unwind('complex')
+			// .unwind('complex')
 			.project({
 				_id: 0,
 				area: '$_id.area',
-				events: '$events'
+				complex:  '$complex',
+				events: { $setDifference: [ '$events', [false] ] },
+				exhibitions: { $setDifference: [ '$exhibitions', [false] ] }
 			})
 			.exec(function(err, areas) {
-				var paths = [
-					{path:'events.halls', select: 'title', model: 'Hall'},
-					{path:'events.categorys', select: 'title', model: 'Category'},
-					{path:'events.members.ids', select: 'name', model: 'Member'},
-					{path:'events.tickets.ids', model: 'Ticket'},
-				];
+				// var paths = [
+				// 	{path:'events.halls', select: 'title', model: 'Hall'},
+				// 	{path:'events.categorys', select: 'title', model: 'Category'},
+				// 	{path:'events.members.ids', select: 'name', model: 'Member'},
+				// 	{path:'events.tickets.ids', select: 'type price _id', model: 'Ticket'},
+				// 	{path:'exhibitions.halls', select: 'title', model: 'Hall'},
+				// 	{path:'exhibitions.categorys', select: 'title', model: 'Category'},
+				// 	{path:'exhibitions.members.ids', select: 'name', model: 'Member'},
+				// 	{path:'exhibitions.tickets.ids', select: 'type price _id', model: 'Ticket'},
+				// ];
 
-				Event.populate(areas, paths, function(err, areas) {
+				// Event.populate(areas, paths, function(err, areas) {
 					res.send(areas);
-				});
+				// });
 			});
 	}
 
