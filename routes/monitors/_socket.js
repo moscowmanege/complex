@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var Model = require(__app_root + '/models/main.js');
 
 module.exports = function(io) {
-  var module = {};
+	var module = {};
 	var Event = Model.Event;
 	var Area = Model.Area;
 
@@ -88,16 +88,10 @@ module.exports = function(io) {
 	};
 
 	var areas_compile = function(areas, callback) {
-		var get_locale = function get_locale(option, lang) {
-			var locale = option.filter(function(locale) {
+		var get_locale = function(option, lang) {
+			return ((option.filter(function(locale) {
 				return locale.lg == lang;
-			})[0];
-
-			if (locale) {
-				return locale.value;
-			} else {
-				return '';
-			}
+			})[0] || {}).value || '');
 		};
 
 		var opts = {areas: areas, get_locale: get_locale, compileDebug: false, debug: false, cache: false, pretty: false};
@@ -181,5 +175,5 @@ module.exports = function(io) {
 	};
 
 
-  return module;
+	return module;
 };
