@@ -22,55 +22,56 @@ module.exports = function(Model) {
 				'_id': {
 					'area': '$place.area',
 				},
-				'complex': { $addToSet: '$tickets.ids' },
-				'exhibitions': {
-					$push: {
-						$cond: [
-							{ '$eq': ['$type', 'exhibition'] },
-							{
-								title: '$title',
-								age: '$age',
-								type: '$type',
-								interval: '$interval',
-								halls: '$place.halls',
-								categorys: '$categorys',
-								members: '$members',
-								tickets: '$tickets'
-							},
-							false
-						]
-					}
-				},
+				'complex': { $push: '$tickets.ids' },
 				'events': {
 					$push: {
-						$cond: [
-							{ '$ne': ['$type', 'exhibition'] },
-							{
-								title: '$title',
-								age: '$age',
-								type: '$type',
-								interval: '$interval',
-								halls: '$place.halls',
-								categorys: '$categorys',
-								members: '$members',
-								tickets: '$tickets'
-							},
-							false
-						]
+						title: '$title',
+						age: '$age',
+						type: '$type',
+						interval: '$interval',
+						halls: '$place.halls',
+						categorys: '$categorys',
+						members: '$members',
+						tickets: '$tickets'
 					}
 				}
 			})
-			// .unwind('complex')
-			// .unwind('complex')
 			.project({
 				_id: 0,
 				area: '$_id.area',
 				complex:  '$complex',
-				events: { $setDifference: [ '$events', [false] ] },
-				exhibitions: { $setDifference: [ '$exhibitions', [false] ] }
+				events: '$events',
 			})
 			.exec(function(err, areas) {
+				var areas = areas.map(function(area) {
+
+					// concat sub array of event tickets
+					area.complex = [].concat.apply([], area.complex);
+
+					// unic dublicates of tickets => complex tickets
+					area.complex = area.complex.reduce(function(dupes, val, i) {
+				  	val = val.toString();
+				    if (area.complex.indexOf(val) !== i && dupes.indexOf(val) === -1) {
+				      dupes.push(val);
+				    }
+				    return dupes;
+				  }, []);
+
+					// remove complex tickets from event tickets
+					area.events = area.events.map(function(event) {
+						event.tickets.ids = event.tickets.ids.filter(function(ticket) {
+							return !area.complex.some(function(complex_ticket) { return ticket.toString() == complex_ticket.toString() });
+						});
+
+						return event;
+					});
+
+					return area;
+				});
+
+
 				// var paths = [
+				// 	{path:'complex', select: 'type price _id', model: 'Ticket'},
 				// 	{path:'events.halls', select: 'title', model: 'Hall'},
 				// 	{path:'events.categorys', select: 'title', model: 'Category'},
 				// 	{path:'events.members.ids', select: 'name', model: 'Member'},
