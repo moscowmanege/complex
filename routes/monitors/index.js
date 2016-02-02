@@ -7,7 +7,7 @@ module.exports = function(Model) {
 		Area.find().populate('halls').exec(function(err, areas) {
 			res.render('monitors/index.jade', {areas: areas});
 		});
-	}
+	};
 
 
 	module.test = function(req, res) {
@@ -60,7 +60,7 @@ module.exports = function(Model) {
 					// remove complex tickets from event tickets
 					area.events = area.events.map(function(event) {
 						event.tickets.ids = event.tickets.ids.filter(function(ticket) {
-							return !area.complex.some(function(complex_ticket) { return ticket.toString() == complex_ticket.toString() });
+							return !area.complex.some(function(complex_ticket) { return ticket.toString() == complex_ticket.toString(); });
 						});
 
 						return event;
@@ -76,17 +76,13 @@ module.exports = function(Model) {
 				// 	{path:'events.categorys', select: 'title', model: 'Category'},
 				// 	{path:'events.members.ids', select: 'name', model: 'Member'},
 				// 	{path:'events.tickets.ids', select: 'type price _id', model: 'Ticket'},
-				// 	{path:'exhibitions.halls', select: 'title', model: 'Hall'},
-				// 	{path:'exhibitions.categorys', select: 'title', model: 'Category'},
-				// 	{path:'exhibitions.members.ids', select: 'name', model: 'Member'},
-				// 	{path:'exhibitions.tickets.ids', select: 'type price _id', model: 'Ticket'},
 				// ];
 
 				// Event.populate(areas, paths, function(err, areas) {
 					res.send(areas);
 				// });
 			});
-	}
+	};
 
 
 	module.test2 = function(req, res) {
@@ -112,10 +108,10 @@ module.exports = function(Model) {
 				// 	res.send(events);
 				// });
 				res.send(result);
-			})
+			});
 
-	}
+	};
 
 
 	return module;
-}
+};

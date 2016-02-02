@@ -13,13 +13,17 @@ module.exports = function(io) {
 		var Query = null;
 
 		if (Array.isArray(ids)) {
-			var obj_ids = ids.filter(function(id) {
-				return mongoose.Types.ObjectId.isValid(id) && mongoose.Types.ObjectId(id);
-			});
+
+			var obj_ids = ids.reduce(function(memo, id) {
+				if (mongoose.Types.ObjectId.isValid(id)) {
+					memo.push(mongoose.Types.ObjectId(id));
+				}
+				return memo;
+			}, []);
 
 			Query = Event.aggregate()
 				.match({
-					'place.area': {'$in': obj_ids}
+					'place.area': { '$in': obj_ids }
 					// $gte: date_now,
 					// $lte: date_last_of_month
 				});
@@ -153,17 +157,25 @@ module.exports = function(io) {
 
 		get_areas('all', function(err, areas_all) {
 			get_areas(rooms, function(err, areas_rooms) {
-				areas_rooms.forEach(function(area) {
-					if (area.events && area.events.length > 0) {
-						areas_compile(area, function(err, compile) {
-							io.to(room_id).emit('events', { areas: compile, status: 'update' });
+				if (areas_rooms && areas_rooms.length > 0) {
+					areas_rooms.forEach(function(area) {
+						var room_id = area.area._id.toString();
+						var check_rooms = rooms.some(function(c_room) {
+							return c_room == room_id;
 						});
-					} else {
-						areas_compile(areas_all, function(err, compile) {
-							io.to(room_id).emit('events', { areas: compile, status: 'update' });
-						});
-					}
-				});
+
+						if (check_rooms) {
+							areas_compile([area], function(err, compile) {
+								io.to(room_id).emit('events', { areas: compile, status: 'update' });
+							});
+						}
+						else {
+							areas_compile(areas_all, function(err, compile) {
+								io.to(room_id).emit('events', { areas: compile, status: 'update' });
+							});
+						}
+					});
+				}
 			});
 		});
 	};
