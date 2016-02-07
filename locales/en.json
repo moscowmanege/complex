@@ -1,0 +1,30 @@
+{
+	"музейно-выставочное объединение": "museum and exhibition association",
+	"literary_evening": "Literary evening",
+	"exhibition": "Exhibition",
+	"guides": {
+		"one": "Guide",
+		"other": "Guides"
+	},
+	"teachers": {
+		"one": "Teacher",
+		"other": "Teachers"
+	},
+	"guests": {
+		"one": "Guest",
+		"other": "Guests"
+	},
+	"speakers": {
+		"one": "Speaker",
+		"other": "speakers"
+	},
+	"artists": {
+		"one": "Artist",
+		"other": "Artists"
+	},
+	"Lecturers": {
+		"one": "Lecturer",
+		"other": "Lecturers"
+	},
+	"childrens_performance": "childrens_performance"
+}

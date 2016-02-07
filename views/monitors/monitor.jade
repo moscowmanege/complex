@@ -4,7 +4,7 @@ mixin eventBlock(event, locale)
 	.event_block(class=event.type)
 
 		.event_header
-			.event_type= event_types[event.type][locale]
+			.event_type= __(event.type)
 			.event_categorys
 				each category in event.categorys
 					.category= get_locale(category.title, locale)
@@ -17,7 +17,7 @@ mixin eventBlock(event, locale)
 				.event_members
 					each member in event.members
 						.member_item
-							.member_role= members_roles[member.role][locale]
+							.member_role= __n(member.role, member.ids.length)
 							.member_list
 								each id in member.ids
 									.member_name= get_locale(id.name, locale)
@@ -74,4 +74,8 @@ each area in areas
 										span.email= email
 					.flip_events
 						each event in area.events
-							+eventBlock(event, locale)
+							if (event.type == 'exhibition')
+								+eventBlock(event, locale)
+						each event in area.events
+							if (event.type != 'exhibition')
+								+eventBlock(event, locale)

@@ -3,7 +3,7 @@
 /maket*
 /subl*
 /views/static/content*
-/locales*
+# /locales*
 /public/build/js*
 /public/build/css*
 .DS_Store
