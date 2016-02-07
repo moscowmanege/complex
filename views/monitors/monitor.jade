@@ -27,9 +27,9 @@ mixin eventBlock(event, locale)
 						each hall in event.halls
 							.item_hall= get_locale(hall.title, locale)
 				if (event.type == 'exhibition')
-					.event_interval= event.interval.begin.getDate() + ' ' + months[event.interval.begin.getMonth()] + ' — ' + event.interval.end.getDate() + ' ' + months[event.interval.end.getMonth()]
+					.event_interval= moment(event.interval.begin).format('DD MMMM') + ' — ' + moment(event.interval.end).format('DD MMMM')
 				else
-					.event_interval= event.interval.begin.getDate() + ' ' + months[event.interval.begin.getMonth()] + ' — ' + ('0' + event.interval.begin.getHours()).slice(-2) + ':' + ('0' + event.interval.begin.getMinutes()).slice(-2)
+					.event_interval= moment(event.interval.begin).format('DD MMMM — HH:mm')
 			.event_tickets
 				if event.tickets.ids.length > 1
 					each ticket in event.tickets.ids
@@ -48,6 +48,7 @@ each area in areas
 		.area_inner
 			each locale in ['ru']
 				- i18n.setLocale(locale)
+				- moment.locale(locale)
 				.flip_lang
 					.flip_header
 						.header_title

@@ -8,6 +8,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 var i18n = require('i18n');
+var moment = require('moment');
 
 app.set('views', __app_root + '/views');
 app.set('view engine', 'jade');
@@ -27,6 +28,7 @@ i18n.configure({
 
 app.use(cookieParser());
 app.use(i18n.init);
+app.locals.moment = moment;
 
 app.use(function(req, res, next) {
 	res.locals.session = req.session;

@@ -1,5 +1,6 @@
 var jade = require('jade');
 var mongoose = require('mongoose');
+var moment = require('moment');
 
 var Model = require(__app_root + '/models/main.js');
 
@@ -102,7 +103,7 @@ module.exports = function(io, i18n) {
 			return i18n.__n.apply(null, arguments);
 		};
 
-		var opts = {areas: areas, get_locale: get_locale, __: i18n_locale, __n:i18n_plurals_locale, i18n: i18n, compileDebug: false, debug: false, cache: false, pretty: false};
+		var opts = {areas: areas, moment: moment, get_locale: get_locale, __: i18n_locale, __n:i18n_plurals_locale, i18n: i18n, compileDebug: false, debug: false, cache: false, pretty: false};
 		var areas_compile = jade.renderFile(__app_root + '/views/monitors/monitor.jade', opts);
 
 		callback(null, areas_compile);
