@@ -40,7 +40,7 @@ app.use(function(req, res, next) {
 
 var globals = require('../routes/globals/_globals.js');
 var monitors = require('../routes/monitors/_monitors.js');
-var socket = require('../routes/monitors/_socket.js')(io);
+var socket = require('../routes/monitors/_socket.js')(io, i18n);
 
 
 app.use('/', monitors);

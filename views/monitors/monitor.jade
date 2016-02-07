@@ -47,6 +47,7 @@ each area in areas
 	.flip_area
 		.area_inner
 			each locale in ['ru']
+				- i18n.setLocale(locale)
 				.flip_lang
 					.flip_header
 						.header_title
@@ -57,8 +58,8 @@ each area in areas
 									span.time_sep.tick :
 									span.minutes
 							.header_logo
-								img.logo(src='/images/design/logo_ru.svg')
-								.logo_title музейно-выставочное объединение
+								img.logo(src='/images/design/' + (locale == 'ru' ? 'logo_ru.svg' : 'logo_en.svg'))
+								.logo_title= __('музейно-выставочное объединение')
 						.header_contacts
 							.area_title= get_locale(area.area.title, locale)
 							.area_location

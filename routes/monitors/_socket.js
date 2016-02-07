@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 var Model = require(__app_root + '/models/main.js');
 
-module.exports = function(io) {
+module.exports = function(io, i18n) {
 	var module = {};
 	var Event = Model.Event;
 	var Area = Model.Area;
@@ -94,7 +94,15 @@ module.exports = function(io) {
 			})[0] || {}).value || '');
 		};
 
-		var opts = {areas: areas, get_locale: get_locale, compileDebug: false, debug: false, cache: false, pretty: false};
+		var i18n_locale = function() {
+			return i18n.__.apply(null, arguments);
+		};
+
+		var i18n_plurals_locale = function() {
+			return i18n.__n.apply(null, arguments);
+		};
+
+		var opts = {areas: areas, get_locale: get_locale, __: i18n_locale, __n:i18n_plurals_locale, i18n: i18n, compileDebug: false, debug: false, cache: false, pretty: false};
 		var areas_compile = jade.renderFile(__app_root + '/views/monitors/monitor.jade', opts);
 
 		callback(null, areas_compile);
