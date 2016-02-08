@@ -7,6 +7,8 @@ var express = require('express'),
 		methodOverride = require('method-override'),
 			app = express();
 
+var i18n = require('i18n');
+
 var MongoStore = require('connect-mongo')(session);
 
 app.set('views', __app_root + '/views');
@@ -18,10 +20,18 @@ if (process.env.NODE_ENV != 'production') {
 	app.set('json spaces', 2);
 }
 
+i18n.configure({
+	locales: ['ru', 'en'],
+	defaultLocale: 'ru',
+	cookie: 'locale',
+	directory: __app_root + '/locales'
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());
 app.use(cookieParser());
+app.use(i18n.init);
 
 
 app.use(session({

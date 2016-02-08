@@ -50,8 +50,8 @@ block content
 			+form_area_select(event.place)
 			.form_title Тип:
 			select(name='type')
-				each title, type in event_types
-					option(value=type, selected=event.type == type)= title.ru
+				each type in event_types
+					option(value=type, selected=event.type == type)= __(type)
 			.form_title Интервал дат:
 			+form_date('interval[begin]', event.interval.begin)(class='begin')
 			!= ' --- '

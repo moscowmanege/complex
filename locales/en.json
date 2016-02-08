@@ -1,30 +1,103 @@
 {
 	"музейно-выставочное объединение": "museum and exhibition association",
-	"literary_evening": "Literary evening",
-	"exhibition": "Exhibition",
-	"guides": {
-		"one": "Guide",
-		"other": "Guides"
-	},
-	"teachers": {
-		"one": "Teacher",
-		"other": "Teachers"
+
+	"tech": "Технический",
+	"innovation": "Инновационный",
+	"information": "Информационный",
+
+
+	"exhibition": "Выставка",
+	"photo_exhibition": "Фотовыставка",
+	"film_screening": "Кинопоказ",
+	"concert": "Концерт",
+	"lecture": "Лекция",
+	"round_table": "Круглый стол",
+	"excursion": "Экскурсия",
+	"performance": "Спектакль",
+	"childrens_performance": "Детский спектакль",
+	"creative_evening": "Творческий вечер",
+	"literary_evening": "Литературный вечер",
+	"citywide_campaign": "Общегородская акция",
+	"forum": "Форум",
+	"master_class": "Мастер-класс",
+
+
+	"members": {
+		"one": "Участник",
+		"other": "Участники"
 	},
 	"guests": {
-		"one": "Guest",
-		"other": "Guests"
+		"one": "Гость",
+		"other": "Гости"
 	},
 	"speakers": {
-		"one": "Speaker",
-		"other": "speakers"
-	},
-	"artists": {
-		"one": "Artist",
-		"other": "Artists"
+		"one": "Спикер",
+		"other": "Спикеры"
 	},
 	"Lecturers": {
-		"one": "Lecturer",
-		"other": "Lecturers"
+		"one": "Лектор",
+		"other": "Лекторы"
 	},
-	"childrens_performance": "childrens_performance"
+	"guides": {
+		"one": "Экскурсовод",
+		"other": "Экскурсоводы"
+	},
+	"curators": {
+		"one": "Куратор",
+		"other": "Кураторы"
+	},
+	"teachers": {
+		"one": "Преподаватель",
+		"other": "Преподаватели"
+	},
+	"artists": {
+		"one": "Художник",
+		"other": "Художники"
+	},
+	"architects": {
+		"one": "Архитектор",
+		"other": "Архитекторы"
+	},
+	"musicians": {
+		"one": "Музыкант",
+		"other": "Музыканты"
+	},
+	"readers": {
+		"one": "Чтецы",
+		"other": "Чтецы"
+	},
+
+
+	"organizer": {
+		"one":"Организатор",
+		"other": "Организаторы"
+	},
+	"co-organizer": {
+		"one":"Cоорганизатор",
+		"other": "Cоорганизаторы"
+	},
+	"general": {
+		"one":"Генеральный",
+		"other": "Генеральные"
+	},
+	"special": {
+		"one":"Специальный",
+		"other": "Специальные"
+	},
+	"strategic": {
+		"one":"Стратегический",
+		"other": "Стратегические"
+	},
+	"sponsor": {
+		"one":"Спонсор",
+		"other": "Спонсоры"
+	},
+	"supported_by": {
+		"one":"При поддержке",
+		"other": "При поддержке"
+	},
+	"with": {
+		"one":"Соместно с",
+		"other": "Соместно с"
+	}
 }

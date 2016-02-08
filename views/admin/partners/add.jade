@@ -35,8 +35,8 @@ block content
 			.form_title Тип:
 			select(name='type')
 				option(value='') нет
-				each title, type in partners_types
-					option(value=type)= title.ru
+				each type in partners_types
+					option(value=type)= __n(type)
 			.form_title Видимость:
 			input(type='checkbox', name='status', value='hidden')
 			!= ' скрыть'

@@ -37,18 +37,18 @@ mixin form_persons_select(event_persons)
 							input.rm_person(type='button', value='-')
 							!= get_locale(person[field], 'ru')
 							input(type='hidden', value=person._id, name= attributes.persons + '[' + event_person[type] +']')
-			each title, tag in select_categorys
+			each tag in select_categorys
 				unless event_persons.some(function(person) { return person[type] == tag })
-					.tag(class=tag)= title.ru
+					.tag(class=tag)= __n(tag)
 	else
 		.persons_categorys(class=attributes.persons).sortable
-			each title, tag in select_categorys
-				.tag(class=tag)= title.ru
+			each tag in select_categorys
+				.tag(class=tag)= __n(tag)
 
 	input.add_person(type='button', value='Добавить')
 	.persons_select.hidden
 		input.persons_search(type='text', placeholder='поиск...')
 		select.tag_select(class=attributes.persons)
-			each title, tag in select_categorys
-				option(value=tag)= title.ru
+			each tag in select_categorys
+				option(value=tag)= __n(tag)
 		.persons_list(class=attributes.persons)

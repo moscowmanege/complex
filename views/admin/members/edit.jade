@@ -40,16 +40,16 @@ block content
 						span.snake
 							input.back(type="button", value="-")
 							select(name='roles')
-								each title, role in members_roles
-									option(value=role, selected=role == member_role)= title.ru
+								each role in members_roles
+									option(value=role, selected=role == member_role)= __n(role)
 					input.forward(type="button", value="+")
 			else
 				.snake_outer
 					span.snake
 						input.back(type="button", value="-")
 						select(name='roles')
-							each title, role in members_roles
-								option(value=role)= title.ru
+							each role in members_roles
+								option(value=role)= __n(role)
 					input.forward(type="button", value="+")
 			.form_title Видимость:
 			input(type='checkbox', name='status', value='hidden', checked=member.status)
