@@ -1,103 +1,103 @@
 {
 	"музейно-выставочное объединение": "museum and exhibition association",
 
-	"tech": "Технический",
-	"innovation": "Инновационный",
-	"information": "Информационный",
+	"tech": "Technical",
+	"innovation": "Innovative",
+	"information": "Information",
 
 
-	"exhibition": "Выставка",
-	"photo_exhibition": "Фотовыставка",
-	"film_screening": "Кинопоказ",
-	"concert": "Концерт",
-	"lecture": "Лекция",
-	"round_table": "Круглый стол",
-	"excursion": "Экскурсия",
-	"performance": "Спектакль",
-	"childrens_performance": "Детский спектакль",
-	"creative_evening": "Творческий вечер",
-	"literary_evening": "Литературный вечер",
-	"citywide_campaign": "Общегородская акция",
-	"forum": "Форум",
-	"master_class": "Мастер-класс",
+	"exhibition": "Exhibition",
+	"photo_exhibition": "Photo exhibition",
+	"film_screening": "Film screening",
+	"concert": "Concert",
+	"lecture": "Lecture",
+	"round_table": "Round table",
+	"excursion": "Excursion",
+	"performance": "Performance",
+	"childrens_performance": "Childrens performance",
+	"creative_evening": "Creative evening",
+	"literary_evening": "Literary evening",
+	"citywide_campaign": "Citywide campaign",
+	"forum": "Forum",
+	"master_class": "Master class",
 
 
 	"members": {
-		"one": "Участник",
-		"other": "Участники"
+		"one": "Member",
+		"other": "Members"
 	},
 	"guests": {
-		"one": "Гость",
-		"other": "Гости"
+		"one": "Guest",
+		"other": "Guests"
 	},
 	"speakers": {
-		"one": "Спикер",
-		"other": "Спикеры"
+		"one": "Speaker",
+		"other": "Speakers"
 	},
 	"Lecturers": {
-		"one": "Лектор",
-		"other": "Лекторы"
+		"one": "Lecturer",
+		"other": "Lecturers"
 	},
 	"guides": {
-		"one": "Экскурсовод",
-		"other": "Экскурсоводы"
+		"one": "Guide",
+		"other": "Guides"
 	},
 	"curators": {
-		"one": "Куратор",
-		"other": "Кураторы"
+		"one": "Curator",
+		"other": "Curators"
 	},
 	"teachers": {
-		"one": "Преподаватель",
-		"other": "Преподаватели"
+		"one": "Teacher",
+		"other": "Teachers"
 	},
 	"artists": {
-		"one": "Художник",
-		"other": "Художники"
+		"one": "Artist",
+		"other": "Artists"
 	},
 	"architects": {
-		"one": "Архитектор",
-		"other": "Архитекторы"
+		"one": "Architect",
+		"other": "Architects"
 	},
 	"musicians": {
-		"one": "Музыкант",
-		"other": "Музыканты"
+		"one": "Musician",
+		"other": "Musicians"
 	},
 	"readers": {
-		"one": "Чтецы",
-		"other": "Чтецы"
+		"one": "Reader",
+		"other": "Readers"
 	},
 
 
 	"organizer": {
-		"one":"Организатор",
-		"other": "Организаторы"
+		"one":"Organizer",
+		"other": "Organizers"
 	},
 	"co-organizer": {
-		"one":"Cоорганизатор",
-		"other": "Cоорганизаторы"
+		"one":"Co-organizer",
+		"other": "Co-organizers"
 	},
 	"general": {
-		"one":"Генеральный",
-		"other": "Генеральные"
+		"one":"General",
+		"other": "General"
 	},
 	"special": {
-		"one":"Специальный",
-		"other": "Специальные"
+		"one":"Special",
+		"other": "Special"
 	},
 	"strategic": {
-		"one":"Стратегический",
-		"other": "Стратегические"
+		"one":"Strategic",
+		"other": "Strategic"
 	},
 	"sponsor": {
-		"one":"Спонсор",
-		"other": "Спонсоры"
+		"one":"Sponsor",
+		"other": "Sponsors"
 	},
 	"supported_by": {
-		"one":"При поддержке",
-		"other": "При поддержке"
+		"one":"Supported by",
+		"other": "Supported by"
 	},
 	"with": {
-		"one":"Соместно с",
-		"other": "Соместно с"
+		"one":"With",
+		"other": "With"
 	}
 }
