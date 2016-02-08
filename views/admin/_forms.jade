@@ -90,7 +90,7 @@ mixin form_images_upload(images)
 			input#upload_fallback(type='file')
 			.images_upload_preview
 	else
-		- function get_locale(option, lang) {var locale = option.filter(function(locale) { return locale.lg == lang })[0]; if (locale) {return locale.value } else {return ''} }
+		- function get_locale(option, lang) {return ((option.filter(function(locale) {return locale.lg == lang; })[0] || {}).value || ''); }
 		.form_images_upload
 			input#upload_fallback(type='file')
 			.images_upload_preview

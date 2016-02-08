@@ -17,7 +17,7 @@ mixin form_alt_tickets(path, object)
 
 mixin form_persons_select(event_persons)
 	include ../../vars.jade
-	- function get_locale(option, lang) {var locale = option.filter(function(locale) { return locale.lg == lang })[0]; if (locale) {return locale.value } else {return ''} }
+	- function get_locale(option, lang) {return ((option.filter(function(locale) {return locale.lg == lang; })[0] || {}).value || ''); }
 
 	if (attributes.persons == 'members')
 		- var type = 'role'
@@ -31,7 +31,7 @@ mixin form_persons_select(event_persons)
 	if (event_persons && event_persons.length > 0)
 		.persons_categorys(class=attributes.persons).sortable
 			each event_person in event_persons
-				.tag(class=event_person[type])= select_categorys[event_person[type]]['ru']
+				.tag(class=event_person[type])= __n(event_person[type])
 					each person in event_person.ids
 						.person
 							input.rm_person(type='button', value='-')
