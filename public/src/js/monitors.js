@@ -16,38 +16,38 @@ $(document).ready(function() {
 		var $lang = $area.find('.flip_lang').first();
 		var $blocks = $lang.find('.flip_events');
 
-		var outerWidth = $outer.width();
+		var outer_width = $outer.width();
 
 
 		this.flipNext = function() {
 
-			var blocksScroll = $blocks.scrollLeft();
-			var blocksScrollWidth = $blocks[0].scrollWidth - outerWidth;
+			var blocks_scroll = $blocks.scrollLeft();
+			var blocks_scroll_width = $blocks[0].scrollWidth - outer_width;
 
-			var areaScroll = $area.scrollLeft();
-			var areaScrollWidth = $area[0].scrollWidth - outerWidth;
+			var area_scroll = $area.scrollLeft();
+			var area_scroll_width = $area[0].scrollWidth - outer_width;
 
-			var outerScroll = $outer.scrollLeft();
+			var outer_scroll = $outer.scrollLeft();
 
-			if (areaScroll >= areaScrollWidth && blocksScroll >= blocksScrollWidth) {
+			if (area_scroll >= area_scroll_width && blocks_scroll >= blocks_scroll_width) {
 				$outer.stop(false, true).animate({
-					'scrollLeft': '+=' + outerWidth
+					'scrollLeft': '+=' + outer_width
 				}, 600, function() {
 					$('.flip_area:first').insertAfter('.flip_area:last').promise().done(function() {
 						$area = $('.flip_area').first();
 						$lang = $area.find('.flip_lang').first();
 						$blocks = $lang.find('.flip_events');
 
-						$outer.scrollLeft(outerScroll - outerWidth);
+						$outer.scrollLeft(outer_scroll - outer_width);
 					});
 				});
 
 				return false;
 			}
 
-			if (blocksScroll >= blocksScrollWidth) {
+			if (blocks_scroll >= blocks_scroll_width) {
 				$area.stop(false, true).animate({
-					'scrollLeft': '+=' + outerWidth
+					'scrollLeft': '+=' + outer_width
 				}, 600);
 
 				$lang = $lang.next();
@@ -57,44 +57,44 @@ $(document).ready(function() {
 			}
 
 			$blocks.stop(false, true).animate({
-				'scrollLeft': '+=' + outerWidth
+				'scrollLeft': '+=' + outer_width
 			}, 600);
 		};
 
 
 		this.flipBack = function() {
 
-			var blocksScroll = $blocks.scrollLeft();
-			var blocksScrollWidth = $blocks[0].scrollWidth - outerWidth;
+			var blocks_scroll = $blocks.scrollLeft();
+			var blocks_scroll_width = $blocks[0].scrollWidth - outer_width;
 
-			var areaScroll = $area.scrollLeft();
-			var areaScrollWidth = $area[0].scrollWidth - outerWidth;
+			var area_scroll = $area.scrollLeft();
+			var area_scroll_width = $area[0].scrollWidth - outer_width;
 
-			var outerScroll = $outer.scrollLeft();
+			var outer_scroll = $outer.scrollLeft();
 
-			if (outerScroll === 0 && areaScroll === 0 && blocksScroll === 0) {
+			if (outer_scroll === 0 && area_scroll === 0 && blocks_scroll === 0) {
 				$('.flip_area:last').insertBefore('.flip_area:first').promise().done(function() {
 					$area = $('.flip_area').first();
 					$lang = $area.find('.flip_lang').last();
 					$blocks = $lang.find('.flip_events');
 
-					$area.scrollLeft(areaScrollWidth);
-					$blocks.scrollLeft(blocksScrollWidth);
-					$outer.scrollLeft(outerScroll + outerWidth);
+					$area.scrollLeft(area_scroll_width);
+					$blocks.scrollLeft(blocks_scroll_width);
+					$outer.scrollLeft(outer_scroll + outer_width);
 				});
 			}
 
-			if (areaScroll === 0 && blocksScroll === 0) {
+			if (area_scroll === 0 && blocks_scroll === 0) {
 				$outer.stop(false, true).animate({
-					'scrollLeft': '-=' + outerWidth
+					'scrollLeft': '-=' + outer_width
 				}, 600);
 
 				return false;
 			}
 
-			if (blocksScroll === 0) {
+			if (blocks_scroll === 0) {
 				$area.stop(false, true).animate({
-					'scrollLeft': '-=' + outerWidth
+					'scrollLeft': '-=' + outer_width
 				}, 600);
 
 				$lang = $lang.prev();
@@ -104,7 +104,7 @@ $(document).ready(function() {
 			}
 
 			$blocks.stop(false, true).animate({
-				'scrollLeft': '-=' + outerWidth
+				'scrollLeft': '-=' + outer_width
 			}, 600);
 		};
 
@@ -128,7 +128,7 @@ $(document).ready(function() {
 			$blocks = $lang.find('.flip_events');
 		};
 
-	};
+	}
 
 	slider = new Slider();
 
@@ -209,18 +209,18 @@ $(document).ready(function() {
 
 	var time = function() {
 		var date = new Date();
-		var days = ['ВОСКРЕСЕНЬЕ','ПОНЕДЕЛЬНИК','ВТОРНИК','СРЕДА','ЧЕТВЕРГ','ПЯТНИЦА','СУББОТА']
-		var months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+		var days = ['ВОСКРЕСЕНЬЕ','ПОНЕДЕЛЬНИК','ВТОРНИК','СРЕДА','ЧЕТВЕРГ','ПЯТНИЦА','СУББОТА'];
+		var months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 
-		var day = days[date.getDay()]
+		var day = days[date.getDay()];
 		var hours = ('0' + date.getHours()).slice(-2);
 		var min = ('0' + date.getMinutes()).slice(-2);
 
-		$('.date').text(day + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ' ' +date.getFullYear())
+		$('.date').text(day + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ' ' +date.getFullYear());
 		$('.hours').text(hours);
 		$('.minutes').text(min);
 		$('.time_sep').toggleClass('tick');
-	}
+	};
 
 	var _timer = setInterval(time, 1000);
 
