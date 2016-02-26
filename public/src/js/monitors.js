@@ -39,6 +39,8 @@ $(document).ready(function() {
 						$blocks = $lang.find('.flip_events');
 
 						$outer.scrollLeft(outer_scroll - outer_width);
+
+						self.clear.call(null, $area);
 					});
 				});
 
@@ -81,6 +83,8 @@ $(document).ready(function() {
 					$area.scrollLeft(area_scroll_width);
 					$blocks.scrollLeft(blocks_scroll_width);
 					$outer.scrollLeft(outer_scroll + outer_width);
+
+					self.clear.call(null, $area);
 				});
 			}
 
@@ -107,6 +111,17 @@ $(document).ready(function() {
 				'scrollLeft': '-=' + outer_width
 			}, 600);
 		};
+
+
+		this.clear = function($area) {
+			if ($area.hasClass('new')) {
+				$('.old').remove();
+				$('.new').removeClass('new');
+				if ($('.flip_area').length < 2) {
+					$('.flip_area').clone().appendTo('.flip_inner');
+				}
+			}
+		}
 
 
 		this.play = function(interval) {
@@ -193,7 +208,11 @@ $(document).ready(function() {
 			}
 
 
-			$('.flip_inner').children('.flip_area').addClass('old').end().append($flips);
+			$('.flip_inner').children('.flip_area').removeClass('new').addClass('old').end().append($flips);
+
+			if ($('.flip_area').length < 2) {
+				$('.flip_area').clone().appendTo('.flip_inner');
+			}
 
 			slider.reinit();
 		});
