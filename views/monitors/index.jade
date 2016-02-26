@@ -9,6 +9,7 @@ block content_style
 
 block content_scripts
 	script(type='text/javascript', src='/build/libs/js/socket.io-1.3.7.js' + version)
+	script(type='text/javascript', src='/build/js/slider.js' + version)
 	script(type='text/javascript', src='/build/js/monitors.js' + version)
 
 block content
@@ -32,7 +33,7 @@ block content
 		.panel_menu
 			span panel:
 			button.hide hide
-			span= ' -- alt + F'
+			span= ' -- Esc'
 		//- .panel_menu
 		//- 	span Настройки:
 		//- 	button.reload reload
