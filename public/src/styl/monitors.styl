@@ -35,11 +35,11 @@ body
 		height 1920px
 		.flip_area
 			// background-image url('/images/design/gridinator.png')
+			// background-color green
 			width 1080px
 			height 1920px
 			display inline-block
 			font-size 0
-			// background-color green
 			overflow hidden
 			white-space nowrap
 			vertical-align top
@@ -54,12 +54,15 @@ body
 					white-space nowrap
 					vertical-align top
 					.flip_header
-						box-sizing border-box
-						padding 60px 60px 0 60px
-						width 1080px
-						height 400px
 						// background-color red
-						// margin-bottom 20px
+						box-sizing border-box
+						width 960px
+						height 400px
+						margin-left 60px
+						margin-right 60px
+						margin-bottom 20px
+						padding-top 60px
+						border-bottom 5px solid black
 						.header_title
 							overflow hidden
 							margin-bottom 40px
@@ -109,8 +112,6 @@ body
 						-webkit-column-width 1080px
 						-webkit-column-gap 0px
 						overflow hidden
-
-
 
 
 
@@ -210,17 +211,9 @@ body
 	width 960px
 	margin-left 60px
 	margin-right 60px
-	margin-top 20px
+	margin-bottom 20px
 	padding-bottom 20px
 	border-bottom 1px dotted black
-	&.exhibition.last
-		border-bottom 5px solid black
-	&:first-child
-		border-top 5px solid black
-		padding-top 20px
-	&:last-child
-		padding-bottom 0px
-		border none
 	.event_header
 		overflow hidden
 		margin-bottom 10px
