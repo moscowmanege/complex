@@ -18,22 +18,21 @@ block content
 		.panel_menu
 			span base:
 			select.area_select
-				each area in areas
-					option(value=area._id.toString())= area.i18n.title.get('ru')
+				each area,i in areas
+					option(value=area._id.toString())=(i+1) + '. ' + area.i18n.title.get('ru')
 			span= ' --> '
-			button.connect connect
+			button.connect(title='Button: Alt + 1..9') connect
 			span= ' --> '
 			button.update update
 		.panel_menu
 			span slides:
 			button.play play
 			button.pause pause
-			button.back= '<< back'
-			button.next= 'next >>'
+			button.back(title='Button: Arrow Left')= '<< back'
+			button.next(title='Button: Arrow Right')= 'next >>'
 		.panel_menu
 			span panel:
-			button.hide hide
-			span= ' -- Esc'
+			button.hide(title='Button: Escape') hide
 		//- .panel_menu
 		//- 	span Настройки:
 		//- 	button.reload reload

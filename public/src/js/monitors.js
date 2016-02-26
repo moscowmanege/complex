@@ -22,9 +22,30 @@ $(document).ready(function() {
 	});
 
 	$(document).on('keyup', function(event) {
-		// if (event.altKey && event.which == 70) {
+		var num_codes = [49, 50, 51, 52, 53, 54, 55, 56, 57];
+
 		if (event.which == 27) {
 			$('.monitor_panel').toggleClass('hide');
+		}
+
+		if (event.which == 37) {
+			$('.back').trigger('click');
+		}
+
+		if (event.which == 39) {
+			$('.next').trigger('click');
+		}
+
+		if (event.altKey && /^[0-9]+$/.test(num_codes.indexOf(event.which))) {
+			$('.area_select')[0].selectedIndex = num_codes.indexOf(event.which);
+			$('.connect').trigger('click');
+		}
+
+		if (event.altKey && event.ctrlKey && event.which == 66) {
+			$('body').toggleClass('barsuk');
+			setTimeout(function() {
+				$('body').removeClass('barsuk');
+			}, 5000);
 		}
 	});
 
