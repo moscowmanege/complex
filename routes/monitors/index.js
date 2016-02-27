@@ -45,17 +45,20 @@ module.exports = function(Model) {
 			.exec(function(err, areas) {
 				var areas = areas.map(function(area) {
 
+					var unicDuplicates = function (arr) {
+					  return arr.reduce(function(dupes, val, i) {
+					    if (arr.indexOf(val) !== i && dupes.indexOf(val) === -1) {
+					      dupes.push(val);
+					    }
+					    return dupes;
+					  }, []);
+					}
+
 					// concat sub array of event tickets
 					area.complex = [].concat.apply([], area.complex);
 
 					// unic dublicates of tickets => complex tickets
-					area.complex = area.complex.reduce(function(dupes, val, i) {
-				  	val = val.toString();
-				    if (area.complex.indexOf(val) !== i && dupes.indexOf(val) === -1) {
-				      dupes.push(val);
-				    }
-				    return dupes;
-				  }, []);
+					area.complex = unicDuplicates(area.complex.map(function(ticket) { return ticket.toString() }));
 
 					// remove complex tickets from event tickets
 					area.events = area.events.map(function(event) {

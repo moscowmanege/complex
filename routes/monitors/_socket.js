@@ -52,8 +52,9 @@ module.exports = function(io, i18n) {
 			})
 			.group({
 				'_id': {
-					'area': '$place.area'
+					'area': '$place.area',
 				},
+				'complex': { $push: '$tickets.ids' },
 				'events': {
 					$push: {
 						title: '$title',
@@ -70,14 +71,46 @@ module.exports = function(io, i18n) {
 			.project({
 				_id: 0,
 				area: '$_id.area',
-				events: '$events'
+				complex:  '$complex',
+				events: '$events',
 			})
 			.exec(function(err, areas) {
+				var areas = areas.map(function(area) {
+
+					var unicDuplicates = function (arr) {
+						return arr.reduce(function(dupes, val, i) {
+							if (arr.indexOf(val) !== i && dupes.indexOf(val) === -1) {
+								dupes.push(val);
+							}
+							return dupes;
+						}, []);
+					}
+
+					// concat sub array of event tickets
+					area.complex = [].concat.apply([], area.complex);
+
+					// unic dublicates of tickets => complex tickets
+					area.complex = unicDuplicates(area.complex.map(function(ticket) { return ticket.toString() }));
+
+					// remove complex tickets from event tickets
+					area.events = area.events.map(function(event) {
+						event.tickets.ids = event.tickets.ids.filter(function(ticket) {
+							return !area.complex.some(function(complex_ticket) { return ticket.toString() == complex_ticket.toString(); });
+						});
+
+						return event;
+					});
+
+					return area;
+				});
+
+
 				var paths = [
+					{path:'complex', select: 'type price _id', model: 'Ticket'},
 					{path:'events.halls', select: 'title', model: 'Hall'},
 					{path:'events.categorys', select: 'title', model: 'Category'},
 					{path:'events.members.ids', select: 'name', model: 'Member'},
-					{path:'events.tickets.ids', model: 'Ticket'},
+					{path:'events.tickets.ids', select: 'type price _id', model: 'Ticket'},
 				];
 
 				Event.populate(areas, paths, function(err, areas) {

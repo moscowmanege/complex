@@ -33,11 +33,10 @@ mixin eventBlock(event, locale)
 			.event_tickets
 				if event.tickets.ids.length > 1
 					each ticket in event.tickets.ids
-						if ticket.events.length == 1
-							.ticket_item
-								span.ticket_price= ticket.price
-								span= ' - '
-								span.ticket_type= ticket.type
+						.ticket_item
+							span.ticket_price= ticket.price
+							span= ' - '
+							span.ticket_type= ticket.type
 				else
 					!= get_locale(event.tickets.alt, locale)
 
