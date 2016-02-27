@@ -59,4 +59,4 @@ var check_interval = setInterval(socket.interval, 1000 * 60 * 5);	// 5 minutes 1
 
 
 server.listen(process.env.PORT || 3002);
-console.log('http://127.0.0.1:3002')
+console.log('http://127.0.0.1:3002');

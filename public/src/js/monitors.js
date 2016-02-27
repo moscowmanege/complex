@@ -116,7 +116,7 @@ $(document).ready(function() {
 		var hours = ('0' + date.getHours()).slice(-2);
 		var min = ('0' + date.getMinutes()).slice(-2);
 
-		$('.date').text(day + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ' ' +date.getFullYear());
+		$('.date').text(day + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear() + ',');
 		$('.hours').text(hours);
 		$('.minutes').text(min);
 		$('.time_sep').toggleClass('tick');
