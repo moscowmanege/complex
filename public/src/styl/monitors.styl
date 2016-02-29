@@ -1,11 +1,17 @@
+@-webkit-keyframes barsuk {
+	0% { background-position: 0 0; }
+	100% { background-position: 100% 0; }
+}
+
 body
 	margin 0
 	padding 0
 	&.barsuk
+		-webkit-animation: barsuk 8s linear infinite;
 		background-image url('/images/design/backgrounds/barsuk.jpg')
 		background-size 20%
-		*
-			display none
+		.main_block
+			background-color rgba(255, 255, 255, 0.9)
 
 .main_block
 	width 1080px

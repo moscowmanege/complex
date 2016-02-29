@@ -43,10 +43,11 @@ $(document).ready(function() {
 
 		if (event.altKey && event.ctrlKey && event.which == 66) {
 			$('body').toggleClass('barsuk');
-			setTimeout(function() {
-				$('body').removeClass('barsuk');
-			}, 5000);
 		}
+	});
+
+	$(document).on('click', '.logo', function() {
+		$('body').toggleClass('barsuk');
 	});
 
 
