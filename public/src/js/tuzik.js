@@ -19,7 +19,7 @@ $(document).ready(function() {
 				$('.tuzik_desc').empty().append(def_val);
 			}, 2000);
 			return false;
-		} else if (!url.test(link.ru) || url.test(link.en)) {
+		} else if (!url.test(link.ru) || !url.test(link.en)) {
 			$('.tuzik_desc').text(' -- Ты не обманешь Тузика! Тузик понимает только ссылки: http://moscowmanege.ru');
 			setTimeout(function() {
 				$('.tuzik_desc').empty().append(def_val);
