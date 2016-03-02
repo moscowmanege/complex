@@ -41,11 +41,12 @@ $(document).ready(function() {
 		}
 	}
 
-	$('.rm_user').on('click', {path:'/auth/users/remove', description: 'Удалить пользователя?'}, remove);
-	$('.rm_category').on('click', {path:'/auth/categorys/remove', description: 'Удалить категорию?'}, remove);
-	$('.rm_other').on('click', {path:'/auth/other/remove', description: 'Удалить материал?'}, remove);
-	$('.rm_lecture').on('click', {path:'/auth/lecture/remove', description: 'Удалить материал?'}, remove);
-	$('.rm_theme').on('click', {path:'/auth/themes/remove/main', description: 'Удалить тему? \n - Все подтемы \n - Все материалы'}, remove);
-	$('.rm_theme_sub').on('click', {path:'/auth/themes/remove/sub', description: 'Удалить подтему? \n - Все материалы'}, remove);
+	$('.item_rm.user').on('click', {path:'/users/remove', description: 'Удалить пользователя?'}, remove);
+	$('.item_rm.category').on('click', {path:'/categorys/remove', description: 'Удалить категорию?'}, remove);
+	$('.item_rm.member').on('click', {path:'/members/remove', description: 'Удалить участника?'}, remove);
+	$('.item_rm.partner').on('click', {path:'/partners/remove', description: 'Удалить партнера?'}, remove);
+	$('.item_rm.event').on('click', {path:'/events/remove', description: 'Удалить событие?'}, remove);
+	$('.item_rm.area').on('click', {path:'/areas/remove', description: 'Удалить площадку? \n - Все залы этой площадки \n - Все события на этой площадке'}, remove);
+	$('.item_rm.hall').on('click', {path:'/halls/remove', description: 'Удалить зал? \n - Все события в этом зале'}, remove);
 
 });
