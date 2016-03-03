@@ -7,13 +7,14 @@ var fs = require('fs');
 var path = require('path');
 
 var public_path = __app_root + '/public';
+var preview_path = __app_root + '/public/preview/';
 
 
 module.exports.images = function(obj, base_path, upload_images, callback) {
 	obj.images = [];
 	var images = [];
 
-	var dir_path = '/images/' + base_path + '/' + obj._id
+	var dir_path = '/cdn/images/' + base_path + '/' + obj._id
 
 	var images_path = {
 		original: dir_path + '/original/',
@@ -70,15 +71,14 @@ module.exports.images = function(obj, base_path, upload_images, callback) {
 };
 
 module.exports.preview = function(images, callback) {
-	var preview_path = '/images/preview/';
 
 	async.mapSeries(images, function(image, callback) {
-		var image_path = __app_root + '/public' + image.original;
+		var image_path = public_path + image.original;
 		var image_name = path.basename(image.original);
 
-		fs.createReadStream(image_path).pipe(fs.createWriteStream(public_path + preview_path + image_name));
+		fs.createReadStream(image_path).pipe(fs.createWriteStream(preview_path + image_name));
 
-		callback(null, preview_path + image_name);
+		callback(null, '/preview/' + image_name);
 	}, function(err, results) {
 		callback.call(null, null, results);
 	});

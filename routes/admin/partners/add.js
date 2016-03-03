@@ -38,7 +38,7 @@ module.exports = function(Model, Params) {
 
     if (file) {
       var public_path = __app_root + '/public';
-      var dir_path = '/images/partners' + '/' + partner._id;
+      var dir_path = '/cdn/images/partners' + '/' + partner._id;
       var file_name = 'logo' + '.' + mime.extension(file.mimetype);
 
       mkdirp(public_path + dir_path, function() {

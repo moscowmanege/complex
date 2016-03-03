@@ -48,8 +48,8 @@ module.exports = function(Model) {
 
 	var loadImages = function(images, event, callback) {
 		var path = {
-			original: '/images/events/' + event._id + '/original/',
-			thumb: '/images/events/' + event._id + '/thumb/'
+			original: '/cdn/images/events/' + event._id + '/original/',
+			thumb: '/cdn/images/events/' + event._id + '/thumb/'
 		}
 
 		async.concatSeries([public_path + path.original, public_path + path.thumb], mkdirp, function(err, dirs) {

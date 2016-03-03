@@ -42,7 +42,7 @@ module.exports = function(Model, Params) {
 
       if (file) {
         var public_path = __app_root + '/public';
-        var dir_path = '/images/members' + '/' + member._id;
+        var dir_path = '/cdn/images/members' + '/' + member._id;
         var file_name = 'photo' + '.' + mime.extension(file.mimetype);
 
         mkdirp(public_path + dir_path, function() {

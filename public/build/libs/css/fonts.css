@@ -1,14 +1,14 @@
 @font-face {
 	font-family: 'Circe';
-	src: url('/fonts/CRC55.otf');
+	src: url('/staff/fonts/CRC55.otf');
 }
 
 @font-face {
 	font-family: 'Circe Bold';
-	src: url('/fonts/CRC65.otf');
+	src: url('/staff/fonts/CRC65.otf');
 }
 
 @font-face {
 	font-family: 'Circe Extra Bold';
-	src: url('/fonts/CRC75.otf');
+	src: url('/staff/fonts/CRC75.otf');
 }
