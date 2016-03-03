@@ -14,7 +14,7 @@ module.exports = function(Model, Params) {
 				res.render('admin/tickets/edit.jade', {ticket: ticket, events: events});
 			});
 		});
-	}
+	};
 
 	module.form = function(req, res) {
 		var post = req.body;
@@ -26,7 +26,7 @@ module.exports = function(Model, Params) {
 			ticket.price = post.price;
 			ticket.type = post.type;
 			ticket.status = post.status;
-			ticket.complex = complex
+			ticket.complex = complex;
 
 
 	    Event.where('_id').in(ticket.events)
@@ -45,8 +45,8 @@ module.exports = function(Model, Params) {
 			    });
 		    });
 	    });
-	}
+	};
 
 
 	return module;
-}
+};

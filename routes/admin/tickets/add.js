@@ -12,7 +12,7 @@ module.exports = function(Model, Params) {
     Event.find().exec(function(err, events) {
       res.render('admin/tickets/add.jade', {events: events, current: [event_id]});
     });
-  }
+  };
 
   module.form = function(req, res) {
     var post = req.body;
@@ -35,9 +35,9 @@ module.exports = function(Model, Params) {
         res.redirect('/events');
       });
     });
-  }
+  };
 
 
 
   return module;
-}
+};
