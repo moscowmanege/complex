@@ -57,29 +57,22 @@ module.exports = function(Model) {
 					}
 				}
 			})
+			.unwind('complex')
+			.unwind('complex')
+			.group({
+				'_id': {
+					area: '$_id.area'
+				},
+				'complex': {$addToSet: '$complex'},
+				'events': {$addToSet: '$events'}
+			})
 			.project({
 				_id: 0,
 				area: '$_id.area',
 				complex: '$complex',
-				events: '$events',
+				events: { $arrayElemAt: ['$events', 0] },
 			})
 			.exec(function(err, areas) {
-				var areas = areas.map(function(area) {
-
-					area.complex = [].concat.apply([], area.complex);
-
-					area.complex = area.complex.map(function(ticket) {
-						return ticket.toString();
-					});
-
-					area.complex = area.complex.reduce(function(a, b) {
-						if (a.indexOf(b) < 0) a.push(b);
-						return a;
-					}, []);
-
-					return area;
-				});
-
 
 				// var paths = [
 				// 	{path:'complex', select: 'type price _id', model: 'Ticket'},
@@ -94,35 +87,6 @@ module.exports = function(Model) {
 				// });
 			});
 	};
-
-
-	module.test2 = function(req, res) {
-
-		Event.aggregate()
-			// .unwind('tickets.ids')
-			.group({
-				'_id': {
-					complex: { $gt: [{$size: '$tickets.ids' }, 1] },
-					ticket: '$tickets.ids'
-				},
-				'events': {
-					$push: {
-						_id: '$_id',
-						// title: '$title.value',
-						// description: '$description.value',
-						// tickets: '$tickets'
-					}
-				}
-			})
-			.exec(function(err, result) {
-				// Event.populate(result, {path: '_id.ticket', model: 'Ticket'}, function(err, events) {
-				// 	res.send(events);
-				// });
-				res.send(result);
-			});
-
-	};
-
 
 	return module;
 };

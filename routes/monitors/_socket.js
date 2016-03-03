@@ -92,18 +92,20 @@ module.exports = function(io, i18n) {
 			.project({
 				_id: 0,
 				area: '$_id.area',
-				complex:  '$complex',
-				events: '$events',
+				complex: '$complex',
+				events: '$events'
 			})
 			.exec(function(err, areas) {
 				var areas = areas.map(function(area) {
 
+					// concat complex tickets
 					area.complex = [].concat.apply([], area.complex);
 
 					area.complex = area.complex.map(function(ticket) {
 						return ticket.toString();
 					});
 
+					// remove dublicates
 					area.complex = area.complex.reduce(function(a, b) {
 						if (a.indexOf(b) < 0) a.push(b);
 						return a;
