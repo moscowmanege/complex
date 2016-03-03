@@ -22,7 +22,17 @@ module.exports = function(Model) {
 				'_id': {
 					'area': '$place.area',
 				},
-				'complex': { $push: '$tickets.ids' },
+				'complex': {
+					$push: {
+						$setDifference: [{
+							$map: {
+								input: '$tickets.ids',
+								as: 'ticket',
+								in: { $cond: [{ $eq: ['$$ticket.complex', true] }, '$$ticket.id', false] }
+							}
+						}, [false]]
+					}
+				},
 				'events': {
 					$push: {
 						title: '$title',
@@ -32,42 +42,40 @@ module.exports = function(Model) {
 						halls: '$place.halls',
 						categorys: '$categorys',
 						members: '$members',
-						tickets: '$tickets'
+						tickets: {
+							alt: '$tickets.alt',
+							ids: {
+								$setDifference: [{
+									$map: {
+										input: '$tickets.ids',
+										as: 'ticket',
+										in: { $cond: [{ $eq: ['$$ticket.complex', false] }, '$$ticket.id', false] }
+									}
+								}, [false]]
+							}
+						}
 					}
 				}
 			})
 			.project({
 				_id: 0,
 				area: '$_id.area',
-				complex:  '$complex',
+				complex: '$complex',
 				events: '$events',
 			})
 			.exec(function(err, areas) {
 				var areas = areas.map(function(area) {
 
-					var unicDuplicates = function (arr) {
-					  return arr.reduce(function(dupes, val, i) {
-					    if (arr.indexOf(val) !== i && dupes.indexOf(val) === -1) {
-					      dupes.push(val);
-					    }
-					    return dupes;
-					  }, []);
-					}
-
-					// concat sub array of event tickets
 					area.complex = [].concat.apply([], area.complex);
 
-					// unic dublicates of tickets => complex tickets
-					area.complex = unicDuplicates(area.complex.map(function(ticket) { return ticket.toString() }));
-
-					// remove complex tickets from event tickets
-					area.events = area.events.map(function(event) {
-						event.tickets.ids = event.tickets.ids.filter(function(ticket) {
-							return !area.complex.some(function(complex_ticket) { return ticket.toString() == complex_ticket.toString(); });
-						});
-
-						return event;
+					area.complex = area.complex.map(function(ticket) {
+						return ticket.toString();
 					});
+
+					area.complex = area.complex.reduce(function(a, b) {
+						if (a.indexOf(b) < 0) a.push(b);
+						return a;
+					}, []);
 
 					return area;
 				});

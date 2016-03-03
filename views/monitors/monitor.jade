@@ -31,7 +31,7 @@ mixin eventBlock(event, locale)
 				else
 					.event_interval= moment(event.interval.begin).format('DD MMMM — HH:mm')
 			.event_tickets
-				if event.tickets.ids.length > 1
+				if event.tickets.ids.length > 0
 					each ticket in event.tickets.ids
 						.ticket_item
 							span.ticket_price= ticket.price

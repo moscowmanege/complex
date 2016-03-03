@@ -5,7 +5,7 @@ module.exports = function(Model) {
 	module.index = function(req, res) {
 		var event_id = req.params.event_id;
 
-		Event.findById(event_id).populate('tickets.ids').exec(function(err, event) {
+		Event.findById(event_id).populate('tickets.ids.id').exec(function(err, event) {
 			res.render('admin/tickets', {event: event});
 		});
 	}

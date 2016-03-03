@@ -56,7 +56,10 @@ var eventSchema = new Schema({
 	},
 	tickets: {
 		alt: { type: String, trim: true, locale: true },
-		ids : [{ type: Schema.Types.ObjectId, ref: 'Ticket' }]
+		ids : [{
+			complex: Boolean,
+			id: { type: Schema.Types.ObjectId, ref: 'Ticket' }
+		}]
 	},
 	type: String,
 	interval: {
@@ -117,6 +120,7 @@ var categorySchema = new Schema({
 
 var ticketSchema = new Schema({
 	events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
+	complex: Boolean,
 	type: String,
 	status: String,
 	price: Number,
