@@ -25,4 +25,4 @@ block content
 		each user in users
 			.list_item
 				a.item_rm.user(href='#', id=user._id) удалить
-				a.item_title(href='/users/edit/' + user._id)= user.login
+				a.item_title(href='/users/edit/' + user._id)= (!user.status ? '*** ' : '') + user.login

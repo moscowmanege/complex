@@ -4,7 +4,7 @@ module.exports = function(Model) {
 
 
 	module.index = function(req, res) {
-		req.session.user_id
+		req.session.user_id && (req.session.status == 'User' || req.session.status == 'Admin')
 			? res.redirect('/auth')
 			: res.render('auth/login.jade');
 	}

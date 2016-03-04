@@ -7,7 +7,7 @@ module.exports = function(Model) {
 		req.session.user_id
 			? res.redirect('/auth')
 			: res.render('auth/registr.jade');
-	}
+	};
 
 
 	module.form = function(req, res) {
@@ -22,13 +22,10 @@ module.exports = function(Model) {
 		user.save(function(err, user) {
 			if (err) return res.redirect('back');
 
-			req.session.user_id = user._id;
-			req.session.login = user.login;
-			req.session.status = user.status;
 			res.redirect('/auth');
 		});
-	}
+	};
 
 
 	return module;
-}
+};

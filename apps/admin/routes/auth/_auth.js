@@ -13,7 +13,7 @@ module.exports = (function() {
 
 	router.route('/')
 		.get(function(req, res) {
-			req.session.user_id
+			req.session.user_id && (req.session.status == 'User' || req.session.status == 'Admin')
 				? res.redirect('/')
 				: res.redirect('/auth/login');
 		});
