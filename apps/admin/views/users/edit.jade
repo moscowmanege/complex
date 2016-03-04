@@ -22,11 +22,12 @@ block content
 			.form_title E-MAIL:
 			input(type='text', name='email', value=user.email)
 			.form_title ПАРОЛЬ:
-			input(type='password', name='password')
+			input(type='password', name='password', placeholder='*******')
 			if (session.status == 'Admin')
 				.form_title РОЛЬ:
 				select(name='status')
 					option(value='User', selcted=user.status == 'User') Пользователь
+					option(value='Redactor', selected=user.status == 'Redactor') Редактор
 					option(value='Admin', selected=user.status == 'Admin') Администратор
 			br
 			br

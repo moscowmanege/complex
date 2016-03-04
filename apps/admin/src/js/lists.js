@@ -35,8 +35,12 @@ $(document).ready(function() {
 		var id  = $(this).attr('id');
 
 		if (confirm(event.data.description)) {
-			$.post(event.data.path, {'id': id}).done(function() {
-				location.reload();
+			$.post(event.data.path, {'id': id}).done(function(data) {
+				if (data == 'current_user') {
+					document.location.pathname = '/auth/logout'
+				} else {
+					location.reload();
+				}
 			});
 		}
 	}
