@@ -1,0 +1,48 @@
+extends ../layout
+
+block paths
+	- var content_title= 'СОБЫТИЯ'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css')
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/tuzik.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/admin/lists.js')
+	script(type='text/javascript', src='/build/js/admin/tuzik.js')
+
+block sub_menu
+	a.sub_item.back_link(href='/') < Назад
+	span.sub_item.toggle_rm Удалить
+	input.sub_search(type='text', placeholder='поиск...')
+
+block content
+	.title= content_title
+	br
+	a.add(href='/events/add') добавить событие
+	span= ' | '
+	span.tuzik.open робот Тузик
+	span.tuzik_form.hidden
+		span= ' --> '
+		input.tuzik_input.rus(type='text', placeholder='Ru - Ссылка...')
+		input.tuzik_input.eng(type='text', placeholder='En - Ссылка...')
+		button.tuzik_add Создать!
+		span.tuzik_desc= ' -- Тузик создаст событие из ссылок со старого сайта: '
+			a(href='http://moscowmanege.ru', target='_blank') http://moscowmanege.ru
+	br
+	br
+	.lists_block
+		each event in events
+			.list_item(class=(event.meta.tuzik.ru || event.meta.tuzik.en) ? 'tuzik_event' : '')
+				a.item_rm.event(href='#', id=event._id) удалить
+				a.item_title(href='/events/edit/' + event._id)= event.i18n.title.get('ru')
+				unless (event.meta.tuzik.ru || event.meta.tuzik.en)
+					!=' --> '
+					a(href='/events/edit/' + event._id + '/tickets')= 'билеты (' + event.tickets.ids.length + ')'
+				if (event.meta.tuzik.ru || event.meta.tuzik.en)
+					!=' -- Тузик: '
+					if event.meta.tuzik.ru
+						a(href=event.meta.tuzik.ru, target='_blank') ru
+					if event.meta.tuzik.en
+						span= ' '
+						a(href=event.meta.tuzik.en, target='_blank') en

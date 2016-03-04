@@ -1,0 +1,27 @@
+extends ../layout
+
+block paths
+	- var content_title= 'УЧАСТНИКИ'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/admin/lists.js')
+
+block sub_menu
+	a.sub_item.back_link(href='/') < Назад
+	span.sub_item.toggle_rm Удалить
+	input.sub_search(type='text', placeholder='поиск...')
+
+block content
+	.title= content_title
+	br
+	a.add(href='/members/add') добавить участника
+	br
+	br
+	.lists_block
+		each member in members
+			.list_item
+				a.item_rm.member(href='#', id=member._id) удалить
+				a.item_title(href='/members/edit/' + member._id)= member.i18n.name.get('ru')

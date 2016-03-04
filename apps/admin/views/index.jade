@@ -1,0 +1,19 @@
+extends layout
+
+block paths
+	- var content_title= 'STARGAZER'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css')
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/stargazer.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/admin/stargazer.js')
+
+block sub_menu
+	a.sub_item.back_link(href='/auth/logout') < Выход
+	span.separator |
+	a.sub_item(href='/users/edit/' + session.user_id)= session.login
+
+block content
+	pre.ascii(data-font=font)!=data

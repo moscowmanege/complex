@@ -1,0 +1,14 @@
+extends layout
+
+block paths
+	- var content_title= 'Ошибка' + ' / ' + status
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/error.css' + version)
+
+block content
+	.error_title= status
+	if (status == 404)
+		.error_s_title нет такой страницы
+	else if (status == 500)
+		.error_s_title неправильное значение адреса

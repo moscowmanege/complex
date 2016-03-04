@@ -5,6 +5,7 @@ var colors = require('colors');
 var gulp = require('gulp'),
 		gulpif = require('gulp-if'),
 		changed = require('gulp-changed'),
+		rename = require('gulp-rename'),
 		plumber = require('gulp-plumber'),
 		stylus = require('gulp-stylus'),
 		autoprefixer = require('gulp-autoprefixer'),
@@ -20,15 +21,19 @@ var Production = false;
 
 var paths = {
 	stylus: {
-		src: ['public/src/styl/*.styl'],
+		src: ['apps/**/src/styl/*.styl'],
 		dest: 'public/build/css'
 	},
 	scripts: {
-		src: ['public/src/js/*.js'],
+		src: ['apps/**/src/js/*.js'],
 		dest: 'public/build/js'
 	},
+	stuff: {
+		src: ['apps/**/stuff/**'],
+		dest: 'public/stuff'
+	},
 	clean: {
-		pub: ['public/build/css/*', 'public/build/js/*']
+		pub: ['public/build/**', 'public/stuff/**']
 	}
 }
 
@@ -58,6 +63,16 @@ gulp.task('clean', function(callback) {
 });
 
 
+gulp.task('stuff', function () {
+	return gulp
+		.src(paths.stuff.src)
+		.pipe(rename(function(path) {
+			path.dirname = path.dirname.replace('/stuff', '');
+		}))
+		.pipe(gulp.dest(paths.stuff.dest));
+});
+
+
 gulp.task('stylus', function () {
 	return gulp
 		.src(paths.stylus.src)
@@ -69,6 +84,9 @@ gulp.task('stylus', function () {
 		.pipe(autoprefixer({
 			browsers: ['last 2 versions'],
 			cascade: !Production
+		}))
+		.pipe(rename(function(path) {
+			path.dirname = path.dirname.replace('/src/styl', '');
 		}))
 		.pipe(gulp.dest(paths.stylus.dest));
 });
@@ -82,6 +100,9 @@ gulp.task('scripts', function () {
 		.pipe(jshint.reporter('jshint-stylish'))
 		.pipe(changed(paths.scripts.dest))
 		.pipe(gulpif(Production, uglify()))
+		.pipe(rename(function(path) {
+			path.dirname = path.dirname.replace('/src/js', '');
+		}))
 		.pipe(gulp.dest(paths.scripts.dest));
 });
 
@@ -89,6 +110,7 @@ gulp.task('scripts', function () {
 gulp.task('watch', function() {
 	gulp.watch(paths.scripts.src, ['scripts']).on('change', watch_logger);
 	gulp.watch(paths.stylus.src, ['stylus']).on('change', watch_logger);
+	gulp.watch(paths.stuff.src, ['stuff']).on('change', watch_logger);
 });
 
 
@@ -100,11 +122,11 @@ gulp.task('production', function(callback) {
 // Run Block
 
 gulp.task('default', function(callback) {
-	runSequence('clean', ['stylus', 'scripts'], callback);
+	runSequence('clean', ['stylus', 'scripts', 'stuff'], callback);
 });
 
 gulp.task('build', function(callback) {
-	runSequence('production', 'clean', ['stylus', 'scripts'], callback);
+	runSequence('production', 'clean', ['stylus', 'scripts', 'stuff'], callback);
 });
 
 gulp.task('dev', ['watch']);

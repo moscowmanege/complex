@@ -1,0 +1,54 @@
+mixin form_area_select(current_place)
+	select.area(name='place[area]')
+		each area in areas
+			option(value=area._id.toString(), selected=current_place && (area._id.toString() == current_place.area))= area.i18n.title.get('ru')
+	!=' // '
+	each area in areas
+		span.hall
+			each hall in area.halls
+				input(type='checkbox', name='place[halls][]' value=hall._id.toString(), disabled=true, checked=current_place && current_place.halls.some(function(c_hall) { return c_hall == hall._id.toString() }))
+				!= hall.i18n.title.get('ru')
+
+
+mixin form_alt_tickets(path, object)
+	input.ru(type="text", name="ru[" + path + "]", value=object && object['tickets']['i18n'][path].get('ru'))
+	input.en(type="text", name="en[" + path + "]", disabled, value=object && object['tickets']['i18n'][path].get('en'))
+
+
+mixin form_persons_select(event_persons)
+	include ../../../vars.jade
+	- function get_locale(option, lang) {return ((option.filter(function(locale) {return locale.lg == lang; })[0] || {}).value || ''); }
+
+	if (attributes.persons == 'members')
+		- var type = 'role'
+		- var field = 'name'
+		- var select_categorys = members_roles
+	else if (attributes.persons == 'partners')
+		- var type = 'rank'
+		- var field = 'title'
+		- var select_categorys = partners_ranks
+
+	if (event_persons && event_persons.length > 0)
+		.persons_categorys(class=attributes.persons).sortable
+			each event_person in event_persons
+				.tag(class=event_person[type])= __n(event_person[type])
+					each person in event_person.ids
+						.person
+							input.rm_person(type='button', value='-')
+							!= get_locale(person[field], 'ru')
+							input(type='hidden', value=person._id, name= attributes.persons + '[' + event_person[type] +']')
+			each tag in select_categorys
+				unless event_persons.some(function(person) { return person[type] == tag })
+					.tag(class=tag)= __n(tag)
+	else
+		.persons_categorys(class=attributes.persons).sortable
+			each tag in select_categorys
+				.tag(class=tag)= __n(tag)
+
+	input.add_person(type='button', value='Добавить')
+	.persons_select.hidden
+		input.persons_search(type='text', placeholder='поиск...')
+		select.tag_select(class=attributes.persons)
+			each tag in select_categorys
+				option(value=tag)= __n(tag)
+		.persons_list(class=attributes.persons)

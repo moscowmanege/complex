@@ -1,0 +1,27 @@
+extends ../layout
+
+block paths
+	- var content_title= 'ПАРТНЕРЫ'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/admin/lists.js')
+
+block sub_menu
+	a.sub_item.back_link(href='/') < Назад
+	span.sub_item.toggle_rm Удалить
+	input.sub_search(type='text', placeholder='поиск...')
+
+block content
+	.title= content_title
+	br
+	a.add(href='/partners/add') добавить партнера
+	br
+	br
+	.lists_block
+		each partner in partners
+			.list_item
+				a.item_rm.partner(href='#', id=partner._id) удалить
+				a.item_title(href='/partners/edit/' + partner._id)= partner.i18n.title.get('ru')

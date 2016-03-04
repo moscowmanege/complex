@@ -34,7 +34,7 @@
 		"one": "Speaker",
 		"other": "Speakers"
 	},
-	"Lecturers": {
+	"lecturers": {
 		"one": "Lecturer",
 		"other": "Lecturers"
 	},

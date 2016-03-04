@@ -1,0 +1,40 @@
+extends layout
+
+block paths
+	- var content_title= 'МАНЕЖ МОНИТОР'
+	- var content_description= 'МАНЕЖ МОНИТОР'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/monitors/monitors.css' + version)
+
+block content_scripts
+	script(type='text/javascript', src='/libs/js/socket.io-1.3.7.js' + version)
+	script(type='text/javascript', src='/build/js/monitors/slider.js' + version)
+	script(type='text/javascript', src='/build/js/monitors/monitors.js' + version)
+
+block content
+	.monitor_panel
+		a.logo(href='/') MANEGE | MONITOR
+		.panel_menu
+			span base:
+			select.area_select
+				each area,i in areas
+					option(value=area._id.toString())=(i+1) + '. ' + area.i18n.title.get('ru')
+			span= ' --> '
+			button.connect(title='Button: Alt + 1..9') connect
+			span= ' --> '
+			button.update update
+		.panel_menu
+			span slides:
+			button.play play
+			button.pause pause
+			button.back(title='Button: Arrow Left')= '<< back'
+			button.next(title='Button: Arrow Right')= 'next >>'
+		.panel_menu
+			span panel:
+			button.hide(title='Button: Escape') hide
+		//- .panel_menu
+		//- 	span Настройки:
+		//- 	button.reload reload
+	.flip_outer
+		.flip_inner

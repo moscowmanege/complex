@@ -1,0 +1,46 @@
+extends ../layout
+include ../_forms.jade
+
+block paths
+	- var content_title= 'ДОБАВИТЬ УЧАСТНИКА'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/libs/css/font-awesome.css')
+	link(rel='stylesheet', type='text/css', href='/libs/css/wysiwyg-editor.min.css')
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/libs/js/wysiwyg.min.js')
+	script(type='text/javascript', src='/libs/js/wysiwyg-editor.min.js')
+	script(type='text/javascript', src='/build/js/admin/editor.js')
+	script(type='text/javascript', src='/build/js/admin/add.js')
+
+block sub_menu
+	a.sub_item.back_link(href='/members') < Назад
+	span.sub_item.toggle_eng Перевод
+
+block content
+	include ../../../vars.jade
+	.form_block
+		.title= content_title
+		form(action="/members/add", method="post", enctype='multipart/form-data')
+			.form_title Имя:
+			+form_text_single('name')
+			.form_title Описание:
+			+form_text_multi('description')
+			.form_title Фото:
+			input(type='file', name='photo')
+			.form_title Роли:
+			.snake_outer
+				span.snake
+					input.back(type="button", value="-")
+					select(name='roles')
+						each role in members_roles
+							option(value=role)= __n(role)
+				input.forward(type="button", value="+")
+			.form_title Видимость:
+			input(type='checkbox', name='status', value='hidden')
+			!= ' скрыть'
+			br
+			br
+			input(type='submit', value='отправить')

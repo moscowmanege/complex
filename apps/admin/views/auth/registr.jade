@@ -1,0 +1,21 @@
+extends layout
+
+block paths
+	- var content_title= 'РЕГИСТРАЦИЯ'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css')
+
+block content
+	.title= content_title
+	form(action='/auth/registr', method='post')
+		.form_title Email:
+		input(type='text', name='email', placeholder='john@appleseed.com')
+		.form_title Логин:
+		input(type='text', name='login', placeholder='john')
+		.form_title Пароль:
+		input(type='password', name='password')
+		br
+		br
+		input(type='submit', value='Зарегистрироваться')
+		input(type='button', value='Вход', onclick="location.href='/auth/login';")

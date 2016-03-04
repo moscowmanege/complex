@@ -1,0 +1,29 @@
+extends ../layout
+
+block paths
+	- var content_title= 'ПЛОЩАДКИ'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/admin/lists.js')
+
+block sub_menu
+	a.sub_item.back_link(href='/') < Назад
+	span.sub_item.toggle_rm Удалить
+	input.sub_search(type='text', placeholder='поиск...')
+
+block content
+	.title= content_title
+	br
+	a.add(href='/areas/add') добавить площадку
+	br
+	br
+	.lists_block
+		each area in areas
+			.list_item
+				a.item_rm.area(href='#', id=area._id) удалить
+				a.item_title(href='/areas/edit/' + area._id)= area.i18n.title.get('ru')
+				!=' --> '
+				a(href='/areas/edit/' + area._id + '/halls') залы

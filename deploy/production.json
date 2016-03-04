@@ -2,7 +2,7 @@
 	"apps": [
 		{
 			"name": "admin",
-			"script": "./app/admin.js",
+			"script": "./apps/admin/admin.js",
 			"exec_mode": "fork",
 			"max_memory_restart": "200M",
 			"log_date_format" : "YYYY-MM-DD HH:mm",
@@ -13,7 +13,7 @@
 		},
 		{
 			"name": "main",
-			"script": "./app/main.js",
+			"script": "./apps/main/main.js",
 			"exec_mode": "fork",
 			"max_memory_restart": "200M",
 			"log_date_format" : "YYYY-MM-DD HH:mm",
@@ -24,7 +24,7 @@
 		},
 		{
 			"name": "monitors",
-			"script": "./app/monitors.js",
+			"script": "./apps/monitors/monitors.js",
 			"exec_mode": "fork",
 			"max_memory_restart": "200M",
 			"log_date_format" : "YYYY-MM-DD HH:mm",
