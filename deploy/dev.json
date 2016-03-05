@@ -4,7 +4,7 @@
 			"name": "admin",
 			"script": "./apps/admin/admin.js",
 			"exec_mode": "fork",
-			"watch": ["models", "apps/admin/admin.js", "apps/admin/routes"],
+			"watch": ["types.json", "models", "apps/admin/admin.js", "apps/admin/routes"],
 			"autorestart": false,
 			"env": {
 				"PORT": 3000,
@@ -15,7 +15,7 @@
 			"name": "main",
 			"script": "./apps/main/main.js",
 			"exec_mode": "fork",
-			"watch": ["models", "apps/main/main.js", "apps/main/routes"],
+			"watch": ["types.json", "models", "apps/main/main.js", "apps/main/routes"],
 			"autorestart": false,
 			"env": {
 				"PORT": 3001,
@@ -26,7 +26,7 @@
 			"name": "monitors",
 			"script": "./apps/monitors/monitors.js",
 			"exec_mode": "fork",
-			"watch": ["models", "apps/monitors/monitors.js", "apps/monitors/routes"],
+			"watch": ["types.json", "models", "apps/monitors/monitors.js", "apps/monitors/routes"],
 			"autorestart": false,
 			"env": {
 				"PORT": 3002,
