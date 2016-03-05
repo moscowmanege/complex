@@ -5,17 +5,20 @@ block paths
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css')
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/login.css')
 
 block content
-	.title= content_title
-	form(action='/auth/registr', method='post')
-		.form_title Email:
-		input(type='text', name='email', placeholder='john@appleseed.com')
-		.form_title Логин:
-		input(type='text', name='login', placeholder='john')
-		.form_title Пароль:
-		input(type='password', name='password')
-		br
-		br
-		input(type='submit', value='Зарегистрироваться')
-		input(type='button', value='Вход', onclick="location.href='/auth/login';")
+	img.logo(src='/stuff/admin/icons/logo/ru_w.svg')
+	.form_login
+		.title= content_title
+		form(action='/auth/registr', method='post')
+			.form_title E-mail:
+			input(type='text', name='email', placeholder='up@kuku.com')
+			.form_title Логин:
+			input(type='text', name='login', placeholder='pony')
+			.form_title Пароль:
+			input(type='password', name='password')
+			br
+			br
+			input(type='submit', value='Отправить')
+			input(type='button', value='Вход', onclick="location.href='/auth/login';")

@@ -3,11 +3,12 @@
 meta(charset="utf-8")
 
 if content_title
-	title= content_title
+	title= 'STARTGAZER | ' + content_title
 if content_description
 	meta(name='description', content=content_description)
 
 link(rel='stylesheet', type='text/css', href='/libs/css/fonts.css' + version)
+link(rel='stylesheet', type='text/css', href='/libs/css/txtbirds.css')
 block content_style
 
 script(type='text/javascript', src='/libs/js/jquery-2.1.4.min.js' + version)
