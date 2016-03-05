@@ -20,7 +20,7 @@ block sub_menu
 	span.sub_item.toggle_eng Перевод
 
 block content
-	include ../../../vars.jade
+	- var partners_types = static_types.partners_types
 	.form_block
 		.title= content_title
 		form(action="", method="post", enctype='multipart/form-data')

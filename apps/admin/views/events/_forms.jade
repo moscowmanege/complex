@@ -16,7 +16,8 @@ mixin form_alt_tickets(path, object)
 
 
 mixin form_persons_select(event_persons)
-	include ../../../vars.jade
+	- var members_roles = static_types.members_roles
+	- var partners_ranks = static_types.partners_ranks
 	- function get_locale(option, lang) {return ((option.filter(function(locale) {return locale.lg == lang; })[0] || {}).value || ''); }
 
 	if (attributes.persons == 'members')

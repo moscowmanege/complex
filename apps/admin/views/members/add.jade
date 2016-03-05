@@ -20,7 +20,7 @@ block sub_menu
 	span.sub_item.toggle_eng Перевод
 
 block content
-	include ../../../vars.jade
+	- var members_roles = static_types.members_roles
 	.form_block
 		.title= content_title
 		form(action="/members/add", method="post", enctype='multipart/form-data')

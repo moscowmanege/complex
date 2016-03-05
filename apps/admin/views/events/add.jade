@@ -28,7 +28,7 @@ block sub_menu
 	span.sub_item.toggle_eng Перевод
 
 block content
-	include ../../../vars.jade
+	- var event_types = static_types.event_types
 	.form_block
 		.title= content_title
 		form(action="/events/add", method="post")

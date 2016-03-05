@@ -47,6 +47,8 @@ app.use(session({
 	}
 }));
 
+app.locals.static_types = require(__app_root + '/types.json');
+
 app.use(function(req, res, next) {
 	res.locals.session = req.session;
 	res.locals.host = req.hostname;
