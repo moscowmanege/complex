@@ -23,6 +23,12 @@ block content
 		br
 	.lists_block
 		each user in users
+			if user.status == 'Admin'
+				- var status = '︎●●'
+			else if user.status == 'User'
+				- var status = '●'
+			else
+				- var status = '○'
 			.list_item
 				a.item_rm.user(href='#', id=user._id) удалить
-				a.item_title(href='/users/edit/' + user._id)= (!user.status ? '*** ' : '') + user.login
+				a.item_title(href='/users/edit/' + user._id)= user.login + ' ' + status

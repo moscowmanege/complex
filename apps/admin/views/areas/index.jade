@@ -25,5 +25,5 @@ block content
 			.list_item
 				a.item_rm.area(href='#', id=area._id) удалить
 				a.item_title(href='/areas/edit/' + area._id)= area.i18n.title.get('ru')
-				!=' --> '
+				span.arrow
 				a(href='/areas/edit/' + area._id + '/halls') залы
