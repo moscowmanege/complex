@@ -5,15 +5,15 @@ block paths
 	- var content_title= 'РЕДАКТИРОВАТЬ ЗАЛ'
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/libs/css/font-awesome.css')
-	link(rel='stylesheet', type='text/css', href='/libs/css/wysiwyg-editor.min.css')
-	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css')
+	link(rel='stylesheet', type='text/css', href='/libs/css/font-awesome.css' + version)
+	link(rel='stylesheet', type='text/css', href='/libs/css/wysiwyg-editor.min.css' + version)
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css' + version)
 
 block content_scripts
-	script(type='text/javascript', src='/libs/js/wysiwyg.min.js')
-	script(type='text/javascript', src='/libs/js/wysiwyg-editor.min.js')
-	script(type='text/javascript', src='/build/js/admin/editor.js')
-	script(type='text/javascript', src='/build/js/admin/add.js')
+	script(type='text/javascript', src='/libs/js/wysiwyg.min.js' + version)
+	script(type='text/javascript', src='/libs/js/wysiwyg-editor.min.js' + version)
+	script(type='text/javascript', src='/build/js/admin/editor.js' + version)
+	script(type='text/javascript', src='/build/js/admin/add.js' + version)
 
 block sub_menu
 	a.sub_item.back_link(href='/areas') Назад

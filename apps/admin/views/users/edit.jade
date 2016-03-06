@@ -4,10 +4,10 @@ block paths
 	- var content_title= 'РЕДАКТИРОВАТЬ ПОЛЬЗОВАТЕЛЯ'
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css')
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css' + version)
 
 block content_scripts
-	script(type='text/javascript', src='/build/js/admin/add.js')
+	script(type='text/javascript', src='/build/js/admin/add.js' + version)
 
 block sub_menu
 	a.sub_item.back_link(href='/users') Назад

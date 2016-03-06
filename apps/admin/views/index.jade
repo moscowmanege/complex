@@ -4,11 +4,11 @@ block paths
 	- var content_title= 'MANEGE'
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css')
-	link(rel='stylesheet', type='text/css', href='/build/css/admin/stargazer.css')
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css' + version)
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/stargazer.css' + version)
 
 block content_scripts
-	script(type='text/javascript', src='/build/js/admin/stargazer.js')
+	script(type='text/javascript', src='/build/js/admin/stargazer.js' + version)
 
 block sub_menu
 	a.sub_item.back_link(href='/auth/logout') Выход

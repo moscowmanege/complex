@@ -6,22 +6,22 @@ block paths
 	- var content_title= 'РЕДАКТИРОВАТЬ СОБЫТИЕ'
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/libs/css/pickmeup.min.css')
+	link(rel='stylesheet', type='text/css', href='/libs/css/pickmeup.min.css' + version)
 	link(rel='stylesheet', type='text/css', href='/libs/css/font-awesome.css')
-	link(rel='stylesheet', type='text/css', href='/libs/css/wysiwyg-editor.min.css')
-	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css')
-	link(rel='stylesheet', type='text/css', href='/build/css/admin/a_events.css')
+	link(rel='stylesheet', type='text/css', href='/libs/css/wysiwyg-editor.min.css' + version)
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css' + version)
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/a_events.css' + version)
 
 block content_scripts
-	script(type='text/javascript', src='/libs/js/jquery.pickmeup.min.js')
-	script(type='text/javascript', src='/libs/js/wysiwyg.min.js')
-	script(type='text/javascript', src='/libs/js/wysiwyg-editor.min.js')
-	script(type='text/javascript', src='/libs/js/jquery-ui.min.js')
-	script(type='text/javascript', src='/libs/js/jquery.filedrop.js')
-	script(type='text/javascript', src='/build/js/admin/upload.js')
-	script(type='text/javascript', src='/build/js/admin/editor.js')
-	script(type='text/javascript', src='/build/js/admin/add.js')
-	script(type='text/javascript', src='/build/js/admin/a_events.js')
+	script(type='text/javascript', src='/libs/js/jquery.pickmeup.min.js' + version)
+	script(type='text/javascript', src='/libs/js/wysiwyg.min.js' + version)
+	script(type='text/javascript', src='/libs/js/wysiwyg-editor.min.js' + version)
+	script(type='text/javascript', src='/libs/js/jquery-ui.min.js' + version)
+	script(type='text/javascript', src='/libs/js/jquery.filedrop.js' + version)
+	script(type='text/javascript', src='/build/js/admin/upload.js' + version)
+	script(type='text/javascript', src='/build/js/admin/editor.js' + version)
+	script(type='text/javascript', src='/build/js/admin/add.js' + version)
+	script(type='text/javascript', src='/build/js/admin/a_events.js' + version)
 
 block sub_menu
 	a.sub_item.back_link(href='/events') Назад

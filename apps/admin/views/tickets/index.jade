@@ -4,10 +4,10 @@ block paths
 	- var content_title= 'БИЛЕТЫ: ' + event.i18n.title.get('ru')
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css')
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css' + version)
 
 block content_scripts
-	script(type='text/javascript', src='/build/js/admin/lists.js')
+	script(type='text/javascript', src='/build/js/admin/lists.js' + version)
 
 block sub_menu
 	a.sub_item.back_link(href='/events') Назад
