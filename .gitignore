@@ -6,5 +6,4 @@
 /public/build*
 /public/stuff*
 /public/cdn*
-/public/preview*
 .DS_Store
