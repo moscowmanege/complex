@@ -11,7 +11,7 @@ block content_scripts
 	script(type='text/javascript', src='/build/js/admin/stargazer.js')
 
 block sub_menu
-	a.sub_item.back_link(href='/auth/logout') < Выход
+	a.sub_item.back_link(href='/auth/logout') Выход
 	span.separator |
 	a.sub_item(href='/users/edit/' + session.user_id)= session.login
 
