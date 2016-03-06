@@ -24,4 +24,4 @@ block content
 		each member in members
 			.list_item
 				a.item_rm.member(href='#', id=member._id) удалить
-				a.item_title(href='/members/edit/' + member._id)= member.i18n.name.get('ru')
+				a.item_title(href='/members/edit/' + member._id, class=member.status =='hidden' ? 'hidden': '')= member.i18n.name.get('ru')
