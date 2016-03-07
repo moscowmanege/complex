@@ -37,7 +37,7 @@ $(document).ready(function() {
 		if (confirm(event.data.description)) {
 			$.post(event.data.path, {'id': id}).done(function(data) {
 				if (data == 'current_user') {
-					document.location.pathname = '/auth/logout'
+					document.location.pathname = '/auth/logout';
 				} else {
 					location.reload();
 				}
@@ -50,7 +50,7 @@ $(document).ready(function() {
 	$('.item_rm.member').on('click', {path:'/members/remove', description: 'Удалить участника?'}, remove);
 	$('.item_rm.partner').on('click', {path:'/partners/remove', description: 'Удалить партнера?'}, remove);
 	$('.item_rm.event').on('click', {path:'/events/remove', description: 'Удалить событие?'}, remove);
-	$('.item_rm.area').on('click', {path:'/areas/remove', description: 'Удалить площадку? \n - Все залы этой площадки \n - Все события на этой площадке'}, remove);
-	$('.item_rm.hall').on('click', {path:'/halls/remove', description: 'Удалить зал? \n - Все события в этом зале'}, remove);
+	$('.item_rm.area').on('click', {path:'/areas/remove', description: 'Удалить площадку? \n + Все залы этой площадки'}, remove);
+	$('.item_rm.hall').on('click', {path: location.pathname + '/remove', description: 'Удалить зал?'}, remove);
 
 });
