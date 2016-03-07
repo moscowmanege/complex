@@ -2,7 +2,7 @@ extends ../layout
 include ../_forms.jade
 
 block paths
-	- var content_title= 'РЕДАКТИРОВАТЬ БИЛЕТ'
+	- var content_title= 'РЕДАКТИРОВАТЬ ' + (ticket.complex ? 'КОМПЛЕКСНЫЙ БИЛЕТ' : 'БИЛЕТ')
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/libs/css/font-awesome.css' + version)
@@ -22,15 +22,18 @@ block content
 	.form_block
 		.title= content_title
 		form(action="", method="post")
+			.form_title Связанные события:
+			if ticket.complex
+				+form_multiple_select('events', events, ticket.events)
+			else
+				+form_multiple_select('events', events, ticket.events)(disable=true)
 			.form_title Цена:
 			input(type='text', name='price', value=ticket.price)
 			!=' руб.'
 			.form_title Тип:
 			select(name='type')
-				option(value='base') обычный
+				option(value='base') входной
 				option(value='preferential') льготный
-			.form_title Связанные события:
-			+form_multiple_select('events', events, ticket.events)
 			.form_title Статус:
 			input(type='checkbox', name='status', value='expired', checked=ticket.status)
 			!= ' просрочен'

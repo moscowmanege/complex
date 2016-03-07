@@ -49,7 +49,7 @@ $(document).ready(function() {
 	$('.item_rm.category').on('click', {path:'/categorys/remove', description: 'Удалить категорию?'}, remove);
 	$('.item_rm.member').on('click', {path:'/members/remove', description: 'Удалить участника?'}, remove);
 	$('.item_rm.partner').on('click', {path:'/partners/remove', description: 'Удалить партнера?'}, remove);
-	$('.item_rm.event').on('click', {path:'/events/remove', description: 'Удалить событие?'}, remove);
+	$('.item_rm.event').on('click', {path:'/events/remove', description: 'Удалить событие? \n + Все связанные билеты \n + Все связанные пустые комплексные билеты'}, remove);
 	$('.item_rm.area').on('click', {path:'/areas/remove', description: 'Удалить площадку? \n + Все залы этой площадки'}, remove);
 	$('.item_rm.hall').on('click', {path: location.pathname + '/remove', description: 'Удалить зал?'}, remove);
 	$('.item_rm.ticket').on('click', {path: location.pathname + '/remove', description: 'Удалить билет?'}, remove);

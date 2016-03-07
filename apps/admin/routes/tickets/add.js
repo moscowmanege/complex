@@ -9,7 +9,7 @@ module.exports = function(Model, Params) {
   module.index = function(req, res) {
     var event_id = req.params.event_id;
 
-    Event.find().exec(function(err, events) {
+    Event.find().where('meta').exists(false).exec(function(err, events) {
       res.render('tickets/add.jade', {events: events, current: [event_id]});
     });
   };

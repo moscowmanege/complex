@@ -22,15 +22,15 @@ block content
 	.form_block
 		.title= content_title
 		form(action="", method="post")
+			.form_title Связанные события:
+			+form_multiple_select('events', events, current)
 			.form_title Цена:
 			input(type='text', name='price')
 			!=' руб.'
 			.form_title Тип:
 			select(name='type')
-				option(value='base') обычный
+				option(value='base') входной
 				option(value='preferential') льготный
-			.form_title Связанные события:
-			+form_multiple_select('events', events, current)
 			.form_title Статус:
 			input(type='checkbox', name='status', value='expired')
 			!= ' просрочен'
