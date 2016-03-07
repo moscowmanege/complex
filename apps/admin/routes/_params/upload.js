@@ -14,12 +14,12 @@ module.exports.images = function(obj, base_path, upload_images, callback) {
 	obj.images = [];
 	var images = [];
 
-	var dir_path = '/cdn/images/' + base_path + '/' + obj._id
+	var dir_path = '/cdn/images/' + base_path + '/' + obj._id;
 
 	var images_path = {
 		original: dir_path + '/original/',
 		thumb: dir_path + '/thumb/',
-	}
+	};
 
 	del(public_path + dir_path, function(err, paths) {
 
@@ -47,17 +47,21 @@ module.exports.images = function(obj, base_path, upload_images, callback) {
 					var original_path = images_path.original + name + '.jpg';
 					var thumb_path = images_path.thumb + name + '.jpg';
 
-					gm(public_path + image.path).resize(520, false).write(public_path + thumb_path, function() {
-						fs.rename(public_path + image.path, public_path + original_path, function() {
-							var obj_img = {};
+					gm(public_path + image.path).write(public_path + original_path, function(err) {
+						gm(public_path + image.path).size({bufferStream: true}, function(err, size) {
+							this.resize(size.width > 620 ? 620 : false, false);
+							this.quality(size.width > 620 ? 80 : 100);
+							this.write(public_path + thumb_path, function(err) {
+								var obj_img = {};
 
-							obj_img.original = original_path;
-							obj_img.thumb = thumb_path;
-							obj_img.description = image.description;
+								obj_img.original = original_path;
+								obj_img.thumb = thumb_path;
+								obj_img.description = image.description;
 
-							obj.images.push(obj_img);
+								obj.images.push(obj_img);
 
-							callback();
+								callback();
+							});
 						});
 					});
 				}, function() {

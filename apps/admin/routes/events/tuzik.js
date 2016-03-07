@@ -47,28 +47,46 @@ module.exports = function(Model) {
 	};
 
 	var loadImages = function(images, event, callback) {
+		if (images.length === 0) {
+			event.images = [];
+			return callback();
+		}
+
 		var path = {
 			original: '/cdn/images/events/' + event._id + '/original/',
 			thumb: '/cdn/images/events/' + event._id + '/thumb/'
-		}
+		};
 
 		async.concatSeries([public_path + path.original, public_path + path.thumb], mkdirp, function(err, dirs) {
 			async.mapSeries(images, function(image, callback) {
-				var uri = encodeURI(image.path);
-				var img_stream = request(uri);
 				var img_name = Date.now() + '.jpg';
+				var uri = encodeURI(image.path);
+				var img_stream = request.get(uri).on('error', function(err) {
+					callback(err);
+				});
 
-				gm(img_stream).resize(1200, false).write(public_path + path.original + img_name, function (err) {
-					gm(public_path + path.original + img_name).resize(520, false).write(public_path + path.thumb + img_name, function (err) {
-						var obj = {
-							original: path.original + img_name,
-							thumb: path.thumb + img_name,
-							description: [{'lg': 'ru', 'value': image.description}]
-						};
-						callback(err, obj);
+				gm(img_stream).size({bufferStream: true}, function(err, size) {
+					if (err) return callback(err);
+					this.resize(size.width > 1620 ? 1620 : false, false);
+					this.write(public_path + path.original + img_name, function (err) {
+						if (err) return callback(err);
+						gm(public_path + path.original + img_name).size({bufferStream: true}, function(err, size) {
+							if (err) return callback(err);
+							this.resize(size.width > 620 ? 620 : false, false);
+							this.quality(size.width > 620 ? 80 : 100);
+							this.write(public_path + path.thumb + img_name, function (err) {
+								var obj = {
+									original: path.original + img_name,
+									thumb: path.thumb + img_name,
+									description: [{'lg': 'ru', 'value': image.description}]
+								};
+								callback(err, obj);
+							});
+						});
 					});
 				});
 			}, function(err, images) {
+				images = images.filter(function(image) { return !!image; });
 				event.images = event.images.concat(images);
 				callback();
 			});
@@ -76,7 +94,7 @@ module.exports = function(Model) {
 	};
 
 	var getFields = function(locale, event, link, callback) {
-		if (link[locale] == '') return callback(null, null);
+		if (link[locale] === '') return callback(null, null);
 
 		var jquery = fs.readFileSync(__app_root + '/public/libs/js/jquery-2.1.4.min.js', 'utf-8');
 		jsdom.env(link[locale], {src: [jquery]}, function(err, window) {
@@ -115,8 +133,8 @@ module.exports = function(Model) {
 			});
 		});
 
-	}
+	};
 
 
 	return module;
-}
+};
