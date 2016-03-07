@@ -52,5 +52,6 @@ $(document).ready(function() {
 	$('.item_rm.event').on('click', {path:'/events/remove', description: 'Удалить событие?'}, remove);
 	$('.item_rm.area').on('click', {path:'/areas/remove', description: 'Удалить площадку? \n + Все залы этой площадки'}, remove);
 	$('.item_rm.hall').on('click', {path: location.pathname + '/remove', description: 'Удалить зал?'}, remove);
+	$('.item_rm.ticket').on('click', {path: location.pathname + '/remove', description: 'Удалить билет?'}, remove);
 
 });

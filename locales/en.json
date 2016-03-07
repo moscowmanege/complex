@@ -22,7 +22,7 @@
 	"master_class": "Master class",
 
 
-	"members": {
+	"none": {
 		"one": "Member",
 		"other": "Members"
 	},

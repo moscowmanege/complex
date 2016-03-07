@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
 
 module.exports = function(Model) {
 	var Area = Model.Area;
@@ -9,7 +9,7 @@ module.exports = function(Model) {
 
 	module.index = function(req, res) {
 	  var id = req.body.id;
-	  id = new mongoose.Types.ObjectId(id);
+	  // id = new mongoose.Types.ObjectId(id);
 
 	  Area.update({'halls': id}, { $pull: { 'halls': id } }, { 'multi': true }).exec(function() {
 		  Event.update({'place.halls': id}, { $pull: { 'place': { 'halls': id } } }, { 'multi': true }).exec(function() {

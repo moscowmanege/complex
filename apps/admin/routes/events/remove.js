@@ -15,22 +15,22 @@ module.exports = function(Model) {
 			Ticket.find({'events': id}).exec(function(err, tickets) {
 				async.forEach(tickets, function(ticket, callback) {
 					ticket.events.pull(id);
-					if (ticket.events.length == 0) {
+					if (ticket.events.length === 0) {
 						del_tickets.push(ticket._id);
 					}
 					ticket.save();
 					callback();
 				}, function() {
 					Ticket.remove({'_id': { '$in': del_tickets } }).exec(function() {
-						del(__app_root + '/public/images/events/' + id, function() {
+						del(__app_root + '/public/cdn/images/events/' + id, function() {
 							res.send('ok');
 						});
 					});
 				});
 			});
 		});
-	}
+	};
 
 
 	return module;
-}
+};
