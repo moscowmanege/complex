@@ -17,6 +17,8 @@ module.exports = function(Model, Params) {
   module.form = function(req, res) {
     var post = req.body;
     var complex = post.events.length > 1 ? true : false;
+    post.events = post.events.filter(function(id) { return id !== ''; });
+    if (post.events.length === 0) return res.redirect('back');
 
     var ticket = new Ticket();
 
