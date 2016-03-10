@@ -22,10 +22,6 @@
 	"master_class": "Master class",
 
 
-	"none": {
-		"one": "Member",
-		"other": "Members"
-	},
 	"guests": {
 		"one": "Guest",
 		"other": "Guests"

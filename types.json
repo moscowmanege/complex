@@ -1,6 +1,5 @@
 {
 	"members_roles": [
-		"none",
 		"guests",
 		"speakers",
 		"lecturers",

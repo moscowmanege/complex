@@ -17,10 +17,6 @@
 	"citywide_campaign": "Общегородская акция",
 	"forum": "Форум",
 	"master_class": "Мастер-класс",
-	"none": {
-		"one": "Участник",
-		"other": "Участники"
-	},
 	"guests": {
 		"one": "Гость",
 		"other": "Гости"

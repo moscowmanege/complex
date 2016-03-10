@@ -23,13 +23,13 @@ block content
 	.form_block
 		.title= content_title
 		form(action="/areas/add", method="post")
-			.form_title Заголовок:
+			.form_title Название:
 			+form_text_single('title')
 			.form_title Описание:
 			+form_text_multi('description')
 			.form_title Адрес:
 			+form_text_single('adress')
-			.form_title Расписание:
+			.form_title Часы работы:
 			+form_text_single('schedule')
 			.form_title Телефоны:
 			+form_multiple_input('phones')
