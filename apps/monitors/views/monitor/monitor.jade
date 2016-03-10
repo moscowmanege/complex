@@ -1,5 +1,5 @@
 
-mixin eventBlock(event, locale)
+mixin eventBlock(halls, event, locale)
 	.event_block(class=event.type)
 
 		.event_header
@@ -22,9 +22,13 @@ mixin eventBlock(event, locale)
 									.member_name= get_locale(id.name, locale)
 			.event_body_schedule
 				.event_halls
-					if event.halls
-						each hall in event.halls
-							.item_hall= get_locale(hall.title, locale)
+					- var event_halls = event.halls && event.halls.map(function(hall) { return hall._id })
+					if arr_equals(halls, event_halls || [])
+						.item_hall= __('Все залы')
+					else
+						if event.halls
+							each hall in event.halls
+								.item_hall= get_locale(hall.title, locale)
 				if (event.type == 'exhibition')
 					.event_interval= moment(event.interval.begin).format('DD MMMM') + ' — ' + moment(event.interval.end).format('DD MMMM')
 				else
@@ -74,7 +78,7 @@ each area in areas
 					.flip_events
 						each event in area.events
 							if (event.type == 'exhibition')
-								+eventBlock(event, locale)
+								+eventBlock(area.area.halls, event, locale)
 						each event in area.events
 							if (event.type != 'exhibition')
-								+eventBlock(event, locale)
+								+eventBlock(area.area.halls, event, locale)
