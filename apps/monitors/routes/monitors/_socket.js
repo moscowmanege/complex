@@ -156,10 +156,18 @@ module.exports = function(io, i18n) {
 			return i18n.__n.apply(null, arguments);
 		};
 
-		var opts = {areas: areas, moment: moment, arr_equals: arr_equals, get_locale: get_locale, __: i18n_locale, __n:i18n_plurals_locale, i18n: i18n, compileDebug: false, debug: false, cache: false, pretty: false};
-		var areas_compile = jade.renderFile(__app_root + '/apps/monitors/views/monitor/monitor.jade', opts);
+		var opts = {
+			areas: areas,
+			arr_equals: arr_equals,
+			get_locale: get_locale,
+			__: i18n_locale,
+			__n:i18n_plurals_locale,
+			i18n: i18n,
+			moment: moment,
+			compileDebug: false, debug: false, cache: false, pretty: false
+		};
 
-		callback(null, areas_compile);
+		callback(null, jade.renderFile(__app_root + '/apps/monitors/views/monitor/monitor.jade', opts));
 	};
 
 	module.get = function(socket) {
