@@ -24,6 +24,8 @@ module.exports = function(io, i18n) {
 
 			Query = Event.aggregate()
 				.match({
+					'status': { $ne: 'hidden' },
+					'meta': { $exists: false },
 					'place.area': { '$in': obj_ids }
 					// $gte: date_now,
 					// $lte: date_last_of_month
@@ -31,12 +33,16 @@ module.exports = function(io, i18n) {
 		} else if (ids == 'all') {
 			Query = Event.aggregate()
 				.match({
+					'status': { $ne: 'hidden' },
+					'meta': { $exists: false },
 					// $gte: date_now,
 					// $lte: date_now
 				});
 		} else {
 			Query = Event.aggregate()
 				.match({
+					'status': { $ne: 'hidden' },
+					'meta': { $exists: false },
 					'place.area': mongoose.Types.ObjectId(ids)
 					// $gte: date_now,
 					// $lte: date_last_of_month
