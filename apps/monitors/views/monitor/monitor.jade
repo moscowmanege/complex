@@ -36,10 +36,15 @@ mixin eventBlock(halls, event, locale)
 			.event_tickets
 				if event.tickets.ids.length > 0
 					each ticket in event.tickets.ids
-						.ticket_item
-							span.ticket_price= ticket.price
-							span= ' - '
-							span.ticket_type= ticket.type
+						if ticket.type == 'base'
+							.ticket_item(class=ticket.type)
+								span.ticket_price= ticket.price + 'Р'
+					each ticket in event.tickets.ids
+						if ticket.type == 'preferential'
+							.ticket_item(class=ticket.type)
+								span.ticket_type= __(ticket.type)
+								span= ': '
+								span.ticket_price= ticket.price + 'Р'
 				else
 					!= get_locale(event.tickets.alt, locale)
 
