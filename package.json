@@ -48,12 +48,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ponyspy/manege.git"
+    "url": "https://github.com/moscowmanege/complex.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ponyspy/manege/issues"
+    "url": "https://github.com/moscowmanege/complex/issues"
   },
-  "homepage": "https://github.com/ponyspy/manege"
+  "homepage": "https://github.com/moscowmanege/complex"
 }
