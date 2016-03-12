@@ -92,5 +92,7 @@
 	"members": "members",
 	"Все залы": "Все залы",
 	"preferential": "Льготный",
-	"base": "Обычный"
+	"base": "Обычный",
+	"special_project": "Спецпроект",
+	"education_program": "Образовательная программа"
 }

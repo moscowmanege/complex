@@ -30,6 +30,10 @@
 		"base",
 		"preferential"
 	],
+	"categorys_types": [
+		"special_project",
+		"education_program"
+	],
 	"event_types": [
 		"exhibition",
 		"photo_exhibition",

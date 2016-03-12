@@ -10,7 +10,7 @@ module.exports = function(Model, Params) {
     Category.findById(id).exec(function(err, category) {
       res.render('categorys/edit.jade', {category: category});
     });
-  }
+  };
 
 
   module.form = function(req, res) {
@@ -37,7 +37,7 @@ module.exports = function(Model, Params) {
         res.redirect('/categorys');
       });
     });
-  }
+  };
 
 
   return module;

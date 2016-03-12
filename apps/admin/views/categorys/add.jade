@@ -21,6 +21,7 @@ block sub_menu
 
 
 block content
+	- var categorys_types = static_types.categorys_types
 	.form_block
 		.title= content_title
 		form(action="/categorys/add", method="post")
@@ -31,8 +32,8 @@ block content
 			.form_title Тип:
 			select(name='type')
 				option(value='') нет
-				option(value='special') спецпроект
-				option(value='education') образовательная программа
+				each category in categorys_types
+					option(value=category)= __(category)
 			.form_title Видимость:
 			input(type='checkbox', name='status', value='hidden')
 			!= ' скрыть'
