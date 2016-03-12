@@ -1,22 +1,15 @@
-accepts = require('accepts'),
-
 exports.index = function(req, res, next) {
-	var accept = accepts(req);
 	res.status(404);
 
 	// respond with html page
-	if (accept.types('html')) {
+	if (req.accepts('html')) {
 		res.render('error', { url: req.url, status: 404 });
 		return;
 	}
 
 	// respond with json
-	if (accept.types('json')) {
-			res.send({
-			error: {
-				status: 'Not found'
-			}
-		});
+	if (req.accepts('json')) {
+		res.type('json').send({ error: { status: 'Not found' } });
 		return;
 	}
 
