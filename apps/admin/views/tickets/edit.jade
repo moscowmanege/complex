@@ -33,8 +33,8 @@ block content
 			span=' руб.'
 			.form_title Тип:
 			select(name='type')
-				option(value='base') входной
-				option(value='preferential') льготный
+				option(value='base', selected=ticket.type == 'base') входной
+				option(value='preferential', selected=ticket.type == 'preferential') льготный
 			.form_title Статус:
 			input(type='checkbox', name='status', value='expired', checked=ticket.status)
 			!= ' просрочен'
