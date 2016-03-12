@@ -13,13 +13,13 @@ $(document).ready(function() {
 		var url = /moscowmanege.ru/;
 		var def_val = $('.tuzik_desc').html();
 
-		if (link.ru == '' && link.en == '') {
+		if (link.ru === '' && link.en === '') {
 			$('.tuzik_desc').text(' -- Может укажешь адрес?');
 			setTimeout(function() {
 				$('.tuzik_desc').empty().append(def_val);
 			}, 2000);
 			return false;
-		} else if (!url.test(link.ru) || url.test(link.en)) {
+		} else if (link.ru && !url.test(link.ru) || link.en && !url.test(link.en)) {
 			$('.tuzik_desc').text(' -- Ты не обманешь Тузика! Тузик понимает только ссылки: http://moscowmanege.ru');
 			setTimeout(function() {
 				$('.tuzik_desc').empty().append(def_val);
