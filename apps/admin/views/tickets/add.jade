@@ -19,6 +19,7 @@ block sub_menu
 	a.sub_item.back_link(href='/events') Назад
 
 block content
+	- var tickets_types = static_types.tickets_types
 	.form_block
 		.title= content_title
 		form(action="", method="post")
@@ -29,8 +30,8 @@ block content
 			span=' руб.'
 			.form_title Тип:
 			select(name='type')
-				option(value='base') входной
-				option(value='preferential') льготный
+				each type in tickets_types
+					option(value=type)= __(type)
 			.form_title Статус:
 			input(type='checkbox', name='status', value='expired')
 			!= ' просрочен'

@@ -26,6 +26,10 @@
 		"supported_by",
 		"with"
 	],
+	"tickets_types": [
+		"base",
+		"preferential"
+	],
 	"event_types": [
 		"exhibition",
 		"photo_exhibition",
