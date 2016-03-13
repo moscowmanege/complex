@@ -7,7 +7,7 @@ module.exports = function(Model) {
 		req.session.user_id && (req.session.status == 'User' || req.session.status == 'Admin')
 			? res.redirect('/auth')
 			: res.render('auth/login.jade');
-	}
+	};
 
 
 	module.form = function(req, res) {
@@ -27,8 +27,8 @@ module.exports = function(Model) {
 				}
 			});
 		});
-	}
+	};
 
 
 	return module;
-}
+};

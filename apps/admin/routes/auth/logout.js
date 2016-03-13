@@ -6,8 +6,8 @@ module.exports = function() {
 		req.session.destroy();
 		res.clearCookie('session');
 		res.redirect('/auth');
-	}
+	};
 
 
 	return module;
-}
+};

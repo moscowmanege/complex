@@ -6,7 +6,7 @@ module.exports = function(Model) {
 	  Area.find().exec(function(err, areas) {
 	    res.render('areas', {areas: areas});
 	  });
-	}
+	};
 
   return module;
-}
+};

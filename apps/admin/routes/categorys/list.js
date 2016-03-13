@@ -4,11 +4,11 @@ module.exports = function(Model) {
 
 
 	module.index = function(req, res) {
-	  Category.find().sort('-date').exec(function(err, categorys) {
-	    res.render('categorys', {categorys: categorys});
-	  });
-	}
+		Category.find().sort('-date').exec(function(err, categorys) {
+			res.render('categorys', {categorys: categorys});
+		});
+	};
 
 
 	return module;
-}
+};

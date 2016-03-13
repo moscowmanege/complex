@@ -14,6 +14,7 @@ var userSchema = new Schema({
 });
 
 var areaSchema = new Schema({
+	_short_id: { type: String, index: true },
 	title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
 	contacts: {
@@ -32,6 +33,7 @@ var areaSchema = new Schema({
 });
 
 var hallSchema = new Schema({
+	_short_id: { type: String, index: true },
 	title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
 	images: [{
@@ -43,7 +45,7 @@ var hallSchema = new Schema({
 });
 
 var eventSchema = new Schema({
-	_short_id: String,
+	_short_id: { type: String, index: true },
 	title: { type: String, trim: true, locale: true },
 	s_title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
@@ -89,7 +91,7 @@ var eventSchema = new Schema({
 });
 
 var memberSchema = new Schema({
-	_short_id: String,
+	_short_id: { type: String, index: true },
 	name: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
 	photo: String,
@@ -99,7 +101,7 @@ var memberSchema = new Schema({
 });
 
 var partnerSchema = new Schema({
-	_short_id: String,
+	_short_id: { type: String, index: true },
 	title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
 	type: String,
@@ -110,7 +112,7 @@ var partnerSchema = new Schema({
 });
 
 var categorySchema = new Schema({
-	_short_id: String,
+	_short_id: { type: String, index: true },
 	title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
 	type: String,
@@ -132,7 +134,7 @@ var logSchema = new Schema({
 	_user_id: { type: Schema.Types.ObjectId, ref: 'User' },
 	type: String,
 	status: String,
-	date: {type: Date, expires: 3600*24*90, default: Date.now}
+	date: {type: Date, expires: 3600 * 24 * 90, default: Date.now}
 });
 
 
@@ -157,6 +159,8 @@ partnerSchema.plugin(mongooseLocale);
 
 
 eventSchema.index({'title.value': 'text', 'description.value': 'text'}, {language_override: 'lg', default_language: 'ru'});
+categorySchema.index({'title.value': 'text', 'description.value': 'text'}, {language_override: 'lg', default_language: 'ru'});
+partnerSchema.index({'title.value': 'text', 'description.value': 'text'}, {language_override: 'lg', default_language: 'ru'});
 memberSchema.index({'name.value': 'text', 'description.value': 'text'}, {language_override: 'lg', default_language: 'ru'});
 
 
