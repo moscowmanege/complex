@@ -5,14 +5,14 @@ module.exports = function(Model) {
 
 
 	module.index = function(req, res) {
-	  var id = req.body.id;
+		var id = req.body.id;
 
-	  Event.update({'categorys': id}, { $pull: { 'categorys': id } }, { 'multi': true }).exec(function() {
-		  Category.findByIdAndRemove(id, function(err, category) {
-		    res.send('ok');
-		  });
-	  });
-	}
+		Event.update({'categorys': id}, { $pull: { 'categorys': id } }, { 'multi': true }).exec(function() {
+			Category.findByIdAndRemove(id, function(err, category) {
+				res.send('ok');
+			});
+		});
+	};
 
 
 	return module;
