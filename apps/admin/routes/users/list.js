@@ -11,8 +11,8 @@ module.exports = function(Model) {
 	  Query.exec(function(err, users) {
 	    res.render('users', {users: users});
 	  });
-	}
+	};
 
 
   return module;
-}
+};

@@ -9,7 +9,7 @@ module.exports = function(Model) {
     } else {
       res.redirect('back');
     }
-  }
+  };
 
   module.form = function(req, res) {
     var post = req.body;
@@ -24,8 +24,8 @@ module.exports = function(Model) {
     user.save(function(err, user) {
       res.redirect('/users');
     });
-  }
+  };
 
 
   return module;
-}
+};

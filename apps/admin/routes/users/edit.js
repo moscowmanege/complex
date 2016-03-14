@@ -9,7 +9,7 @@ module.exports = function(Model) {
     User.findById(id).exec(function(err, user) {
       res.render('users/edit.jade', {user: user});
     });
-  }
+  };
 
   module.form = function(req, res) {
     var post = req.body;
@@ -18,7 +18,7 @@ module.exports = function(Model) {
     User.findById(id).exec(function(err, user) {
 
       user.login = post.login;
-      if (post.password != '') {
+      if (post.password !== '') {
         user.password = post.password;
       }
       user.email = post.email;
@@ -28,8 +28,8 @@ module.exports = function(Model) {
         res.redirect('/users');
       });
     });
-  }
+  };
 
 
   return module;
-}
+};
