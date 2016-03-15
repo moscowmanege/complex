@@ -37,12 +37,12 @@ mixin form_single_select(path, options, select_option)
 		select(name=path)
 			option(value='none') нет
 			each option in options
-				option(value=option._id)= option['i18n']['title'].get('ru')
+				option(value=option._id)= option['i18n']['title'].get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!'
 	else
 		select(name=path)
 			option(value='none') нет
 			each option in options
-				option(value=option._id, selected=select_option == option._id.toString())= option['i18n']['title'].get('ru')
+				option(value=option._id, selected=select_option == option._id.toString())= option['i18n']['title'].get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!'
 
 
 //- Multiple Select Form
@@ -57,7 +57,7 @@ mixin form_multiple_select(path, options, select_options)
 				select(name=path + '[]', disabled=disable)
 					option(value='') нет
 					each option in options
-						option(value=option._id)= option['i18n'][field].get('ru')
+						option(value=option._id)= option['i18n'][field].get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!'
 		else
 			each select_option in select_options
 				.snake
@@ -65,7 +65,7 @@ mixin form_multiple_select(path, options, select_options)
 					select(name=path + '[]', disabled=disable)
 						option(value='') нет
 						each option in options
-							option(value=option._id, selected=option._id.toString() == select_option)= option['i18n'][field].get('ru')
+							option(value=option._id, selected=option._id.toString() == select_option)= option['i18n'][field].get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!'
 							if (disable && (option._id.toString() == select_option))
 								input(type='hidden', name=path + '[]', value=option._id)
 		unless disable

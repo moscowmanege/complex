@@ -35,7 +35,7 @@ block content
 		each event in events
 			.list_item(class=(event.meta.tuzik.ru || event.meta.tuzik.en) ? 'tuzik_event' : '')
 				a.item_rm.event(href='#', id=event._id) удалить
-				a.item_title(href='/events/edit/' + event._id, class=event.status =='hidden' ? 'hidden': '')= event.i18n.title.get('ru')
+				a.item_title(href='/events/edit/' + event._id, class=event.status =='hidden' ? 'hidden': '')= event.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!'
 				unless (event.meta.tuzik.ru || event.meta.tuzik.en)
 					span.arrow
 					a(href='/events/edit/' + event._id + '/tickets')= 'билеты (' + event.tickets.ids.length + ')'
