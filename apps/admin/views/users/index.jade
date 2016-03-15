@@ -31,4 +31,4 @@ block content
 				- var status = '○'
 			.list_item
 				a.item_rm.user(href='#', id=user._id) удалить
-				a.item_title(href='/users/edit/' + user._id)= user.login + ' ' + status
+				a.item_title(href='/users/edit/' + user._id)= (user.login || '!!! ПУСТОЕ ПОЛЕ !!!') + ' ' + status
