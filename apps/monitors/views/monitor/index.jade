@@ -16,6 +16,9 @@ block content
 	.monitor_panel
 		a.logo(href='/') MANEGE | MONITOR
 		.panel_menu
+			span hidden:
+			input.events_hidden(type='checkbox')
+		.panel_menu
 			span base:
 			select.area_select
 				each area,i in areas
