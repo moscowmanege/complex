@@ -22,16 +22,18 @@ mixin eventBlock(halls, event, locale)
 								each id in member.ids
 									.member_name= get_locale(id.name, locale)
 			.event_body_schedule
-				.event_halls
-					if halls.length > 0
+
+				if (halls.length > 0 && event.halls && event.halls.length > 0)
+					.event_halls
 						- var event_halls = event.halls && event.halls.map(function(hall) { return hall._id })
-						if arr_equals(halls, event_halls || [])
+						if arr_equals(halls, event_halls)
 							.item_hall= __('Все залы')
 						else
 							if event.halls
 								each hall in event.halls
 									.item_hall= get_locale(hall.title, locale)
-				if (moment(event.interval.begin).isSame(event.interval.end, 'day'))
+
+				if moment(event.interval.begin).isSame(event.interval.end, 'day')
 					.event_interval= moment(event.interval.begin).format('DD MMMM — HH:mm')
 				else
 					.event_interval= moment(event.interval.begin).format('DD MMMM') + ' — ' + moment(event.interval.end).format('DD MMMM')
