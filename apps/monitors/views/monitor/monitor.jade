@@ -2,6 +2,7 @@
 mixin eventBlock(halls, event, locale)
 	.event_block(class=event.type)
 
+
 		.event_header
 			.event_type= __(event.type)
 			.event_categorys
@@ -34,6 +35,8 @@ mixin eventBlock(halls, event, locale)
 					.event_interval= moment(event.interval.begin).format('DD MMMM — HH:mm')
 				else
 					.event_interval= moment(event.interval.begin).format('DD MMMM') + ' — ' + moment(event.interval.end).format('DD MMMM')
+
+
 			.event_tickets
 				if event.tickets.ids.length > 0
 					each ticket in event.tickets.ids
@@ -52,41 +55,46 @@ mixin eventBlock(halls, event, locale)
 
 
 each area in areas
-	.flip_area
-		.area_inner
-			each locale in ['ru']
-				- i18n.setLocale(locale)
-				- moment.locale(locale)
-				.flip_lang
-					.flip_header
-						.header_title
-							.header_date
-								.date
-								.time
-									span.hours
-									span.time_sep.tick :
-									span.minutes
-							.header_logo
-								img.logo(src='/stuff/monitors/icons/logo/' + (locale == 'ru' ? 'ru.svg' : 'en.svg'))
-								.logo_title= __('музейно-выставочное объединение')
-						.header_contacts
-							.area_title= get_locale(area.area.title, locale)
-							.area_location
-								.area_adress= get_locale(area.area.contacts.adress, locale)
-								.area_schedule= get_locale(area.area.contacts.schedule, locale)
-							.area_contacts
-								.area_phones
-									each phone in area.area.contacts.phones
-										span.phone= phone
-								.area_emails
-									each email in area.area.contacts.emails
-										span.email= email
-					.flip_events
-						each event in area.events
-							if (event.type == 'exhibition')
-								+eventBlock(area.area.halls, event, locale)
-						each event in area.events
-							if (event.type != 'exhibition')
-								+eventBlock(area.area.halls, event, locale)
-					.flip_footer
-						span moscowmanege.ru
+	.slide_item
+		each locale in ['ru']
+			- i18n.setLocale(locale)
+			- moment.locale(locale)
+			.slide_lang: .slide_inner
+
+
+				.slide_header
+					.header_title
+						.header_date
+							.date
+							.time
+								span.hours
+								span.time_sep.tick :
+								span.minutes
+						.header_logo
+							img.logo(src='/stuff/monitors/icons/logo/' + (locale == 'ru' ? 'ru.svg' : 'en.svg'))
+							.logo_title= __('музейно-выставочное объединение')
+					.header_contacts
+						.area_title= get_locale(area.area.title, locale)
+						.area_location
+							.area_adress!= get_locale(area.area.contacts.adress, locale)
+							.area_schedule!= get_locale(area.area.contacts.schedule, locale)
+						.area_contacts
+							.area_phones
+								each phone in area.area.contacts.phones
+									span.phone= phone
+							.area_emails
+								each email in area.area.contacts.emails
+									span.email= email
+
+
+				.slide_content: .content_inner: .inner_events
+					each event in area.events
+						if (event.type == 'exhibition')
+							+eventBlock(area.area.halls, event, locale)
+					each event in area.events
+						if (event.type != 'exhibition')
+							+eventBlock(area.area.halls, event, locale)
+
+
+				.slide_footer: .footer_inner
+					span moscowmanege.ru

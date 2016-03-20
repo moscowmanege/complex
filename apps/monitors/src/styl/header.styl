@@ -1,0 +1,52 @@
+.header_title
+.header_contacts
+	padding-left 60px
+	padding-right 60px
+	box-sizing border-box
+
+.header_title
+	overflow hidden
+	margin-bottom 40px
+	.header_date
+		float left
+		font 14pt/16pt 'Circe'
+		.date
+			display inline-block
+		.time
+			margin-left 3px
+			display inline-block
+			.time_sep
+				opacity 1
+				&.tick
+					opacity 0
+	.header_logo
+		float right
+		.logo
+			width 235px
+		.logo_title
+			margin-top 4px
+			font 10.7pt/14pt 'Circe'
+			text-align center
+.header_contacts
+	font 14pt/16pt 'Circe'
+	.area_title
+		font 32pt/34pt 'Circe Bold'
+		margin-bottom 60px
+	.area_location
+	.area_contacts
+		white-space normal
+		width 476px
+		float left
+		padding-right 50px
+		box-sizing border-box
+	.area_contacts
+		margin-left 8px
+		.phone
+		.email
+			display inline-block
+			margin-right 5px
+			&:after
+				content ','
+			&:last-child
+				&:after
+					content ''

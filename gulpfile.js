@@ -66,6 +66,7 @@ gulp.task('clean', function(callback) {
 gulp.task('stuff', function () {
 	return gulp
 		.src(paths.stuff.src)
+		// .pipe(changed(paths.stuff.dest))
 		.pipe(rename(function(path) {
 			path.dirname = path.dirname.replace('/stuff', '');
 		}))

@@ -1,0 +1,82 @@
+.event_block
+	font 14pt/16pt 'Circe'
+	-webkit-column-break-inside avoid
+	page-break-inside avoid
+	break-inside avoid
+	width 100%
+	margin-bottom 20px
+	padding-bottom 20px
+	margin-left 60px
+	margin-right 60px
+	box-sizing border-box
+	border-bottom 1px dotted black
+	.event_header
+		overflow hidden
+		margin-bottom 10px
+		.event_type
+			font 12pt/14pt 'Circe'
+			float left
+			text-transform uppercase
+		.event_categorys
+			font 12pt/14pt 'Circe'
+			float left
+			overflow hidden
+			text-transform uppercase
+			.category
+				float left
+				&:before
+					display block
+					float left
+					content '●'
+					margin-left 7px
+					margin-right 7px
+		.event_age
+			font 12pt/14pt 'Circe'
+			float right
+			&:after
+				content '+'
+	.event_body
+		overflow hidden
+		white-space normal
+		.event_body_title
+			box-sizing border-box
+			padding-right 60px
+			width 476px
+			float left
+			.event_title
+				font 18pt/20pt 'Circe Bold'
+			.event_members
+				margin-top 8px
+				overflow hidden
+				.member_role
+					margin-right 5px
+					display inline-block
+					&:after
+						content ':'
+				.member_list
+					display inline
+					overflow hidden
+					.member_name
+						display inline-block
+						&:after
+							margin-right 5px
+							content ','
+						&:last-child:after
+							content ''
+							margin-right 0px
+		.event_body_schedule
+			width 234px
+			margin-left 8px
+			float left
+			.event_halls
+				font 18pt/20pt 'Circe Bold'
+			.event_interval
+				margin-top 8px
+		.event_tickets
+			float left
+			width 234px
+			margin-left 8px
+			.ticket_item
+				margin-bottom 8px
+				&.base
+					font 18pt/20pt 'Circe'

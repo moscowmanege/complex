@@ -67,7 +67,7 @@ $(document).ready(function() {
 	$('.connect').on('click', function() {
 		if (socket) {
 			socket.disconnect();
-			$('.flip_inner').empty();
+			$('.slider_block').empty();
 			socket = null;
 		}
 
@@ -90,10 +90,10 @@ $(document).ready(function() {
 			}
 
 
-			$('.flip_inner').children('.flip_area').removeClass('new').addClass('old').end().append($flips);
+			$('.slider_block').children('.slide_item').removeClass('new').addClass('old').end().append($flips);
 
-			if ($('.flip_area').length < 2) {
-				$('.flip_area').clone().appendTo('.flip_inner');
+			if ($('.slide_item').length < 2) {
+				$('.slide_item').clone().appendTo('.slider_block');
 			}
 
 			slider.reinit();

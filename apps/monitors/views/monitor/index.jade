@@ -6,6 +6,9 @@ block paths
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/build/css/monitors/monitors.css' + version)
+	link(rel='stylesheet', type='text/css', href='/build/css/monitors/slider.css' + version)
+	link(rel='stylesheet', type='text/css', href='/build/css/monitors/header.css' + version)
+	link(rel='stylesheet', type='text/css', href='/build/css/monitors/events.css' + version)
 
 block content_scripts
 	script(type='text/javascript', src='/libs/js/socket.io-1.3.7.js' + version)
@@ -39,5 +42,4 @@ block content
 		//- .panel_menu
 		//- 	span Настройки:
 		//- 	button.reload reload
-	.flip_outer
-		.flip_inner
+	.slider_block
