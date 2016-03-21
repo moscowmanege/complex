@@ -205,12 +205,12 @@ module.exports = function(io, i18n) {
 			});
 		});
 
-		socket.on('disconnect', function (data) {
+		socket.on('disconnect', function(data) {
 			socket.leave(area_id);
 		});
 
-		socket.on('reload', function (data) {
-			io.emit('push_reload', { hello: 'hello socket!' });
+		socket.on('reload', function(data) {
+			io.emit('push_reload');
 		});
 	};
 

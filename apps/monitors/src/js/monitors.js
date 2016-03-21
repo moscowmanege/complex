@@ -44,6 +44,10 @@ $(document).ready(function() {
 		if (event.altKey && event.ctrlKey && event.which == 66) {
 			$('body').toggleClass('barsuk');
 		}
+
+		if (event.altKey && event.ctrlKey && event.which == 82) {
+			socket && socket.emit('reload');
+		}
 	});
 
 	$(document).on('click', '.logo', function() {
@@ -59,12 +63,11 @@ $(document).ready(function() {
 	});
 
 
-	$('.reload').on('click', function() {
-		socket.emit('reload', { my: 'data' });
-	});
-
-
 	$('.connect').on('click', function() {
+		var area_id = $('.area_select').val();
+
+		localStorage.setItem('area_id', area_id);
+
 		if (socket) {
 			socket.disconnect();
 			$('.slider_block').empty();
@@ -74,11 +77,8 @@ $(document).ready(function() {
 		socket = io.connect('', {
 			port: 3002,
 			forceNew: true,
-			query: {
-				area: $('.area_select').val()
-			}
+			query: { area: area_id }
 		});
-
 
 		socket.on('events', function (data) {
 			var $flips = null;
@@ -99,10 +99,19 @@ $(document).ready(function() {
 			slider.reinit();
 		});
 
-		socket.on('push_reload', function (data) {
+		socket.on('push_reload', function(data) {
 			location.reload();
 		});
 	});
+
+	if (localStorage.getItem('area_id')) {
+		$('.area_select')[0].selectedIndex = $('.area_select').children('option').map(function() {
+			return $(this).val();
+		}).toArray().indexOf(localStorage.getItem('area_id'));
+
+		$('.monitor_panel').addClass('hide');
+		$('.connect').trigger('click');
+	}
 
 
 	// Time block
