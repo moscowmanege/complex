@@ -8,7 +8,7 @@ $(document).ready(function() {
 
 	var slider = new Slider();
 
-	$('.play').on('click', slider.play(2000));
+	$('.play').on('click', slider.play(8000));
 	$('.pause').on('click', slider.pause);
 	$('.next').on('click', slider.flipNext);
 	$('.back').on('click', slider.flipBack);
@@ -17,7 +17,7 @@ $(document).ready(function() {
 	// Panel Block
 
 
-	$('.hide').on('click', function() {
+	$('.close').on('click', function() {
 		$('.monitor_panel').toggleClass('hide');
 	});
 
