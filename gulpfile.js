@@ -35,7 +35,7 @@ var paths = {
 	clean: {
 		pub: ['public/build/**', 'public/stuff/**']
 	}
-}
+};
 
 // Loggers Block
 
@@ -50,11 +50,11 @@ var error_logger = function(error) {
 		'----------- ERROR MESSAGE END -----------'.bold.red.inverse,
 		''
 	].join('\n'));
-}
+};
 
 var watch_logger = function(event) {
 	console.log('File ' + event.path.replace(__dirname + '/', '').green + ' was ' + event.type.yellow + ', running tasks...');
-}
+};
 
 // Tasks Block
 

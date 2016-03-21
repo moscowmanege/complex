@@ -10,6 +10,7 @@
 	"lecture": "Лекция",
 	"round_table": "Круглый стол",
 	"excursion": "Экскурсия",
+	"courses": "Курсы",
 	"performance": "Спектакль",
 	"childrens_performance": "Детский спектакль",
 	"creative_evening": "Творческий вечер",
@@ -92,7 +93,20 @@
 	"members": "members",
 	"Все залы": "Все залы",
 	"preferential": "Льготный",
-	"base": "Обычный",
+	"base": "Полный",
+	"subscription": "Абонемент",
 	"special_project": "Спецпроект",
-	"education_program": "Образовательная программа"
+	"education_program": "Образовательная программа",
+	"composers": {
+		"one": "Композитор",
+		"other": "Композиторы"
+	},
+	"photographers": {
+		"one": "Фотограф",
+		"other": "Фотографы"
+	},
+	"groups": {
+		"one": "Коллектив",
+		"other": "Коллективы"
+	}
 }

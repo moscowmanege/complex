@@ -42,7 +42,7 @@ block content
 			+form_alt_tickets('alt', event)
 			.form_title Изображения:
 			+form_images_upload(event.images)
-			.form_title Возростное ограничение:
+			.form_title Возрастное ограничение:
 			select(name='age')
 				each age, i in new Array(19)
 					option(value=i, selected=event.age == i && true)= i + '+'

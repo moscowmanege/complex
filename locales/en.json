@@ -13,6 +13,7 @@
 	"lecture": "Lecture",
 	"round_table": "Round table",
 	"excursion": "Excursion",
+	"courses": "Courses",
 	"performance": "Performance",
 	"childrens_performance": "Children's performance",
 	"creative_evening": "Creative evening",
@@ -64,6 +65,18 @@
 	"readers": {
 		"one": "Reader",
 		"other": "Readers"
+	},
+	"composers": {
+		"one": "Composer",
+		"other": "Composers"
+	},
+	"photographers": {
+		"one": "Photographer",
+		"other": "Photographers"
+	},
+	"groups": {
+		"one": "Group",
+		"other": "Groups"
 	},
 
 

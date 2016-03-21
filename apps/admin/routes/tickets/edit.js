@@ -22,6 +22,7 @@ module.exports = function(Model, Params) {
 		var complex = post.events.length > 1 ? true : false;
 		post.events = post.events.filter(function(id) { return id !== ''; });
 		if (post.events.length === 0) return res.redirect('back');
+		if (!post.price || !Number.isInteger(+post.price)) return res.redirect('back');
 
 		Ticket.findById(ticket_id).exec(function(err, ticket) {
 

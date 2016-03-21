@@ -9,7 +9,10 @@
 		"artists",
 		"architects",
 		"musicians",
-		"readers"
+		"readers",
+		"composers",
+		"photographers",
+		"groups"
 	],
 	"partners_types": [
 		"tech",
@@ -28,7 +31,8 @@
 	],
 	"tickets_types": [
 		"base",
-		"preferential"
+		"preferential",
+		"subscription"
 	],
 	"categorys_types": [
 		"special_project",
@@ -42,6 +46,7 @@
 		"lecture",
 		"round_table",
 		"excursion",
+		"courses",
 		"performance",
 		"childrens_performance",
 		"creative_evening",
