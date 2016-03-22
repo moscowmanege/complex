@@ -17,7 +17,11 @@ $(document).ready(function() {
 	// Panel Block
 
 
-	$('.close').on('click', function() {
+	$('.hide').on('click', function() {
+		$('.monitor_panel').toggleClass('hide');
+	});
+
+	$(document).on('click', '.logo', function() {
 		$('.monitor_panel').toggleClass('hide');
 	});
 
@@ -48,10 +52,6 @@ $(document).ready(function() {
 		if (event.altKey && event.ctrlKey && event.which == 82) {
 			socket && socket.emit('reload');
 		}
-	});
-
-	$(document).on('click', '.logo', function() {
-		$('body').toggleClass('barsuk');
 	});
 
 
