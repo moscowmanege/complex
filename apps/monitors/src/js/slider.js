@@ -1,12 +1,13 @@
 function Slider() {
 	var self = this;
 	var _flip = null;
+
 	var $slides = null;
 
 	var $outer = $('.slider_block');
-	var $area = $('.slide_item').first();
-	var $lang = $area.find('.slide_inner').first();
-	var $blocks = $lang.find('.inner_events');
+	var $area = null;
+	var $lang = null;
+	var $blocks = null;
 
 	var outer_width = $outer.width();
 
@@ -15,15 +16,11 @@ function Slider() {
 		if ($slides) {
 			$('.slider_block').children('.slide_item').removeClass('new').addClass('old').end().append($slides);
 			$slides = null;
-		};
+		}
 
 		if ($area.hasClass('new')) {
 			$('.old').remove();
 			$('.new').removeClass('new');
-
-			if ($('.slide_item').length < 2) {
-				$('.slide_item').clone().appendTo('.slider_block');
-			}
 
 			self.reinit();
 		}
@@ -140,6 +137,10 @@ function Slider() {
 	};
 
 	this.reinit = function() {
+		if ($('.slide_item').length < 2) {
+			$('.slide_item').clone().appendTo('.slider_block');
+		}
+
 		$outer = $('.slider_block');
 		$area = $('.slide_item').first();
 		$lang = $area.find('.slide_inner').first();

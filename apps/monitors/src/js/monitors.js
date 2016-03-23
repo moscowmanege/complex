@@ -81,18 +81,10 @@ $(document).ready(function() {
 		});
 
 		socket.on('events', function(data) {
-
 			if (data.status == 'update') {
 				slider.pushSlides(data.areas);
 			} else {
-				var $slides = $(data.areas);
-
-				$('.slider_block').children('.slide_item').removeClass('new').addClass('old').end().append($slides);
-
-				if ($('.slide_item').length < 2) {
-					$('.slide_item').clone().appendTo('.slider_block');
-				}
-
+				$('.slider_block').append(data.areas);
 				slider.reinit();
 			}
 		});
