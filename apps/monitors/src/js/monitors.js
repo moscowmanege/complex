@@ -80,23 +80,21 @@ $(document).ready(function() {
 			query: { area: area_id }
 		});
 
-		socket.on('events', function (data) {
-			var $flips = null;
+		socket.on('events', function(data) {
 
 			if (data.status == 'update') {
-				$flips = $(data.areas).addClass('new');
+				slider.pushSlides(data.areas);
 			} else {
-				$flips = $(data.areas);
+				var $slides = $(data.areas);
+
+				$('.slider_block').children('.slide_item').removeClass('new').addClass('old').end().append($slides);
+
+				if ($('.slide_item').length < 2) {
+					$('.slide_item').clone().appendTo('.slider_block');
+				}
+
+				slider.reinit();
 			}
-
-
-			$('.slider_block').children('.slide_item').removeClass('new').addClass('old').end().append($flips);
-
-			if ($('.slide_item').length < 2) {
-				$('.slide_item').clone().appendTo('.slider_block');
-			}
-
-			slider.reinit();
 		});
 
 		socket.on('push_reload', function(data) {

@@ -1,6 +1,7 @@
 function Slider() {
 	var self = this;
 	var _flip = null;
+	var $slides = null;
 
 	var $outer = $('.slider_block');
 	var $area = $('.slide_item').first();
@@ -11,13 +12,25 @@ function Slider() {
 
 
 	var afterFlip = function($area) {
+		if ($slides) {
+			$('.slider_block').children('.slide_item').removeClass('new').addClass('old').end().append($slides);
+			$slides = null;
+		};
+
 		if ($area.hasClass('new')) {
 			$('.old').remove();
 			$('.new').removeClass('new');
+
 			if ($('.slide_item').length < 2) {
 				$('.slide_item').clone().appendTo('.slider_block');
 			}
+
+			self.reinit();
 		}
+	};
+
+	this.pushSlides = function(areas) {
+		$slides = $(areas).addClass('new');
 	};
 
 
