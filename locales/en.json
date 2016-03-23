@@ -78,6 +78,18 @@
 		"one": "Group",
 		"other": "Groups"
 	},
+	"actors": {
+		"one": "Actor",
+		"other": "Actors"
+	},
+	"directors": {
+		"one": "Director",
+		"other": "Directors"
+	},
+	"performers": {
+		"one": "Performer",
+		"other": "Performers"
+	},
 
 
 	"organizer": {

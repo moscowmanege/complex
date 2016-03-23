@@ -12,6 +12,9 @@
 		"readers",
 		"composers",
 		"photographers",
+		"actors",
+		"directors",
+		"performers",
 		"groups"
 	],
 	"partners_types": [
