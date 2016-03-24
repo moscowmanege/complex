@@ -52,7 +52,7 @@ mixin eventBlock(halls, event, locale)
 								span= ': '
 								span.ticket_price= ticket.price + 'Р'
 				else
-					!= get_locale(event.tickets.alt, locale)
+					.tickets_alt!= get_locale(event.tickets.alt, locale)
 
 
 
