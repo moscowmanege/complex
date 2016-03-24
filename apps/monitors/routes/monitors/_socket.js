@@ -11,6 +11,9 @@ module.exports = function(io, i18n) {
 
 	var get_areas = function(ids, callback) {
 
+		var date_now = moment().toDate();
+		var date_last_of_month = moment().endOf('month').toDate();
+
 		var Query = null;
 
 		if (Array.isArray(ids)) {
@@ -26,26 +29,26 @@ module.exports = function(io, i18n) {
 				.match({
 					'status': { $ne: 'hidden' },
 					'meta': { $exists: false },
-					'place.area': { '$in': obj_ids }
-					// $gte: date_now,
-					// $lte: date_last_of_month
+					'place.area': { '$in': obj_ids },
+					'interval.begin': { $gte: date_now },
+					'interval.end': { $lte: date_last_of_month }
 				});
 		} else if (ids == 'all') {
 			Query = Event.aggregate()
 				.match({
 					'status': { $ne: 'hidden' },
 					'meta': { $exists: false },
-					// $gte: date_now,
-					// $lte: date_now
+					'interval.begin': { $gte: date_now },
+					'interval.end': { $lte: date_now }
 				});
 		} else {
 			Query = Event.aggregate()
 				.match({
 					'status': { $ne: 'hidden' },
 					'meta': { $exists: false },
-					'place.area': mongoose.Types.ObjectId(ids)
-					// $gte: date_now,
-					// $lte: date_last_of_month
+					'place.area': mongoose.Types.ObjectId(ids),
+					'interval.begin': { $gte: date_now },
+					'interval.end': { $lte: date_last_of_month }
 				});
 		}
 
