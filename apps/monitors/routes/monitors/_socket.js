@@ -31,7 +31,7 @@ module.exports = function(io, i18n) {
 					'meta': { $exists: false },
 					'place.area': { '$in': obj_ids },
 					'interval.begin': { $gte: date_now },
-					'interval.end': { $lte: date_last_of_month }
+					// 'interval.end': { $lte: date_last_of_month }
 				});
 		} else if (ids == 'all') {
 			Query = Event.aggregate()
@@ -39,7 +39,7 @@ module.exports = function(io, i18n) {
 					'status': { $ne: 'hidden' },
 					'meta': { $exists: false },
 					'interval.begin': { $gte: date_now },
-					'interval.end': { $lte: date_now }
+					// 'interval.end': { $lte: date_now }
 				});
 		} else {
 			Query = Event.aggregate()
@@ -48,7 +48,7 @@ module.exports = function(io, i18n) {
 					'meta': { $exists: false },
 					'place.area': mongoose.Types.ObjectId(ids),
 					'interval.begin': { $gte: date_now },
-					'interval.end': { $lte: date_last_of_month }
+					// 'interval.end': { $lte: date_last_of_month }
 				});
 		}
 
