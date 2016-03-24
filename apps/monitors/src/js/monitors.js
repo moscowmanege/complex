@@ -8,8 +8,12 @@ $(document).ready(function() {
 
 	var slider = new Slider();
 
-	$('.play').on('click', slider.play(8000));
-	$('.pause').on('click', slider.pause);
+	$('.play')
+		.on('click', slider.play(8000))
+		.on('click', function() { localStorage.setItem('slider', 'play'); });
+	$('.pause')
+		.on('click', slider.pause)
+		.on('click', function() { localStorage.removeItem('slider'); });
 	$('.next').on('click', slider.flipNext);
 	$('.back').on('click', slider.flipBack);
 
@@ -101,6 +105,12 @@ $(document).ready(function() {
 
 		$('.monitor_panel').addClass('hide');
 		$('.connect').trigger('click');
+	}
+
+	if (localStorage.getItem('slider')) {
+		$('.play').trigger('click');
+	} else {
+		$('.pause').trigger('click');
 	}
 
 
