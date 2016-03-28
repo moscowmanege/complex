@@ -22,18 +22,19 @@ $(document).ready(function() {
 
 
 	$('.hide').on('click', function() {
+		$('body').toggleClass('cursor');
 		$('.monitor_panel').toggleClass('hide');
 	});
 
 	$(document).on('click', '.logo', function() {
-		$('.monitor_panel').toggleClass('hide');
+		$('.hide').trigger('click');
 	});
 
 	$(document).on('keyup', function(event) {
 		var num_codes = [49, 50, 51, 52, 53, 54, 55, 56, 57];
 
 		if (event.which == 27) {
-			$('.monitor_panel').toggleClass('hide');
+			$('.hide').trigger('click');
 		}
 
 		if (event.which == 37) {
@@ -103,7 +104,7 @@ $(document).ready(function() {
 			return $(this).val();
 		}).toArray().indexOf(localStorage.getItem('area_id'));
 
-		$('.monitor_panel').addClass('hide');
+		$('.hide').trigger('click');
 		$('.connect').trigger('click');
 	}
 
