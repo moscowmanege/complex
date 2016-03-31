@@ -234,7 +234,7 @@ module.exports = function(io, i18n) {
 							return c_room == room_id;
 						});
 
-						if (check_rooms) {
+						if (check_rooms && area.events && area.events.length > 6) {
 							areas_compile([area], function(err, compile) {
 								io.to(room_id).emit('events', { areas: compile, status: 'update' });
 							});
