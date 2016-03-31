@@ -181,7 +181,7 @@ module.exports = function(io, i18n) {
 		socket.join(area_id);
 
 		get_areas(area_id, function(err, areas) {
-			if (areas.length > 0 && areas[0].events && areas[0].events.length > 0) {
+			if (areas.length > 0 && areas[0].events && areas[0].events.length > 6) {
 				areas_compile(areas, function(err, compile) {
 					io.to(area_id).emit('events', { areas: compile, status: 'start' });
 				});
@@ -197,7 +197,7 @@ module.exports = function(io, i18n) {
 
 		socket.on('update', function(data) {
 			get_areas(area_id, function(err, areas) {
-				if (areas.length > 0 && areas[0].events && areas[0].events.length > 0) {
+				if (areas.length > 0 && areas[0].events && areas[0].events.length > 6) {
 					areas_compile(areas, function(err, compile) {
 						io.to(area_id).emit('events', { areas: compile, status: data.status });
 					});
