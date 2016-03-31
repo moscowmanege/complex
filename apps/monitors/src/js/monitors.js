@@ -9,7 +9,7 @@ $(document).ready(function() {
 	var slider = new Slider();
 
 	$('.play')
-		.on('click', slider.play(8000))
+		.on('click', slider.play(16000))
 		.on('click', function() { localStorage.setItem('slider', 'play'); });
 	$('.pause')
 		.on('click', slider.pause)
