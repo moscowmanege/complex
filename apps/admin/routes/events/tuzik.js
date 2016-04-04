@@ -96,7 +96,7 @@ module.exports = function(Model) {
 	var getFields = function(locale, event, link, callback) {
 		if (link[locale] === '') return callback(null, null);
 
-		var jquery = fs.readFileSync(__app_root + '/public/libs/js/jquery-2.1.4.min.js', 'utf-8');
+		var jquery = fs.readFileSync(__app_root + '/public/libs/js/jquery-2.2.2.min.js', 'utf-8');
 		jsdom.env(link[locale], {src: [jquery]}, function(err, window) {
 			if (err) return callback(null, null);
 
