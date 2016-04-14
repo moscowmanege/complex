@@ -22,5 +22,5 @@ block content
 	.lists_block
 		each ticket in event.tickets.ids
 			.list_item
-				a.item_rm.ticket(href='#', id=ticket._id) удалить
+				a.item_rm.ticket(href='#', id=ticket.id._id) удалить
 				a.item_title(href='/events/edit/' + event._id + '/tickets/edit/' + ticket.id._id)= ticket.id.price + 'р.' + ' -- ' + __(ticket.id.type) + ' ' + (ticket.id.complex ? ' (комплексный)' : '') + ' ' + (ticket.id.status == 'expired' ? '[просрочен]': '')
