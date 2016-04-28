@@ -46,7 +46,7 @@ mixin eventBlock(halls, event, locale)
 							.ticket_item(class=ticket.type)
 								span.ticket_price= ticket.price + 'Р'
 					each ticket in event.tickets.ids
-						if ticket.type == 'preferential'
+						if ticket.type != 'base'
 							.ticket_item(class=ticket.type)
 								span.ticket_type= __(ticket.type)
 								span= ': '
