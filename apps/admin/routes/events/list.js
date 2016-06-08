@@ -4,7 +4,7 @@ module.exports = function(Model) {
 
 
 	module.index = function(req, res) {
-	  Event.find().sort('-date').exec(function(err, events) {
+	  Event.find().sort('-date').select('title tickets').exec(function(err, events) {
 	    res.render('events', {events: events});
 	  });
 	}
