@@ -87,7 +87,7 @@ var eventSchema = new Schema({
 		original: String,
 		thumb: String
 	}],
-	date: {type: Date, default: Date.now}
+	date: {type: Date, default: Date.now, index: true}
 });
 
 var memberSchema = new Schema({
@@ -97,7 +97,7 @@ var memberSchema = new Schema({
 	photo: String,
 	roles: [String],
 	status: String,
-	date: {type: Date, default: Date.now}
+	date: {type: Date, default: Date.now, index: true}
 });
 
 var partnerSchema = new Schema({
@@ -108,7 +108,7 @@ var partnerSchema = new Schema({
 	link: String,
 	logo: String,
 	status: String,
-	date: {type: Date, default: Date.now}
+	date: {type: Date, default: Date.now, index: true}
 });
 
 var categorySchema = new Schema({
