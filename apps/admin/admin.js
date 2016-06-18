@@ -59,12 +59,40 @@ app.use(function(req, res, next) {
 
 var admin = require('./routes/_admin.js');
 var auth = require('./routes/auth/_auth.js');
-var error = require('./routes/error/_error.js');
 
 
 app.use('/', admin);
 app.use('/auth', auth);
-app.use(error);
+
+
+app.use(function(err, req, res, next) {
+	var status = err.status || 500;
+	res.status(status);
+
+	res.render('error', { status: status, url: req.protocol + '://' + req.hostname + req.originalUrl, error: err });
+	console.error(err.message);
+
+});
+
+app.use(function(req, res, next) {
+	res.status(404);
+
+	// respond with html page
+	if (req.accepts('html')) {
+		res.render('error', { status: 404, url: req.protocol + '://' + req.hostname + req.originalUrl });
+		return;
+	}
+
+	// respond with json
+	if (req.accepts('json')) {
+		res.json({ error: { status: 404, message: 'Not found' } });
+		return;
+	}
+
+	// default to plain-text
+	res.type('txt').send('404 Not found');
+
+});
 
 
 // ------------------------
@@ -73,4 +101,4 @@ app.use(error);
 
 
 app.listen(process.env.PORT || 3000);
-console.log('http://127.0.0.1:3000')
+console.log('http://127.0.0.1:3000');
