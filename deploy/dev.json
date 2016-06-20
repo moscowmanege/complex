@@ -6,6 +6,7 @@
 			"exec_mode": "fork",
 			"watch": ["types.json", "locales", "models", "apps/admin/admin.js", "apps/admin/routes"],
 			"autorestart": false,
+			"max_restarts": 1,
 			"env": {
 				"PORT": 3000,
 				"NODE_ENV": "development"
@@ -17,6 +18,7 @@
 			"exec_mode": "fork",
 			"watch": ["types.json", "locales", "models", "apps/main/main.js", "apps/main/routes"],
 			"autorestart": false,
+			"max_restarts": 1,
 			"env": {
 				"PORT": 3001,
 				"NODE_ENV": "development"
@@ -28,6 +30,7 @@
 			"exec_mode": "fork",
 			"watch": ["types.json", "locales", "models", "apps/monitors/monitors.js", "apps/monitors/routes"],
 			"autorestart": false,
+			"max_restarts": 1,
 			"env": {
 				"PORT": 3002,
 				"NODE_ENV": "development"

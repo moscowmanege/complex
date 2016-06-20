@@ -5,6 +5,7 @@
 			"script": "./apps/admin/admin.js",
 			"exec_mode": "fork",
 			"autorestart": true,
+			"max_restarts": 5,
 			"max_memory_restart": "200M",
 			"log_date_format" : "YYYY-MM-DD HH:mm",
 			"env": {
@@ -17,6 +18,7 @@
 			"script": "./apps/main/main.js",
 			"exec_mode": "fork",
 			"autorestart": true,
+			"max_restarts": 5,
 			"max_memory_restart": "200M",
 			"log_date_format" : "YYYY-MM-DD HH:mm",
 			"env": {
@@ -29,6 +31,7 @@
 			"script": "./apps/monitors/monitors.js",
 			"exec_mode": "fork",
 			"autorestart": true,
+			"max_restarts": 5,
 			"max_memory_restart": "200M",
 			"log_date_format" : "YYYY-MM-DD HH:mm",
 			"env": {
