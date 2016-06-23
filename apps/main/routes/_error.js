@@ -1,15 +1,15 @@
-var ErrRespond = function(req, res, status, message) {
+var ErrRespond = function(req, res, status, message, stack) {
 	res.status(status);
 
 	// respond with html page
 	if (req.accepts('html')) {
-		res.render('error', { status: status });
+		res.render('error', { status: status, message: message, stack: stack });
 		return;
 	}
 
 	// respond with json
 	if (req.accepts('json')) {
-		res.json({ error: { status: status, message: message } });
+		res.json({ error: { status: status, message: message, stack: stack } });
 		return;
 	}
 
@@ -19,6 +19,7 @@ var ErrRespond = function(req, res, status, message) {
 };
 
 exports.err_500 = function(err, req, res, next) {
+	var env = process.env.NODE_ENV != 'production';
 
 	[
 		' ',
@@ -27,15 +28,15 @@ exports.err_500 = function(err, req, res, next) {
 		'-------------',
 		' ',
 		'--- Method: ' + req.method,
-		'--- Url: ' + req.protocol + '://' + req.hostname + ((process.env.NODE_ENV != 'production') && (':' + process.env.PORT)) + req.originalUrl,
+		'--- Url: ' + req.protocol + '://' + req.hostname + (env && (':' + process.env.PORT)) + req.originalUrl,
 		'--- Stack:',
 		' ',
-		err.stack, // err.message
+		err.stack,
 	].forEach(function(str) { console.error(str); });
 
-	ErrRespond(req, res, err.status || 500, 'Bad params');
+	ErrRespond(req, res, err.status || 500, err.message || 'Internal Server Error', env && err.stack);
 };
 
 exports.err_404 = function(req, res, next) {
-	ErrRespond(req, res, 404, 'Not found');
+	ErrRespond(req, res, 404, 'Not Found');
 };
