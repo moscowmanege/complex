@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
 
 	$(document).on('paste','[contenteditable]',function(e) {
 		e.preventDefault();

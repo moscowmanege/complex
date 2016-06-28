@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
 	var $ascii = $('.ascii');
 
 	var h = $ascii[0].scrollHeight;

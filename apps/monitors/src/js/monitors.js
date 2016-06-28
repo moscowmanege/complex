@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
 
 	var socket = null;
 
@@ -55,7 +55,7 @@ $(document).ready(function() {
 		}
 
 		if (event.altKey && event.ctrlKey && event.which == 82) {
-			socket && socket.emit('reload');
+			if (socket) socket.emit('reload');
 		}
 	});
 

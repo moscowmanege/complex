@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
 	$('.tuzik.open').on('click', function() {
 		$(this).toggleClass('selected');
 		$('.tuzik_form').toggleClass('hidden');
