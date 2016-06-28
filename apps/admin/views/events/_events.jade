@@ -1,0 +1,15 @@
+each event in events
+	.list_item(class=(event.meta.tuzik.ru || event.meta.tuzik.en) ? 'tuzik_event' : '')
+		a.item_rm.event(href='#', id=event._id) удалить
+		a.item_title(href='/events/edit/' + event._id, class=event.status =='hidden' ? 'hidden': '')= event.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!'
+		if (!event.meta.tuzik.ru && !event.meta.tuzik.en)
+			span.arrow
+			a(href='/events/edit/' + event._id + '/tickets')= 'билеты (' + event.tickets.ids.length + ')'
+		else
+			span.arrow
+			span= 'Тузик: '
+			if event.meta.tuzik.ru
+				a(href=event.meta.tuzik.ru, target='_blank'): b Ru
+			if event.meta.tuzik.en
+				span= ' '
+				a(href=event.meta.tuzik.en, target='_blank'): b En

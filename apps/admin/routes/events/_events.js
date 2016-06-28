@@ -22,6 +22,7 @@ module.exports = (function() {
 
 	router.route('/')
 		.get(events.list.index)
+		.post(events.list.get_list)
 
 	router.route('/add')
 		.get(events.add.index)

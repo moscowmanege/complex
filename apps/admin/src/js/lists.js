@@ -1,6 +1,44 @@
 $(function() {
 	$('.sub_search').focus();
 
+	var context = { skip: 10, limit: 10 };
+
+	$('.list_back').on('click', function() {
+		context.type = context.type ? context.type : 'all';
+		context.skip = (context.skip - 10) <= 10 ? 0 : context.skip - 10;
+		$.post('', {context: context}).done(function(data) {
+			if (data == 'end') return false;
+			context.skip = context.skip === 0 ? 10 : context.skip;
+			$('.lists_block').empty().append(data);
+		});
+	});
+
+	$('.list_next').on('click', function() {
+		context.type = context.type ? context.type : 'all';
+		$.post('', {context: context}).done(function(data) {
+			if (data == 'end') return false;
+			context.skip = context.skip + 10;
+			$('.lists_block').empty().append(data);
+		});
+	});
+
+	$('.drop_item').on('click', function() {
+		var $this = $(this);
+		$('.drop_item').removeClass('select').filter(this).addClass('select');
+		var item = $this.parent('.sub_drop').attr('class').split(' ')[1];
+		context[item] = $this.attr('class').split(' ')[1];
+
+		context.skip = 0;
+		$.post('', {context: context}).done(function(data) {
+			if (data == 'end') {
+				$('.lists_block').empty();
+			} else {
+				$('.lists_block').empty().append(data);
+				context.skip = 10;
+			}
+		});
+	});
+
 	$(document)
 		.on('keyup', function(event) {
 			if (event.altKey && event.which == 70) {
