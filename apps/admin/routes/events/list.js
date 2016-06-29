@@ -13,7 +13,10 @@ module.exports = function(Model) {
 
 	module.get_list = function(req, res) {
 		var post = req.body;
-		var Query = Event.find();
+
+		var Query = (post.context.text && post.context.text !== '')
+			? Event.find({ $text : { $search : post.context.text } } )
+			: Event.find();
 
 		if (post.context.type && post.context.type != 'all') {
 			Query.where('type').equals(post.context.type);

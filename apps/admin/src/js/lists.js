@@ -1,5 +1,5 @@
 $(function() {
-	$('.sub_search').focus();
+	// $('.sub_search').focus();
 
 	var context = { skip: 10, limit: 10 };
 
@@ -40,30 +40,67 @@ $(function() {
 		});
 	});
 
-	$(document)
-		.on('keyup', function(event) {
-			if (event.altKey && event.which == 70) {
-				$('.sub_search').focus();
-			} else if (event.which == 27) {
-				if ($('.sub_search').val() === '') {
-					$('.sub_search').blur();
-				} else {
-					$('.sub_search').val('').trigger('keyup');
-				}
+	var search = {
+		val: '', buf: '',
+		checkResult: function() {
+			if (this.buf != this.val) {
+				this.buf = this.val;
+				this.getResult.call(search, this.val);
 			}
-		})
-		.on('keyup change', '.sub_search', function(event) {
-			var value = $(this).val();
-			var $elems = $('.list_item').children('.item_title');
-
-			$elems.each(function(index, el) {
-				var el_val = $(el).html().toLowerCase();
-
-				el_val.search(value.toLowerCase()) != -1
-					? $(el).parent().show()
-					: $(el).parent().hide();
+		},
+		getResult: function (result) {
+			context.skip = 0;
+			context['text'] = result;
+			$.post('', { context: context }).done(function(data) {
+				if (data == 'end') {
+					$('.lists_block').empty();
+				} else {
+					$('.lists_block').empty().append(data);
+					context.skip = 10;
+				}
 			});
+		}
+	};
+
+	$('.sub_search')
+		.on('keyup change', function(event) {
+			search.val = $(this).val();
+		})
+		.on('focusin', function(event) {
+			search.interval = setInterval(function() {
+				search.checkResult.call(search);
+			}, 1000);
+		})
+		.on('focusout', function(event) {
+			clearInterval(search.interval);
 		});
+
+
+
+	// $(document)
+	// 	.on('keyup', function(event) {
+	// 		if (event.altKey && event.which == 70) {
+	// 			$('.sub_search').focus();
+	// 		} else if (event.which == 27) {
+	// 			if ($('.sub_search').val() === '') {
+	// 				$('.sub_search').blur();
+	// 			} else {
+	// 				$('.sub_search').val('').trigger('keyup');
+	// 			}
+	// 		}
+	// 	})
+	// 	.on('keyup change', '.sub_search', function(event) {
+	// 		var value = $(this).val();
+	// 		var $elems = $('.list_item').children('.item_title');
+
+	// 		$elems.each(function(index, el) {
+	// 			var el_val = $(el).html().toLowerCase();
+
+	// 			el_val.search(value.toLowerCase()) != -1
+	// 				? $(el).parent().show()
+	// 				: $(el).parent().hide();
+	// 		});
+	// 	});
 
 	$('.toggle_rm').on('click', function() {
 		$('.item_rm').toggleClass('show');
