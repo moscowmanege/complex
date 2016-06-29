@@ -19,8 +19,12 @@ module.exports = function(Model) {
 			Query.where('type').equals(post.context.type);
 		}
 
-		if (post.context.status && post.context.status != 'none') {
-			Query.where('status').equals(post.context.status);
+		if (post.context.status && post.context.status == 'default') {
+			Query.where('status').ne('hidden');
+		}
+
+		if (post.context.status && post.context.status == 'hidden') {
+			Query.where('status').equals('hidden');
 		}
 
 		Query.sort('-date').skip(+post.context.skip).limit(+post.context.limit).exec(function(err, events) {
