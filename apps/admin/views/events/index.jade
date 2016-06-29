@@ -16,19 +16,18 @@ block sub_menu
 	span.sub_item.toggle_rm Удалить
 
 	.sub_drop.type(style='z-index: 2;')
-		.drop_title Тип события
+		.drop_title Тип
 		.drop_inner
 			.drop_item(class='all').select Все
 			each type in static_types.event_types
 				.drop_item(class=type)= __(type)
 
-	//- .sub_drop.type(style='z-index: 1;')
-	//- 	.drop_title Тип
-	//- 	.drop_inner
-	//- 		.drop_item(class='all').select Все
-	//- 		each type in static_types.event_types
-	//- 			.drop_item(class=type)= __(type)
-	//- input.sub_search(type='text', placeholder='поиск...')
+	.sub_drop.status(style='z-index: 1;')
+		.drop_title Статус
+		.drop_inner
+			.drop_item(class='none').select Обыный
+			.drop_item(class='hidden') Скрытый
+	input.sub_search(type='text', placeholder='поиск...')
 
 block content
 	.title= content_title

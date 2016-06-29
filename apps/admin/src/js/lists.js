@@ -27,7 +27,7 @@ $(function() {
 		var item = $this.closest('.sub_drop').attr('class').split(' ')[1];
 		context[item] = $this.attr('class').split(' ')[1];
 
-		$('.drop_item').removeClass('select').filter(this).addClass('select');
+		$this.parent('.drop_inner').children('.drop_item').removeClass('select').filter(this).addClass('select');
 
 		context.skip = 0;
 		$.post('', {context: context}).done(function(data) {

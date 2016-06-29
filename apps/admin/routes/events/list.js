@@ -13,9 +13,15 @@ module.exports = function(Model) {
 
 	module.get_list = function(req, res) {
 		var post = req.body;
-		var Query = !post.context.type || post.context.type == 'all'
-			? Event.find()
-			: Event.find({'type': post.context.type});
+		var Query = Event.find();
+
+		if (post.context.type && post.context.type != 'all') {
+			Query.where('type').equals(post.context.type);
+		}
+
+		if (post.context.status && post.context.status != 'none') {
+			Query.where('status').equals(post.context.status);
+		}
 
 		Query.sort('-date').skip(+post.context.skip).limit(+post.context.limit).exec(function(err, events) {
 			if (events && events.length > 0) {
