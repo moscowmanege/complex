@@ -49,8 +49,9 @@ a
 	.separator
 		margin-right 10px
 	.sub_item
-		margin-right 10px
 		cursor pointer
+		&.toggle_rm
+			margin-left 10px
 		&:hover
 			color red
 	.sub_search
@@ -62,24 +63,32 @@ a
 		border-bottom 1px dotted black
 		height 20px
 	.sub_drop
-		cursor default
+		position relative
 		display inline-block
-		position absolute
-		background-color white
-		box-sizing border-box
-		margin-top -1px
-		margin-left -5px
-		padding-left 5px
-		padding-right 5px
-		padding-bottom 5px
-		border 1px solid white
-		&:hover
+		vertical-align top
+		white-space nowrap
+		margin-left 5px
+		.drop_title
+			position relative
+			cursor default
+			z-index 999
+		.drop_inner
+			position absolute
+			padding-top 20px
+			padding-left 5px
+			padding-right 5px
+			margin-left -5px
+			background-color white
+			box-sizing border-box
+			top 0
+			left 0
+			vertical-align top
+			display none
 			border 1px dotted black
-			.drop_item
-				display block
+		&:hover .drop_inner
+			display block
 		.drop_item
 			cursor pointer
-			display none
 			&:hover
 			&.select
 				color red

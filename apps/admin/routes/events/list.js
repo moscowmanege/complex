@@ -9,11 +9,11 @@ module.exports = function(Model) {
 	  Event.find().sort('-date').limit(10).exec(function(err, events) {
 	    res.render('events', {events: events});
 	  });
-	}
+	};
 
 	module.get_list = function(req, res) {
 		var post = req.body;
-		var Query = post.context.type == 'all'
+		var Query = !post.context.type || post.context.type == 'all'
 			? Event.find()
 			: Event.find({'type': post.context.type});
 
@@ -25,8 +25,8 @@ module.exports = function(Model) {
 				res.send('end');
 			}
 		});
-	}
+	};
 
 
   return module;
-}
+};

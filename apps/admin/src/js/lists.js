@@ -4,19 +4,19 @@ $(function() {
 	var context = { skip: 10, limit: 10 };
 
 	$('.list_back').on('click', function() {
-		context.type = context.type ? context.type : 'all';
 		context.skip = (context.skip - 10) <= 10 ? 0 : context.skip - 10;
 		$.post('', {context: context}).done(function(data) {
 			if (data == 'end') return false;
+
 			context.skip = context.skip === 0 ? 10 : context.skip;
 			$('.lists_block').empty().append(data);
 		});
 	});
 
 	$('.list_next').on('click', function() {
-		context.type = context.type ? context.type : 'all';
 		$.post('', {context: context}).done(function(data) {
 			if (data == 'end') return false;
+
 			context.skip = context.skip + 10;
 			$('.lists_block').empty().append(data);
 		});
@@ -24,9 +24,10 @@ $(function() {
 
 	$('.drop_item').on('click', function() {
 		var $this = $(this);
-		$('.drop_item').removeClass('select').filter(this).addClass('select');
-		var item = $this.parent('.sub_drop').attr('class').split(' ')[1];
+		var item = $this.closest('.sub_drop').attr('class').split(' ')[1];
 		context[item] = $this.attr('class').split(' ')[1];
+
+		$('.drop_item').removeClass('select').filter(this).addClass('select');
 
 		context.skip = 0;
 		$.post('', {context: context}).done(function(data) {
