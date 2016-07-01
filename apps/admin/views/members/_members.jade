@@ -1,0 +1,4 @@
+each member in members
+	.list_item
+		a.item_rm.member(href='#', id=member._id) удалить
+		a.item_title(href='/members/edit/' + member._id, class=member.status =='hidden' ? 'hidden': '')= (member.i18n.name.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!') + ' -- '	+ member.roles.map(function(role) { return __n(role, 1)  }).join(' - ')

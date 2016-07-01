@@ -121,5 +121,9 @@
 	"performers": {
 		"one": "Исполнитель",
 		"other": "Исполнители"
+	},
+	"Lecturers": {
+		"one": "Lecturers",
+		"other": 1
 	}
 }

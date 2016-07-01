@@ -1,5 +1,4 @@
 $(function() {
-	// $('.sub_search').focus();
 
 	var context = { skip: 10, limit: 10 };
 
@@ -40,6 +39,10 @@ $(function() {
 		});
 	});
 
+
+	// -- Search
+
+
 	var search = {
 		val: '', buf: '',
 		checkResult: function() {
@@ -76,35 +79,40 @@ $(function() {
 		});
 
 
+	// -- Search local
 
-	// $(document)
-	// 	.on('keyup', function(event) {
-	// 		if (event.altKey && event.which == 70) {
-	// 			$('.sub_search').focus();
-	// 		} else if (event.which == 27) {
-	// 			if ($('.sub_search').val() === '') {
-	// 				$('.sub_search').blur();
-	// 			} else {
-	// 				$('.sub_search').val('').trigger('keyup');
-	// 			}
-	// 		}
-	// 	})
-	// 	.on('keyup change', '.sub_search', function(event) {
-	// 		var value = $(this).val();
-	// 		var $elems = $('.list_item').children('.item_title');
 
-	// 		$elems.each(function(index, el) {
-	// 			var el_val = $(el).html().toLowerCase();
+	$(document)
+		.on('keyup', function(event) {
+			if (event.altKey && event.which == 70) {
+				$('.sub_search').focus();
+			} else if (event.which == 27) {
+				if ($('.sub_search').val() === '') {
+					$('.sub_search').blur();
+				} else {
+					$('.sub_search').val('').trigger('keyup');
+				}
+			}
+		})
+		.on('keyup change', '.sub_search.local', function(event) {
+			var value = $(this).val();
+			var $elems = $('.list_item').children('.item_title');
 
-	// 			el_val.search(value.toLowerCase()) != -1
-	// 				? $(el).parent().show()
-	// 				: $(el).parent().hide();
-	// 		});
-	// 	});
+			$elems.each(function(index, el) {
+				var el_val = $(el).html().toLowerCase();
+
+				el_val.search(value.toLowerCase()) != -1
+					? $(el).parent().show()
+					: $(el).parent().hide();
+			});
+		});
 
 	$('.toggle_rm').on('click', function() {
 		$('.item_rm').toggleClass('show');
 	});
+
+
+	// -- Remove
 
 
 	function remove (event) {

@@ -12,7 +12,8 @@ block content_scripts
 block sub_menu
 	a.sub_item.back_link(href='/') Назад
 	span.sub_item.toggle_rm Удалить
-	input.sub_search(type='text', placeholder='поиск...')
+	.sub_right_block
+		input.sub_search.local(type='text', placeholder='Поиск...')
 
 block content
 	.title= content_title

@@ -16,9 +16,12 @@ var partners = {
 module.exports = (function() {
 	var router = express.Router();
 
+	router.route('/tags_select')
+		.post(partners.list.get_partners);
+
 	router.route('/')
 		.get(partners.list.index)
-		.post(partners.list.get_partners);
+		.post(partners.list.get_list);
 
 	router.route('/add')
 		.get(partners.add.index)

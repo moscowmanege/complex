@@ -12,7 +12,23 @@ block content_scripts
 block sub_menu
 	a.sub_item.back_link(href='/') Назад
 	span.sub_item.toggle_rm Удалить
-	input.sub_search(type='text', placeholder='поиск...')
+	.sub_right_block
+
+		.sub_drop.status(style='z-index: 2;')
+			.drop_title Статус
+			.drop_inner
+				.drop_item(class='all').select Все
+				.drop_item(class='default') Обычный
+				.drop_item(class='hidden') Скрытый
+
+		.sub_drop.type(style='z-index: 1;')
+			.drop_title Тип
+			.drop_inner
+				.drop_item(class='all').select Все
+				each type in static_types.partners_types
+					.drop_item(class=type)= __(type)
+
+		input.sub_search(type='text', placeholder='Поиск...')
 
 block content
 	.title= content_title
@@ -21,7 +37,7 @@ block content
 	br
 	br
 	.lists_block
-		each partner in partners
-			.list_item
-				a.item_rm.partner(href='#', id=partner._id) удалить
-				a.item_title(href='/partners/edit/' + partner._id, class=partner.status =='hidden' ? 'hidden': '')= partner.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!'
+		include _partners.jade
+	a.list_back(href='#'): b назад
+	span= ' | '
+	a.list_next(href='#'): b вперед
