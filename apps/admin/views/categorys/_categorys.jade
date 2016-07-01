@@ -1,0 +1,4 @@
+each category in categorys
+	.list_item
+		a.item_rm.category(href='#', id=category._id) удалить
+		a.item_title(href='/categorys/edit/' + category._id, class=category.status =='hidden' ? 'hidden': '')= category.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!'
