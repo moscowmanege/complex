@@ -1,4 +1,4 @@
 each partner in partners
 	.list_item
 		a.item_rm.partner(href='#', id=partner._id) удалить
-		a.item_title(href='/partners/edit/' + partner._id, class=partner.status =='hidden' ? 'hidden': '')= partner.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!'
+		a.item_title(href='/partners/edit/' + partner._id, class=partner.status =='hidden' ? 'hidden': '')= (partner.type ? __(partner.type) + ' -- ' : '') + (partner.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!')
