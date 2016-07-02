@@ -1,6 +1,7 @@
 function Slider() {
 	var self = this;
 	var _flip = null;
+	var update = false;
 
 	var $slides = null;
 
@@ -13,14 +14,18 @@ function Slider() {
 
 
 	var afterFlip = function($area) {
-		if ($slides) {
+		if ($slides && !update) {
 			$('.slider_block').children('.slide_item').removeClass('new').addClass('old').end().append($slides);
 			$slides = null;
+
+			update = true;
 		}
 
 		if ($area.hasClass('new')) {
 			$('.old').remove();
 			$('.new').removeClass('new');
+
+			update = false;
 
 			self.reinit();
 		}
