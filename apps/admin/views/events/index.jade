@@ -49,6 +49,10 @@ block content
 	br
 	.lists_block
 		include _events.jade
-	a.list_back(href='#'): b назад
+	a.list_back(href='#'): b сюда
 	span= ' | '
-	a.list_next(href='#'): b вперед
+	select.list_select
+		each item, i in new Array(count)
+			option(value=i)= i+1
+	span= ' | '
+	a.list_next(href='#'): b туда

@@ -17,7 +17,9 @@ module.exports = function(Model) {
 
 	module.index = function(req, res) {
 	  Event.find().sort('-date').limit(10).exec(function(err, events) {
-	    res.render('events', {events: events});
+	  	Event.count().exec(function(err, count) {
+	  		res.render('events', {events: events, count: Math.ceil(count / 10)});
+	  	});
 	  });
 	};
 

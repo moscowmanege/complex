@@ -3,20 +3,25 @@ $(function() {
 	var context = { skip: 10, limit: 10 };
 
 	$('.list_back').on('click', function() {
-		context.skip = (context.skip - 10) <= 10 ? 0 : context.skip - 10;
-		$.post('', {context: context}).done(function(data) {
-			if (data == 'end') return false;
-
-			context.skip = context.skip === 0 ? 10 : context.skip;
-			$('.lists_block').empty().append(data);
-		});
+		var $list = $('.list_select');
+		$list[0].selectedIndex = $list.children('option:selected').val() != 0
+			? $list.children('option:selected').prev().val()
+			: $list.children('option').last().val();
+		$list.trigger('change');
 	});
 
 	$('.list_next').on('click', function() {
+		var $list = $('.list_select');
+		$list[0].selectedIndex = $list.children('option:selected').next().val();
+		$list.trigger('change');
+	});
+
+	$('.list_select').on('change', function(event) {
+		var page = $('.list_select option:selected').val();
+		context.skip = page * 10;
+
 		$.post('', {context: context}).done(function(data) {
 			if (data == 'end') return false;
-
-			context.skip = context.skip + 10;
 			$('.lists_block').empty().append(data);
 		});
 	});
@@ -40,7 +45,7 @@ $(function() {
 	});
 
 
-	// -- Search
+	// -- Keys
 
 
 	$(document).on('keyup', function(event) {
@@ -50,6 +55,10 @@ $(function() {
 			$('.sub_search').val() === ''
 				? $('.sub_search').blur()
 				: $('.sub_search').val('').trigger('keyup');
+		} else if (event.which == 39) {
+			$('.list_next').trigger('click');
+		} else if (event.which == 37) {
+			$('.list_back').trigger('click');
 		}
 	});
 
