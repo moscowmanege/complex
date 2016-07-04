@@ -5,6 +5,7 @@ $(function() {
 	$(document)
 		.on('click', '.list_back', function() {
 			var $list = $('.list_select');
+
 			$list[0].selectedIndex = $list.children('option:selected').val() != 0
 				? $list.children('option:selected').prev().val()
 				: $list.children('option').last().val();
@@ -13,13 +14,13 @@ $(function() {
 
 		.on('click', '.list_next', function() {
 			var $list = $('.list_select');
+
 			$list[0].selectedIndex = $list.children('option:selected').next().val();
 			$list.trigger('change');
 		})
 
 		.on('change', '.list_select', function(event) {
-			var page = $('.list_select option:selected').val();
-			context.skip = page * 10;
+			context.skip = $('.list_select option:selected').val() * 10;
 
 			$.post('', {context: context}).done(function(data) {
 				if (data == 'end') return false;
@@ -143,13 +144,14 @@ $(function() {
 		}
 	}
 
-	$('.item_rm.user').on('click', {path:'/users/remove', description: 'Удалить пользователя?'}, remove);
-	$('.item_rm.category').on('click', {path:'/categorys/remove', description: 'Удалить категорию?'}, remove);
-	$('.item_rm.member').on('click', {path:'/members/remove', description: 'Удалить участника?'}, remove);
-	$('.item_rm.partner').on('click', {path:'/partners/remove', description: 'Удалить партнера?'}, remove);
-	$('.item_rm.event').on('click', {path:'/events/remove', description: 'Удалить событие? \n + Все связанные билеты \n + Все связанные пустые комплексные билеты'}, remove);
-	$('.item_rm.area').on('click', {path:'/areas/remove', description: 'Удалить площадку? \n + Все залы этой площадки'}, remove);
-	$('.item_rm.hall').on('click', {path: location.pathname + '/remove', description: 'Удалить зал?'}, remove);
-	$('.item_rm.ticket').on('click', {path: location.pathname + '/remove', description: 'Удалить билет?'}, remove);
+	$(document)
+		.on('click', '.item_rm.user', {path:'/users/remove', description: 'Удалить пользователя?'}, remove)
+		.on('click', '.item_rm.category', {path:'/categorys/remove', description: 'Удалить категорию?'}, remove)
+		.on('click', '.item_rm.member', {path:'/members/remove', description: 'Удалить участника?'}, remove)
+		.on('click', '.item_rm.partner', {path:'/partners/remove', description: 'Удалить партнера?'}, remove)
+		.on('click', '.item_rm.event', {path:'/events/remove', description: 'Удалить событие? \n + Все связанные билеты \n + Все связанные пустые комплексные билеты'}, remove)
+		.on('click', '.item_rm.area', {path:'/areas/remove', description: 'Удалить площадку? \n + Все залы этой площадки'}, remove)
+		.on('click', '.item_rm.hall', {path: location.pathname + '/remove', description: 'Удалить зал?'}, remove)
+		.on('click', '.item_rm.ticket', {path: location.pathname + '/remove', description: 'Удалить билет?'}, remove);
 
 });
