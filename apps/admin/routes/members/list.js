@@ -17,9 +17,11 @@ module.exports = function(Model) {
 
 	module.index = function(req, res) {
 		Member.find().sort('-date').limit(10).exec(function(err, members) {
-			res.render('members', {members: members});
+			Member.count().exec(function(err, count) {
+				res.render('members', {members: members, count: Math.ceil(count / 10)});
+			});
 		});
-	}
+	};
 
 	module.get_list = function(req, res) {
 		var post = req.body;
@@ -40,13 +42,15 @@ module.exports = function(Model) {
 			Query.where('status').equals('hidden');
 		}
 
-		Query.sort('-date').skip(+post.context.skip).limit(+post.context.limit).exec(function(err, members) {
-			if (members && members.length > 0) {
-				var opts = {members: members, __: i18n_locale, __n: i18n_plurals_locale, compileDebug: false, debug: false, cache: false, pretty: false};
-				res.send(jade.renderFile(__app_root + '/apps/admin/views/members/_members.jade', opts));
-			} else {
-				res.send('end');
-			}
+		Query.count(function(err, count) {
+			Query.find().sort('-date').skip(+post.context.skip).limit(+post.context.limit).exec(function(err, members) {
+				if (members && members.length > 0) {
+					var opts = {members: members, count: Math.ceil(count / 10), skip: +post.context.skip, load_list: true, __: i18n_locale, __n: i18n_plurals_locale, compileDebug: false, debug: false, cache: false, pretty: false};
+					res.send(jade.renderFile(__app_root + '/apps/admin/views/members/_members.jade', opts));
+				} else {
+					res.send('end');
+				}
+			});
 		});
 	};
 
