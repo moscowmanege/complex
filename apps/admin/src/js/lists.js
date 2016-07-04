@@ -2,29 +2,30 @@ $(function() {
 
 	var context = { skip: 10, limit: 10 };
 
-	$('.list_back').on('click', function() {
-		var $list = $('.list_select');
-		$list[0].selectedIndex = $list.children('option:selected').val() != 0
-			? $list.children('option:selected').prev().val()
-			: $list.children('option').last().val();
-		$list.trigger('change');
-	});
+	$(document)
+		.on('click', '.list_back', function() {
+			var $list = $('.list_select');
+			$list[0].selectedIndex = $list.children('option:selected').val() != 0
+				? $list.children('option:selected').prev().val()
+				: $list.children('option').last().val();
+			$list.trigger('change');
+		})
 
-	$('.list_next').on('click', function() {
-		var $list = $('.list_select');
-		$list[0].selectedIndex = $list.children('option:selected').next().val();
-		$list.trigger('change');
-	});
+		.on('click', '.list_next', function() {
+			var $list = $('.list_select');
+			$list[0].selectedIndex = $list.children('option:selected').next().val();
+			$list.trigger('change');
+		})
 
-	$('.list_select').on('change', function(event) {
-		var page = $('.list_select option:selected').val();
-		context.skip = page * 10;
+		.on('change', '.list_select', function(event) {
+			var page = $('.list_select option:selected').val();
+			context.skip = page * 10;
 
-		$.post('', {context: context}).done(function(data) {
-			if (data == 'end') return false;
-			$('.lists_block').empty().append(data);
+			$.post('', {context: context}).done(function(data) {
+				if (data == 'end') return false;
+				$('.lists_block').empty().append(data);
+			});
 		});
-	});
 
 	$('.drop_item').on('click', function() {
 		var $this = $(this);

@@ -1,15 +1,32 @@
-each event in events
-	.list_item(class=(event.meta.tuzik.ru || event.meta.tuzik.en) ? 'tuzik_event' : '')
-		a.item_rm.event(href='#', id=event._id) удалить
-		a.item_title(href='/events/edit/' + event._id, class=event.status =='hidden' ? 'hidden': '')= (event.type ? (__(event.type) + ' -- ') : '') + (event.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!')
-		if (!event.meta.tuzik.ru && !event.meta.tuzik.en)
-			span.arrow
-			a(href='/events/edit/' + event._id + '/tickets')= 'билеты (' + event.tickets.ids.length + ')'
-		else
-			span.arrow
-			span= 'Тузик: '
-			if event.meta.tuzik.ru
-				a(href=event.meta.tuzik.ru, target='_blank'): b Ru
-			if event.meta.tuzik.en
-				span= ' '
-				a(href=event.meta.tuzik.en, target='_blank'): b En
+mixin items(events)
+	each event in events
+		.list_item(class=(event.meta.tuzik.ru || event.meta.tuzik.en) ? 'tuzik_event' : '')
+			a.item_rm.event(href='#', id=event._id) удалить
+			a.item_title(href='/events/edit/' + event._id, class=event.status =='hidden' ? 'hidden': '')= (event.type ? (__(event.type) + ' -- ') : '') + (event.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!')
+			if (!event.meta.tuzik.ru && !event.meta.tuzik.en)
+				span.arrow
+				a(href='/events/edit/' + event._id + '/tickets')= 'билеты (' + event.tickets.ids.length + ')'
+			else
+				span.arrow
+				span= 'Тузик: '
+				if event.meta.tuzik.ru
+					a(href=event.meta.tuzik.ru, target='_blank'): b Ru
+				if event.meta.tuzik.en
+					span= ' '
+					a(href=event.meta.tuzik.en, target='_blank'): b En
+
+mixin counters(count, skip)
+	a.list_back(href='#'): b сюда
+	span= ' | '
+	select.list_select
+		each item, i in new Array(count)
+			option(value=i selected= (i == skip / 10) )= i+1
+	span= ' | '
+	a.list_next(href='#'): b туда
+
+
+if load_list
+	.list_items
+		+items(events)
+	.list_counter
+		+counters(count, skip)
