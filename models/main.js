@@ -1,11 +1,18 @@
 var mongoose = require('mongoose'),
 		mongooseLocale = require('mongoose-locale'),
-		mongooseBcrypt = require('mongoose-bcrypt'),
-		Schema = mongoose.Schema;
+		mongooseBcrypt = require('mongoose-bcrypt');
+
+var Schema = mongoose.Schema,
+		ObjectId = Schema.ObjectId;
 
 mongoose.Promise = Promise;
-
 mongoose.connect('localhost', 'main');
+
+
+// ------------------------
+// *** Schema Block ***
+// ------------------------
+
 
 var userSchema = new Schema({
 	login: String,
@@ -25,7 +32,7 @@ var areaSchema = new Schema({
 		phones: [String],
 		emails: [String]
 	},
-	halls: [{ type: Schema.Types.ObjectId, ref: 'Hall' }],
+	halls: [{ type: ObjectId, ref: 'Hall' }],
 	images: [{
 		description: { type: String, trim: true, locale: true },
 		original: String,
@@ -62,7 +69,7 @@ var eventSchema = new Schema({
 		alt: { type: String, trim: true, locale: true },
 		ids : [{
 			complex: Boolean,
-			id: { type: Schema.Types.ObjectId, ref: 'Ticket' }
+			id: { type: ObjectId, ref: 'Ticket' }
 		}]
 	},
 	type: String,
@@ -72,17 +79,17 @@ var eventSchema = new Schema({
 	},
 	age: Number,
 	place: {
-		area: { type: Schema.Types.ObjectId, ref: 'Area' },
-		halls: [{ type: Schema.Types.ObjectId, ref: 'Hall' }]
+		area: { type: ObjectId, ref: 'Area' },
+		halls: [{ type: ObjectId, ref: 'Hall' }]
 	},
-	categorys: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
+	categorys: [{ type: ObjectId, ref: 'Category' }],
 	partners: [{
 		rank: String,
-		ids: [{ type: Schema.Types.ObjectId, ref: 'Partner' }]
+		ids: [{ type: ObjectId, ref: 'Partner' }]
 	}],
 	members: [{
 		role: String,
-		ids: [{ type: Schema.Types.ObjectId, ref: 'Member' }]
+		ids: [{ type: ObjectId, ref: 'Member' }]
 	}],
 	images: [{
 		description: { type: String, trim: true, locale: true },
@@ -123,7 +130,7 @@ var categorySchema = new Schema({
 });
 
 var ticketSchema = new Schema({
-	events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
+	events: [{ type: ObjectId, ref: 'Event' }],
 	complex: Boolean,
 	type: String,
 	status: String,
@@ -132,8 +139,8 @@ var ticketSchema = new Schema({
 });
 
 var logSchema = new Schema({
-	_item_id: Schema.Types.ObjectId,
-	_user_id: { type: Schema.Types.ObjectId, ref: 'User' },
+	_item_id: ObjectId,
+	_user_id: { type: ObjectId, ref: 'User' },
 	type: String,
 	status: String,
 	date: {type: Date, expires: 3600 * 24 * 90, default: Date.now}
