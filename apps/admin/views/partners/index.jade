@@ -1,4 +1,5 @@
 extends ../layout
+include _partners.jade
 
 block paths
 	- var content_title= 'ПАРТНЕРЫ'
@@ -37,7 +38,7 @@ block content
 	br
 	br
 	.lists_block
-		include _partners.jade
-	a.list_back(href='#'): b назад
-	span= ' | '
-	a.list_next(href='#'): b вперед
+		.list_items
+			+items(partners)
+		.list_counter
+			+counters(count)

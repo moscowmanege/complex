@@ -38,7 +38,7 @@ $(function() {
 		context.skip = 0;
 		$.post('', {context: context}).done(function(data) {
 			if (data == 'end') {
-				$('.lists_block').empty();
+				$('.lists_block').empty().text('Ничего нет!');
 			} else {
 				$('.lists_block').empty().append(data);
 				context.skip = 10;
@@ -82,7 +82,7 @@ $(function() {
 
 			$.post('', { context: context }).done(function(data) {
 				if (data == 'end') {
-					$('.lists_block').empty();
+					$('.lists_block').empty().text('Ничего нет!');
 				} else {
 					$('.lists_block').empty().append(data);
 					context.skip = 10;
