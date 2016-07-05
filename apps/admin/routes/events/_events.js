@@ -22,6 +22,7 @@ module.exports = (function() {
 
 	router.route('/')
 		.get(events.list.index)
+		.post(events.list.get_list);
 
 	router.route('/add')
 		.get(events.add.index)
@@ -31,7 +32,7 @@ module.exports = (function() {
 		.get(events.edit.index)
 		.post(events.edit.form);
 
-	router.use('/edit/:event_id/tickets', tickets)
+	router.use('/edit/:event_id/tickets', tickets);
 
 	router.route('/remove')
 		.post(events.remove.index);

@@ -1,0 +1,24 @@
+mixin items(categorys)
+	each category in categorys
+		.list_item
+			a.item_rm.category(href='#', id=category._id) удалить
+			a.item_title(href='/categorys/edit/' + category._id, class=category.status =='hidden' ? 'hidden': '')= (category.type ? (__(category.type) + ' -- ') : '') + (category.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!')
+
+
+mixin counters(count, skip)
+	a.list_back(href='#'): b назад
+	span= ' - '
+	select.list_select
+		- var i = 0;
+		while i < count
+			option(value=i selected= (i == skip / 10) )= i+1
+			- i++
+	span= ' - '
+	a.list_next(href='#'): b вперед
+
+
+if load_list
+	.list_items
+		+items(categorys)
+	.list_counter
+		+counters(count, skip)

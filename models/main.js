@@ -3,6 +3,8 @@ var mongoose = require('mongoose'),
 		mongooseBcrypt = require('mongoose-bcrypt'),
 		Schema = mongoose.Schema;
 
+mongoose.Promise = Promise;
+
 mongoose.connect('localhost', 'main');
 
 var userSchema = new Schema({

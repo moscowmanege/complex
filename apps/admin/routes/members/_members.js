@@ -16,9 +16,12 @@ var members = {
 module.exports = (function() {
 	var router = express.Router();
 
+	router.route('/tags_select')
+		.post(members.list.get_members);
+
 	router.route('/')
 		.get(members.list.index)
-		.post(members.list.get_members);
+		.post(members.list.get_list);
 
 	router.route('/add')
 		.get(members.add.index)

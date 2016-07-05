@@ -68,7 +68,7 @@ $(function() {
 			field = 'title';
 		}
 
-		$.post('/' + type, {tag: tag}).done(function(persons) {
+		$.post('/' + type + '/tags_select', {tag: tag}).done(function(persons) {
 			$('.persons_list.' + type).empty();
 			persons.forEach(function(person, i) {
 				var $person = $('<div/>', {'class':'person', 'id': person._id, 'text': person[field][0].value});

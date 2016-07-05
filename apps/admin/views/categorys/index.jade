@@ -1,4 +1,5 @@
 extends ../layout
+include _categorys.jade
 
 block paths
 	- var content_title= 'КАТЕГОРИИ'
@@ -12,7 +13,23 @@ block content_scripts
 block sub_menu
 	a.sub_item.back_link(href='/') Назад
 	span.sub_item.toggle_rm Удалить
-	input.sub_search(type='text', placeholder='поиск...')
+	.sub_right_block
+
+		.sub_drop.status(style='z-index: 2;')
+			.drop_title Статус
+			.drop_inner
+				.drop_item(class='all').select Все
+				.drop_item(class='default') Обычный
+				.drop_item(class='hidden') Скрытый
+
+		.sub_drop.type(style='z-index: 1;')
+			.drop_title Тип
+			.drop_inner
+				.drop_item(class='all').select Все
+				each type in static_types.categorys_types
+					.drop_item(class=type)= __(type)
+
+		input.sub_search(type='text', placeholder='Поиск...')
 
 block content
 	.title= content_title
@@ -21,7 +38,7 @@ block content
 	br
 	br
 	.lists_block
-		each category in categorys
-			.list_item
-				a.item_rm.category(href='#', id=category._id) удалить
-				a.item_title(href='/categorys/edit/' + category._id, class=category.status =='hidden' ? 'hidden': '')= category.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!'
+		.list_items
+			+items(categorys)
+		.list_counter
+			+counters(count)

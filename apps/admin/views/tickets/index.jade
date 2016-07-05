@@ -19,7 +19,7 @@ block content
 	a.add(href='/events/edit/' + event._id + '/tickets/add') добавить билет
 	br
 	br
-	.lists_block
+	.lists_block: .list_items
 		each ticket in event.tickets.ids
 			.list_item
 				a.item_rm.ticket(href='#', id=ticket.id._id) удалить

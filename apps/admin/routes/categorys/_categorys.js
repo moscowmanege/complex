@@ -18,6 +18,7 @@ module.exports = (function() {
 
 	router.route('/')
 		.get(categorys.list.index)
+		.post(categorys.list.get_list);
 
 	router.route('/add')
 		.get(categorys.add.index)
