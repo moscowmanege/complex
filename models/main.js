@@ -119,7 +119,7 @@ var categorySchema = new Schema({
 	description: { type: String, trim: true, locale: true },
 	type: String,
 	status: String,
-	date: {type: Date, default: Date.now}
+	date: {type: Date, default: Date.now, index: true}
 });
 
 var ticketSchema = new Schema({
@@ -161,9 +161,16 @@ partnerSchema.plugin(mongooseLocale);
 
 
 eventSchema.index({'title.value': 'text', 'description.value': 'text'}, {language_override: 'lg', default_language: 'ru'});
+eventSchema.index({ 'type': 1, 'status': 1 });
+
 categorySchema.index({'title.value': 'text', 'description.value': 'text'}, {language_override: 'lg', default_language: 'ru'});
+categorySchema.index({ 'type': 1, 'status': 1 });
+
 partnerSchema.index({'title.value': 'text', 'description.value': 'text'}, {language_override: 'lg', default_language: 'ru'});
+partnerSchema.index({ 'type': 1, 'status': 1 });
+
 memberSchema.index({'name.value': 'text', 'description.value': 'text'}, {language_override: 'lg', default_language: 'ru'});
+memberSchema.index({ 'roles': 1, 'status': 1 });
 
 
 // ------------------------
