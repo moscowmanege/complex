@@ -21,7 +21,7 @@ block content
 	a.add(href='/areas/add') добавить площадку
 	br
 	br
-	.lists_block
+	.lists_block: .list_items
 		each area in areas
 			.list_item
 				a.item_rm.area(href='#', id=area._id) удалить

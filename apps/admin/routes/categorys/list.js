@@ -17,7 +17,9 @@ module.exports = function(Model) {
 
 	module.index = function(req, res) {
 		Category.find().sort('-date').limit(10).exec(function(err, categorys) {
-			res.render('categorys', {categorys: categorys});
+			Category.count().exec(function(err, count) {
+				res.render('categorys', {categorys: categorys, count: Math.ceil(count / 10)});
+			});
 		});
 	};
 
@@ -40,13 +42,16 @@ module.exports = function(Model) {
 			Query.where('status').equals('hidden');
 		}
 
-		Query.sort('-date').skip(+post.context.skip).limit(+post.context.limit).exec(function(err, categorys) {
-			if (categorys && categorys.length > 0) {
-				var opts = {categorys: categorys, __: i18n_locale, __n: i18n_plurals_locale, compileDebug: false, debug: false, cache: false, pretty: false};
-				res.send(jade.renderFile(__app_root + '/apps/admin/views/categorys/_categorys.jade', opts));
-			} else {
-				res.send('end');
-			}
+		Query.count(function(err, count) {
+			Query.find().sort('-date').skip(+post.context.skip).limit(+post.context.limit).exec(function(err, categorys) {
+				if (categorys && categorys.length > 0) {
+					var opts = {
+						categorys: categorys, count: Math.ceil(count / 10), skip: +post.context.skip, load_list: true, __: i18n_locale, __n: i18n_plurals_locale, compileDebug: false, debug: false, cache: false, pretty: false};
+					res.send(jade.renderFile(__app_root + '/apps/admin/views/categorys/_categorys.jade', opts));
+				} else {
+					res.send('end');
+				}
+			});
 		});
 	};
 

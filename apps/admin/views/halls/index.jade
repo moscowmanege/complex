@@ -21,7 +21,7 @@ block content
 	a.add(href='/areas/edit/' + area._id + '/halls/add') добавить зал
 	br
 	br
-	.lists_block
+	.lists_block: .list_items
 		each hall in area.halls
 			.list_item
 				a.item_rm.hall(href='#', id=hall._id) удалить

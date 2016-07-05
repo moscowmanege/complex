@@ -1,4 +1,5 @@
 extends ../layout
+include _categorys.jade
 
 block paths
 	- var content_title= 'КАТЕГОРИИ'
@@ -37,7 +38,7 @@ block content
 	br
 	br
 	.lists_block
-		include _categorys.jade
-	a.list_back(href='#'): b назад
-	span= ' | '
-	a.list_next(href='#'): b вперед
+		.list_items
+			+items(categorys)
+		.list_counter
+			+counters(count)

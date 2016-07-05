@@ -22,7 +22,7 @@ block content
 		a.add(href='/users/add') добавить пользователя
 		br
 		br
-	.lists_block
+	.lists_block: .list_items
 		each user in users
 			if user.status == 'Admin'
 				- var status = '︎●●'
