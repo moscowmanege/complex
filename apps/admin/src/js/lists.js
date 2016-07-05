@@ -53,14 +53,25 @@ $(function() {
 	$(document).on('keyup', function(event) {
 		if (event.altKey && event.which == 70) {
 			$('.sub_search').focus();
-		} else if (event.which == 27) {
-			$('.sub_search').val() === ''
-				? $('.sub_search').blur()
-				: $('.sub_search').val('').trigger('keyup');
-		} else if (event.which == 39) {
+			return false;
+		}
+
+		if (event.which == 27) {
+			var $sub_search = $('.sub_search');
+			$sub_search.val() === ''
+				? $sub_search.blur()
+				: $sub_search.val('').trigger('keyup');
+			return false;
+		}
+
+		if (event.which == 39) {
 			$('.list_next').trigger('click');
-		} else if (event.which == 37) {
+			return false;
+		}
+
+		if (event.which == 37) {
 			$('.list_back').trigger('click');
+			return false;
 		}
 	});
 
@@ -98,7 +109,7 @@ $(function() {
 		.on('focusin', function(event) {
 			search.interval = setInterval(function() {
 				search.checkResult.call(search);
-			}, 1000);
+			}, 600);
 		})
 		.on('focusout', function(event) {
 			clearInterval(search.interval);
