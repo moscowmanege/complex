@@ -13,8 +13,9 @@ var moment = require('moment');
 app.set('views', __app_root + '/apps/monitors/views');
 app.set('view engine', 'jade');
 
+app.use(express.static(__app_root + '/public'));  // remove
 if (process.env.NODE_ENV != 'production') {
-	app.use(express.static(__app_root + '/public'));
+	// app.use(express.static(__app_root + '/public'));
 	app.locals.pretty = true;
 	app.set('json spaces', 2);
 }
