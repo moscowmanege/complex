@@ -3,7 +3,7 @@ $(function() {
 
 
 	// ------------------------
-	// *** Toggles Block ***
+	// *** Constructors Block ***
 	// ------------------------
 
 
@@ -22,12 +22,6 @@ $(function() {
 			$('.ru').css('float','left');
 		}
 	}
-
-
-	// ------------------------
-	// *** Constructors Block ***
-	// ------------------------
-
 
 	function snakeForward() {
 		var $snake = $(this).parent('.snake_outer').children('.snake');
