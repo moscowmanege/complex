@@ -2,21 +2,20 @@ $(function() {
 	var eng = true;
 
 
-// ------------------------
-// *** Toggles Block ***
-// ------------------------
+	// ------------------------
+	// *** Toggles Block ***
+	// ------------------------
 
 
-	function toggleEnglish () {
-		if (eng = !eng) {
-			eng = true;
+	function toggleEnglish() {
+		eng = !eng;
+
+		if (eng) {
 			$('.en').prop('disabled', eng).filter('input').hide();
 			$('.en').parent('.wysiwyg-container').hide();
 			$('.en_img').prop('disabled', eng).hide();
 			$('.ru').css('float','none');
-		}
-		else {
-			eng = false;
+		} else {
 			$('.en').prop('disabled', eng).filter('input').show();
 			$('.en').parent('.wysiwyg-container').show();
 			$('.en_img').prop('disabled', eng).show();
@@ -25,13 +24,12 @@ $(function() {
 	}
 
 
+	// ------------------------
+	// *** Constructors Block ***
+	// ------------------------
 
-// ------------------------
-// *** Constructors Block ***
-// ------------------------
 
-
-	function snakeForward () {
+	function snakeForward() {
 		var $snake = $(this).parent('.snake_outer').children('.snake');
 		$snake.first().clone()
 			.find('option').prop('selected', false).end()
@@ -39,9 +37,9 @@ $(function() {
 			.insertAfter($snake.last());
 	}
 
-	function snakeBack () {
+	function snakeBack() {
 		var $snake = $(this).closest('.snake_outer').children('.snake');
-		if ($snake.size() == 1) return null;
+		if ($snake.size() == 1) return false;
 		$(this).parent('.snake').remove();
 	}
 
