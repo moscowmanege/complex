@@ -25,9 +25,10 @@ $(function() {
 			}, 4000);
 			return false;
 		} else {
+			var context = $('.tuzik.open').attr('class').split(' ')[1];
 			$(this).prop('disabled', true).off();
 			$('.tuzik_desc').text(' -- Тузик думает...');
-			$.post('/events/tuzik', {link: link}).done(function(data) {
+			$.post('/' + context + '/tuzik', {link: link}).done(function(data) {
 				document.location.reload();
 			});
 		}

@@ -7,7 +7,7 @@ var mkdirp = require('mkdirp');
 
 
 module.exports = function(Model) {
-	var Event = Model.Event;
+	var News = Model.News;
 	var module = {};
 	var public_path = __app_root + '/public';
 
@@ -46,15 +46,15 @@ module.exports = function(Model) {
 		callback(null, {title: val_title, s_title: val_s_tile, description: val_description, images: val_desc_images});
 	};
 
-	var loadImages = function(images, event, callback) {
+	var loadImages = function(images, news, callback) {
 		if (images.length === 0) {
-			event.images = [];
+			news.images = [];
 			return callback();
 		}
 
 		var path = {
-			original: '/cdn/images/events/' + event._id + '/original/',
-			thumb: '/cdn/images/events/' + event._id + '/thumb/'
+			original: '/cdn/images/news/' + news._id + '/original/',
+			thumb: '/cdn/images/news/' + news._id + '/thumb/'
 		};
 
 		async.concatSeries([public_path + path.original, public_path + path.thumb], mkdirp, function(err, dirs) {
@@ -87,13 +87,13 @@ module.exports = function(Model) {
 				});
 			}, function(err, images) {
 				images = images.filter(function(image) { return !!image; });
-				event.images = event.images.concat(images);
+				news.images = news.images.concat(images);
 				callback();
 			});
 		});
 	};
 
-	var getFields = function(locale, event, link, callback) {
+	var getFields = function(locale, news, link, callback) {
 		if (link[locale] === '') return callback(null, null);
 
 		var jquery = fs.readFileSync(__app_root + '/public/libs/js/jquery-2.2.4.min.js', 'utf-8');
@@ -101,11 +101,11 @@ module.exports = function(Model) {
 			if (err) return callback(null, null);
 
 			parseFields(window, function(err, fields) {
-				event.i18n.title.set(fields.title, locale);
-				event.i18n.s_title.set(fields.s_title, locale);
-				event.i18n.description.set(fields.description, locale);
+				news.i18n.title.set(fields.title, locale);
+				news.i18n.s_title.set(fields.s_title, locale);
+				news.i18n.description.set(fields.description, locale);
 
-				event.meta.tuzik[locale] = link[locale];
+				news.meta.tuzik[locale] = link[locale];
 
 				callback(null, {link: link[locale], fields: fields});
 			});
@@ -115,19 +115,19 @@ module.exports = function(Model) {
 
 	module.index = function(req, res) {
 
-		var event = new Event();
+		var news = new News();
 
 		async.parallel({
 			ru: function(callback) {
-				getFields('ru', event, req.body.link, callback);
+				getFields('ru', news, req.body.link, callback);
 			},
 			en: function(callback) {
-				getFields('en', event, req.body.link, callback);
+				getFields('en', news, req.body.link, callback);
 			}
 		}, function(err, result) {
-			loadImages(result.ru.fields.images, event, function(err) {
-				event.status = 'hidden';
-				event.save(function() {
+			loadImages(result.ru.fields.images, news, function(err) {
+				news.status = 'hidden';
+				news.save(function() {
 					res.send('ok');
 				});
 			});
