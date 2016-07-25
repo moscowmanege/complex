@@ -1,25 +1,7 @@
-var ErrRespond = function(req, res, status, message, stack) {
-	res.status(status);
-
-	// respond with html page
-	if (req.accepts('html')) {
-		res.render('error', { status: status, message: message, stack: stack });
-		return;
-	}
-
-	// respond with json
-	if (req.accepts('json')) {
-		res.json({ error: { status: status, message: message, stack: stack } });
-		return;
-	}
-
-	// default to plain-text
-	res.type('txt').send(status + ' ' + message);
-
-};
-
 exports.err_500 = function(err, req, res, next) {
 	var env = process.env.NODE_ENV != 'production';
+	var status = err.status || 500;
+	var message = err.message || 'Internal Server Error';
 
 	[
 		' ',
@@ -34,9 +16,32 @@ exports.err_500 = function(err, req, res, next) {
 		err.stack,
 	].forEach(function(str) { console.error(str); });
 
-	ErrRespond(req, res, err.status || 500, err.message || 'Internal Server Error', env && err.stack);
+	res.status(status).format({
+		'html': function() {
+			res.render('error', { status: status, message: message, stack: env && err.stack });
+		},
+		'json': function() {
+			res.json({ error: { status: status, message: message, stack: env && err.stack } });
+		},
+		'text': function() {
+			res.type('txt').send(status + ' ' + message);
+		}
+	});
 };
 
 exports.err_404 = function(req, res, next) {
-	ErrRespond(req, res, 404, 'Not Found');
+	var status = 404;
+	var message = 'Not Found';
+
+	res.status(status).format({
+		'html': function() {
+			res.render('error', { status: status, message: message });
+		},
+		'json': function() {
+			res.json({ error: { status: status, message: message} });
+		},
+		'text': function() {
+			res.type('txt').send(status + ' ' + message);
+		}
+	});
 };

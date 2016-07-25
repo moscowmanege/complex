@@ -1,0 +1,58 @@
+extends ../layout
+include ../_forms.jade
+
+block paths
+	- var content_title= 'РЕДАКТИРОВАТЬ НОВОСТЬ'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/libs/css/pickmeup.min.css' + version)
+	link(rel='stylesheet', type='text/css', href='/libs/css/font-awesome.css')
+	link(rel='stylesheet', type='text/css', href='/libs/css/wysiwyg-editor.min.css' + version)
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css' + version)
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/a_events.css' + version)
+
+block content_scripts
+	script(type='text/javascript', src='/libs/js/jquery.pickmeup.min.js' + version)
+	script(type='text/javascript', src='/libs/js/wysiwyg.min.js' + version)
+	script(type='text/javascript', src='/libs/js/wysiwyg-editor.min.js' + version)
+	script(type='text/javascript', src='/libs/js/jquery-ui.min.js' + version)
+	script(type='text/javascript', src='/libs/js/jquery.filedrop.js' + version)
+	script(type='text/javascript', src='/build/js/admin/upload.js' + version)
+	script(type='text/javascript', src='/build/js/admin/editor.js' + version)
+	script(type='text/javascript', src='/build/js/admin/add.js' + version)
+	script(type='text/javascript', src='/build/js/admin/a_events.js' + version)
+
+block sub_menu
+	a.sub_item.back_link(href='/news') Назад
+	span.sub_item.toggle_eng Перевод
+
+block content
+	.form_block
+		.title= content_title
+		form(action="", method="post")
+			.form_title Заголовок:
+			+form_text_single('title', news)
+			.form_title Подзаголовок:
+			+form_text_single('s_title', news)
+			.form_title Описание:
+			+form_text_multi('description', news)
+			.form_title Изображения:
+			+form_images_upload(news.images)
+			.form_title Площадки:
+			+form_multiple_select('areas', areas, news.areas)
+			.form_title Категории:
+			+form_multiple_select('categorys', categorys, news.categorys)
+			.form_title Интервал дат:
+			+form_date('interval[begin]', news.interval.begin)(class='begin')
+			!= ' --- '
+			input(type='button', value=' ---> ').arrow_cal
+			!= ' --- '
+			+form_date('interval[end]', news.interval.end)(class='end')
+			.form_title Видимость:
+			input(type='checkbox', name='status', value='hidden', checked=news.status == 'hidden')
+			!= ' скрыть'
+			.form_title Дата публикации:
+			+form_date('date', news.date)
+			br
+			br
+			input(type='submit', value='отправить')

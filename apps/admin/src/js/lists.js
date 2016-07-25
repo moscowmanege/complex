@@ -160,6 +160,7 @@ $(function() {
 		.on('click', '.item_rm.category', {path:'/categorys/remove', description: 'Удалить категорию?'}, remove)
 		.on('click', '.item_rm.member', {path:'/members/remove', description: 'Удалить участника?'}, remove)
 		.on('click', '.item_rm.partner', {path:'/partners/remove', description: 'Удалить партнера?'}, remove)
+		.on('click', '.item_rm.news', {path:'/news/remove', description: 'Удалить новость?'}, remove)
 		.on('click', '.item_rm.event', {path:'/events/remove', description: 'Удалить событие? \n + Все связанные билеты \n + Все связанные пустые комплексные билеты'}, remove)
 		.on('click', '.item_rm.area', {path:'/areas/remove', description: 'Удалить площадку? \n + Все залы этой площадки'}, remove)
 		.on('click', '.item_rm.hall', {path: location.pathname + '/remove', description: 'Удалить зал?'}, remove)

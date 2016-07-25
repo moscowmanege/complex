@@ -1,0 +1,31 @@
+mixin items(news)
+	each item in news
+		.list_item(class=(item.meta.tuzik.ru || item.meta.tuzik.en) ? 'tuzik_item' : '')
+			a.item_rm.news(href='#', id=item._id) удалить
+			a.item_title(href='/news/edit/' + item._id, class=item.status =='hidden' ? 'hidden': '')= (item.type ? (__(item.type) + ' -- ') : '') + (item.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!')
+			if (item.meta.tuzik.ru || item.meta.tuzik.en)
+				span.arrow
+				span= 'Тузик: '
+				if item.meta.tuzik.ru
+					a(href=item.meta.tuzik.ru, target='_blank'): b Ru
+				if item.meta.tuzik.en
+					span= ' '
+					a(href=item.meta.tuzik.en, target='_blank'): b En
+
+mixin counters(count, skip)
+	a.list_back(href='#'): b назад
+	span= ' - '
+	select.list_select
+		- var i = 0;
+		while i < count
+			option(value=i selected= (i == skip / 10) )= i+1
+			- i++
+	span= ' - '
+	a.list_next(href='#'): b вперед
+
+
+if load_list
+	.list_items
+		+items(news)
+	.list_counter
+		+counters(count, skip)

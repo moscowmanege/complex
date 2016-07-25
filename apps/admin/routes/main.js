@@ -10,4 +10,4 @@ exports.index = function(req, res, next) {
 			res.render('index.jade', {data: data, font: fonts[rand]});
 		});
 	});
-}
+};

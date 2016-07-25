@@ -7,6 +7,7 @@ var admin = {
 	main: require('./main.js'),
 	categorys: require('./categorys/_categorys.js'),
 	events: require('./events/_events.js'),
+	news: require('./news/_news.js'),
 	areas: require('./areas/_areas.js'),
 	members: require('./members/_members.js'),
 	partners: require('./partners/_partners.js'),
@@ -23,11 +24,11 @@ var checkAuth = function(req, res, next) {
 module.exports = (function() {
 	var router = express.Router();
 
-	router.route('/')
-		.get(checkAuth, admin.main.index)
+	router.route('/').get(checkAuth, admin.main.index);
 
 	router.use('/categorys', checkAuth, admin.categorys);
 	router.use('/events', checkAuth, admin.events);
+	router.use('/news', checkAuth, admin.news);
 	router.use('/areas', checkAuth, admin.areas);
 	router.use('/members', checkAuth, upload.single('photo'), admin.members);
 	router.use('/partners', checkAuth, upload.single('logo'), admin.partners);

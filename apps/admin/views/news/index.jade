@@ -1,0 +1,48 @@
+extends ../layout
+include _news.jade
+
+block paths
+	- var content_title= 'НОВОСТИ'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/add.css' + version)
+	link(rel='stylesheet', type='text/css', href='/build/css/admin/tuzik.css' + version)
+
+block content_scripts
+	script(type='text/javascript', src='/build/js/admin/lists.js' + version)
+	script(type='text/javascript', src='/build/js/admin/tuzik.js' + version)
+
+block sub_menu
+	a.sub_item.back_link(href='/') Назад
+	span.sub_item.toggle_rm Удалить
+	.sub_right_block
+
+		.sub_drop.status(style='z-index: 2;')
+			.drop_title Статус
+			.drop_inner
+				.drop_item(class='all').select Все
+				.drop_item(class='default') Обычный
+				.drop_item(class='hidden') Скрытый
+
+		input.sub_search(type='text', placeholder='Поиск...')
+
+block content
+	.title= content_title
+	br
+	a.add(href='/news/add') добавить новость
+	span= ' | '
+	span.tuzik.open робот Тузик
+	span.tuzik_form.hidden
+		span= ' --> '
+		input.tuzik_input.rus(type='text', placeholder='Ru - Ссылка...')
+		input.tuzik_input.eng(type='text', placeholder='En - Ссылка...')
+		button.tuzik_add Создать!
+		span.tuzik_desc= ' -- Тузик создаст новость из ссылок со старого сайта: '
+			a(href='http://moscowmanege.ru', target='_blank') http://moscowmanege.ru
+	br
+	br
+	.lists_block
+		.list_items
+			+items(news)
+		.list_counter
+			+counters(count)

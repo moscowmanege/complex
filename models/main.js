@@ -53,6 +53,32 @@ var hallSchema = new Schema({
 	date: {type: Date, default: Date.now}
 });
 
+var newsSchema = new Schema({
+	_short_id: { type: String, index: true },
+	title: { type: String, trim: true, locale: true },
+	s_title: { type: String, trim: true, locale: true },
+	description: { type: String, trim: true, locale: true },
+	areas: [{ type: ObjectId, ref: 'Area' }],
+	categorys: [{ type: ObjectId, ref: 'Category' }],
+	meta: {
+		tuzik: {
+			ru: String,
+			en: String
+		}
+	},
+	interval: {
+		begin: Date,
+		end: Date
+	},
+	images: [{
+		description: { type: String, trim: true, locale: true },
+		original: String,
+		thumb: String
+	}],
+	status: String,
+	date: {type: Date, default: Date.now}
+});
+
 var eventSchema = new Schema({
 	_short_id: { type: String, index: true },
 	title: { type: String, trim: true, locale: true },
@@ -157,6 +183,7 @@ userSchema.plugin(mongooseBcrypt, { fields: ['password'] });
 hallSchema.plugin(mongooseLocale);
 areaSchema.plugin(mongooseLocale);
 eventSchema.plugin(mongooseLocale);
+newsSchema.plugin(mongooseLocale);
 categorySchema.plugin(mongooseLocale);
 memberSchema.plugin(mongooseLocale);
 partnerSchema.plugin(mongooseLocale);
@@ -189,6 +216,7 @@ module.exports.User = mongoose.model('User', userSchema);
 module.exports.Hall = mongoose.model('Hall', hallSchema);
 module.exports.Area = mongoose.model('Area', areaSchema);
 module.exports.Event = mongoose.model('Event', eventSchema);
+module.exports.News = mongoose.model('News', newsSchema);
 module.exports.Member = mongoose.model('Member', memberSchema);
 module.exports.Category = mongoose.model('Category', categorySchema);
 module.exports.Ticket = mongoose.model('Ticket', ticketSchema);
