@@ -24,6 +24,14 @@ var checkAuth = function(req, res, next) {
 module.exports = (function() {
 	var router = express.Router();
 
+	// locale fix
+	router.use(function(req, res, next) {
+		if (res.locals.locale != 'ru') {
+			req.setLocale('ru');
+		}
+		next();
+	});
+
 	router.route('/').get(checkAuth, admin.main.index);
 
 	router.use('/categorys', checkAuth, admin.categorys);
