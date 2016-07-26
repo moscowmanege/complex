@@ -12,10 +12,11 @@ module.exports = function(Model, Params) {
   var module = {};
 
 
-  module.index = function(req, res) {
+  module.index = function(req, res, next) {
     var id = req.params.news_id;
 
     News.findById(id).exec(function(err, news) {
+      if (err) return next(err);
       Area.find().exec(function(err, areas) {
         Category.find().sort('-date').exec(function(err, categorys) {
           previewImages(news.images, function(err, images_preview) {

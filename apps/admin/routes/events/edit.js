@@ -14,10 +14,11 @@ module.exports = function(Model, Params) {
   var module = {};
 
 
-  module.index = function(req, res) {
+  module.index = function(req, res, next) {
     var id = req.params.event_id;
 
     Event.findById(id).populate('members.ids partners.ids').exec(function(err, event) {
+      if (err) return next(err);
       Area.find().populate('halls').exec(function(err, areas) {
         Category.find().sort('-date').exec(function(err, categorys) {
           Partner.find().sort('-date').exec(function(err, partners) {
