@@ -1,4 +1,7 @@
-exports.QueryNews = function(callback) {
+var Model = require(__app_root + '/models/main.js');
+
+module.exports.News = function(callback) {
+	var News = Model.News;
 
 	News.aggregate()
 		.match({

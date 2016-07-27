@@ -4,6 +4,11 @@ var moment = require('moment');
 
 var Model = require(__app_root + '/models/main.js');
 
+var Query = {
+	News: require('./queries/news.js').News,
+	Events: require('./queries/events.js').Events
+}
+
 module.exports = function(io, i18n) {
 	var module = {};
 	var Event = Model.Event;
@@ -12,135 +17,23 @@ module.exports = function(io, i18n) {
 	var get_areas = function(ids, callback) {
 
 		var date_now = moment().toDate();
-		var date_last_of_month = moment().endOf('month').toDate();
+		// var date_last_of_month = moment().endOf('month').toDate();
 
-		var Query = null;
+		Query.Events(date_now, ids, function(err, areas) {
+			var paths = [
+				{path:'complex', select: 'type price _id', model: 'Ticket'},
+				{path:'events.halls', select: 'title', model: 'Hall'},
+				{path:'events.categorys', select: 'title', model: 'Category'},
+				{path:'events.members.ids', select: 'name', model: 'Member'},
+				{path:'events.tickets.ids', select: 'type price _id', model: 'Ticket'},
+			];
 
-		if (Array.isArray(ids)) {
-
-			var obj_ids = ids.reduce(function(memo, id) {
-				if (mongoose.Types.ObjectId.isValid(id)) {
-					memo.push(mongoose.Types.ObjectId(id));
-				}
-				return memo;
-			}, []);
-
-			Query = Event.aggregate()
-				.match({
-					'status': { $ne: 'hidden' },
-					'meta': { $exists: false },
-					'place.area': { $in: obj_ids },
-					// 'interval.begin': { $gte: date_now },
-					// 'interval.end': { $lte: date_last_of_month }
-					'interval.end': { $gte: date_now }
-				});
-		} else if (ids == 'all') {
-			Query = Event.aggregate()
-				.match({
-					'status': { $ne: 'hidden' },
-					'meta': { $exists: false },
-					// 'interval.begin': { $gte: date_now },
-					// 'interval.end': { $lte: date_now }
-					'interval.end': { $gte: date_now }
-				});
-		} else {
-			Query = Event.aggregate()
-				.match({
-					'status': { $ne: 'hidden' },
-					'meta': { $exists: false },
-					'place.area': mongoose.Types.ObjectId(ids),
-					// 'interval.begin': { $gte: date_now },
-					// 'interval.end': { $lte: date_last_of_month }
-					'interval.end': { $gte: date_now }
-				});
-		}
-
-		Query
-			.sort({
-				'interval': {
-					'begin': 1,
-					'end': 1
-				}
-			})
-			.group({
-				'_id': {
-					'area': '$place.area',
-				},
-				'complex': {
-					$push: {
-						$setDifference: [{
-							$map: {
-								input: '$tickets.ids',
-								as: 'ticket',
-								in: { $cond: [{ $eq: ['$$ticket.complex', true] }, '$$ticket.id', false] }
-							}
-						}, [false]]
-					}
-				},
-				'events': {
-					$push: {
-						title: '$title',
-						age: '$age',
-						type: '$type',
-						interval: '$interval',
-						halls: '$place.halls',
-						categorys: '$categorys',
-						members: '$members',
-						tickets: {
-							alt: '$tickets.alt',
-							ids: {
-								$setDifference: [{
-									$map: {
-										input: '$tickets.ids',
-										as: 'ticket',
-										in: { $cond: [{ $eq: ['$$ticket.complex', false] }, '$$ticket.id', false] }
-									}
-								}, [false]]
-							}
-						}
-					}
-				}
-			})
-			.project({
-				_id: 0,
-				area: '$_id.area',
-				complex: '$complex',
-				events: '$events'
-			})
-			.exec(function(err, areas) {
-				var areas = areas.map(function(area) {
-
-					// concat complex tickets
-					area.complex = [].concat.apply([], area.complex);
-
-					area.complex = area.complex.map(function(ticket) {
-						return ticket.toString();
-					});
-
-					// remove dublicates
-					area.complex = area.complex.reduce(function(a, b) {
-						if (a.indexOf(b) < 0) a.push(b);
-						return a;
-					}, []);
-
-					return area;
-				});
-
-
-				var paths = [
-					{path:'complex', select: 'type price _id', model: 'Ticket'},
-					{path:'events.halls', select: 'title', model: 'Hall'},
-					{path:'events.categorys', select: 'title', model: 'Category'},
-					{path:'events.members.ids', select: 'name', model: 'Member'},
-					{path:'events.tickets.ids', select: 'type price _id', model: 'Ticket'},
-				];
-
-				Event.populate(areas, paths, function(err, areas) {
-					Area.populate(areas, {path: 'area', model: 'Area'}, function(err, areas) {
-						callback(null, areas);
-					});
+			Event.populate(areas, paths, function(err, areas) {
+				Area.populate(areas, {path: 'area', model: 'Area'}, function(err, areas) {
+					callback(null, areas);
 				});
 			});
+		});
 	};
 
 	var areas_compile = function(areas, callback) {
