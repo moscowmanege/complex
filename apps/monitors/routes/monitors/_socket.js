@@ -7,31 +7,31 @@ var Model = require(__app_root + '/models/main.js');
 var Query = {
 	News: require('./queries/news.js').News,
 	Events: require('./queries/events.js').Events
-}
+};
 
 module.exports = function(io, i18n) {
 	var module = {};
-	var Event = Model.Event;
-	var Area = Model.Area;
 
-	var get_areas = function(ids, callback) {
+	var date_now = moment().toDate();
+	// var date_last_of_month = moment().endOf('month').toDate();
 
-		var date_now = moment().toDate();
-		// var date_last_of_month = moment().endOf('month').toDate();
+	var areas_populate = function(areas, callback) {
+		var Event = Model.Event;
+		var Area = Model.Area;
+		var News = Model.News;
 
-		Query.Events(date_now, ids, function(err, areas) {
-			var paths = [
-				{path:'complex', select: 'type price _id', model: 'Ticket'},
-				{path:'events.halls', select: 'title', model: 'Hall'},
-				{path:'events.categorys', select: 'title', model: 'Category'},
-				{path:'events.members.ids', select: 'name', model: 'Member'},
-				{path:'events.tickets.ids', select: 'type price _id', model: 'Ticket'},
-			];
+		var paths = [
+			{path:'complex', select: 'type price _id', model: 'Ticket'},
+			{path:'news', select: 'title', model: 'News'},
+			{path:'events.halls', select: 'title', model: 'Hall'},
+			{path:'events.categorys', select: 'title', model: 'Category'},
+			{path:'events.members.ids', select: 'name', model: 'Member'},
+			{path:'events.tickets.ids', select: 'type price _id', model: 'Ticket'},
+		];
 
-			Event.populate(areas, paths, function(err, areas) {
-				Area.populate(areas, {path: 'area', model: 'Area'}, function(err, areas) {
-					callback(null, areas);
-				});
+		Event.populate(areas, paths, function(err, areas) {
+			Area.populate(areas, {path: 'area', model: 'Area'}, function(err, areas) {
+				callback(null, areas);
 			});
 		});
 	};
@@ -73,15 +73,19 @@ module.exports = function(io, i18n) {
 		var area_id = socket.handshake.query.area;
 		socket.join(area_id);
 
-		get_areas(area_id, function(err, areas) {
+		Query.Events(date_now, area_id, function(err, areas) {
 			if (areas.length > 0 && areas[0].events && areas[0].events.length > 6) {
-				areas_compile(areas, function(err, compile) {
-					io.to(area_id).emit('events', { areas: compile, status: 'start' });
-				});
-			} else {
-				get_areas('all', function(err, areas) {
+				areas_populate(areas, function(err, areas) {
 					areas_compile(areas, function(err, compile) {
 						io.to(area_id).emit('events', { areas: compile, status: 'start' });
+					});
+				});
+			} else {
+				Query.Events(date_now, 'all', function(err, areas) {
+					areas_populate(areas, function(err, areas) {
+						areas_compile(areas, function(err, compile) {
+							io.to(area_id).emit('events', { areas: compile, status: 'start' });
+						});
 					});
 				});
 			}
@@ -89,15 +93,19 @@ module.exports = function(io, i18n) {
 
 
 		socket.on('update', function(data) {
-			get_areas(area_id, function(err, areas) {
+			Query.Events(date_now, area_id, function(err, areas) {
 				if (areas.length > 0 && areas[0].events && areas[0].events.length > 6) {
-					areas_compile(areas, function(err, compile) {
-						io.to(area_id).emit('events', { areas: compile, status: data.status });
-					});
-				} else {
-					get_areas('all', function(err, areas) {
+					areas_populate(areas, function(err, areas) {
 						areas_compile(areas, function(err, compile) {
 							io.to(area_id).emit('events', { areas: compile, status: data.status });
+						});
+					});
+				} else {
+					Query.Events(date_now, 'all', function(err, areas) {
+						areas_populate(areas, function(err, areas) {
+							areas_compile(areas, function(err, compile) {
+								io.to(area_id).emit('events', { areas: compile, status: data.status });
+							});
 						});
 					});
 				}
@@ -118,27 +126,31 @@ module.exports = function(io, i18n) {
 		// console.log('Connections: ' + io.engine.clientsCount);
 		// console.log('Rooms: ' + Object.keys(io.sockets.adapter.rooms));
 
-		get_areas('all', function(err, areas_all) {
-			get_areas(rooms, function(err, areas_rooms) {
-				if (areas_rooms && areas_rooms.length > 0) {
-					areas_rooms.forEach(function(area) {
-						var room_id = area.area._id.toString();
-						var check_rooms = rooms.some(function(c_room) {
-							return c_room == room_id;
-						});
+		Query.Events(date_now, 'all', function(err, areas_all) {
+			areas_populate(areas, function(err, areas_all) {
+				Query.Events(date_now, rooms, function(err, areas_rooms) {
+					areas_populate(areas, function(err, areas_rooms) {
+						if (areas_rooms && areas_rooms.length > 0) {
+							areas_rooms.forEach(function(area) {
+								var room_id = area.area._id.toString();
+								var check_rooms = rooms.some(function(c_room) {
+									return c_room == room_id;
+								});
 
-						if (check_rooms && area.events && area.events.length > 6) {
-							areas_compile([area], function(err, compile) {
-								io.to(room_id).emit('events', { areas: compile, status: 'update' });
-							});
-						}
-						else {
-							areas_compile(areas_all, function(err, compile) {
-								io.to(room_id).emit('events', { areas: compile, status: 'update' });
+								if (check_rooms && area.events && area.events.length > 6) {
+									areas_compile([area], function(err, compile) {
+										io.to(room_id).emit('events', { areas: compile, status: 'update' });
+									});
+								}
+								else {
+									areas_compile(areas_all, function(err, compile) {
+										io.to(room_id).emit('events', { areas: compile, status: 'update' });
+									});
+								}
 							});
 						}
 					});
-				}
+				});
 			});
 		});
 	};
