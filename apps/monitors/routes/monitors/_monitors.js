@@ -3,7 +3,8 @@ var express = require('express');
 var Model = require(__app_root + '/models/main.js');
 
 var monitors = {
-	index: require('./index.js')(Model)
+	index: require('./index.js')(Model),
+	test: require('./test.js')(Model)
 };
 
 module.exports = (function() {
@@ -13,7 +14,7 @@ module.exports = (function() {
 		.get(monitors.index.index);
 
 	router.route('/test')
-		.get(monitors.index.test);
+		.get(monitors.test.test1);
 
 	return router;
 })();
