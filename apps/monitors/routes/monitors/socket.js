@@ -10,9 +10,6 @@ var Query = {
 module.exports = function(io, i18n) {
 	var module = {};
 
-	var date_now = moment().toDate();
-	// var date_last_of_month = moment().endOf('month').toDate();
-
 	var areas_compile = function(areas, callback) {
 		var get_locale = function(option, lang) {
 			return ((option.filter(function(locale) {
@@ -47,6 +44,7 @@ module.exports = function(io, i18n) {
 	};
 
 	module.get = function(socket) {
+		var date_now = moment().toDate();
 		var area_id = socket.handshake.query.area;
 		socket.join(area_id);
 
@@ -70,6 +68,8 @@ module.exports = function(io, i18n) {
 
 
 		socket.on('update', function(data) {
+			var date_now = moment().toDate();
+
 			Query.Events(date_now, area_id, function(err, areas) {
 				if (areas.length > 0 && areas[0].events && areas[0].events.length > 6) {
 					Query.Populate(areas, function(err, areas) {
@@ -99,6 +99,7 @@ module.exports = function(io, i18n) {
 	};
 
 	module.interval = function() {
+		var date_now = moment().toDate();
 		var rooms = Object.keys(io.sockets.adapter.rooms);
 		// console.log('Connections: ' + io.engine.clientsCount);
 		// console.log('Rooms: ' + Object.keys(io.sockets.adapter.rooms));
