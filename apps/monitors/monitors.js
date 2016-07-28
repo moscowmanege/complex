@@ -43,7 +43,7 @@ app.use(function(req, res, next) {
 
 var monitors = require('./routes/monitors/_monitors.js');
 var error = require('./routes/_error.js');
-var socket = require('./routes/monitors/_socket.js')(io, i18n);
+var socket = require('./routes/monitors/socket.js')(io, i18n);
 
 
 app.use('/', monitors);

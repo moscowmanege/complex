@@ -1,12 +1,10 @@
 var jade = require('jade');
-var mongoose = require('mongoose');
 var moment = require('moment');
-
-var Model = require(__app_root + '/models/main.js');
 
 var Query = {
 	News: require('./queries/news.js').News,
-	Events: require('./queries/events.js').Events
+	Events: require('./queries/events.js').Events,
+	Populate: require('./queries/opts.js').Populate
 };
 
 module.exports = function(io, i18n) {
@@ -14,27 +12,6 @@ module.exports = function(io, i18n) {
 
 	var date_now = moment().toDate();
 	// var date_last_of_month = moment().endOf('month').toDate();
-
-	var areas_populate = function(areas, callback) {
-		var Event = Model.Event;
-		var Area = Model.Area;
-		var News = Model.News;
-
-		var paths = [
-			{path:'complex', select: 'type price _id', model: 'Ticket'},
-			{path:'news', select: 'title', model: 'News'},
-			{path:'events.halls', select: 'title', model: 'Hall'},
-			{path:'events.categorys', select: 'title', model: 'Category'},
-			{path:'events.members.ids', select: 'name', model: 'Member'},
-			{path:'events.tickets.ids', select: 'type price _id', model: 'Ticket'},
-		];
-
-		Event.populate(areas, paths, function(err, areas) {
-			Area.populate(areas, {path: 'area', model: 'Area'}, function(err, areas) {
-				callback(null, areas);
-			});
-		});
-	};
 
 	var areas_compile = function(areas, callback) {
 		var get_locale = function(option, lang) {
@@ -75,14 +52,14 @@ module.exports = function(io, i18n) {
 
 		Query.Events(date_now, area_id, function(err, areas) {
 			if (areas.length > 0 && areas[0].events && areas[0].events.length > 6) {
-				areas_populate(areas, function(err, areas) {
+				Query.Populate(areas, function(err, areas) {
 					areas_compile(areas, function(err, compile) {
 						io.to(area_id).emit('events', { areas: compile, status: 'start' });
 					});
 				});
 			} else {
 				Query.Events(date_now, 'all', function(err, areas) {
-					areas_populate(areas, function(err, areas) {
+					Query.Populate(areas, function(err, areas) {
 						areas_compile(areas, function(err, compile) {
 							io.to(area_id).emit('events', { areas: compile, status: 'start' });
 						});
@@ -95,14 +72,14 @@ module.exports = function(io, i18n) {
 		socket.on('update', function(data) {
 			Query.Events(date_now, area_id, function(err, areas) {
 				if (areas.length > 0 && areas[0].events && areas[0].events.length > 6) {
-					areas_populate(areas, function(err, areas) {
+					Query.Populate(areas, function(err, areas) {
 						areas_compile(areas, function(err, compile) {
 							io.to(area_id).emit('events', { areas: compile, status: data.status });
 						});
 					});
 				} else {
 					Query.Events(date_now, 'all', function(err, areas) {
-						areas_populate(areas, function(err, areas) {
+						Query.Populate(areas, function(err, areas) {
 							areas_compile(areas, function(err, compile) {
 								io.to(area_id).emit('events', { areas: compile, status: data.status });
 							});
@@ -127,9 +104,9 @@ module.exports = function(io, i18n) {
 		// console.log('Rooms: ' + Object.keys(io.sockets.adapter.rooms));
 
 		Query.Events(date_now, 'all', function(err, areas_all) {
-			areas_populate(areas, function(err, areas_all) {
+			Query.Populate(areas, function(err, areas_all) {
 				Query.Events(date_now, rooms, function(err, areas_rooms) {
-					areas_populate(areas, function(err, areas_rooms) {
+					Query.Populate(areas, function(err, areas_rooms) {
 						if (areas_rooms && areas_rooms.length > 0) {
 							areas_rooms.forEach(function(area) {
 								var room_id = area.area._id.toString();
