@@ -10,7 +10,24 @@ var Query = {
 module.exports = function(io, i18n) {
 	var module = {};
 
-	var areas_compile = function(areas, callback) {
+	var areasUnion = function(arr1, arr2) {
+		var union = arr1.concat(arr2);
+
+		for (var i = 0; i < union.length; i++) {
+			for (var j = i+1; j < union.length; j++) {
+				if (union[i].area.toString() === union[j].area.toString()) {
+						union[i].news = union[j].news;
+						union.splice(j, 1);
+						j--;
+				}
+			}
+		}
+
+		return union;
+	};
+
+	var areasCompile = function(areas, callback) {
+
 		var get_locale = function(option, lang) {
 			return ((option.filter(function(locale) {
 				return locale.lg == lang;
@@ -51,14 +68,14 @@ module.exports = function(io, i18n) {
 		Query.Events(date_now, area_id, function(err, areas) {
 			if (areas.length > 0 && areas[0].events && areas[0].events.length > 6) {
 				Query.Populate(areas, function(err, areas) {
-					areas_compile(areas, function(err, compile) {
+					areasCompile(areas, function(err, compile) {
 						io.to(area_id).emit('events', { areas: compile, status: 'start' });
 					});
 				});
 			} else {
 				Query.Events(date_now, 'all', function(err, areas) {
 					Query.Populate(areas, function(err, areas) {
-						areas_compile(areas, function(err, compile) {
+						areasCompile(areas, function(err, compile) {
 							io.to(area_id).emit('events', { areas: compile, status: 'start' });
 						});
 					});
@@ -73,14 +90,14 @@ module.exports = function(io, i18n) {
 			Query.Events(date_now, area_id, function(err, areas) {
 				if (areas.length > 0 && areas[0].events && areas[0].events.length > 6) {
 					Query.Populate(areas, function(err, areas) {
-						areas_compile(areas, function(err, compile) {
+						areasCompile(areas, function(err, compile) {
 							io.to(area_id).emit('events', { areas: compile, status: data.status });
 						});
 					});
 				} else {
 					Query.Events(date_now, 'all', function(err, areas) {
 						Query.Populate(areas, function(err, areas) {
-							areas_compile(areas, function(err, compile) {
+							areasCompile(areas, function(err, compile) {
 								io.to(area_id).emit('events', { areas: compile, status: data.status });
 							});
 						});
@@ -116,12 +133,12 @@ module.exports = function(io, i18n) {
 								});
 
 								if (check_rooms && area.events && area.events.length > 6) {
-									areas_compile([area], function(err, compile) {
+									areasCompile([area], function(err, compile) {
 										io.to(room_id).emit('events', { areas: compile, status: 'update' });
 									});
 								}
 								else {
-									areas_compile(areas_all, function(err, compile) {
+									areasCompile(areas_all, function(err, compile) {
 										io.to(room_id).emit('events', { areas: compile, status: 'update' });
 									});
 								}

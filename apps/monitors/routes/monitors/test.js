@@ -1,7 +1,7 @@
 module.exports = function(Model) {
 	var module = {};
 
-	var areaUnion = function(arr1, arr2) {
+	var areasUnion = function(arr1, arr2) {
 		var union = arr1.concat(arr2);
 
 		for (var i = 0; i < union.length; i++) {
@@ -29,8 +29,10 @@ module.exports = function(Model) {
 
 		Query.Events(date_now, 'all', function(err, events) {
 			Query.News(date_now, function(err, news) {
-				var union = areaUnion(events, news);
-				res.send(union);
+				var union = areasUnion(events, news);
+				Query.Populate(union, function(err, union) {
+					res.send(union);
+				});
 			});
 		});
 	};
