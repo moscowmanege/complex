@@ -122,9 +122,9 @@ module.exports = function(io, i18n) {
 		// console.log('Rooms: ' + Object.keys(io.sockets.adapter.rooms));
 
 		Query.Events(date_now, 'all', function(err, areas_all) {
-			Query.Populate(areas, function(err, areas_all) {
+			Query.Populate(areas_all, function(err, areas_all) {
 				Query.Events(date_now, rooms, function(err, areas_rooms) {
-					Query.Populate(areas, function(err, areas_rooms) {
+					Query.Populate(areas_rooms, function(err, areas_rooms) {
 						if (areas_rooms && areas_rooms.length > 0) {
 							areas_rooms.forEach(function(area) {
 								var room_id = area.area._id.toString();
