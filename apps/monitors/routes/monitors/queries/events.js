@@ -4,42 +4,21 @@ var Model = require(__app_root + '/models/main.js');
 
 module.exports.Events = function(date_now, ids, callback) {
 	var Event = Model.Event;
-	var Query = null;
 
-	if (Array.isArray(ids)) {
+	var obj_ids = Array.isArray(ids) ? ids.reduce(function(memo, id) {
+		if (mongoose.Types.ObjectId.isValid(id)) {
+			memo.push(mongoose.Types.ObjectId(id));
+		}
+		return memo;
+	}, []) : ids;
 
-		var obj_ids = ids.reduce(function(memo, id) {
-			if (mongoose.Types.ObjectId.isValid(id)) {
-				memo.push(mongoose.Types.ObjectId(id));
-			}
-			return memo;
-		}, []);
-
-		Query = Event.aggregate()
-			.match({
-				'status': { $ne: 'hidden' },
-				'meta': { $exists: false },
-				'interval.end': { $gte: date_now },
-				'place.area': { $in: obj_ids }
-			});
-	} else if (ids == 'all') {
-		Query = Event.aggregate()
-			.match({
-				'status': { $ne: 'hidden' },
-				'meta': { $exists: false },
-				'interval.end': { $gte: date_now }
-			});
-	} else {
-		Query = Event.aggregate()
-			.match({
-				'status': { $ne: 'hidden' },
-				'meta': { $exists: false },
-				'interval.end': { $gte: date_now },
-				'place.area': mongoose.Types.ObjectId(ids)
-			});
-	}
-
-	Query
+	Event.aggregate()
+		.match({
+			'status': { $ne: 'hidden' },
+			'meta': { $exists: false },
+			'interval.end': { $gte: date_now },
+			'place.area': ids == 'all' ? undefined : Array.isArray(ids) ? { $in: ids } : mongoose.Types.ObjectId(ids)
+		})
 		.sort({
 			'interval': {
 				'begin': 1,
