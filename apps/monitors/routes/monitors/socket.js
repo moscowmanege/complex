@@ -63,13 +63,15 @@ module.exports = function(io, i18n) {
 	module.get = function(socket) {
 		var date_now = moment().toDate();
 		var area_id = socket.handshake.query.area;
+
 		socket.join(area_id);
 
 		Query.News(date_now, function(err, areas_news) {
 			Query.Events(date_now, area_id, function(err, areas_events) {
-				var check_news = areas_news.some(function(area) { return area.area == area_id; });
-				if ((areas_events.length > 0 && areas_events[0].events && areas_events[0].events.length > 6) || check_news) {
+				if (areas_events.length > 0 && areas_events[0].events && areas_events[0].events.length > 6) {
+					areas_news = areas_news.filter(function(area) { return area.area == area_id; });
 					var areas_union = areasUnion(areas_events, areas_news);
+
 					Query.Populate(areas_union, function(err, areas_union) {
 						areasCompile(areas_union, function(err, compile) {
 							io.to(area_id).emit('events', { areas: compile, status: 'start' });
@@ -92,22 +94,28 @@ module.exports = function(io, i18n) {
 		socket.on('update', function(data) {
 			var date_now = moment().toDate();
 
-			Query.Events(date_now, area_id, function(err, areas) {
-				if (areas.length > 0 && areas[0].events && areas[0].events.length > 6) {
-					Query.Populate(areas, function(err, areas) {
-						areasCompile(areas, function(err, compile) {
-							io.to(area_id).emit('events', { areas: compile, status: data.status });
-						});
-					});
-				} else {
-					Query.Events(date_now, 'all', function(err, areas) {
-						Query.Populate(areas, function(err, areas) {
-							areasCompile(areas, function(err, compile) {
+			Query.News(date_now, function(err, areas_news) {
+				Query.Events(date_now, area_id, function(err, areas_events) {
+					if (areas_events.length > 0 && areas_events[0].events && areas_events[0].events.length > 6) {
+						areas_news = areas_news.filter(function(area) { return area.area == area_id; });
+						var areas_union = areasUnion(areas_events, areas_news);
+
+						Query.Populate(areas_union, function(err, areas_union) {
+							areasCompile(areas_union, function(err, compile) {
 								io.to(area_id).emit('events', { areas: compile, status: data.status });
 							});
 						});
-					});
-				}
+					} else {
+						Query.Events(date_now, 'all', function(err, areas_events) {
+							var areas_union = areasUnion(areas_events, areas_news);
+							Query.Populate(areas_union, function(err, areas_union) {
+								areasCompile(areas_union, function(err, compile) {
+									io.to(area_id).emit('events', { areas: compile, status: data.status });
+								});
+							});
+						});
+					}
+				});
 			});
 		});
 

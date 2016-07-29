@@ -7,6 +7,7 @@ module.exports.Populate = function(areas, callback) {
 
 	var paths = [
 		{path:'complex', select: 'type price _id', model: 'Ticket'},
+		{path:'news.categorys', select: 'title', model: 'Category'},
 		{path:'events.halls', select: 'title', model: 'Hall'},
 		{path:'events.categorys', select: 'title', model: 'Category'},
 		{path:'events.members.ids', select: 'name', model: 'Member'},
