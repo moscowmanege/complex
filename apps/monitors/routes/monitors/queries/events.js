@@ -89,7 +89,8 @@ module.exports.Events = function(date_now, ids, callback) {
 			_id: 0,
 			area: '$_id.area',
 			complex: '$complex',
-			events: '$events'
+			events: '$events',
+			news: []
 		})
 		.exec(function(err, areas) {
 			var areas = areas.map(function(area) {

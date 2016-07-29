@@ -31,7 +31,8 @@ module.exports.News = function(date_now, callback) {
 		.project({
 			'_id': 0,
 			'area': '$_id.area',
-			'news': '$news'
+			'news': '$news',
+			'events': []
 		})
 		.exec(function(err, areas) {
 			callback(null, areas);
