@@ -114,29 +114,35 @@ module.exports = function(io, i18n) {
 		// console.log('Connections: ' + io.engine.clientsCount);
 		// console.log('Rooms: ' + Object.keys(io.sockets.adapter.rooms));
 
-		Query.Events(date_now, 'all', function(err, areas_all) {
-			Query.Populate(areas_all, function(err, areas_all) {
-				Query.Events(date_now, rooms, function(err, areas_rooms) {
-					Query.Populate(areas_rooms, function(err, areas_rooms) {
-						if (areas_rooms && areas_rooms.length > 0) {
-							areas_rooms.forEach(function(area) {
-								var room_id = area.area._id.toString();
-								var check_rooms = rooms.some(function(c_room) {
-									return c_room == room_id;
-								});
+		Query.News(date_now, function(err, areas_news) {
+			Query.Events(date_now, 'all', function(err, areas_events_all) {
+				var areas_union_all = areasUnion(areas_events_all, areas_news);
 
-								if (check_rooms && area.events && area.events.length > 6) {
-									areasCompile([area], function(err, compile) {
-										io.to(room_id).emit('events', { areas: compile, status: 'update' });
+				Query.Populate(areas_union_all, function(err, areas_union_all) {
+					Query.Events(date_now, rooms, function(err, areas_rooms) {
+						var areas_union_rooms = areasUnion(areas_rooms, areas_news);
+
+						Query.Populate(areas_union_rooms, function(err, areas_union_rooms) {
+							if (areas_union_rooms && areas_union_rooms.length > 0) {
+								areas_union_rooms.forEach(function(area) {
+									var room_id = area.area._id.toString();
+									var check_rooms = rooms.some(function(c_room) {
+										return c_room == room_id;
 									});
-								}
-								else {
-									areasCompile(areas_all, function(err, compile) {
-										io.to(room_id).emit('events', { areas: compile, status: 'update' });
-									});
-								}
-							});
-						}
+
+									if (check_rooms && area.events && area.events.length > 6) {
+										areasCompile([area], function(err, compile) {
+											io.to(room_id).emit('events', { areas: compile, status: 'update' });
+										});
+									}
+									else {
+										areasCompile(areas_union_all, function(err, compile) {
+											io.to(room_id).emit('events', { areas: compile, status: 'update' });
+										});
+									}
+								});
+							}
+						});
 					});
 				});
 			});
