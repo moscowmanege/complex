@@ -1,3 +1,16 @@
+mixin newsBlock(news, locale)
+	.event_block: .event_inner
+
+		.event_header
+			.event_categorys
+				each category in news.categorys
+					.category= get_locale(category.title, locale)
+
+		.event_body
+			.event_body_title
+				.event_title= get_locale(news.title, locale)
+				.event_description!= get_locale(news.description, locale)
+
 
 mixin eventBlock(halls, event, locale)
 	.event_block(class=event.type): .event_inner
@@ -90,9 +103,13 @@ each area in areas
 
 
 				.slide_content: .content_inner: .inner_events
+					each news in area.news
+						+newsBlock(news, locale)
+
 					each event in area.events
 						if (event.type == 'exhibition')
 							+eventBlock(area.area.halls, event, locale)
+
 					each event in area.events
 						if (event.type != 'exhibition')
 							+eventBlock(area.area.halls, event, locale)
