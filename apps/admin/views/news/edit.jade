@@ -39,7 +39,7 @@ block content
 			.form_title Изображения:
 			+form_images_upload(news.images)
 			.form_title Площадки:
-			+form_multiple_select('areas', areas, news.areas)
+			+form_multiple_select('areas', areas, news.areas)(none=true)
 			.form_title Категории:
 			+form_multiple_select('categorys', categorys, news.categorys)
 			.form_title Интервал дат:
