@@ -10,15 +10,20 @@ module.exports.Events = function(date_now, ids, callback) {
 			memo.push(mongoose.Types.ObjectId(id));
 		}
 		return memo;
-	}, []) : ids;
+	}, []) : (ids == 'all') ? 'all' : mongoose.Types.ObjectId(ids);
+
+	var match = {
+		'status': { $ne: 'hidden' },
+		'meta': { $exists: false },
+		'interval.end': { $gte: date_now }
+	};
+
+	if (obj_ids != 'all') {
+		match['place.area'] = Array.isArray(obj_ids) ? { $in: obj_ids } : obj_ids;
+	}
 
 	Event.aggregate()
-		.match({
-			'status': { $ne: 'hidden' },
-			'meta': { $exists: false },
-			'interval.end': { $gte: date_now },
-			'place.area': ids == 'all' ? undefined : Array.isArray(ids) ? { $in: ids } : mongoose.Types.ObjectId(ids)
-		})
+		.match(match)
 		.sort({
 			'interval': {
 				'begin': 1,
