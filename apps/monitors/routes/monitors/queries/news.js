@@ -23,6 +23,7 @@ module.exports.News = function(date_now, callback) {
 			'news': {
 				$push: {
 					title: '$title',
+					s_title: '$s_title',
 					description: '$description',
 					interval: '$interval',
 					categorys: '$categorys',

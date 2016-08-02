@@ -1,15 +1,16 @@
 mixin newsBlock(news, locale)
-	.event_block: .event_inner
+	.news_block: .news_inner
 
-		.event_header
-			.event_categorys
+		.news_header
+			.news_categorys
 				each category in news.categorys
 					.category= get_locale(category.title, locale)
 
-		.event_body
-			.event_body_title
-				.event_title= get_locale(news.title, locale)
-				.event_description!= get_locale(news.description, locale)
+		.news_body
+			.news_body_title
+				.news_title= get_locale(news.title, locale)
+				.news_s_title= get_locale(news.s_title, locale)
+				.news_description!= get_locale(news.description, locale)
 
 
 mixin eventBlock(halls, event, locale)
@@ -102,7 +103,7 @@ each area in areas
 									span.email= email
 
 
-				.slide_content: .content_inner: .inner_events
+				.slide_content: .content_inner: .inner_cover
 					each news in area.news
 						+newsBlock(news, locale)
 

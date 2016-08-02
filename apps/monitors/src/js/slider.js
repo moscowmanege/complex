@@ -53,7 +53,7 @@ function Slider() {
 				$('.slide_item:first').insertAfter('.slide_item:last').promise().done(function() {
 					$area = $('.slide_item').first();
 					$lang = $area.find('.slide_inner').first();
-					$blocks = $lang.find('.inner_events');
+					$blocks = $lang.find('.inner_cover');
 
 					$outer.scrollLeft(outer_scroll - outer_width);
 
@@ -70,7 +70,7 @@ function Slider() {
 			}, 600);
 
 			$lang = $lang.next();
-			$blocks = $lang.find('.inner_events');
+			$blocks = $lang.find('.inner_cover');
 
 			return false;
 		}
@@ -95,7 +95,7 @@ function Slider() {
 			$('.slide_item:last').insertBefore('.slide_item:first').promise().done(function() {
 				$area = $('.slide_item').first();
 				$lang = $area.find('.slide_inner').last();
-				$blocks = $lang.find('.inner_events');
+				$blocks = $lang.find('.inner_cover');
 
 				$area.scrollLeft(area_scroll_width);
 				$blocks.scrollLeft(blocks_scroll_width);
@@ -119,7 +119,7 @@ function Slider() {
 			}, 600);
 
 			$lang = $lang.prev();
-			$blocks = $lang.find('.inner_events');
+			$blocks = $lang.find('.inner_cover');
 
 			return false;
 		}
@@ -149,7 +149,7 @@ function Slider() {
 		$outer = $('.slider_block');
 		$area = $('.slide_item').first();
 		$lang = $area.find('.slide_inner').first();
-		$blocks = $lang.find('.inner_events');
+		$blocks = $lang.find('.inner_cover');
 	};
 
 }
