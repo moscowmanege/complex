@@ -97,7 +97,7 @@ gulp.task('scripts', function () {
 	return gulp
 		.src(paths.scripts.src)
 		.pipe(plumber(error_logger))
-		.pipe(jshint())
+		.pipe(jshint({ 'laxbreak': true, 'expr': true, '-W041': false }))
 		.pipe(jshint.reporter('jshint-stylish'))
 		.pipe(changed(paths.scripts.dest))
 		.pipe(gulpif(Production, uglify()))
