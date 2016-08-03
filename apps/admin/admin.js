@@ -4,7 +4,6 @@ var express = require('express'),
 		bodyParser = require('body-parser'),
 		cookieParser = require('cookie-parser'),
 		session = require('express-session'),
-		methodOverride = require('method-override'),
 			app = express();
 
 var i18n = require('i18n');
@@ -30,7 +29,6 @@ i18n.configure({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(methodOverride());
 app.use(cookieParser());
 app.use(i18n.init);
 
