@@ -66,7 +66,8 @@ gulp.task('clean', function(callback) {
 gulp.task('stuff', function () {
 	return gulp
 		.src(paths.stuff.src)
-		// .pipe(changed(paths.stuff.dest))
+		.pipe(changed(paths.stuff.dest))
+		.pipe(plumber(error_logger))
 		.pipe(rename(function(path) {
 			path.dirname = path.dirname.replace('/stuff', '');
 		}))
@@ -96,10 +97,10 @@ gulp.task('stylus', function () {
 gulp.task('scripts', function () {
 	return gulp
 		.src(paths.scripts.src)
+		.pipe(changed(paths.scripts.dest))
 		.pipe(plumber(error_logger))
 		.pipe(jshint({ laxbreak: true, expr: true, '-W041': false }))
 		.pipe(jshint.reporter('jshint-stylish'))
-		.pipe(changed(paths.scripts.dest))
 		.pipe(gulpif(Production, minify({ ext: { min: '.js' }, noSource: true })))
 		.pipe(rename(function(path) {
 			path.dirname = path.dirname.replace('/src/js', '');
