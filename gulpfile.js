@@ -9,7 +9,7 @@ var gulp = require('gulp'),
 		plumber = require('gulp-plumber'),
 		stylus = require('gulp-stylus'),
 		autoprefixer = require('gulp-autoprefixer'),
-		uglify = require('gulp-uglify'),
+		minify = require('gulp-minify'),
 		jshint = require('gulp-jshint');
 
 
@@ -97,10 +97,10 @@ gulp.task('scripts', function () {
 	return gulp
 		.src(paths.scripts.src)
 		.pipe(plumber(error_logger))
-		.pipe(jshint({ 'laxbreak': true, 'expr': true, '-W041': false }))
+		.pipe(jshint({ laxbreak: true, expr: true, '-W041': false }))
 		.pipe(jshint.reporter('jshint-stylish'))
 		.pipe(changed(paths.scripts.dest))
-		.pipe(gulpif(Production, uglify()))
+		.pipe(gulpif(Production, minify({ ext: { min: '.js' }, noSource: true })))
 		.pipe(rename(function(path) {
 			path.dirname = path.dirname.replace('/src/js', '');
 		}))
