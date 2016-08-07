@@ -27,7 +27,9 @@ module.exports = function(Model) {
 				}, function(err, del_tickets) {
 					if (err) return next(err);
 
-					Ticket.remove({'_id': { '$in': del_tickets } }).exec(function() {
+					Ticket.remove({'_id': { '$in': del_tickets } }).exec(function(err) {
+						if (err) return next(err);
+
 						del(__app_root + '/public/cdn/images/events/' + id, function() {
 							res.send('ok');
 						});

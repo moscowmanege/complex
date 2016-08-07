@@ -45,19 +45,19 @@ module.exports = function(Model, Params) {
 		event.place = post.place;
 		event.categorys = post.categorys == '' ? [] : post.categorys;
 
-		for (member in post.members) {
+		post.members && post.members.forEach(function(member) {
 			event.members.push({
 				role: member,
 				ids: post.members[member]
 			});
-		}
+		});
 
-		for (partner in post.partners) {
+		post.partners && post.partners.forEach(function(partner) {
 			event.partners.push({
 				rank: partner,
 				ids: post.partners[partner]
 			});
-		}
+		});
 
 		var locales = post.en ? ['ru', 'en'] : ['ru'];
 
