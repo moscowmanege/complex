@@ -14,6 +14,7 @@ module.exports = function(Model, Params) {
 		res.render('partners/add.jade');
 	};
 
+
 	module.form = function(req, res, next) {
 		var post = req.body;
 		var file = req.file;
@@ -63,6 +64,7 @@ module.exports = function(Model, Params) {
 		}
 
 	};
+
 
 	return module;
 };

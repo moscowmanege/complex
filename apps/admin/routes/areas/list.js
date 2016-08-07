@@ -12,5 +12,6 @@ module.exports = function(Model) {
 	  });
 	};
 
+
   return module;
 };

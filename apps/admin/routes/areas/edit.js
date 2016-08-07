@@ -15,6 +15,7 @@ module.exports = function(Model, Params) {
 		});
 	};
 
+
 	module.form = function(req, res, next) {
 		var post = req.body;
 		var id = req.params.area_id;

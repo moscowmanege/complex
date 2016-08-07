@@ -12,7 +12,8 @@ module.exports = function(Model) {
 
 			res.render('tickets', {event: event});
 		});
-	}
+	};
+
 
 	return module;
 }

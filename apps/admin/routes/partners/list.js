@@ -16,6 +16,7 @@ module.exports = function(Model) {
 		return i18n.__n.apply(null, arguments);
 	};
 
+
 	module.index = function(req, res, next) {
 		Partner.find().sort('-date').limit(10).exec(function(err, partners) {
 			if (err) return next(err);
@@ -27,6 +28,7 @@ module.exports = function(Model) {
 			});
 		});
 	};
+
 
 	module.get_list = function(req, res) {
 		var post = req.body;
@@ -68,6 +70,7 @@ module.exports = function(Model) {
 			});
 		});
 	};
+
 
 	module.get_partners = function(req, res, next) {
 		Partner.find().exec(function(err, partners) {

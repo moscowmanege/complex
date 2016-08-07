@@ -29,6 +29,7 @@ module.exports = function(Model) {
 	  });
 	};
 
+
 	module.get_list = function(req, res, next) {
 		var post = req.body;
 

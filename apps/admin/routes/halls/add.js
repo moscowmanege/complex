@@ -14,6 +14,7 @@ module.exports = function(Model, Params) {
 		res.render('halls/add.jade');
 	};
 
+
 	module.form = function(req, res, next) {
 		var post = req.body;
 

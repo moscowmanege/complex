@@ -12,6 +12,7 @@ module.exports = function(Model) {
     }
   };
 
+
   module.form = function(req, res, next) {
     var post = req.body;
 

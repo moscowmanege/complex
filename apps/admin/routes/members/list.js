@@ -29,6 +29,7 @@ module.exports = function(Model) {
 		});
 	};
 
+
 	module.get_list = function(req, res, next) {
 		var post = req.body;
 
@@ -61,6 +62,7 @@ module.exports = function(Model) {
 			});
 		});
 	};
+
 
 	module.get_members = function(req, res, next) {
 		var tag = req.body.tag;

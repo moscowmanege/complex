@@ -17,7 +17,7 @@ module.exports = function(Model) {
 		    res.send('ok');
 		  });
 	  });
-	}
+	};
 
 
   return module;

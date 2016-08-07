@@ -17,6 +17,7 @@ module.exports = function(Model, Params) {
 		});
 	};
 
+
 	module.form = function(req, res, next) {
 		var post = req.body;
 		var complex = post.events.length > 1 ? true : false;
