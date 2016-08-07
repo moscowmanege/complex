@@ -194,6 +194,8 @@ partnerSchema.plugin(mongooseLocale);
 // ------------------------
 
 
+newsSchema.index({'title.value': 'text', 'description.value': 'text'}, {language_override: 'lg', default_language: 'ru'});
+
 eventSchema.index({'title.value': 'text', 'description.value': 'text'}, {language_override: 'lg', default_language: 'ru'});
 eventSchema.index({ 'type': 1, 'status': 1 });
 
