@@ -9,9 +9,9 @@ exports.err_500 = function(err, req, res, next) {
 		'*** ERROR ***',
 		'-------------',
 		' ',
-		'--- Method: ' + req.method,
-		'--- Url: ' + req.protocol + '://' + req.hostname + (env && (':' + process.env.PORT)) + req.originalUrl,
-		'--- Stack:',
+		'--- METHOD: ' + req.method,
+		'--- URI: ' + req.protocol + '://' + req.hostname + (env && (':' + process.env.PORT)) + req.originalUrl,
+		'--- STACK:',
 		' ',
 		err.stack,
 	].forEach(function(str) { console.error(str); });
