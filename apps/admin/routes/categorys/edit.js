@@ -21,6 +21,7 @@ module.exports = function(Model, Params) {
 		var id = req.params.id;
 
 		Category.findById(id).exec(function(err, category) {
+			if (err) return next(err);
 
 			category.type = post.type;
 			category.status = post.status;

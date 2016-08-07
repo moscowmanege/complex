@@ -53,6 +53,7 @@ module.exports = function(Model, Params) {
 
 		uploadImages(news, 'news', post.images, function(err, news) {
 			if (err) return next(err);
+
 			news.save(function(err, news) {
 				if (err) return next(err);
 
