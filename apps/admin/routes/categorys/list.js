@@ -3,8 +3,10 @@ var i18n = require('i18n');
 
 
 module.exports = function(Model) {
-	var Category = Model.Category;
 	var module = {};
+
+	var Category = Model.Category;
+
 
 	var i18n_locale = function() {
 		return i18n.__.apply(null, arguments);
@@ -15,15 +17,19 @@ module.exports = function(Model) {
 	};
 
 
-	module.index = function(req, res) {
+	module.index = function(req, res, next) {
 		Category.find().sort('-date').limit(10).exec(function(err, categorys) {
+			if (err) return next(err);
+
 			Category.count().exec(function(err, count) {
+				if (err) return next(err);
+
 				res.render('categorys', {categorys: categorys, count: Math.ceil(count / 10)});
 			});
 		});
 	};
 
-	module.get_list = function(req, res) {
+	module.get_list = function(req, res, next) {
 		var post = req.body;
 
 		var Query = (post.context.text && post.context.text !== '')
@@ -43,10 +49,21 @@ module.exports = function(Model) {
 		}
 
 		Query.count(function(err, count) {
+			if (err) return next(err);
+
 			Query.find().sort('-date').skip(+post.context.skip).limit(+post.context.limit).exec(function(err, categorys) {
-				if (categorys && categorys.length > 0) {
+				if (err) return next(err);
+
+				if (categorys.length > 0) {
 					var opts = {
-						categorys: categorys, count: Math.ceil(count / 10), skip: +post.context.skip, load_list: true, __: i18n_locale, __n: i18n_plurals_locale, compileDebug: false, debug: false, cache: true, pretty: false};
+						categorys: categorys,
+						load_list: true,
+						count: Math.ceil(count / 10),
+						skip: +post.context.skip,
+						__: i18n_locale, __n: i18n_plurals_locale,
+						compileDebug: false, debug: false, cache: true, pretty: false
+					};
+
 					res.send(jade.renderFile(__app_root + '/apps/admin/views/categorys/_categorys.jade', opts));
 				} else {
 					res.send('end');

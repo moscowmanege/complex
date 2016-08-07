@@ -1,6 +1,7 @@
 module.exports = function(Model) {
-	var User = Model.User;
 	var module = {};
+
+	var User = Model.User;
 
 
 	module.index = function(req, res) {
@@ -10,7 +11,7 @@ module.exports = function(Model) {
 	};
 
 
-	module.form = function(req, res) {
+	module.form = function(req, res, next) {
 		var post = req.body;
 
 		var user = new User({

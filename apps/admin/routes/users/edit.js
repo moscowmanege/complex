@@ -1,21 +1,25 @@
 module.exports = function(Model) {
-  var User = Model.User;
   var module = {};
 
+  var User = Model.User;
 
-  module.index = function(req, res) {
+
+  module.index = function(req, res, next) {
     var id = req.params.id;
 
     User.findById(id).exec(function(err, user) {
+      if (err) return next(err);
+
       res.render('users/edit.jade', {user: user});
     });
   };
 
-  module.form = function(req, res) {
+  module.form = function(req, res, next) {
     var post = req.body;
     var id = req.params.id;
 
     User.findById(id).exec(function(err, user) {
+      if (err) return next(err);
 
       user.login = post.login;
       if (post.password !== '') {
@@ -25,6 +29,8 @@ module.exports = function(Model) {
       user.status = post.status;
 
       user.save(function(err, user) {
+        if (err) return next(err);
+
         res.redirect('/users');
       });
     });

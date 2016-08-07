@@ -5,15 +5,18 @@ var del = require('del');
 
 
 module.exports = function(Model, Params) {
-	var Member = Model.Member;
-	var checkNested = Params.locale.checkNested;
 	var module = {};
 
+	var Member = Model.Member;
+	var checkNested = Params.locale.checkNested;
 
-	module.index = function(req, res) {
+
+	module.index = function(req, res, next) {
 		var id = req.params.id;
 
 		Member.findById(id).exec(function(err, member) {
+			if (err) return next(err);
+
 			res.render('members/edit.jade', {member: member});
 		});
 	};
@@ -24,6 +27,7 @@ module.exports = function(Model, Params) {
 		var id = req.params.id;
 
 		Member.findById(id).exec(function(err, member) {
+			if (err) return next(err);
 
 			member.roles = post.roles;
 			member.status = post.status;
@@ -60,6 +64,8 @@ module.exports = function(Model, Params) {
 				});
 			} else {
 				member.save(function(err, member) {
+					if (err) return next(err);
+
 					res.redirect('/members');
 				});
 			}

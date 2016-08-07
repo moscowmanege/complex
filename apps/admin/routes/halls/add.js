@@ -1,11 +1,11 @@
 var shortid = require('shortid');
 
 module.exports = function(Model, Params) {
+	var module = {};
+
 	var Hall = Model.Hall;
 	var Area = Model.Area;
 	var checkNested = Params.locale.checkNested;
-	var module = {};
-
 
 
 	module.index = function(req, res) {
@@ -14,7 +14,7 @@ module.exports = function(Model, Params) {
 		res.render('halls/add.jade');
 	};
 
-	module.form = function(req, res) {
+	module.form = function(req, res, next) {
 		var post = req.body;
 
 		var hall = new Hall();
@@ -33,12 +33,17 @@ module.exports = function(Model, Params) {
 		});
 
 		hall.save(function(err, hall) {
+			if (err) return next(err);
+
 			var area_id = req.params.area_id;
 
 			Area.findById(area_id).exec(function(err, area) {
-				area.halls.push(hall._id);
+				if (err) return next(err);
 
+				area.halls.push(hall._id);
 				area.save(function(err, area) {
+					if (err) return next(err);
+
 					res.redirect('/areas');
 				});
 			});

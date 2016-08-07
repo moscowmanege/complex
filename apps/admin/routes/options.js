@@ -7,7 +7,7 @@ module.exports.preview = function(req, res) {
 	var newPath = '/preview/' + Date.now() + '.jpg';
 
 	gm(file.path).size({bufferStream: true}, function(err, size) {
-		if (err) return callback(err);
+
 		this.resize(size.width > 1620 ? 1620 : false, false);
 		this.write(__app_root + '/public' + newPath, function (err) {
 

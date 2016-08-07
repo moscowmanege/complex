@@ -3,8 +3,10 @@ var i18n = require('i18n');
 
 
 module.exports = function(Model) {
+	var module = {};
+
 	var Event = Model.Event;
-  var module = {};
+
 
 	var i18n_locale = function() {
 		return i18n.__.apply(null, arguments);
@@ -15,15 +17,19 @@ module.exports = function(Model) {
 	};
 
 
-	module.index = function(req, res) {
+	module.index = function(req, res, next) {
 	  Event.find().sort('-date').limit(10).exec(function(err, events) {
+	  	if (err) return next(err);
+
 	  	Event.count().exec(function(err, count) {
+	  		if (err) return next(err);
+
 	  		res.render('events', {events: events, count: Math.ceil(count / 10)});
 	  	});
 	  });
 	};
 
-	module.get_list = function(req, res) {
+	module.get_list = function(req, res, next) {
 		var post = req.body;
 
 		var Query = (post.context.text && post.context.text !== '')
@@ -43,9 +49,21 @@ module.exports = function(Model) {
 		}
 
 		Query.count(function(err, count) {
+			if (err) return next(err);
+
 			Query.find().sort('-date').skip(+post.context.skip).limit(+post.context.limit).exec(function(err, events) {
-				if (events && events.length > 0) {
-					var opts = {events: events, count: Math.ceil(count / 10), skip: +post.context.skip, load_list: true, __: i18n_locale, __n: i18n_plurals_locale, compileDebug: false, debug: false, cache: true, pretty: false};
+				if (err) return next(err);
+
+				if (events.length > 0) {
+					var opts = {
+						events: events,
+						load_list: true,
+						count: Math.ceil(count / 10),
+						skip: +post.context.skip,
+						__: i18n_locale, __n: i18n_plurals_locale,
+						compileDebug: false, debug: false, cache: true, pretty: false
+					};
+
 					res.send(jade.renderFile(__app_root + '/apps/admin/views/events/_events.jade', opts));
 				} else {
 					res.send('end');

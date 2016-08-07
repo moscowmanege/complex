@@ -1,6 +1,7 @@
 module.exports = function(Model) {
-	var User = Model.User;
 	var module = {};
+
+	var User = Model.User;
 
 
 	module.index = function(req, res) {
@@ -10,12 +11,16 @@ module.exports = function(Model) {
 	};
 
 
-	module.form = function(req, res) {
+	module.form = function(req, res, next) {
 		var post = req.body;
 
 		User.findOne({ 'login': post.login }).exec(function (err, person) {
+			if (err) return next(err);
+
 			if (!person) return res.redirect('back');
 			person.verifyPassword(post.password, function(err, isMatch) {
+				if (err) return next(err);
+
 				if (isMatch) {
 					req.session.user_id = person._id;
 					req.session.status = person.status;

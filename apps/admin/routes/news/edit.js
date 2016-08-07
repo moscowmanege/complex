@@ -1,6 +1,8 @@
 var moment = require('moment');
 
 module.exports = function(Model, Params) {
+  var module = {};
+
   var News = Model.News;
   var Category = Model.Category;
   var Area = Model.Area;
@@ -9,17 +11,22 @@ module.exports = function(Model, Params) {
   var previewImages = Params.upload.preview;
   var uploadImages = Params.upload.images;
 
-  var module = {};
-
 
   module.index = function(req, res, next) {
     var id = req.params.news_id;
 
     News.findById(id).exec(function(err, news) {
       if (err) return next(err);
+
       Area.find().exec(function(err, areas) {
+        if (err) return next(err);
+
         Category.find().sort('-date').exec(function(err, categorys) {
+          if (err) return next(err);
+
           previewImages(news.images, function(err, images_preview) {
+            if (err) return next(err);
+
             res.render('news/edit.jade', {images_preview: images_preview, news: news, areas: areas, categorys: categorys});
           });
         });
@@ -28,11 +35,12 @@ module.exports = function(Model, Params) {
   };
 
 
-  module.form = function(req, res) {
+  module.form = function(req, res, next) {
     var post = req.body;
     var id = req.params.news_id;
 
     News.findById(id).exec(function(err, news) {
+      if (err) return next(err);
 
       news.status = post.status;
       news.interval.begin = moment(post.interval.begin.date + 'T' + post.interval.begin.time.hours + ':' + post.interval.begin.time.minutes).toDate();
@@ -56,7 +64,11 @@ module.exports = function(Model, Params) {
       });
 
       uploadImages(news, 'news', post.images, function(err, news) {
+        if (err) return next(err);
+
         news.save(function(err, news) {
+          if (err) return next(err);
+
           res.redirect('/news');
         });
       });

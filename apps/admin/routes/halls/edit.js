@@ -1,23 +1,26 @@
 module.exports = function(Model, Params) {
-	var Hall = Model.Hall;
-	var checkNested = Params.locale.checkNested;
 	var module = {};
 
+	var Hall = Model.Hall;
+	var checkNested = Params.locale.checkNested;
 
 
-	module.index = function(req, res) {
+	module.index = function(req, res, next) {
 		var hall_id = req.params.hall_id;
 
 		Hall.findById(hall_id).exec(function(err, hall) {
+			if (err) return next(err);
+
 			res.render('halls/edit.jade', {hall: hall});
 		});
 	};
 
-	module.form = function(req, res) {
+	module.form = function(req, res, next) {
 		var post = req.body;
 		var hall_id = req.params.hall_id;
 
 		Hall.findById(hall_id).exec(function(err, hall) {
+			if (err) return next(err);
 
 			var locales = post.en ? ['ru', 'en'] : ['ru'];
 
@@ -31,6 +34,8 @@ module.exports = function(Model, Params) {
 			});
 
 			hall.save(function(err, hall) {
+				if (err) return next(err);
+
 				res.redirect('/areas');
 			});
 		});

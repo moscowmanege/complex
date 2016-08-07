@@ -5,16 +5,17 @@ var del = require('del');
 
 
 module.exports = function(Model, Params) {
+	var module = {};
+
 	var Member = Model.Member;
 	var checkNested = Params.locale.checkNested;
-	var module = {};
 
 
 	module.index = function(req, res) {
 		res.render('members/add.jade');
 	};
 
-	module.form = function(req, res) {
+	module.form = function(req, res, next) {
 		var post = req.body;
 		var file = req.file;
 
@@ -48,6 +49,8 @@ module.exports = function(Model, Params) {
 						del(file.path, function() {
 							member.photo = dir_path + '/' + file_name;
 							member.save(function(err, member) {
+								if (err) return next(err);
+
 								res.redirect('/members');
 							});
 						});
@@ -56,6 +59,8 @@ module.exports = function(Model, Params) {
 			});
 		} else {
 			member.save(function(err, member) {
+				if (err) return next(err);
+
 				res.redirect('/members');
 			});
 		}

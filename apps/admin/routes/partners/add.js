@@ -4,16 +4,17 @@ var mkdirp = require('mkdirp');
 var del = require('del');
 
 module.exports = function(Model, Params) {
+	var module = {};
+
 	var Partner = Model.Partner;
 	var checkNested = Params.locale.checkNested;
-	var module = {};
 
 
 	module.index = function(req, res) {
 		res.render('partners/add.jade');
 	};
 
-	module.form = function(req, res) {
+	module.form = function(req, res, next) {
 		var post = req.body;
 		var file = req.file;
 
@@ -55,6 +56,8 @@ module.exports = function(Model, Params) {
 			});
 		} else {
 			partner.save(function(err, partner) {
+				if (err) return next(err);
+
 				res.redirect('/partners');
 			});
 		}

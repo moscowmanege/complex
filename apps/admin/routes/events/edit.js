@@ -1,6 +1,8 @@
 var moment = require('moment');
 
 module.exports = function(Model, Params) {
+  var module = {};
+
   var Event = Model.Event;
   var Category = Model.Category;
   var Member = Model.Member;
@@ -11,17 +13,22 @@ module.exports = function(Model, Params) {
   var previewImages = Params.upload.preview;
   var uploadImages = Params.upload.images;
 
-  var module = {};
-
 
   module.index = function(req, res, next) {
     var id = req.params.event_id;
 
     Event.findById(id).populate('members.ids partners.ids').exec(function(err, event) {
       if (err) return next(err);
+
       Area.find().populate('halls').exec(function(err, areas) {
+        if (err) return next(err);
+
         Category.find().sort('-date').exec(function(err, categorys) {
+          if (err) return next(err);
+
           Partner.find().sort('-date').exec(function(err, partners) {
+            if (err) return next(err);
+
             previewImages(event.images, function(err, images_preview) {
               res.render('events/edit.jade', {images_preview:images_preview, event: event, areas: areas, partners: partners, categorys: categorys});
             });
@@ -29,10 +36,10 @@ module.exports = function(Model, Params) {
         });
       });
     });
-  }
+  };
 
 
-  module.form = function(req, res) {
+  module.form = function(req, res, next) {
     var post = req.body;
     var id = req.params.event_id;
 
@@ -86,13 +93,17 @@ module.exports = function(Model, Params) {
       });
 
       uploadImages(event, 'events', post.images, function(err, event) {
+        if (err) return next(err);
+
         event.save(function(err, event) {
+          if (err) return next(err);
+
           res.redirect('/events');
         });
       });
     });
-  }
+  };
 
 
   return module;
-}
+};

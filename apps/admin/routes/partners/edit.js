@@ -5,25 +5,29 @@ var del = require('del');
 
 
 module.exports = function(Model, Params) {
-	var Partner = Model.Partner;
-	var checkNested = Params.locale.checkNested;
 	var module = {};
 
+	var Partner = Model.Partner;
+	var checkNested = Params.locale.checkNested;
 
-	module.index = function(req, res) {
+
+	module.index = function(req, res, next) {
 		var id = req.params.id;
 
 		Partner.findById(id).exec(function(err, partner) {
+			if (err) return next(err);
+
 			res.render('partners/edit.jade', {partner: partner});
 		});
 	};
 
-	module.form = function(req, res) {
+	module.form = function(req, res, next) {
 		var post = req.body;
 		var file = req.file;
 		var id = req.params.id;
 
 		Partner.findById(id).exec(function(err, partner) {
+			if (err) return next(err);
 
 			partner.type = post.type;
 			partner.status = post.status;
@@ -60,6 +64,8 @@ module.exports = function(Model, Params) {
 				});
 			} else {
 				partner.save(function(err, partner) {
+					if (err) return next(err);
+
 					res.redirect('/partners');
 				});
 			}

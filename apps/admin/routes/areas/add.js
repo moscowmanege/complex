@@ -1,16 +1,17 @@
 var shortid = require('shortid');
 
 module.exports = function(Model, Params) {
+	var module = {};
+
 	var Area = Model.Area;
 	var checkNested = Params.locale.checkNested;
-	var module = {};
 
 
 	module.index = function(req, res) {
 		res.render('areas/add.jade');
 	};
 
-	module.form = function(req, res) {
+	module.form = function(req, res, next) {
 		var post = req.body;
 
 		var area = new Area();
@@ -37,6 +38,8 @@ module.exports = function(Model, Params) {
 		});
 
 		area.save(function(err, area) {
+			if (err) return next(err);
+
 			res.redirect('/areas');
 		});
 	};

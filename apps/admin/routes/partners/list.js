@@ -3,8 +3,10 @@ var i18n = require('i18n');
 
 
 module.exports = function(Model) {
-	var Partner = Model.Partner;
 	var module = {};
+
+	var Partner = Model.Partner;
+
 
 	var i18n_locale = function() {
 		return i18n.__.apply(null, arguments);
@@ -14,9 +16,13 @@ module.exports = function(Model) {
 		return i18n.__n.apply(null, arguments);
 	};
 
-	module.index = function(req, res) {
+	module.index = function(req, res, next) {
 		Partner.find().sort('-date').limit(10).exec(function(err, partners) {
+			if (err) return next(err);
+
 			Partner.count().exec(function(err, count) {
+				if (err) return next(err);
+
 				res.render('partners', {partners: partners, count: Math.ceil(count / 10)});
 			});
 		});
@@ -43,8 +49,18 @@ module.exports = function(Model) {
 
 		Query.count(function(err, count) {
 			Query.find().sort('-date').skip(+post.context.skip).limit(+post.context.limit).exec(function(err, partners) {
-				if (partners && partners.length > 0) {
-					var opts = {partners: partners, count: Math.ceil(count / 10), skip: +post.context.skip, load_list: true, __: i18n_locale, __n: i18n_plurals_locale, compileDebug: false, debug: false, cache: true, pretty: false};
+				if (err) return next(err);
+
+				if (partners.length > 0) {
+					var opts = {
+						partners: partners,
+						load_list: true,
+						count: Math.ceil(count / 10),
+						skip: +post.context.skip,
+						__: i18n_locale, __n: i18n_plurals_locale,
+						compileDebug: false, debug: false, cache: true, pretty: false
+					};
+
 					res.send(jade.renderFile(__app_root + '/apps/admin/views/partners/_partners.jade', opts));
 				} else {
 					res.send('end');
@@ -53,8 +69,10 @@ module.exports = function(Model) {
 		});
 	};
 
-	module.get_partners = function(req, res) {
+	module.get_partners = function(req, res, next) {
 		Partner.find().exec(function(err, partners) {
+			if (err) return next(err);
+
 			res.send(partners);
 		});
 	};

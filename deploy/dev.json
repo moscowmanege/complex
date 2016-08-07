@@ -12,18 +12,18 @@
 				"NODE_ENV": "development"
 			}
 		},
-		{
-			"name": "main",
-			"script": "./apps/main/main.js",
-			"exec_mode": "fork",
-			"watch": ["types.json", "locales", "models", "apps/main/main.js", "apps/main/routes"],
-			"autorestart": false,
-			"kill_timeout": 1600,
-			"env": {
-				"PORT": 3001,
-				"NODE_ENV": "development"
-			}
-		},
+		// {
+		// 	"name": "main",
+		// 	"script": "./apps/main/main.js",
+		// 	"exec_mode": "fork",
+		// 	"watch": ["types.json", "locales", "models", "apps/main/main.js", "apps/main/routes"],
+		// 	"autorestart": false,
+		// 	"kill_timeout": 1600,
+		// 	"env": {
+		// 		"PORT": 3001,
+		// 		"NODE_ENV": "development"
+		// 	}
+		// },
 		{
 			"name": "monitors",
 			"script": "./apps/monitors/monitors.js",
