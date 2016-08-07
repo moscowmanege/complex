@@ -25,11 +25,12 @@ block content
 	.lists_block: .list_items
 		each user in users
 			if user.status == 'Admin'
-				- var status = '︎●●'
+				- var status = '●●'
 			else if user.status == 'User'
 				- var status = '●'
 			else
 				- var status = '○'
 			.list_item
 				a.item_rm.user(href='#', id=user._id) удалить
-				a.item_title(href='/users/edit/' + user._id)= (user.login || '!!! ПУСТОЕ ПОЛЕ !!!') + ' ' + status
+				a.item_title(href='/users/edit/' + user._id)= (user.login || '!!! ПУСТОЕ ПОЛЕ !!!')
+				span.item_status= ' ' + status
