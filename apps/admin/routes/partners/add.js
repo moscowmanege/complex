@@ -49,6 +49,8 @@ module.exports = function(Model, Params) {
 						del(file.path, function() {
 							partner.logo = dir_path + '/' + file_name;
 							partner.save(function(err, partner) {
+								if (err) return next(err);
+
 								res.redirect('/partners');
 							});
 						});

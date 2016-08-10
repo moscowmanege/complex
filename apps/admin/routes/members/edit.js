@@ -57,6 +57,8 @@ module.exports = function(Model, Params) {
 							del(file.path, function() {
 								member.photo = dir_path + '/' + file_name;
 								member.save(function(err, member) {
+									if (err) return next(err);
+
 									res.redirect('/members');
 								});
 							});
