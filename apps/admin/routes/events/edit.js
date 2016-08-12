@@ -1,4 +1,5 @@
 var moment = require('moment');
+var async = require('async');
 
 module.exports = function(Model, Params) {
 	var module = {};
@@ -17,23 +18,27 @@ module.exports = function(Model, Params) {
 	module.index = function(req, res, next) {
 		var id = req.params.event_id;
 
-		Event.findById(id).populate('members.ids partners.ids').exec(function(err, event) {
+		async.parallel({
+			event: function(callback) {
+				Event.findById(id).populate('members.ids partners.ids').exec(callback);
+			},
+			areas: function(callback) {
+				Area.find().populate('halls').exec(callback);
+			},
+			categorys: function(callback) {
+				Category.find().sort('-date').exec(callback);
+			},
+			partners: function(callback) {
+				Partner.find().sort('-date').exec(callback);
+			}
+		}, function(err, results) {
 			if (err) return next(err);
 
-			Area.find().populate('halls').exec(function(err, areas) {
+			previewImages(results.event.images, function(err, images_preview) {
 				if (err) return next(err);
 
-				Category.find().sort('-date').exec(function(err, categorys) {
-					if (err) return next(err);
-
-					Partner.find().sort('-date').exec(function(err, partners) {
-						if (err) return next(err);
-
-						previewImages(event.images, function(err, images_preview) {
-							res.render('events/edit.jade', { images_preview: images_preview, event: event, areas: areas, partners: partners, categorys: categorys });
-						});
-					});
-				});
+				results.images_preview = images_preview;
+				res.render('events/edit.jade', results);
 			});
 		});
 	};

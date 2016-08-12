@@ -9,8 +9,6 @@ module.exports = function(Model, Params) {
 
 
 	module.index = function(req, res) {
-		var subs_id = req.params.id;
-
 		res.render('halls/add.jade');
 	};
 

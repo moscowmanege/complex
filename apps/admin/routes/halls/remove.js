@@ -1,3 +1,5 @@
+var async = require('async');
+
 module.exports = function(Model) {
 	var module = {};
 
@@ -9,18 +11,20 @@ module.exports = function(Model) {
 	module.index = function(req, res, next) {
 		var id = req.body.id;
 
-		Area.update({'halls': id}, { $pull: { 'halls': id } }, { 'multi': true }).exec(function(err) {
+		async.parallel([
+			function(callback) {
+				Area.update({'halls': id}, { $pull: { 'halls': id } }, { 'multi': true }).exec(callback);
+			},
+			function(callback) {
+				Event.update({'place.halls': id}, { $pull: { 'place': { 'halls': id } } }, { 'multi': true }).exec(callback);
+			},
+			function(callback) {
+				Hall.findByIdAndRemove(id).exec(callback);
+			}
+		], function(err) {
 			if (err) return next(err);
 
-			Event.update({'place.halls': id}, { $pull: { 'place': { 'halls': id } } }, { 'multi': true }).exec(function(err) {
-				if (err) return next(err);
-
-				Hall.findByIdAndRemove(id, function(err, hall) {
-					if (err) return next(err);
-
-					res.send('ok');
-				});
-			});
+			res.send('ok');
 		});
 	};
 

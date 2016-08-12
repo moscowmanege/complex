@@ -1,3 +1,4 @@
+var async = require('async');
 var shortid = require('shortid');
 var moment = require('moment');
 
@@ -15,18 +16,20 @@ module.exports = function(Model, Params) {
 
 
 	module.index = function(req, res, next) {
-		Area.find().populate('halls').exec(function(err, areas) {
+		async.parallel({
+			areas: function(callback) {
+				Area.find().populate('halls').exec(callback);
+			},
+			categorys: function(callback) {
+				Category.find().sort('-date').exec(callback);
+			},
+			partners: function(callback) {
+				Partner.find().sort('-date').exec(callback);
+			}
+		}, function(err, results) {
 			if (err) return next(err);
 
-			Category.find().sort('-date').exec(function(err, categorys) {
-				if (err) return next(err);
-
-				Partner.find().sort('-date').exec(function(err, partners) {
-					if (err) return next(err);
-
-					res.render('events/add.jade', {areas: areas, partners: partners, categorys: categorys});
-				});
-			});
+			res.render('events/add.jade', results);
 		});
 	};
 

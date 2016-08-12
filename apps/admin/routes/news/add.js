@@ -1,5 +1,6 @@
 var shortid = require('shortid');
 var moment = require('moment');
+var async = require('async');
 
 module.exports = function(Model, Params) {
 	var module = {};
@@ -13,14 +14,17 @@ module.exports = function(Model, Params) {
 
 
 	module.index = function(req, res, next) {
-		Area.find().exec(function(err, areas) {
+		async.parallel({
+			areas: function(callback) {
+				Area.find().exec(callback);
+			},
+			categorys: function(callback) {
+				Category.find().sort('-date').exec(callback);
+			}
+		}, function(err, results) {
 			if (err) return next(err);
 
-			Category.find().sort('-date').exec(function(err, categorys) {
-				if (err) return next(err);
-
-				res.render('news/add.jade', {areas: areas, categorys: categorys});
-			});
+			res.render('news/add.jade', results);
 		});
 	};
 

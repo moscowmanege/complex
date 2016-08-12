@@ -1,4 +1,5 @@
 var moment = require('moment');
+var async = require('async');
 
 module.exports = function(Model, Params) {
   var module = {};
@@ -15,21 +16,24 @@ module.exports = function(Model, Params) {
   module.index = function(req, res, next) {
     var id = req.params.news_id;
 
-    News.findById(id).exec(function(err, news) {
+    async.parallel({
+      news: function(callback) {
+        News.findById(id).exec(callback);
+      },
+      areas: function(callback) {
+        Area.find().exec(callback);
+      },
+      categorys: function(callback) {
+        Category.find().sort('-date').exec(callback)
+      },
+    }, function(err, results) {
       if (err) return next(err);
 
-      Area.find().exec(function(err, areas) {
+      previewImages(results.news.images, function(err, images_preview) {
         if (err) return next(err);
 
-        Category.find().sort('-date').exec(function(err, categorys) {
-          if (err) return next(err);
-
-          previewImages(news.images, function(err, images_preview) {
-            if (err) return next(err);
-
-            res.render('news/edit.jade', {images_preview: images_preview, news: news, areas: areas, categorys: categorys});
-          });
-        });
+        results.images_preview = images_preview;
+        res.render('news/edit.jade', results);
       });
     });
   };

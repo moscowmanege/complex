@@ -10,11 +10,9 @@ module.exports = function(Model) {
 	  User.findByIdAndRemove(id, function(err) {
 	  	if (err) return next(err);
 
-		  if (req.session.user_id == id) {
-		  	res.send('current_user');
-		  } else {
-		  	res.send('ok');
-		  }
+	  	req.session.user_id == id
+	  		? res.send('current_user')
+	  		: res.send('ok');
 	  });
 	};
 
