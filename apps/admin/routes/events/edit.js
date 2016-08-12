@@ -6,8 +6,6 @@ module.exports = function(Model, Params) {
 
 	var Event = Model.Event;
 	var Category = Model.Category;
-	var Member = Model.Member;
-	var Partner = Model.Partner;
 	var Area = Model.Area;
 
 	var checkNested = Params.locale.checkNested;
@@ -27,9 +25,6 @@ module.exports = function(Model, Params) {
 			},
 			categorys: function(callback) {
 				Category.find().sort('-date').exec(callback);
-			},
-			partners: function(callback) {
-				Partner.find().sort('-date').exec(callback);
 			}
 		}, function(err, results) {
 			if (err) return next(err);
