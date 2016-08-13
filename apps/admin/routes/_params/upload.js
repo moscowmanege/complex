@@ -29,7 +29,7 @@ module.exports.images = function(obj, base_path, upload_images, callback) {
 
 		async.concatSeries([public_path + images_path.original, public_path + images_path.thumb], mkdirp, function(err, dirs) {
 
-			async.forEachOfSeries(upload_images.path, function(item, i, callback) {
+			async.eachOfSeries(upload_images.path, function(item, i, callback) {
 				images[i] = { path: null, description: [] };
 				images[i].path = upload_images.path[i];
 				images[i].description.push({ lg: 'ru', value: upload_images.description.ru[i] });
@@ -42,7 +42,7 @@ module.exports.images = function(obj, base_path, upload_images, callback) {
 
 			}, function() {
 
-				async.forEachSeries(images, function(image, callback) {
+				async.eachSeries(images, function(image, callback) {
 					var name = path.basename(image.path).split('.')[0] || Date.now();
 					var original_path = images_path.original + name + '.jpg';
 					var thumb_path = images_path.thumb + name + '.jpg';
