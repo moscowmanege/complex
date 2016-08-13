@@ -8,15 +8,6 @@ module.exports = function(Model) {
 	var Member = Model.Member;
 
 
-	var i18n_locale = function() {
-		return i18n.__.apply(null, arguments);
-	};
-
-	var i18n_plurals_locale = function() {
-		return i18n.__n.apply(null, arguments);
-	};
-
-
 	module.index = function(req, res, next) {
 		Member.find().sort('-date').limit(10).exec(function(err, members) {
 			if (err) return next(err);
@@ -54,7 +45,16 @@ module.exports = function(Model) {
 				if (err) return next(err);
 
 				if (members.length > 0) {
-					var opts = {members: members, count: Math.ceil(count / 10), skip: +post.context.skip, load_list: true, __: i18n_locale, __n: i18n_plurals_locale, compileDebug: false, debug: false, cache: true, pretty: false};
+					var opts = {
+						__: function() { return i18n.__.apply(null, arguments); },
+						__n: function() { return i18n.__n.apply(null, arguments); },
+						members: members,
+						load_list: true,
+						count: Math.ceil(count / 10),
+						skip: +post.context.skip,
+						compileDebug: false, debug: false, cache: true, pretty: false
+					};
+
 					res.send(jade.renderFile(__app_root + '/apps/admin/views/members/_members.jade', opts));
 				} else {
 					res.send('end');

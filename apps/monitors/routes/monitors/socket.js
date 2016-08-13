@@ -34,24 +34,14 @@ module.exports = function(io, i18n) {
 			})[0] || {}).value || '');
 		};
 
-		var arr_equals = function(arr1, arr2) {
-			return arr1.sort().toString() === arr2.sort().toString();
-		};
-
-		var i18n_locale = function() {
-			return i18n.__.apply(null, arguments);
-		};
-
-		var i18n_plurals_locale = function() {
-			return i18n.__n.apply(null, arguments);
-		};
-
 		var opts = {
+			__: function() { return i18n.__.apply(null, arguments); },
+			__n: function() { return i18n.__n.apply(null, arguments); },
+			arr_equals: function(arr1, arr2) {
+				return arr1.sort().toString() === arr2.sort().toString();
+			},
 			areas: areas,
-			arr_equals: arr_equals,
 			get_locale: get_locale,
-			__: i18n_locale,
-			__n:i18n_plurals_locale,
 			i18n: i18n,
 			moment: moment,
 			compileDebug: false, debug: false, cache: false, pretty: false

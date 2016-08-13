@@ -8,15 +8,6 @@ module.exports = function(Model) {
 	var Category = Model.Category;
 
 
-	var i18n_locale = function() {
-		return i18n.__.apply(null, arguments);
-	};
-
-	var i18n_plurals_locale = function() {
-		return i18n.__n.apply(null, arguments);
-	};
-
-
 	module.index = function(req, res, next) {
 		Category.find().sort('-date').limit(10).exec(function(err, categorys) {
 			if (err) return next(err);
@@ -57,11 +48,12 @@ module.exports = function(Model) {
 
 				if (categorys.length > 0) {
 					var opts = {
+						__: function() { return i18n.__.apply(null, arguments); },
+						__n: function() { return i18n.__n.apply(null, arguments); },
 						categorys: categorys,
 						load_list: true,
 						count: Math.ceil(count / 10),
 						skip: +post.context.skip,
-						__: i18n_locale, __n: i18n_plurals_locale,
 						compileDebug: false, debug: false, cache: true, pretty: false
 					};
 

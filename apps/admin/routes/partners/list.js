@@ -8,15 +8,6 @@ module.exports = function(Model) {
 	var Partner = Model.Partner;
 
 
-	var i18n_locale = function() {
-		return i18n.__.apply(null, arguments);
-	};
-
-	var i18n_plurals_locale = function() {
-		return i18n.__n.apply(null, arguments);
-	};
-
-
 	module.index = function(req, res, next) {
 		Partner.find().sort('-date').limit(10).exec(function(err, partners) {
 			if (err) return next(err);
@@ -55,11 +46,12 @@ module.exports = function(Model) {
 
 				if (partners.length > 0) {
 					var opts = {
+						__: function() { return i18n.__.apply(null, arguments); },
+						__n: function() { return i18n.__n.apply(null, arguments); },
 						partners: partners,
 						load_list: true,
 						count: Math.ceil(count / 10),
 						skip: +post.context.skip,
-						__: i18n_locale, __n: i18n_plurals_locale,
 						compileDebug: false, debug: false, cache: true, pretty: false
 					};
 

@@ -10,4 +10,4 @@ module.exports.checkNested = function (obj, layers) {
 		obj = obj[layers[i]];
 	}
 	return true;
-}
+};
