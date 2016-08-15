@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var async = require('async');
 
 module.exports = function(Model) {
 	var module = {};
@@ -11,23 +12,23 @@ module.exports = function(Model) {
 	module.index = function(req, res, next) {
 		var id = req.body.id;
 
-
-		Area.findById(id).exec(function(err, area) {
+		async.waterfall([
+			function(callback) {
+				Area.findById(id).exec(callback);
+			},
+			function(area, callback) {
+				Hall.remove({ '_id': { '$in': area.halls } }).exec(callback);
+			},
+			function(result, callback) {
+				Event.update({'place.area': mongoose.Types.ObjectId(id) }, { $set: { 'place': { area: undefined, halls: [] } } }, { 'multi': true }).exec(callback);
+			},
+			function(result, callback) {
+				Area.findByIdAndRemove(id).exec(callback);
+			}
+		], function(err) {
 			if (err) return next(err);
 
-			Hall.remove({ '_id': { '$in': area.halls } }).exec(function(err) {
-				if (err) return next(err);
-
-				Event.update({'place.area': mongoose.Types.ObjectId(id) }, { $set: { 'place': { area: undefined, halls: [] } } }, { 'multi': true }).exec(function(err) {
-					if (err) return next(err);
-
-					Area.findByIdAndRemove(id).exec(function(err) {
-						if (err) return next(err);
-
-						res.send('ok');
-					});
-				});
-			});
+			res.send('ok');
 		});
 	};
 
