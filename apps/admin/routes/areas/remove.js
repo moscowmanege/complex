@@ -1,4 +1,3 @@
-var async = require('async');
 var mongoose = require('mongoose');
 
 module.exports = function(Model) {
@@ -12,17 +11,21 @@ module.exports = function(Model) {
 	module.index = function(req, res, next) {
 		var id = req.body.id;
 
-		async.parallel([
-			function(callback) {
-				Event.update({'place.area': mongoose.Types.ObjectId(id) }, { $set: { 'place': { area: undefined, halls: [] } } }, { 'multi': true }).exec(callback);
-			},
-			function(callback) {
-				Area.findByIdAndRemove(id).exec(callback);
-			}
-		], function(err) {
+
+		Area.findById(id).exec(function(err, area) {
 			if (err) return next(err);
 
-			res.send('ok');
+			Hall.remove({ '_id': { '$in': area.halls } }).exec(function(err) {
+				if (err) return next(err);
+
+				Event.update({'place.area': mongoose.Types.ObjectId(id) }, { $set: { 'place': { area: undefined, halls: [] } } }, { 'multi': true }).exec(function(err) {
+					if (err) return next(err);
+
+					Area.findByIdAndRemove(id).exec(function(err) {
+						res.send('ok');
+					});
+				});
+			});
 		});
 	};
 
