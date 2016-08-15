@@ -11,31 +11,36 @@ module.exports = function(Model) {
 	module.index = function(req, res, next) {
 		var id = req.body.id;
 
-		Event.findByIdAndRemove(id).exec(function(err, event) {
-			if (err) return next(err);
-
-			Ticket.find({'events': id}).exec(function(err, tickets) {
-				if (err) return next(err);
-
-				async.reduce(tickets, [], function(del_tickets, ticket, callback) {
+		async.waterfall([
+			function(callback) {
+				Event.findByIdAndRemove(id).exec(callback);
+			},
+			function(result, callback) {
+				Ticket.find({'events': id}).exec(callback);
+			},
+			function(tickets, callback) {
+				async.reduce(tickets, [], function(del_tickets, ticket, callback_reduce) {
 					ticket.events.pull(id);
+
 					if (ticket.events.length === 0) {
 						del_tickets.push(ticket._id);
 					}
-					ticket.save();
-					callback(null, del_tickets);
-				}, function(err, del_tickets) {
-					if (err) return next(err);
 
-					Ticket.remove({'_id': { '$in': del_tickets } }).exec(function(err) {
-						if (err) return next(err);
-
-						del(__app_root + '/public/cdn/images/events/' + id, function() {
-							res.send('ok');
-						});
+					ticket.save(function(err) {
+						callback_reduce(err, del_tickets);
 					});
-				});
-			});
+				}, callback);
+			},
+			function(del_tickets, callback) {
+				Ticket.remove({'_id': { '$in': del_tickets } }).exec(callback);
+			},
+			function(result, callback) {
+				del(__app_root + '/public/cdn/images/events/' + id, callback);
+			}
+		], function(err) {
+			if (err) return next(err);
+
+			res.send('ok');
 		});
 	};
 

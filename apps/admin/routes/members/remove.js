@@ -1,4 +1,5 @@
 var del = require('del');
+var async = require('async');
 
 module.exports = function(Model) {
 	var module = {};
@@ -10,20 +11,23 @@ module.exports = function(Model) {
 	module.index = function(req, res) {
 		var id = req.body.id;
 
-		Event.update({'members.ids': id}, { $pull: { 'members.$.ids': id } }, { 'multi': true }).exec(function(err) {
+		async.series([
+			function(callback) {
+				Event.update({'members.ids': id}, { $pull: { 'members.$.ids': id } }, { 'multi': true }).exec(callback);
+			},
+			function(callback) {
+				Event.update({}, { $pull: { 'members': { 'ids': { $size: 0 } } } }, { 'multi': true }).exec(callback);
+			},
+			function(callback) {
+				Member.findByIdAndRemove(id).exec(callback);
+			},
+			function(callback) {
+				del(__app_root + '/public/cdn/images/members/' + id, callback);
+			}
+		], function(err) {
 			if (err) return next(err);
 
-			Event.update({}, { $pull: { 'members': { 'ids': { $size: 0 } } } }, { 'multi': true }).exec(function(err) {
-				if (err) return next(err);
-
-				Member.findByIdAndRemove(id, function(err, member) {
-					if (err) return next(err);
-
-					del(__app_root + '/public/cdn/images/members/' + id, function() {
-						res.send('ok');
-					});
-				});
-			});
+			res.send('ok');
 		});
 	};
 
