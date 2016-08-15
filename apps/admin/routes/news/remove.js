@@ -1,4 +1,4 @@
-var del = require('del');
+var rimraf = require('rimraf');
 
 module.exports = function(Model) {
 	var module = {};
@@ -12,7 +12,7 @@ module.exports = function(Model) {
 		News.findByIdAndRemove(id).exec(function(err, news) {
 			if (err) return next(err);
 
-			del(__app_root + '/public/cdn/images/news/' + id, function() {
+			rimraf(__app_root + '/public/cdn/images/news/' + id, { glob: false }, function() {
 				res.send('ok');
 			});
 		});

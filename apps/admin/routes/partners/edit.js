@@ -1,7 +1,7 @@
 var shortid = require('shortid');
 var gm = require('gm').subClass({ imageMagick: true });
 var mkdirp = require('mkdirp');
-var del = require('del');
+var rimraf = require('rimraf');
 
 
 module.exports = function(Model, Params) {
@@ -54,7 +54,7 @@ module.exports = function(Model, Params) {
 					gm(file.path).size({bufferStream: true}, function(err, size) {
 						this.resize(size.width > 320 ? 320 : false, false);
 						this.write(public_path + dir_path + '/' + file_name, function() {
-							del(file.path, function() {
+							rimraf(file.path, { glob: false }, function() {
 								partner.logo = dir_path + '/' + file_name;
 								partner.save(function(err, partner) {
 									if (err) return next(err);

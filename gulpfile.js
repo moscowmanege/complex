@@ -1,4 +1,4 @@
-var del = require('del');
+var rimraf = require('rimraf');
 var runSequence = require('run-sequence');
 var colors = require('colors');
 
@@ -21,20 +21,18 @@ var Production = false;
 
 var paths = {
 	stylus: {
-		src: ['apps/**/src/styl/*.styl'],
+		src: 'apps/**/src/styl/*.styl',
 		dest: 'public/build/css'
 	},
 	scripts: {
-		src: ['apps/**/src/js/*.js'],
+		src: 'apps/**/src/js/*.js',
 		dest: 'public/build/js'
 	},
 	stuff: {
-		src: ['apps/**/stuff/**'],
+		src: 'apps/**/stuff/**',
 		dest: 'public/stuff'
 	},
-	clean: {
-		pub: ['public/build/**', 'public/stuff/**']
-	}
+	clean: '{public/build/**,public/stuff/**}'
 };
 
 // Loggers Block
@@ -59,7 +57,7 @@ var watch_logger = function(event) {
 // Tasks Block
 
 gulp.task('clean', function(callback) {
-	return del(paths.clean.pub, callback);
+	return rimraf(paths.clean, callback);
 });
 
 

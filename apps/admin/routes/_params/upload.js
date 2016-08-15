@@ -1,8 +1,7 @@
 var mkdirp = require('mkdirp');
-var del = require('del');
+var rimraf = require('rimraf');
 var async = require('async');
 var gm = require('gm').subClass({ imageMagick: true });
-var del = require('del');
 var fs = require('fs');
 var path = require('path');
 
@@ -21,7 +20,7 @@ module.exports.images = function(obj, base_path, upload_images, callback) {
 		thumb: dir_path + '/thumb/',
 	};
 
-	del(public_path + dir_path, function(err, paths) {
+	rimraf(public_path + dir_path, { glob: false }, function(err, paths) {
 
 		if (!upload_images) {
 			return callback.call(null, null, obj);

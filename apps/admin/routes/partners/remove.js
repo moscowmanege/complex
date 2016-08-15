@@ -1,4 +1,4 @@
-var del = require('del');
+var rimraf = require('rimraf');
 var async = require('async');
 
 module.exports = function(Model) {
@@ -22,7 +22,7 @@ module.exports = function(Model) {
 				Partner.findByIdAndRemove(id).exec(callback);
 			},
 			function(callback) {
-				del(__app_root + '/public/cdn/images/partners/' + id, callback);
+				rimraf(__app_root + '/public/cdn/images/partners/' + id, { glob: false }, callback);
 			}
 		], function(err) {
 			if (err) return next(err);

@@ -1,5 +1,5 @@
 var gm = require('gm').subClass({ imageMagick: true });
-var del = require('del');
+var rimraf = require('rimraf');
 
 
 module.exports.preview = function(req, res) {
@@ -11,7 +11,7 @@ module.exports.preview = function(req, res) {
 		this.resize(size.width > 1620 ? 1620 : false, false);
 		this.write(__app_root + '/public' + newPath, function (err) {
 
-			del(file.path, function() {
+			rimraf(file.path, { glob: false }, function() {
 				res.send(newPath);
 			});
 		});

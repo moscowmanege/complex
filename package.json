@@ -8,7 +8,6 @@
     "body-parser": "^1.8.3",
     "connect-mongo": "^1.1.0",
     "cookie-parser": "^1.3.3",
-    "del": "^1.1.1",
     "express": "^4.9.4",
     "express-session": "^1.8.2",
     "figlet": "^1.1.1",
@@ -23,6 +22,7 @@
     "mongoose-locale": "ponyspy/mongoose-locale",
     "multer": "^1.0.0",
     "request": "^2.67.0",
+    "rimraf": "^2.5.4",
     "shortid": "^2.2.2",
     "socket.io": "^1.4.5"
   },

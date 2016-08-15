@@ -1,4 +1,4 @@
-var del = require('del');
+var rimraf = require('rimraf');
 var async = require('async');
 
 module.exports = function(Model) {
@@ -35,7 +35,7 @@ module.exports = function(Model) {
 				Ticket.remove({'_id': { '$in': del_tickets } }).exec(callback);
 			},
 			function(result, callback) {
-				del(__app_root + '/public/cdn/images/events/' + id, callback);
+				rimraf(__app_root + '/public/cdn/images/events/' + id, { glob: false }, callback);
 			}
 		], function(err) {
 			if (err) return next(err);

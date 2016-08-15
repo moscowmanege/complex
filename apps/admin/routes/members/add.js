@@ -1,7 +1,7 @@
 var shortid = require('shortid');
 var gm = require('gm').subClass({ imageMagick: true });
 var mkdirp = require('mkdirp');
-var del = require('del');
+var rimraf = require('rimraf');
 
 
 module.exports = function(Model, Params) {
@@ -47,7 +47,7 @@ module.exports = function(Model, Params) {
 					this.resize(size.width > 620 ? 620 : false, false);
 					this.quality(size.width > 620 ? 80 : 100);
 					this.write(public_path + dir_path + '/' + file_name, function() {
-						del(file.path, function() {
+						rimraf(file.path, { glob: false }, function() {
 							member.photo = dir_path + '/' + file_name;
 							member.save(function(err, member) {
 								if (err) return next(err);
