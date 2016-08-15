@@ -22,6 +22,8 @@ module.exports = function(Model) {
 					if (err) return next(err);
 
 					Area.findByIdAndRemove(id).exec(function(err) {
+						if (err) return next(err);
+
 						res.send('ok');
 					});
 				});
