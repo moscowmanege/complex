@@ -15,9 +15,12 @@ var gulp = require('gulp'),
 
 // vars Block
 
+
 var Production = false;
 
+
 // Paths Block
+
 
 var paths = {
 	stylus: {
@@ -35,7 +38,9 @@ var paths = {
 	clean: '{public/build/**,public/stuff/**}'
 };
 
+
 // Loggers Block
+
 
 var error_logger = function(error) {
 	console.log([
@@ -54,14 +59,15 @@ var watch_logger = function(event) {
 	console.log('File ' + event.path.replace(__dirname + '/', '').green + ' was ' + event.type.yellow + ', running tasks...');
 };
 
+
 // Tasks Block
+
 
 gulp.task('clean', function(callback) {
 	return rimraf(paths.clean, callback);
 });
 
-
-gulp.task('stuff', function () {
+gulp.task('stuff', function() {
 	return gulp
 		.src(paths.stuff.src)
 		.pipe(changed(paths.stuff.dest))
@@ -72,8 +78,7 @@ gulp.task('stuff', function () {
 		.pipe(gulp.dest(paths.stuff.dest));
 });
 
-
-gulp.task('stylus', function () {
+gulp.task('stylus', function() {
 	return gulp
 		.src(paths.stylus.src)
 		.pipe(changed(paths.stylus.dest))
@@ -91,8 +96,7 @@ gulp.task('stylus', function () {
 		.pipe(gulp.dest(paths.stylus.dest));
 });
 
-
-gulp.task('scripts', function () {
+gulp.task('scripts', function() {
 	return gulp
 		.src(paths.scripts.src)
 		.pipe(changed(paths.scripts.dest))
@@ -106,20 +110,20 @@ gulp.task('scripts', function () {
 		.pipe(gulp.dest(paths.scripts.dest));
 });
 
-
 gulp.task('watch', function() {
 	gulp.watch(paths.scripts.src, ['scripts']).on('change', watch_logger);
 	gulp.watch(paths.stylus.src, ['stylus']).on('change', watch_logger);
 	gulp.watch(paths.stuff.src, ['stuff']).on('change', watch_logger);
 });
 
-
 gulp.task('production', function(callback) {
 	Production = true;
 	callback();
 });
 
+
 // Run Block
+
 
 gulp.task('default', function(callback) {
 	runSequence('clean', ['stylus', 'scripts', 'stuff'], callback);
