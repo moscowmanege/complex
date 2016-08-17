@@ -9,15 +9,15 @@ module.exports = function(Model) {
 
 
 	module.index = function(req, res, next) {
-	  Event.find().sort('-date').limit(10).exec(function(err, events) {
-	  	if (err) return next(err);
+		Event.find().sort('-date').limit(10).exec(function(err, events) {
+			if (err) return next(err);
 
-	  	Event.count().exec(function(err, count) {
-	  		if (err) return next(err);
+			Event.count().exec(function(err, count) {
+				if (err) return next(err);
 
-	  		res.render('events', {events: events, count: Math.ceil(count / 10)});
-	  	});
-	  });
+				res.render('events', {events: events, count: Math.ceil(count / 10)});
+			});
+		});
 	};
 
 
@@ -66,5 +66,5 @@ module.exports = function(Model) {
 	};
 
 
-  return module;
+	return module;
 };

@@ -9,7 +9,7 @@ module.exports = function(Model, Params) {
 
 	module.index = function(req, res) {
 		res.render('categorys/add.jade');
-	}
+	};
 
 
 	module.form = function(req, res, next) {
