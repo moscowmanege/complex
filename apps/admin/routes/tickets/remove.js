@@ -1,24 +1,24 @@
 module.exports = function(Model) {
-  var module = {};
+	var module = {};
 
-  var Ticket = Model.Ticket;
-  var Event = Model.Event;
+	var Ticket = Model.Ticket;
+	var Event = Model.Event;
 
 
-	module.index = function(req, res) {
-	  var id = req.body.id;
+	module.index = function(req, res, next) {
+		var id = req.body.id;
 
-	  Event.update({'tickets.ids.id': id}, { $pull: { 'tickets.ids': { id: id } } }, { multi: true }).exec(function(err) {
-	  	if (err) return next(err);
+		Event.update({'tickets.ids.id': id}, { $pull: { 'tickets.ids': { id: id } } }, { multi: true }).exec(function(err) {
+			if (err) return next(err);
 
-		  Ticket.findByIdAndRemove(id).exec(function(err, ticket) {
-		  	if (err) return next(err);
+			Ticket.findByIdAndRemove(id).exec(function(err, ticket) {
+				if (err) return next(err);
 
-		    res.send('ok');
-		  });
-	  });
+				res.send('ok');
+			});
+		});
 	};
 
 
-  return module;
+	return module;
 };
