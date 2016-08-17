@@ -8,10 +8,10 @@ module.exports = function(Model) {
 	module.index = function(req, res) {
 	  var id = req.body.id;
 
-	  Event.update({'tickets.ids.id': id}, { $pull: { 'tickets.ids': { id: id } } }, {multi: true}).exec(function(err) {
+	  Event.update({'tickets.ids.id': id}, { $pull: { 'tickets.ids': { id: id } } }, { multi: true }).exec(function(err) {
 	  	if (err) return next(err);
 
-		  Ticket.findByIdAndRemove(id, function(err, ticket) {
+		  Ticket.findByIdAndRemove(id).exec(function(err, ticket) {
 		  	if (err) return next(err);
 
 		    res.send('ok');
