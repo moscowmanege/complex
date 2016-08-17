@@ -8,7 +8,7 @@ module.exports = function(Model) {
 	var Event = Model.Event;
 
 
-	module.index = function(req, res) {
+	module.index = function(req, res, next) {
 		var id = req.body.id;
 
 		async.series([
