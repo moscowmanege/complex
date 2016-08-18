@@ -43,19 +43,25 @@ module.exports = function(Model, Params) {
 		event.place = post.place;
 		event.categorys = post.categorys == '' ? [] : post.categorys;
 
-		post.members && post.members.forEach(function(member) {
-			event.members.push({
-				role: member,
-				ids: post.members[member]
-			});
-		});
+		event.members = [];
+		if (post.members) {
+			for (member in post.members) {
+				event.members.push({
+					role: member,
+					ids: post.members[member]
+				});
+			}
+		}
 
-		post.partners && post.partners.forEach(function(partner) {
-			event.partners.push({
-				rank: partner,
-				ids: post.partners[partner]
-			});
-		});
+		event.partners = [];
+		if (post.partners) {
+			for (partner in post.partners) {
+				event.partners.push({
+					rank: partner,
+					ids: post.partners[partner]
+				});
+			}
+		}
 
 		var locales = post.en ? ['ru', 'en'] : ['ru'];
 
