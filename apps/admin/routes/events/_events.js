@@ -8,6 +8,8 @@ var Params = {
 };
 
 var tickets = require('../tickets/_tickets.js');
+var program = require('../program/_program.js');
+
 
 var events = {
 	list: require('./list.js')(Model),
@@ -33,6 +35,7 @@ module.exports = (function() {
 		.post(events.edit.form);
 
 	router.use('/edit/:event_id/tickets', tickets);
+	router.use('/edit/:event_id/program', program);
 
 	router.route('/remove')
 		.post(events.remove.index);

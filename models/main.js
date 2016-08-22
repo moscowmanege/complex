@@ -85,6 +85,10 @@ var eventSchema = new Schema({
 	s_title: { type: String, trim: true, locale: true },
 	description: { type: String, trim: true, locale: true },
 	status: String,
+	program: {
+		parent: { type: ObjectId, ref: 'Event' },
+		children: [{ type: ObjectId, ref: 'Event' }]
+	},
 	meta: {
 		tuzik: {
 			ru: String,

@@ -9,7 +9,7 @@ module.exports = function(Model) {
 
 
 	module.index = function(req, res, next) {
-		Event.find().sort('-date').limit(10).exec(function(err, events) {
+		Event.find().where('program.parent').exists(false).sort('-date').limit(10).exec(function(err, events) {
 			if (err) return next(err);
 
 			Event.count().exec(function(err, count) {
@@ -27,6 +27,8 @@ module.exports = function(Model) {
 		var Query = (post.context.text && post.context.text !== '')
 			? Event.find({ $text : { $search : post.context.text } } )
 			: Event.find();
+
+		Query.where('program.parent').exists(false);
 
 		if (post.context.type && post.context.type != 'all') {
 			Query.where('type').equals(post.context.type);

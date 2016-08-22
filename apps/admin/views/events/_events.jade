@@ -6,6 +6,8 @@ mixin items(events)
 			if (!event.meta.tuzik.ru && !event.meta.tuzik.en)
 				span.arrow
 				a(href='/events/edit/' + event._id + '/tickets')= 'билеты (' + event.tickets.ids.length + ')'
+				span= ' + '
+				a(href='/events/edit/' + event._id + '/program')= 'программа (' + event.program.children.length + ')'
 			else
 				span.arrow
 				span= 'Тузик: '

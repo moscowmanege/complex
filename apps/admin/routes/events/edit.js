@@ -14,7 +14,7 @@ module.exports = function(Model, Params) {
 
 
 	module.index = function(req, res, next) {
-		var id = req.params.event_id;
+		var id = req.params.event_program_id || req.params.event_id;
 
 		async.parallel({
 			event: function(callback) {
@@ -41,7 +41,7 @@ module.exports = function(Model, Params) {
 
 	module.form = function(req, res, next) {
 		var post = req.body;
-		var id = req.params.event_id;
+		var id = req.params.event_program_id || req.params.event_id;
 
 		Event.findById(id).exec(function(err, event) {
 			if (err) return next(err);
@@ -99,7 +99,7 @@ module.exports = function(Model, Params) {
 				event.save(function(err, event) {
 					if (err) return next(err);
 
-					res.redirect('/events');
+					res.redirect(req.params.event_program_id ? '/events/edit/' + req.params.event_id + '/program' : '/events');
 				});
 			});
 		});

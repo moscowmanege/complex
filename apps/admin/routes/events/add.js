@@ -31,6 +31,7 @@ module.exports = function(Model, Params) {
 
 	module.form = function(req, res, next) {
 		var post = req.body;
+		var parent_event_id = req.params.event_id;
 
 		var event = new Event();
 
@@ -83,10 +84,28 @@ module.exports = function(Model, Params) {
 		uploadImages(event, 'events', post.images, function(err, event) {
 			if (err) return next(err);
 
+			if (parent_event_id) {
+				event.program.parent = parent_event_id;
+			}
+
 			event.save(function(err, event) {
 				if (err) return next(err);
 
-				res.redirect('/events');
+				if (parent_event_id) {
+					Event.findById(parent_event_id).exec(function(err, parent_event) {
+						if (err) return next(err);
+
+						parent_event.program.children.push(event._id.toString());
+
+						parent_event.save(function(err) {
+							if (err) return next(err);
+
+							res.redirect('/events/edit/' + parent_event._id + '/program');
+						});
+					});
+				} else {
+					res.redirect('/events');
+				}
 			});
 		});
 	};
