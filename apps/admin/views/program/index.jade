@@ -25,4 +25,6 @@ block content
 		each item in event.program.children
 			.list_item
 				a.item_rm.event(href='#', id=item._id.toString()) удалить
-				a.item_title(href='/events/edit/' + event._id + '/program/edit/' + item._id.toString())= item.i18n.title.get('ru')
+				a.item_title(href='/events/edit/' + event._id + '/program/edit/' + item._id.toString(), class=item.status =='hidden' ? 'hidden': '')= (item.type ? (__(item.type) + ' -- ') : '') + (item.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!')
+				span.arrow
+				a(href='/tickets/' + item._id.toString())= 'билеты (' + item.tickets.ids.length + ')'

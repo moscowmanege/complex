@@ -14,16 +14,21 @@ var tickets = {
 };
 
 module.exports = (function() {
-	var router = express.Router({mergeParams: true});
+	var router = express.Router();
 
 	router.route('/')
+		.get(function(req, res) {
+			res.redirect('/events');
+		});
+
+	router.route('/:event_id')
 		.get(tickets.list.index)
 
-	router.route('/add')
+	router.route('/:event_id/add')
 		.get(tickets.add.index)
 		.post(tickets.add.form);
 
-	router.route('/edit/:ticket_id')
+	router.route('/:event_id/edit/:ticket_id')
 		.get(tickets.edit.index)
 		.post(tickets.edit.form);
 

@@ -5,7 +5,7 @@ mixin items(events)
 			a.item_title(href='/events/edit/' + event._id, class=event.status =='hidden' ? 'hidden': '')= (event.type ? (__(event.type) + ' -- ') : '') + (event.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!')
 			if (!event.meta.tuzik.ru && !event.meta.tuzik.en)
 				span.arrow
-				a(href='/events/edit/' + event._id + '/tickets')= 'билеты (' + event.tickets.ids.length + ')'
+				a(href='/tickets/' + event._id)= 'билеты (' + event.tickets.ids.length + ')'
 				span= ' + '
 				a(href='/events/edit/' + event._id + '/program')= 'программа (' + event.program.children.length + ')'
 			else

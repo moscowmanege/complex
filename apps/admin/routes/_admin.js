@@ -7,6 +7,7 @@ var admin = {
 	main: require('./main.js'),
 	categorys: require('./categorys/_categorys.js'),
 	events: require('./events/_events.js'),
+	tickets: require('./tickets/_tickets.js'),
 	news: require('./news/_news.js'),
 	areas: require('./areas/_areas.js'),
 	members: require('./members/_members.js'),
@@ -36,6 +37,7 @@ module.exports = (function() {
 
 	router.use('/categorys', checkAuth, admin.categorys);
 	router.use('/events', checkAuth, admin.events);
+	router.use('/tickets', checkAuth, admin.tickets);
 	router.use('/news', checkAuth, admin.news);
 	router.use('/areas', checkAuth, admin.areas);
 	router.use('/members', checkAuth, upload.single('photo'), admin.members);

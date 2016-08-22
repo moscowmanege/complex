@@ -16,11 +16,11 @@ block sub_menu
 block content
 	.title= content_title
 	br
-	a.add(href='/events/edit/' + event._id + '/tickets/add') добавить билет
+	a.add(href='/tickets/' + event._id + '/add') добавить билет
 	br
 	br
 	.lists_block: .list_items
 		each ticket in event.tickets.ids
 			.list_item
 				a.item_rm.ticket(href='#', id=ticket.id._id) удалить
-				a.item_title(href='/events/edit/' + event._id + '/tickets/edit/' + ticket.id._id)= ticket.id.price + 'р.' + ' -- ' + __(ticket.id.type) + ' ' + (ticket.id.complex ? ' (комплексный)' : '') + ' ' + (ticket.id.status == 'expired' ? '[просрочен]': '')
+				a.item_title(href='/tickets/' + event._id + '/edit/' + ticket.id._id)= ticket.id.price + 'р.' + ' -- ' + __(ticket.id.type) + ' ' + (ticket.id.complex ? ' (комплексный)' : '') + ' ' + (ticket.id.status == 'expired' ? '[просрочен]': '')
