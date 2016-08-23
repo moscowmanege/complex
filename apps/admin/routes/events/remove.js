@@ -16,6 +16,12 @@ module.exports = function(Model) {
 				Event.findByIdAndRemove(id).exec(callback);
 			},
 			function(result, callback) {
+				Event.update({'program.children': id}, { '$pull': { 'program.children': id } }, { multi: true }).exec(callback);
+			},
+			function(result, callback) {
+				Event.remove({'program.parent': id}).exec(callback);
+			},
+			function(result, callback) {
 				Ticket.find({'events': id}).exec(callback);
 			},
 			function(tickets, callback) {

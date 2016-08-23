@@ -11,7 +11,7 @@ var program = {
 	list: require('./list.js')(Model),
 	add: require('../events/add.js')(Model, Params),
 	edit: require('../events/edit.js')(Model, Params),
-	remove: require('./remove.js')(Model)
+	remove: require('../events/remove.js')(Model)
 };
 
 module.exports = (function() {
