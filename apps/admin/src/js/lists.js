@@ -164,6 +164,6 @@ $(function() {
 		.on('click', '.item_rm.event', {path:'/events/remove', description: 'Удалить событие? \n + Все связанные билеты \n + Все связанные пустые комплексные билеты \n + Все связанные события \n + Все билеты связанных событий'}, remove)
 		.on('click', '.item_rm.area', {path:'/areas/remove', description: 'Удалить площадку? \n + Все залы этой площадки'}, remove)
 		.on('click', '.item_rm.hall', {path: location.pathname + '/remove', description: 'Удалить зал?'}, remove)
-		.on('click', '.item_rm.ticket', {path: location.pathname + '/remove', description: 'Удалить билет?'}, remove);
+		.on('click', '.item_rm.ticket', {path: '/tickets/remove', description: 'Удалить билет?'}, remove);
 
 });
