@@ -16,10 +16,10 @@ module.exports = function(Model) {
 				Event.findByIdAndRemove(id).exec(callback);
 			},
 			function(result, callback) {
-				Event.find({'program.parent': id}, {_id: 1}).exec(callback);
+				Event.distinct('_id', {'program.parent': id}).exec(callback);
 			},
 			function(ids, callback) {
-				Ticket.find({'events': { $in: ids.reduce(function(memo, id) { memo.push(id._id.toString()); return memo; }, [id]) } }).exec(callback);
+				Ticket.find({'events': { $in: ids.reduce(function(memo, id) { memo.push(id.toString()); return memo; }, [id]) } }).exec(callback);
 			},
 			function(tickets, callback) {
 				async.reduce(tickets, [], function(del_tickets, ticket, callback_reduce) {
