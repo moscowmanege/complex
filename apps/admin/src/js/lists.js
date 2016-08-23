@@ -143,8 +143,9 @@ $(function() {
 
 	function remove (event) {
 		var id  = $(this).attr('id');
+		var warning = '\n\n Для подтверждения введите - "удалить"';
 
-		if (confirm(event.data.description)) {
+		if (prompt(event.data.description + warning, '').trim().toLowerCase() == 'удалить') {
 			$.post(event.data.path, {'id': id}).done(function(data) {
 				if (data == 'current_user') {
 					document.location.pathname = '/auth/logout';
