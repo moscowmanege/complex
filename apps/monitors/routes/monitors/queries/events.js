@@ -13,6 +13,7 @@ module.exports.Events = function(date_now, ids, callback) {
 	}, []) : (ids == 'all') ? 'all' : mongoose.Types.ObjectId(ids);
 
 	var match = {
+		'program.parent': { $exists: false },
 		'status': { $ne: 'hidden' },
 		'meta': { $exists: false },
 		'interval.end': { $gte: date_now }
