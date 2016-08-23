@@ -16,13 +16,10 @@ module.exports = function(Model) {
 				Event.findByIdAndRemove(id).exec(callback);
 			},
 			function(result, callback) {
-				Event.update({'program.children': id}, { '$pull': { 'program.children': id } }, { multi: true }).exec(callback);
+				Event.find({'program.parent': id}, {_id: 1}).exec(callback);
 			},
-			function(result, callback) {
-				Event.remove({'program.parent': id}).exec(callback);
-			},
-			function(result, callback) {
-				Ticket.find({'events': id}).exec(callback);
+			function(ids, callback) {
+				Ticket.find({'events': { $in: ids.reduce(function(memo, id) { memo.push(id._id.toString()); return memo; }, [id]) } }).exec(callback);
 			},
 			function(tickets, callback) {
 				async.reduce(tickets, [], function(del_tickets, ticket, callback_reduce) {
@@ -39,6 +36,12 @@ module.exports = function(Model) {
 			},
 			function(del_tickets, callback) {
 				Ticket.remove({'_id': { '$in': del_tickets } }).exec(callback);
+			},
+			function(result, callback) {
+				Event.remove({'program.parent': id}).exec(callback);
+			},
+			function(result, callback) {
+				Event.update({'program.children': id}, { '$pull': { 'program.children': id } }, { multi: true }).exec(callback);
 			},
 			function(result, callback) {
 				rimraf(__app_root + '/public/cdn/images/events/' + id, { glob: false }, callback);
