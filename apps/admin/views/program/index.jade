@@ -8,10 +8,12 @@ block content_style
 
 block content_scripts
 	script(type='text/javascript', src='/build/js/admin/lists.js' + version)
+	script(type='text/javascript', src='/build/js/admin/program.js' + version)
 
 block sub_menu
 	a.sub_item.back_link(href='/events') Назад
 	span.sub_item.toggle_rm Удалить
+	span.sub_item.toggle_pull Исключить
 	.sub_right_block
 		input.sub_search.local(type='text', placeholder='Поиск...')
 
@@ -19,12 +21,21 @@ block content
 	.title= content_title
 	br
 	a.add(href='/events/edit/' + event._id + '/program/add') добавить событие
+	span= ' | '
+	span.program_push.open.add наполнить
+	span.program_push_form.hidden
+		span= ' --> '
+		select.push_events
+			each p_event in events
+				option(value=p_event._id)= (p_event.type ? (__(p_event.type) + ' -- ') : '') + (p_event.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!')
+		button.program_push_add добавить
 	br
 	br
 	.lists_block: .list_items
 		each item in event.program.children
 			.list_item
 				a.item_rm.event(href='#', id=item._id.toString()) удалить
+				a.item_pull(href='#', id=item._id.toString()) исключить
 				a.item_title(href='/events/edit/' + event._id + '/program/edit/' + item._id.toString(), class=item.status =='hidden' ? 'hidden': '')= (item.type ? (__(item.type) + ' -- ') : '') + (item.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!')
 				span.arrow
 				a(href='/tickets/' + item._id.toString())= 'билеты (' + item.tickets.ids.length + ')'

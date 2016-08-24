@@ -19,6 +19,7 @@ module.exports = (function() {
 
 	router.route('/')
 		.get(program.list.index)
+		.post(program.list.move);
 
 	router.route('/add')
 		.get(program.add.index)

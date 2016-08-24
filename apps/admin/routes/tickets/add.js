@@ -10,7 +10,7 @@ module.exports = function(Model, Params) {
 	module.index = function(req, res, next) {
 		var event_id = req.params.event_id;
 
-		Event.find().where('meta').exists(false).exec(function(err, events) {
+		Event.find().where('meta').exists(false).sort('-date').exec(function(err, events) {
 			if (err) return next(err);
 
 			res.render('tickets/add.jade', {events: events, current: [event_id]});
