@@ -21,29 +21,20 @@ module.exports = function(Model) {
 	module.move = function(req, res, next) {
 		var event_id = req.params.event_id;
 		var event_move = req.body.event_move;
-		var status = req.body.status;
 
-		if (status == 'push') {
-			Event.update({'_id': event_id}, { $push: { 'program.children': event_move } }).exec(function(err) {
+		var task = (req.body.status == 'push')
+			? { parent: { $push: { 'program.children': event_move } }, children: { $set: { 'program.parent': event_id } } }
+			: { parent: { $pull: { 'program.children': event_move } }, children: { $unset: { 'program.parent': event_id } } };
+
+		Event.update({'_id': event_id}, task.parent).exec(function(err) {
+			if (err) return next(err);
+
+			Event.update({ '_id': event_move }, task.children ).exec(function(err) {
 				if (err) return next(err);
 
-				Event.update({ '_id': event_move }, { $set: { 'program.parent': event_id } }).exec(function(err) {
-					if (err) return next(err);
-
-					res.send('ok');
-				});
+				res.send('ok');
 			});
-		} else {
-			Event.update({'_id': event_id}, { $pull: { 'program.children': event_move } }).exec(function(err) {
-				if (err) return next(err);
-
-				Event.update({ '_id': event_move }, { $unset: { 'program.parent': event_id } }).exec(function(err) {
-					if (err) return next(err);
-
-					res.send('ok');
-				});
-			});
-		}
+		});
 	};
 
 
