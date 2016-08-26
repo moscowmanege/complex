@@ -14,10 +14,10 @@ module.exports = function(Model) {
 	module.form = function(req, res, next) {
 		var post = req.body;
 
-		User.findOne({ 'login': post.login }).exec(function (err, person) {
+		User.findOne({ $or: [ {'login': post.login}, {'email': post.login} ] }).exec(function (err, person) {
 			if (err) return next(err);
-
 			if (!person) return res.redirect('back');
+
 			person.verifyPassword(post.password, function(err, isMatch) {
 				if (err) return next(err);
 
