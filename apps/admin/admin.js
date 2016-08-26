@@ -42,7 +42,7 @@ app.use(session({
 	store: new MongoStore({ url: 'mongodb://localhost/main' }),
 	cookie: {
 		path: '/',
-		maxAge: 1000 * 60 * 60 * 3 // 3 hours
+		maxAge: 1000 * 60 * 60 * 12 // 12 hours
 	}
 }));
 
