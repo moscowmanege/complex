@@ -120,15 +120,14 @@ $(function() {
 
 
 	$(document).on('keyup change', '.sub_search.local', function(event) {
-		var value = $(this).val();
-		var $elems = $('.list_item').children('.item_title');
+		var value = $(this).val().toLowerCase();
 
-		$elems.each(function(index, el) {
-			var el_val = $(el).html().toLowerCase();
+		$('.list_item').children('.item_title').each(function() {
+			var $elem = $(this);
 
-			el_val.search(value.toLowerCase()) != -1
-				? $(el).parent().show()
-				: $(el).parent().hide();
+			$elem.html().toLowerCase().indexOf(value) != -1
+				? $elem.parent().show()
+				: $elem.parent().hide();
 		});
 	});
 
@@ -153,24 +152,29 @@ $(function() {
 			'Гриша',
 			'Библиотечный шик',
 			'Как далеко до Тель-Авива',
-			'Не ко времени и не к месту, для себя и от чистого сердца',
+			'Не ко времени и не к месту',
 			'Горечь горе, горечь грусть',
 			'Я люблю пюре',
+			'Со скоростью света',
+			'За интеллект и дальше',
+			'Просвещение неизбежно',
 			'Морда лица',
 			'Работать в корзину, но не впустую',
 			'Нравится тебе пирожок?',
+			'Осенний торт',
+			'Рябину рубили зорькою',
 			'Я зубная паста',
 			'Сделать просто - очень сложно',
 			'Макс Фадеев - сестричка',
-			'Цивилизации пропадают на стыке изотерм',
-			'Науки бывают естественные, неестественные и противоестественные',
-			'Платье может быть любого цвета, при условии, что оно черное',
-			'Масса она как давление, ограничена только снизу',
+			'Науки естественные',
+			'Науки неестественные',
+			'Науки противоестественные',
+			'На стыке изотерм',
 			'Усложнения сложны',
 			'Из ничего ничего и проистекает'
 		];
 		var quote = quotes[Math.floor(Math.random() * quotes.length)];
-		var warning = '\n\n Для подтверждения введите фразу:\n\n' + '«' + quote + '»';
+		var warning = '\n\n' + 'Для подтверждения введите фразу:' + '\n\n' + '«' + quote + '»';
 
 		if (prompt(event.data.description + warning, '').trim().toLowerCase().replace(/«|»/g, '') == quote.toLowerCase()) {
 			$.post(event.data.path, {'id': id}).done(function(data) {
