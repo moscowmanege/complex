@@ -1,8 +1,9 @@
-module.exports = function(Model) {
+module.exports = function(Model, Params) {
 	var module = {};
 
 	var User = Model.User;
 
+	var msg = Params.msg;
 
 	module.index = function(req, res) {
 		req.session.user_id
@@ -14,16 +15,23 @@ module.exports = function(Model) {
 	module.form = function(req, res, next) {
 		var post = req.body;
 
-		var user = new User({
-			login: post.login,
-			password: post.password,
-			email: post.email
-		});
+		if (!post.login || !post.password || !post.email) return res.redirect('/auth/registr' + msg('Все поля должны быть заполнены!'));
 
-		user.save(function(err, user) {
-			if (err) return res.redirect('back');
+		User.findOne({ $or: [ {'login': post.login}, {'email': post.email} ] }).exec(function(err, person) {
+			if (err) return next('err');
+			if (person) return res.redirect('/auth/registr' + msg('Пользователь с таким логином или Email уже существует!'));
 
-			res.redirect('/auth');
+			var user = new User({
+				login: post.login,
+				password: post.password,
+				email: post.email
+			});
+
+			user.save(function(err, user) {
+				if (err) return next('err');
+
+				res.redirect('/auth');
+			});
 		});
 	};
 

@@ -1,8 +1,9 @@
-module.exports = function(Model) {
+module.exports = function(Model, Params) {
 	var module = {};
 
 	var User = Model.User;
 
+	var msg = Params.msg;
 
 	module.index = function(req, res) {
 		req.session.user_id && (req.session.status == 'User' || req.session.status == 'Admin')
@@ -14,9 +15,11 @@ module.exports = function(Model) {
 	module.form = function(req, res, next) {
 		var post = req.body;
 
-		User.findOne({ $or: [ {'login': post.login}, {'email': post.login} ] }).exec(function (err, person) {
+		if (!post.login || !post.password) return res.redirect('/auth/login' + msg('Не указан логин или пароль!'));
+
+		User.findOne({ $or: [ {'login': post.login}, {'email': post.login} ] }).exec(function(err, person) {
 			if (err) return next(err);
-			if (!person) return res.redirect('back');
+			if (!person) return res.redirect('/auth/login' + msg('Нет такого пользователя!'));
 
 			person.verifyPassword(post.password, function(err, isMatch) {
 				if (err) return next(err);
@@ -26,9 +29,8 @@ module.exports = function(Model) {
 					req.session.status = person.status;
 					req.session.login = person.login;
 					res.redirect('/auth');
-				}
-				else {
-					res.redirect('back');
+				} else {
+					res.redirect('/auth/login' + msg('Неверный пароль!'));
 				}
 			});
 		});

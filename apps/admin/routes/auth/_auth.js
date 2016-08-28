@@ -1,10 +1,13 @@
 var express = require('express');
 
 var Model = require(__app_root + '/models/main.js');
+var Params = {
+	msg: function(text) { return '/?message=' + encodeURIComponent(text); }
+}
 
 var auth = {
-	login: require('./login.js')(Model),
-	registr: require('./registr.js')(Model),
+	login: require('./login.js')(Model, Params),
+	registr: require('./registr.js')(Model, Params),
 	logout: require('./logout.js')(),
 };
 
