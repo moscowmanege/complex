@@ -4,6 +4,7 @@ module.exports = function(Model, Params) {
 	var User = Model.User;
 
 	var msg = Params.msg;
+	var validateEmail = Params.validateEmail;
 
 	module.index = function(req, res) {
 		req.session.user_id
@@ -16,6 +17,7 @@ module.exports = function(Model, Params) {
 		var post = req.body;
 
 		if (!post.login || !post.password || !post.email) return res.redirect('/auth/registr' + msg('Все поля должны быть заполнены!'));
+		if (!validateEmail(post.email)) return res.redirect('/auth/registr' + msg('Неправильный Email!'));
 
 		User.findOne({ $or: [ {'login': post.login}, {'email': post.email} ] }).exec(function(err, person) {
 			if (err) return next('err');
