@@ -2,12 +2,9 @@ var express = require('express');
 
 var Model = require(__app_root + '/models/main.js');
 var Params = {
-	msg: function(text) { return '/?message=' + encodeURIComponent(text); },
-	validateEmail: function(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-	}
-}
+	msg: require('../_params/auth').msg,
+	validateEmail: require('../_params/auth').validateEmail
+};
 
 var auth = {
 	login: require('./login.js')(Model, Params),
