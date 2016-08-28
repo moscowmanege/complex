@@ -10,6 +10,7 @@ var io = require('socket.io')(server);
 var i18n = require('i18n');
 var moment = require('moment');
 
+app.set('x-powered-by', false);
 app.set('views', __app_root + '/apps/monitors/views');
 app.set('view engine', 'jade');
 

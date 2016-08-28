@@ -6,6 +6,7 @@ var express = require('express'),
 
 var i18n = require('i18n');
 
+app.set('x-powered-by', false);
 app.set('views', __app_root + '/views');
 app.set('view engine', 'jade');
 

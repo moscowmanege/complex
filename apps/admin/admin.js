@@ -10,6 +10,7 @@ var i18n = require('i18n');
 
 var MongoStore = require('connect-mongo')(session);
 
+app.set('x-powered-by', false);
 app.set('views', __app_root + '/apps/admin/views');
 app.set('view engine', 'jade');
 
