@@ -6,7 +6,7 @@ module.exports = function(Model, Params) {
 	var msg = Params.msg;
 
 	module.index = function(req, res) {
-		req.session.user_id && (req.session.status == 'User' || req.session.status == 'Admin')
+		req.session.user_id
 			? res.redirect('/auth')
 			: res.render('auth/login.jade');
 	};
@@ -25,6 +25,8 @@ module.exports = function(Model, Params) {
 				if (err) return next(err);
 
 				if (isMatch) {
+					if (!/User|Admin/.test(person.status)) return res.redirect('/auth/login' + msg('Статус пользователя не определен!'));
+
 					req.session.user_id = person._id;
 					req.session.status = person.status;
 					req.session.login = person.login;
