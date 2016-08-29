@@ -1,11 +1,14 @@
 var express = require('express');
 
 var Model = require(__app_root + '/models/main.js');
+var Params = {
+	validateEmail: require('../_params/auth').validateEmail
+}
 
 var users = {
 	list: require('./list.js')(Model),
-	add: require('./add.js')(Model),
-	edit: require('./edit.js')(Model),
+	add: require('./add.js')(Model, Params),
+	edit: require('./edit.js')(Model, Params),
 	remove: require('./remove.js')(Model)
 };
 

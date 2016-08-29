@@ -1,7 +1,9 @@
-module.exports = function(Model) {
+module.exports = function(Model, Params) {
   var module = {};
 
   var User = Model.User;
+
+  var validateEmail = Params.validateEmail;
 
 
   module.index = function(req, res, next) {
@@ -18,6 +20,9 @@ module.exports = function(Model) {
   module.form = function(req, res, next) {
     var post = req.body;
     var id = req.params.id;
+
+    if (!post.login || !post.email) return res.redirect('back');
+    if (!validateEmail(post.email)) return res.redirect('back');
 
     User.findById(id).exec(function(err, user) {
       if (err) return next(err);
