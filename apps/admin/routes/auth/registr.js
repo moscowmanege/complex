@@ -5,6 +5,7 @@ module.exports = function(Model, Params) {
 
 	var msg = Params.msg;
 	var validateEmail = Params.validateEmail;
+	var validatePassword = Params.validatePassword;
 
 	module.index = function(req, res) {
 		req.session.user_id
@@ -17,7 +18,8 @@ module.exports = function(Model, Params) {
 		var post = req.body;
 
 		if (!post.login || !post.password || !post.email) return res.redirect('/auth/registr' + msg('Все поля должны быть заполнены!'));
-		if (!validateEmail(post.email)) return res.redirect('/auth/registr' + msg('Неправильный Email!'));
+		if (!validateEmail(post.email)) return res.redirect('/auth/registr' + msg('Неправильный формат Email!'));
+		if (!validatePassword(post.password)) return res.redirect('/auth/registr' + msg('Пароль должен содержать минимум 8 символов, хотя бы одну цифру, одну заглавную букву и не содержать символов пробела.'));
 
 		User.findOne({ $or: [ {'login': post.login}, {'email': post.email} ] }).exec(function(err, person) {
 			if (err) return next('err');
@@ -32,7 +34,7 @@ module.exports = function(Model, Params) {
 			user.save(function(err, user) {
 				if (err) return next('err');
 
-				res.redirect('/auth');
+				res.redirect('/auth/login' + msg('Пользователь зарегистрирован! Свяжитесь с администратором для получения прав доступа!'));
 			});
 		});
 	};

@@ -4,6 +4,7 @@ module.exports = function(Model, Params) {
 	var User = Model.User;
 
 	var validateEmail = Params.validateEmail;
+	var validatePassword = Params.validatePassword;
 
 
 	module.index = function(req, res) {
@@ -20,6 +21,7 @@ module.exports = function(Model, Params) {
 
 		if (!post.login || !post.password || !post.email) return res.redirect('back');
 		if (!validateEmail(post.email)) return res.redirect('back');
+		if (!validatePassword(post.password)) return res.redirect('back');
 
 		User.findOne({ $or: [ {'login': post.login}, {'email': post.email} ] }).exec(function(err, person) {
 			if (err) return next('err');
