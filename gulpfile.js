@@ -35,7 +35,7 @@ var paths = {
 		src: 'apps/**/stuff/**',
 		dest: 'public/stuff'
 	},
-	clean: '{public/build/**,public/stuff/**}'
+	clean: '{' + 'public/build/**' + ',' + 'public/stuff/**' + '}'
 };
 
 
