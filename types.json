@@ -43,6 +43,7 @@
 	],
 	"event_types": [
 		"exhibition",
+		"discussion",
 		"photo_exhibition",
 		"film_screening",
 		"concert",
